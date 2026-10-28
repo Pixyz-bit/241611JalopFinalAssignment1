@@ -1,5 +1,11 @@
 # Validation — 2026-10-28
 
+## Welcome centering refinement
+- Centered the complete welcome block on the viewport, replacing unequal side insets and the upward desktop offset.
+- Browser geometry confirmed zero horizontal/vertical center error at 1440×900, 1920×1080 and 1024×768.
+- Existing portrait flow and compact landscape composition remain separate responsive layouts.
+- Screenshot: `.impeccable/review/centered-welcome.png`.
+
 ## Build and source
 - `dotnet build 241611JalopFinalAssignment1.sln --no-restore`: passed, zero warnings and errors after final changes.
 - `node --check` on wwwroot/js/site.js: passed.

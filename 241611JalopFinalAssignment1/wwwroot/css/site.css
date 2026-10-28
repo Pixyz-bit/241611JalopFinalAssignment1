@@ -328,9 +328,9 @@ svg.icon{
 
 .welcome{
     position:absolute;
-    left:24%;
-    right:13%;
-    top:44%;
+    left:18.5%;
+    right:18.5%;
+    top:calc(50% - 21px);
     transform:translateY(-50%);
     text-align:center;
     text-shadow:0 3px 24px rgb(4 29 55 / .22)
@@ -1265,9 +1265,6 @@ svg.icon{
     .desktop-folders{
         gap:27px
     }
-    .welcome{
-        top:43%
-    }
     .folder-art{
         width:96px;
         height:79px
@@ -1320,10 +1317,6 @@ svg.icon{
     }
     .desktop-workspace{
         padding-left:20px
-    }
-    .welcome{
-        left:21%;
-        right:6%
     }
     .desktop-signature{
         display:none

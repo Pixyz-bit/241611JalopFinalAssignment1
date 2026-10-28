@@ -168,7 +168,7 @@ The frontmatter records the reusable ramp. Example titles use the category title
 **The Two Registers Rule.** Keep expressive display typography on the desktop welcome and About headline; use the compact application ramp inside navigation and example detail.
 
 ## Layout
-The desktop fills min-height:100dvh. A 42px top bar, left folder rail and bottom centered dock frame the welcome composition. The Finder is a single 1040px-wide, 582px-high maximum workspace at ordinary desktop sizes. Its columns are 184px sidebar, 235px example list and flexible detail. At 1100px, the fixed columns reduce to 160px/200px.
+The desktop fills min-height:100dvh. A 42px top bar, left folder rail and bottom centered dock frame the welcome composition. On ordinary desktop viewports, the welcome block has equal 18.5% side insets and its center is aligned with the viewport center; its vertical offset accounts for the 42px menu bar. Keep the entire block centered, including its introduction, title, description and action. The Finder is a single 1040px-wide, 582px-high maximum workspace at ordinary desktop sizes. Its columns are 184px sidebar, 235px example list and flexible detail. At 1100px, the fixed columns reduce to 160px/200px.
 
 At 760px and below, the top bar is 48px, desktop folders become a four-column grid, the Finder fills the available area, categories become horizontal navigation and all five example numbers share a compact strip. Content scrolls within the detail region. Mobile traffic-light controls keep small colored dots inside 44px targets. At 390px and below, gaps, labels and detail padding tighten. At 1600px and above, the Finder grows to 1100px by 620px.
 
