@@ -1,0 +1,61 @@
+@model ShowcaseViewModel
+@{ ViewData["Title"] = Model.HasWindow ? Model.WindowTitle : "Desktop"; }
+<partial name="_Icons" />
+<div class="desktop @(Model.HasWindow ? "has-window" : "")" data-desktop>
+    <noscript><style>[data-search-open], [data-minimize], [data-maximize] { display: none !important; }</style></noscript>
+    <header class="menu-bar">
+        <nav class="menu-left" aria-label="Main navigation">
+            <a href="/" class="brand-mark" data-navigate aria-label="Show desktop"><svg class="icon"><use href="#icon-code" /></svg></a>
+            <a href="/" class="brand-title" data-navigate>C# <span>Programming Showcase</span></a>
+            <a href="/concepts/input-output" class="menu-link" data-navigate>Concepts</a>
+            <a href="/about" class="menu-link" data-navigate>About</a>
+        </nav>
+        <div class="menu-right">
+            <button class="menu-icon" type="button" data-search-open aria-label="Search concepts"><svg class="icon"><use href="#icon-search" /></svg></button>
+            <span class="menu-separator" aria-hidden="true"></span>
+            <time class="desktop-clock" data-clock datetime="@DateTimeOffset.UtcNow.ToString("o")">@DateTime.UtcNow.ToString("ddd MMM d")</time>
+        </div>
+    </header>
+    <main id="main-content" class="desktop-workspace">
+        <nav class="desktop-folders" aria-label="Programming concepts">
+            @foreach (var category in ConceptCatalog.Categories)
+            {
+                <a href="/concepts/@category.Slug" class="desktop-folder" data-navigate data-category="@category.Slug">
+                    <span class="folder-art"><img src="~/images/folder.svg" width="88" height="72" alt="" /><svg class="folder-emblem icon"><use href="#icon-@category.Icon" /></svg></span>
+                    <span class="folder-name">@category.Name</span><span class="folder-count">5 examples</span>
+                </a>
+            }
+        </nav>
+        <section class="welcome" aria-label="Welcome" inert="@(Model.HasWindow ? "inert" : null)">
+            <p class="welcome-intro">Small concepts. Endless possibilities.</p>
+            <h1>C# Programming<br /><span>Showcase.</span></h1>
+            <p class="welcome-description">A little exploration goes a long way.<br />Open a folder and make yourself at home.</p>
+            <a href="/concepts/input-output" class="welcome-action" data-navigate>Explore the concepts <svg class="icon"><use href="#icon-arrow" /></svg></a>
+        </section>
+        <div id="window-host" class="window-host" aria-live="polite"><partial name="_FinderWindow" model="Model" /></div>
+        <p class="desktop-hint"><svg class="icon"><use href="#icon-folder" /></svg> Four concepts. Your next chapter.</p>
+    </main>
+    <nav class="dock" aria-label="Desktop shortcuts">
+        <a class="dock-item" href="/" data-navigate aria-label="Desktop"><span class="dock-tile tile-home"><svg class="icon"><use href="#icon-home" /></svg></span><span class="dock-tooltip">Desktop</span><span class="dock-indicator"></span></a>
+        <span class="dock-divider" aria-hidden="true"></span>
+        @foreach (var category in ConceptCatalog.Categories)
+        {
+            <a class="dock-item" href="/concepts/@category.Slug" data-navigate data-category="@category.Slug" aria-label="@category.Name"><span class="dock-tile tile-@category.Accent"><svg class="icon"><use href="#icon-@category.Icon" /></svg></span><span class="dock-tooltip">@category.Name</span><span class="dock-indicator"></span></a>
+        }
+        <span class="dock-divider" aria-hidden="true"></span>
+        <a class="dock-item" href="/about" data-navigate aria-label="About this showcase"><span class="dock-tile tile-info"><svg class="icon"><use href="#icon-info" /></svg></span><span class="dock-tooltip">About</span><span class="dock-indicator"></span></a>
+    </nav>
+    <span class="desktop-signature">Built with curiosity. Written in C#.</span>
+</div>
+<dialog class="spotlight" data-search-dialog aria-labelledby="search-title">
+    <div class="spotlight-heading"><h2 id="search-title">Find a concept</h2><button class="plain-button" type="button" data-search-close aria-label="Close search">Esc</button></div>
+    <label class="search-field"><svg class="icon"><use href="#icon-search" /></svg><span class="sr-only">Search concept names and descriptions</span><input type="search" placeholder="What would you like to explore?" data-search-input autocomplete="off" /></label>
+    <nav class="search-results" aria-label="Search results">
+        @foreach (var category in ConceptCatalog.Categories)
+        {
+            <a href="/concepts/@category.Slug" class="search-result" data-navigate data-search-text="@category.Name @category.Description"><svg class="icon"><use href="#icon-@category.Icon" /></svg><span>@category.Name<small>5 example slots</small></span><svg class="icon"><use href="#icon-chevron" /></svg></a>
+        }
+    </nav>
+    <p class="search-empty" hidden>No concepts match. Try “input”, “loops”, or “data”.</p>
+</dialog>
+<div class="navigation-notice" role="status" hidden>Opening…</div>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#123f74" />
+    <meta name="description" content="A desktop-inspired collection of C# programming fundamentals: input/output, conditionals, repetition, and basic CRUD." />
+    <title>@ViewData["Title"] — C# Programming Showcase</title>
+    <link rel="icon" type="image/svg+xml" href="~/images/favicon.svg" />
+    <link rel="preload" href="~/fonts/geist-latin.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    @RenderBody()
+    <script src="~/js/site.js" asp-append-version="true" defer></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

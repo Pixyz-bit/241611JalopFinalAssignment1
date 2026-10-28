@@ -1,0 +1,502 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-28T12:27:13.356Z",
+  "title": "Design System: C# Programming Showcase",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "Explorer Blue",
+        "tonalRamp": [
+          "oklch(15% 0.1538 254.36)",
+          "oklch(26.43% 0.1538 254.36)",
+          "oklch(37.86% 0.1538 254.36)",
+          "oklch(49.29% 0.1538 254.36)",
+          "oklch(60.71% 0.1538 254.36)",
+          "oklch(72.14% 0.1538 254.36)",
+          "oklch(83.57% 0.1538 254.36)",
+          "oklch(95% 0.1538 254.36)"
+        ]
+      },
+      "primary-soft": {
+        "role": "primary",
+        "displayName": "Soft Blue",
+        "tonalRamp": [
+          "oklch(15% 0.0258 253.57)",
+          "oklch(26.43% 0.0258 253.57)",
+          "oklch(37.86% 0.0258 253.57)",
+          "oklch(49.29% 0.0258 253.57)",
+          "oklch(60.71% 0.0258 253.57)",
+          "oklch(72.14% 0.0258 253.57)",
+          "oklch(83.57% 0.0258 253.57)",
+          "oklch(95% 0.0258 253.57)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "tonalRamp": [
+          "oklch(15% 0.0438 254.18)",
+          "oklch(26.43% 0.0438 254.18)",
+          "oklch(37.86% 0.0438 254.18)",
+          "oklch(49.29% 0.0438 254.18)",
+          "oklch(60.71% 0.0438 254.18)",
+          "oklch(72.14% 0.0438 254.18)",
+          "oklch(83.57% 0.0438 254.18)",
+          "oklch(95% 0.0438 254.18)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted",
+        "tonalRamp": [
+          "oklch(15% 0.0457 252.07)",
+          "oklch(26.43% 0.0457 252.07)",
+          "oklch(37.86% 0.0457 252.07)",
+          "oklch(49.29% 0.0457 252.07)",
+          "oklch(60.71% 0.0457 252.07)",
+          "oklch(72.14% 0.0457 252.07)",
+          "oklch(83.57% 0.0457 252.07)",
+          "oklch(95% 0.0457 252.07)"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "tonalRamp": [
+          "oklch(15% 0.0034 247.86)",
+          "oklch(26.43% 0.0034 247.86)",
+          "oklch(37.86% 0.0034 247.86)",
+          "oklch(49.29% 0.0034 247.86)",
+          "oklch(60.71% 0.0034 247.86)",
+          "oklch(72.14% 0.0034 247.86)",
+          "oklch(83.57% 0.0034 247.86)",
+          "oklch(95% 0.0034 247.86)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Surface",
+        "tonalRamp": [
+          "oklch(15% 0.0097 252.81)",
+          "oklch(26.43% 0.0097 252.81)",
+          "oklch(37.86% 0.0097 252.81)",
+          "oklch(49.29% 0.0097 252.81)",
+          "oklch(60.71% 0.0097 252.81)",
+          "oklch(72.14% 0.0097 252.81)",
+          "oklch(83.57% 0.0097 252.81)",
+          "oklch(95% 0.0097 252.81)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Line",
+        "tonalRamp": [
+          "oklch(15% 0.0161 253.91)",
+          "oklch(26.43% 0.0161 253.91)",
+          "oklch(37.86% 0.0161 253.91)",
+          "oklch(49.29% 0.0161 253.91)",
+          "oklch(60.71% 0.0161 253.91)",
+          "oklch(72.14% 0.0161 253.91)",
+          "oklch(83.57% 0.0161 253.91)",
+          "oklch(95% 0.0161 253.91)"
+        ]
+      },
+      "desktop-text": {
+        "role": "neutral",
+        "displayName": "Desktop Text",
+        "tonalRamp": [
+          "oklch(15% 0.0136 258.34)",
+          "oklch(26.43% 0.0136 258.34)",
+          "oklch(37.86% 0.0136 258.34)",
+          "oklch(49.29% 0.0136 258.34)",
+          "oklch(60.71% 0.0136 258.34)",
+          "oklch(72.14% 0.0136 258.34)",
+          "oklch(83.57% 0.0136 258.34)",
+          "oklch(95% 0.0136 258.34)"
+        ]
+      },
+      "sidebar": {
+        "role": "neutral",
+        "displayName": "Sidebar",
+        "tonalRamp": [
+          "oklch(15% 0.0114 252.09)",
+          "oklch(26.43% 0.0114 252.09)",
+          "oklch(37.86% 0.0114 252.09)",
+          "oklch(49.29% 0.0114 252.09)",
+          "oklch(60.71% 0.0114 252.09)",
+          "oklch(72.14% 0.0114 252.09)",
+          "oklch(83.57% 0.0114 252.09)",
+          "oklch(95% 0.0114 252.09)"
+        ]
+      },
+      "list": {
+        "role": "neutral",
+        "displayName": "List",
+        "tonalRamp": [
+          "oklch(15% 0.0068 247.90)",
+          "oklch(26.43% 0.0068 247.90)",
+          "oklch(37.86% 0.0068 247.90)",
+          "oklch(49.29% 0.0068 247.90)",
+          "oklch(60.71% 0.0068 247.90)",
+          "oklch(72.14% 0.0068 247.90)",
+          "oklch(83.57% 0.0068 247.90)",
+          "oklch(95% 0.0068 247.90)"
+        ]
+      },
+      "sidebar-selected": {
+        "role": "primary",
+        "displayName": "Sidebar Selection",
+        "tonalRamp": [
+          "oklch(15% 0.0359 253.46)",
+          "oklch(26.43% 0.0359 253.46)",
+          "oklch(37.86% 0.0359 253.46)",
+          "oklch(49.29% 0.0359 253.46)",
+          "oklch(60.71% 0.0359 253.46)",
+          "oklch(72.14% 0.0359 253.46)",
+          "oklch(83.57% 0.0359 253.46)",
+          "oklch(95% 0.0359 253.46)"
+        ]
+      },
+      "sidebar-selected-ink": {
+        "role": "primary",
+        "displayName": "Selected Navigation Ink",
+        "tonalRamp": [
+          "oklch(15% 0.1056 252.31)",
+          "oklch(26.43% 0.1056 252.31)",
+          "oklch(37.86% 0.1056 252.31)",
+          "oklch(49.29% 0.1056 252.31)",
+          "oklch(60.71% 0.1056 252.31)",
+          "oklch(72.14% 0.1056 252.31)",
+          "oklch(83.57% 0.1056 252.31)",
+          "oklch(95% 0.1056 252.31)"
+        ]
+      },
+      "row-selected": {
+        "role": "primary",
+        "displayName": "Row Selection",
+        "tonalRamp": [
+          "oklch(15% 0.0275 253.24)",
+          "oklch(26.43% 0.0275 253.24)",
+          "oklch(37.86% 0.0275 253.24)",
+          "oklch(49.29% 0.0275 253.24)",
+          "oklch(60.71% 0.0275 253.24)",
+          "oklch(72.14% 0.0275 253.24)",
+          "oklch(83.57% 0.0275 253.24)",
+          "oklch(95% 0.0275 253.24)"
+        ]
+      },
+      "status": {
+        "role": "neutral",
+        "displayName": "Status",
+        "tonalRamp": [
+          "oklch(15% 0.0103 247.93)",
+          "oklch(26.43% 0.0103 247.93)",
+          "oklch(37.86% 0.0103 247.93)",
+          "oklch(49.29% 0.0103 247.93)",
+          "oklch(60.71% 0.0103 247.93)",
+          "oklch(72.14% 0.0103 247.93)",
+          "oklch(83.57% 0.0103 247.93)",
+          "oklch(95% 0.0103 247.93)"
+        ]
+      },
+      "focus": {
+        "role": "primary",
+        "displayName": "Focus Blue",
+        "tonalRamp": [
+          "oklch(15% 0.1764 254.68)",
+          "oklch(26.43% 0.1764 254.68)",
+          "oklch(37.86% 0.1764 254.68)",
+          "oklch(49.29% 0.1764 254.68)",
+          "oklch(60.71% 0.1764 254.68)",
+          "oklch(72.14% 0.1764 254.68)",
+          "oklch(83.57% 0.1764 254.68)",
+          "oklch(95% 0.1764 254.68)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Desktop Display",
+        "purpose": "First line of the desktop welcome."
+      },
+      "display-emphasis": {
+        "displayName": "Desktop Emphasis",
+        "purpose": "Light synthetic-italic second welcome line; font-style is an extension to the frontmatter typography schema."
+      },
+      "headline": {
+        "displayName": "About Headline",
+        "purpose": "Expressive About heading; 39px on mobile."
+      },
+      "title": {
+        "displayName": "Category Title",
+        "purpose": "Category heading; example titles use 29px and both become 26px on mobile."
+      },
+      "toolbar": {
+        "displayName": "Finder Toolbar",
+        "purpose": "Window title; becomes 12px on mobile."
+      },
+      "body": {
+        "displayName": "Explanatory Body",
+        "purpose": "Category copy, capped at 36ch."
+      },
+      "detail": {
+        "displayName": "Detail Copy",
+        "purpose": "Description and example section copy."
+      },
+      "label": {
+        "displayName": "Navigation Label",
+        "purpose": "Example labels and primary links."
+      },
+      "supporting": {
+        "displayName": "Supporting Metadata",
+        "purpose": "Example status, counts and quiet application metadata."
+      }
+    },
+    "shadows": [
+      {
+        "name": "structural",
+        "value": "0 24px 80px -16px rgb(3 22 49 / .5)",
+        "purpose": "Shared Finder, search and navigation notice elevation."
+      },
+      {
+        "name": "finder-inset",
+        "value": "inset 0 0 0 1px rgb(227 236 247 / .65)",
+        "purpose": "Fine edge on the opaque window."
+      },
+      {
+        "name": "dock",
+        "value": "inset 0 1px 0 rgb(235 247 255 / .35),0 10px 30px rgb(3 21 43 / .25)",
+        "purpose": "Glass shell highlight and structural depth."
+      },
+      {
+        "name": "dock-tile",
+        "value": "inset 0 1px 0 rgb(240 249 255 / .5),0 3px 5px rgb(4 31 62 / .22)",
+        "purpose": "Small dimensional tile surface."
+      },
+      {
+        "name": "folder",
+        "value": "drop-shadow(0 5px 5px rgb(3 27 54 / .25))",
+        "purpose": "Desktop folder artwork; CSS filter."
+      },
+      {
+        "name": "tooltip",
+        "value": "0 4px 12px rgb(8 27 49 / .2)",
+        "purpose": "Floating dock label."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease",
+        "value": "cubic-bezier(.16,1,.3,1)",
+        "purpose": "Shared interaction and entrance easing."
+      },
+      {
+        "name": "window-open",
+        "value": "350ms; opacity 0→1; translateY(12px) scale(.98)→translateY(0) scale(1)",
+        "purpose": "Initial Finder appearance."
+      },
+      {
+        "name": "tile-and-folder",
+        "value": "250ms",
+        "purpose": "Dock tile and folder artwork transform."
+      },
+      {
+        "name": "folder-and-link",
+        "value": "200ms",
+        "purpose": "Folder hover surface and welcome-arrow movement."
+      },
+      {
+        "name": "chrome-and-tooltip",
+        "value": "180ms",
+        "purpose": "Menu hover background and tooltip opacity/transform."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "prefers-reduced-motion: reduce",
+        "purpose": "Disable all transitions and animation, and remove dock/folder hover transforms."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "wide-desktop",
+        "value": "(min-width:1600px)"
+      },
+      {
+        "name": "compact-desktop",
+        "value": "(max-width:1100px)"
+      },
+      {
+        "name": "mobile",
+        "value": "(max-width:760px)"
+      },
+      {
+        "name": "narrow-mobile",
+        "value": "(max-width:390px)"
+      },
+      {
+        "name": "reduced-desktop-height",
+        "value": "(max-height:800px) and (min-width:761px)"
+      },
+      {
+        "name": "short-desktop",
+        "value": "(max-height:690px) and (min-width:761px)"
+      },
+      {
+        "name": "short-landscape",
+        "value": "(max-height:500px) and (min-width:761px)"
+      }
+    ],
+    "material": [
+      {
+        "name": "menu-glass",
+        "value": "rgb(213 231 253 / .78); backdrop-filter:blur(24px)",
+        "purpose": "Translucent menu plane."
+      },
+      {
+        "name": "dock-glass",
+        "value": "rgb(209 227 247 / .23); backdrop-filter:blur(24px)",
+        "purpose": "Transparent dock shell."
+      },
+      {
+        "name": "search-backdrop",
+        "value": "rgb(4 22 46 / .4); backdrop-filter:blur(8px)",
+        "purpose": "Dim and soften the desktop behind search."
+      }
+    ],
+    "componentPalettes": {
+      "tile-home": "linear-gradient(150deg,#79b9ff,#2678dc)",
+      "tile-cyan": "linear-gradient(155deg,#5dcaea,#1686ba)",
+      "tile-amber": "linear-gradient(155deg,#f9d174,#d99536)",
+      "tile-violet": "linear-gradient(155deg,#b8a6f1,#8772c8)",
+      "tile-mint": "linear-gradient(155deg,#9adcc7,#46a78c)",
+      "tile-info": "linear-gradient(155deg,#eef4fc,#b5c6df)",
+      "traffic-lights": "close #fc6a61; minimize #f6bf4f; maximize #5bc76a"
+    },
+    "tonalRampNote": "Eight-step OKLCH previews synthesized from each source color at fixed hue/chroma and stepped lightness. These are exploratory strips, not additional app tokens; CSS gamut mapping may reduce extreme chroma."
+  },
+  "components": [
+    {
+      "name": "Primary text link",
+      "kind": "button",
+      "refersTo": "primary-link",
+      "description": "Canonical link from a category overview into its first example.",
+      "html": "<a class=\"ds-link\" href=\"/concepts/input-output/example-1\">Open Example 01 <svg class=\"ds-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M4 12h16m-6-6 6 6-6 6\"/></svg></a>",
+      "css": ".ds-link{font-family:var(--font,Geist,'Segoe UI',sans-serif);display:inline-flex;align-items:center;gap:9px;font-size:12px;font-weight:550;color:var(--blue,#1768be);padding:8px 0;text-decoration:none}.ds-link:hover{text-decoration:underline;text-underline-offset:5px}.ds-link .ds-icon{width:15px;height:15px}.ds-icon{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}.ds-link:focus-visible,.ds-plain:focus-visible,.ds-search:focus-visible,.ds-sidebar:focus-visible,.ds-row:focus-visible,.ds-dock-item:focus-visible,.ds-folder:focus-visible{outline:3px solid #1979df;outline-offset:4px}@media(max-width:760px){.ds-link{min-height:44px}}"
+    },
+    {
+      "name": "Quiet icon button",
+      "kind": "button",
+      "refersTo": "plain-button",
+      "description": "Toolbar search action, with a quiet pale hover fill.",
+      "html": "<button class=\"ds-plain\" type=\"button\" aria-label=\"Search concepts\"><svg class=\"ds-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"10.5\" cy=\"10.5\" r=\"6.5\"/><path d=\"m16 16 5 5\"/></svg></button>",
+      "css": ".ds-plain{font-family:var(--font,Geist,'Segoe UI',sans-serif);border:0;cursor:pointer;background:transparent;border-radius:5px;padding:6px;color:var(--muted,#566b83);display:inline-flex;align-items:center;justify-content:center}.ds-plain:hover{background:#dce5f0}.ds-plain .ds-icon{width:16px;height:16px}.ds-icon{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}.ds-link:focus-visible,.ds-plain:focus-visible,.ds-search:focus-visible,.ds-sidebar:focus-visible,.ds-row:focus-visible,.ds-dock-item:focus-visible,.ds-folder:focus-visible{outline:3px solid #1979df;outline-offset:4px}"
+    },
+    {
+      "name": "Search field",
+      "kind": "input",
+      "refersTo": "search-input",
+      "description": "Labeled search input on the native Spotlight-style dialog surface.",
+      "html": "<label class=\"ds-field\"><svg class=\"ds-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"10.5\" cy=\"10.5\" r=\"6.5\"/><path d=\"m16 16 5 5\"/></svg><input class=\"ds-search\" type=\"search\" aria-label=\"Search concept names and descriptions\" placeholder=\"What would you like to explore?\"/></label>",
+      "css": ".ds-field{font-family:var(--font,Geist,'Segoe UI',sans-serif);display:flex;align-items:center;gap:10px;border-bottom:1px solid #ccdaea;padding:20px 20px 15px;background:#f0f5fc}.ds-field .ds-icon{color:#627b96}.ds-search{font-family:var(--font,Geist,'Segoe UI',sans-serif);border:0;background:transparent;color:var(--ink,#24354a);font-size:15px;width:100%;min-width:0;padding:8px 2px;caret-color:var(--blue,#1768be);outline-offset:0}.ds-search::placeholder{color:var(--muted,#566b83)}.ds-icon{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}.ds-link:focus-visible,.ds-plain:focus-visible,.ds-search:focus-visible,.ds-sidebar:focus-visible,.ds-row:focus-visible,.ds-dock-item:focus-visible,.ds-folder:focus-visible{outline:3px solid #1979df;outline-offset:4px}@media(max-width:760px){.ds-search{font-size:16px}}"
+    },
+    {
+      "name": "Category navigation",
+      "kind": "nav",
+      "refersTo": "sidebar-link-selected",
+      "description": "Selected category on a cool sidebar plane; hover remains distinct.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Categories\"><a class=\"ds-sidebar\" href=\"/concepts/input-output\" aria-current=\"page\"><svg class=\"ds-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"3\" y=\"4\" width=\"18\" height=\"16\" rx=\"3\"/><path d=\"m7 9 3 3-3 3m6 0h4\"/></svg><span>Input/Output</span><small>5</small></a></nav>",
+      "css": ".ds-nav{font-family:var(--font,Geist,'Segoe UI',sans-serif);background:#eaf0f7;padding:12px;max-width:220px}.ds-sidebar{display:flex;align-items:center;gap:9px;padding:10px 9px;font-size:12px;border-radius:6px;margin:1px 0;font-weight:450;color:var(--ink,#24354a);text-decoration:none}.ds-sidebar .ds-icon{width:17px;height:17px;color:#49799f}.ds-sidebar small{font-size:10px;margin-left:auto;color:var(--muted,#566b83)}.ds-sidebar:hover{background:#dde7f3}.ds-sidebar[aria-current=page]{background:#cddff5;color:#184d83;font-weight:600}.ds-sidebar[aria-current=page] small{color:#345f8b}.ds-icon{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}.ds-link:focus-visible,.ds-plain:focus-visible,.ds-search:focus-visible,.ds-sidebar:focus-visible,.ds-row:focus-visible,.ds-dock-item:focus-visible,.ds-folder:focus-visible{outline:3px solid #1979df;outline-offset:4px}@media(max-width:760px){.ds-sidebar{min-height:44px;justify-content:center;font-size:11px;padding:8px}.ds-sidebar .ds-icon,.ds-sidebar small{display:none}}"
+    },
+    {
+      "name": "Example row",
+      "kind": "nav",
+      "refersTo": "example-row-selected",
+      "description": "Selected example with an honest implementation state.",
+      "html": "<a class=\"ds-row\" href=\"/concepts/input-output/example-1\" aria-current=\"page\"><span class=\"ds-file\"><svg class=\"ds-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M14 2H5a1 1 0 0 0-1 1v18a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V8Z\"/><path d=\"M14 2v6h6m-12 5h8m-8 4h5\"/></svg><span>C#</span></span><span class=\"ds-row-text\">Example 01<small>Not implemented yet</small></span><svg class=\"ds-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"m9 5 7 7-7 7\"/></svg></a>",
+      "css": ".ds-row{font-family:var(--font,Geist,'Segoe UI',sans-serif);display:flex;align-items:center;padding:12px 9px;gap:10px;border-radius:7px;min-height:65px;max-width:235px;color:var(--ink,#24354a);text-decoration:none;background:#f2f6fa}.ds-row:hover{background:#e4edf8}.ds-row[aria-current=page]{background:#dceafb}.ds-file{position:relative;width:29px;height:35px;flex-shrink:0;color:#6481a4}.ds-file>.ds-icon{width:29px;height:35px;stroke-width:1.2}.ds-file>span{position:absolute;left:7px;top:16px;font-size:8px;font-weight:700;color:#3f729c;background:#dceafb}.ds-row-text{font-size:12px;font-weight:550;line-height:1.6}.ds-row-text small{display:block;font-size:10px;color:var(--muted,#566b83);font-weight:400}.ds-row>.ds-icon{margin-left:auto;width:12px;height:12px;color:#8d9eb3}.ds-icon{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}.ds-link:focus-visible,.ds-plain:focus-visible,.ds-search:focus-visible,.ds-sidebar:focus-visible,.ds-row:focus-visible,.ds-dock-item:focus-visible,.ds-folder:focus-visible{outline:3px solid #1979df;outline-offset:4px}"
+    },
+    {
+      "name": "Implementation status",
+      "kind": "chip",
+      "refersTo": "status-pill",
+      "description": "Neutral status label that makes missing implementation explicit.",
+      "html": "<span class=\"ds-status\"><span></span>Not implemented yet</span>",
+      "css": ".ds-status{font-family:var(--font,Geist,'Segoe UI',sans-serif);display:inline-flex;align-items:center;gap:6px;background:#eaf0f6;border-radius:5px;padding:5px 8px;color:var(--muted,#566b83);font-size:10px}.ds-status>span{width:5px;height:5px;border-radius:50%;background:#8096b0}"
+    },
+    {
+      "name": "Empty interface container",
+      "kind": "card",
+      "refersTo": "empty-interface",
+      "description": "Dashed placeholder for the owner's future inputs and controls.",
+      "html": "<div class=\"ds-empty\"><svg class=\"ds-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"m8 7-5 5 5 5m8-10 5 5-5 5m-3-13-2 19\"/></svg><p>Your inputs and controls will go here.</p></div>",
+      "css": ".ds-empty{font-family:var(--font,Geist,'Segoe UI',sans-serif);border:1px dashed #cbd8e8;border-radius:7px;display:flex;align-items:center;gap:11px;padding:17px 13px;background:#f2f6fb}.ds-empty .ds-icon{color:#8196ae}.ds-empty p{margin:0;font-size:11px;color:var(--muted,#566b83);line-height:1.8}.ds-icon{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}"
+    },
+    {
+      "name": "Finder shell",
+      "kind": "custom",
+      "refersTo": "finder-window",
+      "description": "Opaque application surface with a precise toolbar and status bar.",
+      "html": "<section class=\"ds-window\" aria-labelledby=\"ds-title\"><header class=\"ds-toolbar\"><h2 id=\"ds-title\">Input/Output</h2><span>5 examples</span></header><div class=\"ds-detail\"><h3>Input/Output</h3><p>Read input, work with values, and display output.</p></div><footer class=\"ds-footer\"><span>Concepts / Input/Output</span><span>5 items</span></footer></section>",
+      "css": ".ds-window{font-family:var(--font,Geist,'Segoe UI',sans-serif);display:flex;flex-direction:column;background:var(--paper,#f8fafc);color:var(--ink,#24354a);border-radius:var(--radius,14px);box-shadow:var(--shadow,0 24px 80px -16px rgb(3 22 49 / .5)),inset 0 0 0 1px rgb(227 236 247 / .65);overflow:hidden;width:min(520px,100%)}.ds-toolbar{display:flex;align-items:center;gap:16px;height:58px;padding:0 20px;background:linear-gradient(#f3f6fa,#e9eef5);box-shadow:0 1px 0 #d7e0ea}.ds-toolbar h2{margin:0;font-size:14px;font-weight:650;letter-spacing:-.02em}.ds-toolbar>span{margin-left:auto;font-size:11px;color:var(--muted,#566b83)}.ds-detail{padding:29px 34px}.ds-detail h3{margin:0 0 13px;font-size:30px;font-weight:600;line-height:1.3;letter-spacing:-.035em}.ds-detail p{margin:0;font-size:13px;color:var(--muted,#566b83);max-width:36ch;line-height:1.85}.ds-footer{display:flex;align-items:center;justify-content:space-between;height:32px;padding:0 18px;background:#f0f4f9;border-top:1px solid #e0e7ef;font-size:10px;color:var(--muted,#566b83)}"
+    },
+    {
+      "name": "Glass dock shortcut",
+      "kind": "nav",
+      "refersTo": "dock",
+      "description": "Cyan category tile with active dot and keyboard/hover tooltip.",
+      "html": "<nav class=\"ds-dock\" aria-label=\"Desktop shortcuts\"><a class=\"ds-dock-item\" href=\"/concepts/input-output\" aria-label=\"Input/Output\" aria-current=\"page\"><span class=\"ds-tile\"><svg class=\"ds-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"3\" y=\"4\" width=\"18\" height=\"16\" rx=\"3\"/><path d=\"m7 9 3 3-3 3m6 0h4\"/></svg></span><span class=\"ds-tooltip\">Input/Output</span><span class=\"ds-indicator\"></span></a></nav>",
+      "css": ".ds-dock{font-family:var(--font,Geist,'Segoe UI',sans-serif);display:inline-flex;align-items:center;gap:10px;height:83px;padding:10px 13px 15px;background:rgb(209 227 247 / .23);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);box-shadow:inset 0 1px 0 rgb(235 247 255 / .35),0 10px 30px rgb(3 21 43 / .25);border-radius:20px}.ds-dock-item{position:relative;display:flex;align-items:center;justify-content:center;width:54px;height:56px;text-decoration:none}.ds-tile{width:52px;height:52px;border-radius:13px;display:grid;place-items:center;box-shadow:inset 0 1px 0 rgb(240 249 255 / .5),0 3px 5px rgb(4 31 62 / .22);transition:transform .25s var(--ease,cubic-bezier(.16,1,.3,1));color:#f2f8ff;background:linear-gradient(155deg,#5dcaea,#1686ba)}.ds-tile .ds-icon{width:29px;height:29px;stroke-width:1.6}.ds-dock-item:hover .ds-tile,.ds-dock-item:focus-visible .ds-tile{transform:translateY(-9px) scale(1.08)}.ds-tooltip{position:absolute;bottom:76px;background:rgb(236 243 251 / .96);color:#24354a;border-radius:6px;padding:5px 10px;white-space:nowrap;font-size:11px;box-shadow:0 4px 12px rgb(8 27 49 / .2);opacity:0;pointer-events:none;transform:translateY(5px);transition:opacity .18s var(--ease,cubic-bezier(.16,1,.3,1)),transform .18s var(--ease,cubic-bezier(.16,1,.3,1))}.ds-dock-item:hover .ds-tooltip,.ds-dock-item:focus-visible .ds-tooltip{opacity:1;transform:translateY(0)}.ds-indicator{position:absolute;bottom:-9px;width:4px;height:4px;border-radius:50%;background:#e9f4ff}.ds-dock-item:focus-visible{outline-color:#d2eaff;border-radius:13px}.ds-icon{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}.ds-link:focus-visible,.ds-plain:focus-visible,.ds-search:focus-visible,.ds-sidebar:focus-visible,.ds-row:focus-visible,.ds-dock-item:focus-visible,.ds-folder:focus-visible{outline:3px solid #1979df;outline-offset:4px}@media(prefers-reduced-motion:reduce){.ds-tile,.ds-tooltip{transition:none}.ds-dock-item:hover .ds-tile,.ds-dock-item:focus-visible .ds-tile{transform:none}}.ds-dock-item:focus-visible{outline-color:#d2eaff}"
+    },
+    {
+      "name": "Dimensional desktop folder",
+      "kind": "custom",
+      "refersTo": "desktop-folder",
+      "description": "Canonical category link using the local folder silhouette and concept emblem.",
+      "html": "<a class=\"ds-folder\" href=\"/concepts/input-output\"><span class=\"ds-art\"><svg class=\"ds-folder-art\" viewBox=\"0 0 112 92\" aria-hidden=\"true\"><defs><linearGradient id=\"ds-folder-back\" x2=\"0\" y2=\"1\"><stop stop-color=\"#78c9f3\"/><stop offset=\"1\" stop-color=\"#3296d4\"/></linearGradient><linearGradient id=\"ds-folder-front\" x2=\"0\" y2=\"1\"><stop stop-color=\"#96dfff\"/><stop offset=\".06\" stop-color=\"#7dd2fa\"/><stop offset=\"1\" stop-color=\"#51b3e8\"/></linearGradient></defs><path d=\"M6 17a7 7 0 0 1 7-7h27l10 8h49a7 7 0 0 1 7 7v52a7 7 0 0 1-7 7H13a7 7 0 0 1-7-7Z\" fill=\"url(#ds-folder-back)\"/><path d=\"M9 28a5 5 0 0 1 5-5h84a5 5 0 0 1 5 5v47a5 5 0 0 1-5 5H14a5 5 0 0 1-5-5Z\" fill=\"#dbf4ff\"/><rect x=\"5\" y=\"27\" width=\"102\" height=\"58\" rx=\"6\" fill=\"url(#ds-folder-front)\" stroke=\"#2c8ac0\"/><path d=\"M11 29h90\" stroke=\"#ccf0ff\" stroke-opacity=\".65\"/><path d=\"M11 81h90\" stroke=\"#3094cc\" stroke-opacity=\".5\"/></svg><svg class=\"ds-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"3\" y=\"4\" width=\"18\" height=\"16\" rx=\"3\"/><path d=\"m7 9 3 3-3 3m6 0h4\"/></svg></span><span class=\"ds-folder-name\">Input/Output</span><span class=\"ds-folder-count\">5 examples</span></a>",
+      "css": ".ds-folder{font-family:var(--font,Geist,'Segoe UI',sans-serif);display:flex;align-items:center;flex-direction:column;padding:8px 4px;border-radius:9px;transition:background .2s var(--ease,cubic-bezier(.16,1,.3,1));text-shadow:0 2px 6px rgb(3 24 48 / .5);color:var(--desktop-text,#f0f6ff);text-decoration:none;width:124px}.ds-folder:hover{background:rgb(183 221 255 / .16)}.ds-folder:focus-visible{outline-color:#c3e5ff}.ds-art{position:relative;display:block;width:88px;height:72px;filter:drop-shadow(0 5px 5px rgb(3 27 54 / .25));transition:transform .25s var(--ease,cubic-bezier(.16,1,.3,1))}.ds-folder-art{width:100%;height:100%}.ds-art>.ds-icon{position:absolute;left:32px;top:36px;width:24px;height:24px;stroke:#2177a9;opacity:.64;stroke-width:1.6}.ds-folder:hover .ds-art{transform:translateY(-3px)}.ds-folder-name{font-size:13px;line-height:1.5;font-weight:550;margin-top:5px}.ds-folder-count{font-size:10px;line-height:1.6;color:#d5e7fa;letter-spacing:.01em}.ds-icon{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}.ds-link:focus-visible,.ds-plain:focus-visible,.ds-search:focus-visible,.ds-sidebar:focus-visible,.ds-row:focus-visible,.ds-dock-item:focus-visible,.ds-folder:focus-visible{outline:3px solid #1979df;outline-offset:4px}@media(prefers-reduced-motion:reduce){.ds-folder,.ds-art{transition:none}.ds-folder:hover .ds-art{transform:none}}.ds-folder:focus-visible{outline-color:#c3e5ff}"
+    }
+  ],
+  "narrative": {
+    "northStar": "A desktop for curious minds.",
+    "overview": "Preserve the user's reference: a photographic blue mountain desktop, dimensional blue folders, a translucent menu bar, an expressive light welcome title and a glass dock. Opening a folder reveals one precise Finder-style workspace. Familiar desktop materials provide warmth; restrained application typography provides clarity.\n\nThe user's visual reference overrides generic skill bans against centered compositions, glass and dimensional icons. MVC is the required implementation, regardless of React/Tailwind defaults in supporting skills. This file owns the shared visual decisions; surface composition and modes live in docs/design-brief.md.",
+    "keyCharacteristics": [
+      "Cobalt mountain photography with readable light desktop text.",
+      "Dimensional blue folders and softly tinted glass chrome.",
+      "One opaque, precise Finder workspace with clear blue selection.",
+      "Geist typography, compact navigation and visible keyboard focus."
+    ],
+    "rules": [
+      {
+        "name": "The Readable Desktop Rule",
+        "body": "Check light labels against the wallpaper beneath them; an average image color cannot establish text contrast.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two Registers Rule",
+        "body": "Keep expressive display typography on the desktop welcome and About headline; use the compact application ramp inside navigation and example detail.",
+        "section": "typography"
+      },
+      {
+        "name": "The Clear Workspace Rule",
+        "body": "Reserve the dock's footprint before sizing the Finder; the dock must never cover detail or status content.",
+        "section": "layout"
+      },
+      {
+        "name": "The Material Boundary Rule",
+        "body": "Keep glass on desktop chrome; preserve the opaque light Finder as the reading and working surface.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do read PRODUCT.md and this file before UI changes. Use the project skill at .agents/skills/showcase-ui/ to coordinate the installed design skills.",
+      "Do preserve the reference's desktop identity and reuse shared Razor partials.",
+      "Do inspect desktop, phone and short-height layouts, including keyboard and reduced-motion behavior."
+    ],
+    "donts": [
+      "Don't import React libraries or add a frontend build pipeline to this MVC template.",
+      "Don't copy the reference's personal identity, Apple logo or proprietary dock icons.",
+      "Don't replace clearly unimplemented examples with invented programs."
+    ]
+  }
+}
