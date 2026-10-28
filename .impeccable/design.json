@@ -479,7 +479,7 @@
       },
       {
         "name": "The Clear Workspace Rule",
-        "body": "Reserve the dock's footprint before sizing the Finder; the dock must never cover detail or status content.",
+        "body": "Ordinary windows reserve the dock's footprint. Maximized windows hide the dock and use the viewport below the menu bar, with a 12px desktop or 8px mobile margin; desktop chrome must never cover detail or status content.",
         "section": "layout"
       },
       {

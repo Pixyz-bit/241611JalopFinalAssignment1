@@ -7,6 +7,8 @@
 }
 
 :root{
+    --menu-bar-height:42px;
+    --maximized-window-margin:12px;
     --ink:#24354a;
     --muted:#566b83;
     --paper:#f8fafc;
@@ -1038,11 +1040,21 @@ svg.icon{
 .finder-window.is-maximized{
     width:100%;
     height:100%;
-    max-width:none
+    max-width:none;
+    min-height:0
 }
 
-.window-host:has(.is-maximized){
-    padding:16px 20px 112px
+.window-host:has(.is-maximized:not(.is-minimized)){
+    position:fixed;
+    inset:var(--menu-bar-height) 0 0;
+    padding:var(--maximized-window-margin);
+    z-index:20
+}
+
+.desktop:has(.finder-window.is-maximized:not(.is-minimized)) .dock,
+.desktop:has(.finder-window.is-maximized:not(.is-minimized)) .desktop-signature{
+    visibility:hidden;
+    pointer-events:none
 }
 
 .finder-window.is-minimized{
@@ -1324,6 +1336,10 @@ svg.icon{
 }
 
 @media(max-width:760px){
+    :root{
+        --menu-bar-height:48px;
+        --maximized-window-margin:8px
+    }
     .menu-bar{
         padding:0 15px;
         height:48px
@@ -1611,9 +1627,6 @@ svg.icon{
     }
     .window-status .icon{
         display:none
-    }
-    .window-host:has(.is-maximized){
-        padding:5px 5px 100px
     }
     .about-content{
         padding:26px
@@ -1931,7 +1944,7 @@ svg.icon{
     .welcome h1 br { display: none; }
     .welcome h1 span { font-size: 40px; margin-left: 8px; }
     .welcome-action { font-size: 10px; margin-top: 0; padding: 4px; }
-    .window-host, .window-host:has(.is-maximized) { padding: 8px 14px 85px; }
+    .window-host { padding: 8px 14px 85px; }
     .finder-window { height: 100%; min-height: 0; }
     .window-toolbar { height: 44px; min-height: 44px; }
     .finder-body { grid-template-columns: 140px 170px minmax(0, 1fr); }

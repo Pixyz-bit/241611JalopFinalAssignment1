@@ -172,9 +172,11 @@ The desktop fills min-height:100dvh. A 42px top bar, left folder rail and bottom
 
 At 760px and below, the top bar is 48px, desktop folders become a four-column grid, the Finder fills the available area, categories become horizontal navigation and all five example numbers share a compact strip. Content scrolls within the detail region. Mobile traffic-light controls keep small colored dots inside 44px targets. At 390px and below, gaps, labels and detail padding tighten. At 1600px and above, the Finder grows to 1100px by 620px.
 
+An active maximized Finder occupies the viewport below the menu bar with a 12px margin on desktop and an 8px margin on mobile. Its fixed host uses the menu-bar height token (42px desktop, 48px mobile) and reserves no dock space. Hide the dock and desktop signature while the maximized window is visible; restore them when the window is restored, minimized or closed. Keep the content panes independently scrollable.
+
 Desktop heights at or below 800px reduce folder spacing; at or below 690px, counts disappear and dock/window sizing becomes compact. The final landscape rule at height 500px or less and width at least 761px takes precedence: folders form a horizontal rail above the dock, the welcome simplifies, Finder columns become 140px/170px/flexible, and the window fills its bounded host with scrollable work panes. The spacing scale records recurring values rather than forcing every inset onto a rigid grid.
 
-**The Clear Workspace Rule.** Reserve the dock's footprint before sizing the Finder; the dock must never cover detail or status content.
+**The Clear Workspace Rule.** Ordinary windows reserve the dock's footprint. Maximized windows hide the dock and use the full workspace below the menu bar; desktop chrome must never cover detail or status content.
 
 ## Elevation & Depth
 The wallpaper is a real raster asset with a darkening overlay. Glass belongs only to desktop chrome. The Finder is an opaque light workspace. Structural shadow: `0 24px 80px -16px rgb(3 22 49 / .5)`. Icons have restrained inset highlights and directional blue-tinted shadows. No unrelated neon glow or decorative blur.
@@ -205,3 +207,5 @@ Windows: 14px radius. Dock: 20px (18px mobile). Dock tiles: 13px (11px mobile). 
 - Don't replace clearly unimplemented examples with invented programs.
 
 Last updated: 2026-10-28 — source-derived token record and final responsive behavior reconciled after implementation.
+
+2026-10-28 — centered the desktop welcome; maximized Finder fills the viewport below the menu bar with small responsive margins and temporarily hides the dock.

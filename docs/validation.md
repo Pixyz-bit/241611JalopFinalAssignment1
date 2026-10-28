@@ -6,6 +6,12 @@
 - Existing portrait flow and compact landscape composition remain separate responsive layouts.
 - Screenshot: `.impeccable/review/centered-welcome.png`.
 
+## Maximized Finder refinement
+- Maximized Finder uses the viewport below the menu bar, with a nominal 12px margin on desktop and 8px on mobile; the dock and desktop signature hide only while the maximized window is visible.
+- Browser geometry verified all four margins at 1024×768, 1440×900, 1920×1080, 390×844 and 844×390 (within 0.5px rounding on scaled viewports).
+- Minimize restores the dock; opening the active dock shortcut restores the maximized window. Returning to normal window size restores dock clearance. Search remains accessible through Ctrl+K and the menu bar.
+- Screenshots: `.impeccable/review/maximized-finder.png`, `maximized-finder-mobile.png` and `maximized-finder-landscape.png`.
+
 ## Build and source
 - `dotnet build 241611JalopFinalAssignment1.sln --no-restore`: passed, zero warnings and errors after final changes.
 - `node --check` on wwwroot/js/site.js: passed.
