@@ -6,6 +6,7 @@
 ├── .agents/skills/showcase-ui/     Project skill entrypoint
 ├── .impeccable/                   Design sidecar and visual-review evidence
 ├── docs/                         Architecture, plan, assets and validation
+├── tests/                        Dependency-free JavaScript navigation checks
 ├── AGENTS.md                     Instructions for coding agents
 ├── PRODUCT.md                    Confirmed requirements and scope
 ├── DESIGN.md                     Shared visual system
@@ -47,7 +48,11 @@ New or changed code should include brief beginner-friendly notes beside meaningf
 - `IActionResult` lets the action return different kinds of responses, including a full view, a partial view or HTTP 404.
 
 ## Rendering and navigation
-All canonical URLs render complete Razor pages. Requests with `X-Showcase-Partial: true` return only the Finder partial. JavaScript enhances same-origin links and pushes browser history; Back/Forward reload the matching partial. Failed enhanced navigation falls back to full-page navigation. Ctrl/Cmd+K opens search; Escape closes search or the open window. Minimized windows are restored from their active dock shortcut.
+All canonical URLs render complete Razor pages. Requests with `X-Showcase-Partial: true` return only the Finder partial. JavaScript enhances same-origin links and pushes browser history. The initial view and desktop are cached immediately; each other route is fetched once on its first visit and kept in memory until the page reloads. Back/Forward and repeated tab selections reuse the cached view. Clicking the already active route does nothing.
+
+Switching categories, examples or About keeps the outer Finder element mounted and updates its contents, so its opening animation plays only when opening a window from the desktop. The current view stays visible during first-time requests. A delayed “Opening…” notice and accessible busy state appear only for uncached navigation; aborted or superseded requests cannot replace a newer selection. Failed enhanced navigation falls back to full-page navigation. Ctrl/Cmd+K opens search; Escape closes search or the open window. Minimized windows are restored from their active dock shortcut.
+
+The route cache is suitable for the current read-only template. When adding real CRUD or other changing server data, explicitly invalidate affected cached routes after successful mutations, or opt those views out of caching; do not serve stale records or cache POST responses.
 
 ## Adding your examples
 1. Give examples real titles/descriptions in a typed view model, keyed by category and number.

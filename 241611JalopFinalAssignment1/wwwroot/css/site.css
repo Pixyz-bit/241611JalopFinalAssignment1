@@ -1245,10 +1245,6 @@ svg.icon{
     font-size:12px
 }
 
-.is-navigating .finder-window{
-    opacity:.7
-}
-
 .window-host[aria-busy=true]{
     cursor:progress
 }

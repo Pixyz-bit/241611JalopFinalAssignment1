@@ -1,5 +1,11 @@
 # Validation — 2026-10-28
 
+## Cached tab navigation
+- Seven dependency-free Node regression tests passed (`node --test tests/navigation.test.cjs`): one request per visited route, reuse of the initial server view/desktop, active-tab no-op, cached Back/Forward, cancellation on returning to the current tab, late-failure protection, and retry after a failed request.
+- The tests execute the actual navigation script inside a VM with a minimal DOM/network boundary and deterministic delayed responses; request counts and retained window identity are asserted there.
+- Browser checks confirmed category/example switching, About transitions and Back/Forward keep the Finder visible at full opacity, preserve maximized state and show no loading notice for cached routes. No console errors observed.
+- First-time routes still load from MVC once; refreshing the page resets the in-memory cache. Full-page canonical URLs and no-JavaScript rendering are unchanged.
+
 ## Welcome centering refinement
 - Centered the complete welcome block on the viewport, replacing unequal side insets and the upward desktop offset.
 - Browser geometry confirmed zero horizontal/vertical center error at 1440×900, 1920×1080 and 1024×768.

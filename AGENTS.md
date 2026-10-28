@@ -15,4 +15,5 @@ Read PRODUCT.md and DESIGN.md before UI changes, then .agents/skills/showcase-ui
 ```
 dotnet build 241611JalopFinalAssignment1.sln
 dotnet run --project 241611JalopFinalAssignment1 --launch-profile http
+node --test tests/navigation.test.cjs
 ```

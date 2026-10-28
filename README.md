@@ -12,6 +12,9 @@ dotnet run --project 241611JalopFinalAssignment1 --launch-profile http
 
 Open http://localhost:5196. No npm install or database setup is needed. The UI's font, wallpaper and icons are local assets.
 
+## Navigation regression checks
+With Node.js available, run `node --test tests/navigation.test.cjs` from the solution root. These optional development tests need no npm packages; the application itself still runs with .NET only.
+
 ## Project guidance
 - [PRODUCT.md](PRODUCT.md): scope and confirmed decisions.
 - [DESIGN.md](DESIGN.md): visual rules and reusable tokens.

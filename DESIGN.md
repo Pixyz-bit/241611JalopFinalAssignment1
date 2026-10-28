@@ -194,6 +194,7 @@ Windows: 14px radius. Dock: 20px (18px mobile). Dock tiles: 13px (11px mobile). 
 - **Example template:** title, honest unimplemented status, description/interface/output regions. Never fake execution or present dummy mutations.
 - **Search:** labeled modal search with visible results, empty state, Escape dismissal and native focus containment. Ctrl/Cmd+K is an optional shortcut, not the only way to open it.
 - **Navigation:** real MVC anchors with progressive enhancement, active states and browser history. All meaningful actions have accessible labels and visible focus.
+- **Tab switching:** keep the Finder mounted while changing its contents. Reuse visited views without a new request or opening animation; reserve the opening animation for showing a window from the desktop. Keep the current view visible while an uncached route loads.
 - **Controls and selection:** blue text links underline on hover; quiet buttons gain a pale fill. Sidebar and example rows distinguish hover from selected blue tints. Global keyboard focus uses a 3px outline with 4px offset, adapted over wallpaper.
 - **Progressive state:** the server renders the open-window class and inert welcome. JavaScript-only controls are hidden without JavaScript; canonical navigation and the close link remain usable.
 - **Representative previews:** .impeccable/design.json contains self-contained HTML/CSS for the existing primitives, with inline SVG, interaction states and reduced-motion treatments where applicable.
@@ -209,3 +210,5 @@ Windows: 14px radius. Dock: 20px (18px mobile). Dock tiles: 13px (11px mobile). 
 Last updated: 2026-10-28 — source-derived token record and final responsive behavior reconciled after implementation.
 
 2026-10-28 — centered the desktop welcome; maximized Finder fills the viewport below the menu bar with small responsive margins and temporarily hides the dock.
+
+2026-10-28 — tab switches reuse the mounted Finder and cached views; the opening animation is reserved for opening a window from the desktop.

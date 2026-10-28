@@ -6,7 +6,9 @@
     const dialog = document.querySelector('[data-search-dialog]');
     const input = document.querySelector('[data-search-input]');
     const notice = document.querySelector('.navigation-notice');
+    const routeCache = new Map([['/', ''], [location.pathname, host.innerHTML]]);
     let pendingRequest;
+    let navigationVersion = 0;
     let maximized = false;
     let minimized = false;
     let lastWindowUrl = null;
@@ -35,23 +37,53 @@
         document.title = `${windowElement?.querySelector('#window-title')?.textContent || 'Desktop'} — C# Programming Showcase`;
     }
 
+    function renderWindow(html) {
+        const template = document.createElement('template');
+        template.innerHTML = html;
+        const nextWindow = template.content.querySelector('[data-window]');
+        const currentWindow = host.querySelector('[data-window]');
+
+        if (currentWindow && nextWindow) {
+            // Keep the same window mounted: tab changes should not replay its opening animation.
+            currentWindow.classList.toggle('about-window', nextWindow.classList.contains('about-window'));
+            currentWindow.dataset.category = nextWindow.dataset.category;
+            currentWindow.replaceChildren(...nextWindow.childNodes);
+        } else {
+            host.replaceChildren(template.content);
+        }
+    }
+
     async function navigate(url, { push = true } = {}) {
         pendingRequest?.abort();
+        const version = ++navigationVersion;
+        notice.hidden = true;
+        host.removeAttribute('aria-busy');
+        if (push && url === location.pathname && !minimized) {
+            pendingRequest = undefined;
+            return;
+        }
         const controller = new AbortController();
         pendingRequest = controller;
-        const noticeTimer = setTimeout(() => { notice.hidden = false; }, 450);
-        host.setAttribute('aria-busy', 'true');
-        desktop.classList.add('is-navigating');
+        let noticeTimer;
         try {
-            const response = await fetch(url, {
-                headers: { 'X-Showcase-Partial': 'true' },
-                signal: controller.signal
-            });
-            if (!response.ok) throw new Error(`Navigation failed: ${response.status}`);
-            const html = await response.text();
-            if (controller.signal.aborted) return;
-            host.innerHTML = html;
-            if (push) history.pushState({}, '', url);
+            let html = routeCache.get(url);
+            if (!routeCache.has(url)) {
+                noticeTimer = setTimeout(() => {
+                    if (version === navigationVersion) notice.hidden = false;
+                }, 450);
+                host.setAttribute('aria-busy', 'true');
+                const response = await fetch(url, {
+                    headers: { 'X-Showcase-Partial': 'true' },
+                    signal: controller.signal
+                });
+                if (!response.ok) throw new Error(`Navigation failed: ${response.status}`);
+                html = await response.text();
+                if (controller.signal.aborted || version !== navigationVersion) return;
+                routeCache.set(url, html);
+            }
+            if (controller.signal.aborted || version !== navigationVersion) return;
+            renderWindow(html);
+            if (push && url !== location.pathname) history.pushState({}, '', url);
             minimized = false;
             syncDesktop();
             const detail = host.querySelector('.example-detail');
@@ -63,13 +95,12 @@
                 title.focus({ preventScroll: true });
             }
         } catch (error) {
-            if (error.name !== 'AbortError') location.assign(url);
+            if (error.name !== 'AbortError' && version === navigationVersion) location.assign(url);
         } finally {
             clearTimeout(noticeTimer);
             if (pendingRequest === controller) {
                 notice.hidden = true;
                 host.removeAttribute('aria-busy');
-                desktop.classList.remove('is-navigating');
             }
         }
     }
