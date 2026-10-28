@@ -1,9 +1,18 @@
 namespace _241611JalopFinalAssignment1.Models;
 
-public sealed record ConceptCategory(string Slug, string Name, string Description, string Icon, string Accent);
+// A record groups related data into properties; sealed prevents other types from inheriting from it.
+public sealed record ConceptCategory(
+    string Slug, // Category name used in the URL, such as "input-output".
+    string Name, // Display name shown on the page; can contain spaces or punctuation.
+    string Description,
+    string Icon,
+    string Accent
+    );
 
-public static class ConceptCatalog
+public static class ConceptCatalog // A shared category list; static means no new ConceptCatalog() is needed.
 {
+    // A read-only list of category records; { get; } lets code read the list without replacing it.
+    // Array.AsReadOnly wraps the array so callers cannot add, remove or replace its entries.
     public static IReadOnlyList<ConceptCategory> Categories { get; } = Array.AsReadOnly(new[]
     {
         new ConceptCategory("input-output", "Input/Output", "Start a conversation with your program. Read input, work with values, and display the result.", "terminal", "cyan"),
@@ -11,11 +20,28 @@ public static class ConceptCatalog
         new ConceptCategory("repetition", "Repetition", "Find the rhythm in your code. Explore loops and the things worth doing more than once.", "repeat", "violet"),
         new ConceptCategory("basic-crud", "Basic CRUD", "Give your data a place to live. Explore creating, reading, updating, and deleting records.", "database", "mint")
     });
-    public static ConceptCategory? Find(string? slug) => Categories.FirstOrDefault(category => category.Slug == slug);
+    // Find a category by its URL slug; ? allows the input and result to be null.
+    public static ConceptCategory? Find(string? slug)
+    {
+        foreach (var category in Categories) // Check each category in the list.
+        {
+            if (category.Slug == slug) // Compare this category's slug with the supplied slug.
+            {
+                return category; // Found a match.
+            }
+        }
+
+        return null; // No match found.
+    }
 }
 
-public sealed record ShowcaseViewModel(ConceptCategory? Category = null, int? Example = null, bool IsAbout = false)
+// Carries the current page selection from a controller to a Razor view.
+public sealed record ShowcaseViewModel(
+    ConceptCategory? Category = null, // Selected category; null means no category is selected.
+    int? Example = null, // Selected example number; null means no example is selected.
+    bool IsAbout = false) // True shows About; these default values let the controller omit arguments.
 {
-    public bool HasWindow => Category is not null || IsAbout;
-    public string WindowTitle => IsAbout ? "About this showcase" : Category?.Name ?? "Desktop";
+    public bool HasWindow => Category is not null || IsAbout; // Computed value: show a window if a category is selected OR About is open.
+    // ? : chooses between two values; ?. reads Name only if Category exists; ?? supplies a fallback when the result is null.
+    public string WindowTitle => IsAbout ? "About this showcase" : Category?.Name ?? "Desktop"; // Title is About, the selected category's name, or Desktop.
 }

@@ -5,7 +5,7 @@ namespace _241611JalopFinalAssignment1.Controllers;
 
 public sealed class ConceptsController : Controller
 {
-    [HttpGet("concepts/{category}")] // Handles GET requests; {category} captures the category slug from the URL.
+    [HttpGet("concepts/{category}")] // Handles GET requests; {category} captures the category (page name) from the URL.
     [HttpGet("concepts/{category}/example-{example:int}")] // Handles GET requests; {example:int} requires an integer example number.
     public IActionResult Index(string category, int? example) // IActionResult supports responses such as a view or 404; int? allows example to be absent (null).
     {
