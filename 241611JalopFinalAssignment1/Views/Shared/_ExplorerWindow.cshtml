@@ -1,18 +1,22 @@
 @model ShowcaseViewModel
 @if (Model.HasWindow)
 {
-    <section class="finder-window @(Model.IsAbout ? "about-window" : "")" aria-labelledby="window-title" data-window data-category="@Model.Category?.Slug">
+    <section class="explorer-window @(Model.IsAbout ? "about-window" : "")" aria-labelledby="window-title" data-window data-category="@Model.Category?.Slug">
         <header class="window-toolbar">
-            <div class="traffic-lights">
-                <a class="traffic-light close" href="/" data-navigate aria-label="Close window"><span aria-hidden="true">×</span></a>
-                <button class="traffic-light minimize" type="button" data-minimize aria-label="Minimize window"><span aria-hidden="true">−</span></button>
-                <button class="traffic-light maximize" type="button" data-maximize aria-label="Maximize window" aria-pressed="false"><span aria-hidden="true">+</span></button>
+            <div class="explorer-tab"><img src="~/images/folder.svg" asp-append-version="true" width="20" height="18" alt="" /><h2 id="window-title">@Model.WindowTitle</h2></div>
+            @* Caption buttons keep the existing window behavior with familiar Windows placement. *@
+            <div class="window-controls">
+                <button class="caption-button" type="button" data-minimize aria-label="Minimize window"><svg class="icon"><use href="#icon-minimize" /></svg></button>
+                <button class="caption-button maximize" type="button" data-maximize aria-label="Maximize window" aria-pressed="false"><svg class="icon"><use href="#icon-maximize" /></svg></button>
+                <a class="caption-button close" href="/" data-navigate aria-label="Close window"><svg class="icon"><use href="#icon-close" /></svg></a>
             </div>
-            <a href="@(Model.Example.HasValue ? $"/concepts/{Model.Category!.Slug}" : "/")" data-navigate class="window-back" aria-label="@(Model.Example.HasValue ? "Back to category" : "Back to desktop")"><svg class="icon"><use href="#icon-chevron" /></svg></a>
-            <h2 id="window-title">@Model.WindowTitle</h2>
-            <span class="window-toolbar-detail">@(Model.IsAbout ? "Read me" : "5 examples")</span>
-            <button class="plain-button window-search" data-search-open type="button" aria-label="Search concepts"><svg class="icon"><use href="#icon-search" /></svg></button>
         </header>
+        <div class="explorer-addressbar">
+            <a href="@(Model.Example.HasValue ? $"/concepts/{Model.Category!.Slug}" : "/")" data-navigate class="window-back plain-button" aria-label="@(Model.Example.HasValue ? "Back to category" : "Back to desktop")"><svg class="icon"><use href="#icon-arrow" /></svg></a>
+            <nav class="address-path" aria-label="Folder path"><svg class="icon"><use href="#icon-folder" /></svg><a href="/" data-navigate>Showcase</a><svg class="icon"><use href="#icon-chevron" /></svg><a href="@(Model.IsAbout ? "/about" : $"/concepts/{Model.Category!.Slug}")" data-navigate>@(Model.IsAbout ? "Read me" : Model.Category!.Name)</a>@if (Model.Example.HasValue) { <svg class="icon"><use href="#icon-chevron" /></svg><span>Example @Model.Example.Value.ToString("00")</span> }</nav>
+            <button class="explorer-search" data-search-open type="button" aria-label="Search concepts"><span>Search concepts</span><svg class="icon"><use href="#icon-search" /></svg></button>
+        </div>
+        <div class="explorer-commandbar"><span><svg class="icon"><use href="#icon-code" /></svg> C# Programming Showcase</span><span>@(Model.IsAbout ? "About this collection" : "5 example slots")</span></div>
         @if (Model.IsAbout)
         {
             <div class="about-content">
@@ -26,16 +30,16 @@
         }
         else
         {
-            <div class="finder-body">
-                <nav class="finder-sidebar" aria-label="Categories">
-                    <p class="sidebar-caption">Your collection</p>
+            <div class="explorer-body">
+                <nav class="explorer-sidebar" aria-label="Categories">
+                    <p class="sidebar-caption">Quick access</p>
                     <a href="/" class="sidebar-link" data-navigate><svg class="icon"><use href="#icon-home" /></svg><span>Desktop</span></a>
                     <p class="sidebar-caption concepts-caption">Concepts</p>
                     @foreach (var category in ConceptCatalog.Categories)
                     {
                         <a href="/concepts/@category.Slug" class="sidebar-link @(category == Model.Category ? "is-selected" : "")" data-navigate aria-current="@(category == Model.Category ? "page" : null)"><svg class="icon sidebar-icon-@category.Accent"><use href="#icon-@category.Icon" /></svg><span>@category.Name</span><small>5</small></a>
                     }
-                    <div class="sidebar-bottom"><svg class="icon"><use href="#icon-code" /></svg><span>A little code,<br />a lot to discover.</span></div>
+                    <a href="/about" class="sidebar-link sidebar-about" data-navigate><svg class="icon"><use href="#icon-info" /></svg><span>Read me</span></a>
                 </nav>
                 <nav class="example-list" aria-label="@Model.Category!.Name examples">
                     <div class="list-heading"><span>Examples</span><svg class="icon"><use href="#icon-grid" /></svg></div>
@@ -58,7 +62,7 @@
                     }
                     else
                     {
-                        <div class="category-overview"><span class="overview-folder"><img src="~/images/folder.svg" width="112" height="92" alt="" /><svg class="icon"><use href="#icon-@Model.Category.Icon" /></svg></span><h3 id="detail-title">@Model.Category.Name</h3><p>@Model.Category.Description</p><span class="overview-count">5 examples waiting to take shape</span><a class="primary-link" href="/concepts/@Model.Category.Slug/example-1" data-navigate>Open Example 01 <svg class="icon"><use href="#icon-arrow" /></svg></a></div>
+                        <div class="category-overview"><span class="overview-folder"><img src="~/images/folder.svg" asp-append-version="true" width="112" height="92" alt="" /><svg class="icon"><use href="#icon-@Model.Category.Icon" /></svg></span><h3 id="detail-title">@Model.Category.Name</h3><p>@Model.Category.Description</p><span class="overview-count">5 examples waiting to take shape</span><a class="primary-link" href="/concepts/@Model.Category.Slug/example-1" data-navigate>Open Example 01 <svg class="icon"><use href="#icon-arrow" /></svg></a></div>
                     }
                 </section>
             </div>

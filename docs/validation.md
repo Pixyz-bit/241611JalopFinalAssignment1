@@ -1,51 +1,34 @@
-# Validation — 2026-10-28
+# Validation — Windows redesign, 2026-10-29
 
-## Cached tab navigation
-- Seven dependency-free Node regression tests passed (`node --test tests/navigation.test.cjs`): one request per visited route, reuse of the initial server view/desktop, active-tab no-op, cached Back/Forward, cancellation on returning to the current tab, late-failure protection, and retry after a failed request.
-- The tests execute the actual navigation script inside a VM with a minimal DOM/network boundary and deterministic delayed responses; request counts and retained window identity are asserted there.
-- Browser checks confirmed category/example switching, About transitions and Back/Forward keep the Finder visible at full opacity, preserve maximized state and show no loading notice for cached routes. No console errors observed.
-- First-time routes still load from MVC once; refreshing the page resets the in-memory cache. Full-page canonical URLs and no-JavaScript rendering are unchanged.
+This record applies to `windows-design`. Earlier macOS layout results belong to that version's history and do not describe the current taskbar or Explorer geometry.
 
-## Welcome centering refinement
-- Centered the complete welcome block on the viewport, replacing unequal side insets and the upward desktop offset.
-- Browser geometry confirmed zero horizontal/vertical center error at 1440×900, 1920×1080 and 1024×768.
-- Existing portrait flow and compact landscape composition remain separate responsive layouts.
-- Screenshot: `.impeccable/review/centered-welcome.png`.
+## Build and regression checks
+- `dotnet build 241611JalopFinalAssignment1.sln --property:OutputPath=bin/windows-check/ --property:UseAppHost=false` succeeded with zero warnings and errors.
+- A normal build was attempted but the original app on port 5196 held the default output binaries open. The isolated build above verified this branch without stopping the user's existing app; the standard build command is not claimed to have passed in this session.
+- All seven existing `node --test tests/navigation.test.cjs` tests passed. They cover cached requests/history, active-route no-op, cancellation, late failures and retry using the actual script with a minimal deterministic DOM/network boundary.
+- Asset provenance scan: two rasters, zero missing prompt records.
+- Documentation checks parsed the constrained YAML frontmatter and JSON, verified all eight canonical sections, resolved component token references, and checked the schemaVersion 2 sidecar structure, ten preview snippets and eight-step color ramps. Documentation diffs pass whitespace checks.
 
-## Maximized Finder refinement
-- Maximized Finder uses the viewport below the menu bar, with a nominal 12px margin on desktop and 8px on mobile; the dock and desktop signature hide only while the maximized window is visible.
-- Browser geometry verified all four margins at 1024×768, 1440×900, 1920×1080, 390×844 and 844×390 (within 0.5px rounding on scaled viewports).
-- Minimize restores the dock; opening the active dock shortcut restores the maximized window. Returning to normal window size restores dock clearance. Search remains accessible through Ctrl+K and the menu bar.
-- Screenshots: `.impeccable/review/maximized-finder.png`, `maximized-finder-mobile.png` and `maximized-finder-landscape.png`.
-
-## Build and source
-- `dotnet build 241611JalopFinalAssignment1.sln --no-restore`: passed, zero warnings and errors after final changes.
-- `node --check` on wwwroot/js/site.js: passed.
-- Project skill checked for frontmatter, required name/description fields, valid naming and unfinished placeholders. The bundled skill validator could not run because its Python environment lacked PyYAML; the simple two-field frontmatter was checked using Python's built-in parser instead.
-- Wallpaper provenance scan: one raster, zero missing provenance records. Font, license, icons and wallpaper are local assets.
-
-## HTTP checks
-- All 20 category/example URLs returned 200 and the honest unimplemented state.
-- Unknown category, example 0 and example 6 returned 404.
-- Enhanced-navigation responses contain the Finder partial and omit the document shell.
-- Final canonical page includes server-rendered has-window and welcome inert state; the home page omits inert. A noscript stylesheet hides JavaScript-only search/minimize/maximize controls.
-- Final font and wallpaper requests returned 200.
+## Routes and fallback
+- All 24 canonical category/example routes returned HTTP 200: four category overviews and twenty example slots.
+- Four checked enhanced-navigation partial endpoints returned HTTP 200; full-page canonical HTML contains server-rendered anchors.
+- Unknown category, example 0 and example 6 returned HTTP 404.
+- Canonical full-page HTML was inspected for navigation and honest example state. Browser JavaScript-disabled emulation was unavailable, so this is source/HTTP evidence rather than a browser no-JavaScript test. Native Start and anchors work through their standard HTML behavior; noscript hides JavaScript-only search/minimize/maximize controls.
 
 ## Browser checks
-- Open category, choose example, change category and return to desktop.
-- Minimize and restore from active dock preserves the selected example.
-- Maximize/restore state updates correctly.
-- Search finds Loops for “loop”; an unmatched query shows the empty state; close returns focus to the page.
-- Browser Back and Forward restore category/example routes.
-- No browser console errors observed in the checked navigation flow.
-- Desktop 1440×900, shorter desktop 1280×720, phone 390×844 and smaller phone 375×667 checked. No document horizontal overflow in checked portrait/desktop sizes; 375px category navigation fits without horizontal clipping.
-- Landscape 844×390: final page fits viewport; Finder bottom 305.4px, dock top 318.4px. Detail region scrolls internally, including with the keyboard.
-- Visible focus and search-field keyboard input exercised. Reduced-motion handling was inspected in the stylesheet; browser motion preference was not emulated. This is a focused implementation check, not a full WCAG certification or cross-browser audit.
+Category/example switching, browser Back/Forward, close, maximize/restore, minimize and taskbar restoration were exercised. Restoration by Enter retained the exact selected example. About navigation from another minimized category opened About instead of restoring the category. Start opened and closed with Escape, returning focus to its summary. Search accepted input, filtered categories, displayed unmatched-query feedback and returned focus on dismissal. Home and About were checked.
+
+The nominal checked viewports were 1440×900, 1280×720, 390×844, 320×568 and 844×390. Captures can differ by one pixel due to browser scaling. Phone and landscape pages had no horizontal document overflow. At 320px, measured caption/back/example/taskbar hit boxes were at least 44px. Content panes scroll within the bounded window; maximized Explorer reserves the persistent taskbar.
+
+Reduced-motion handling was verified in CSS: the preference rule disables animations, transitions and smooth scrolling. Operating-system preference emulation was unavailable, so runtime reduced-motion behavior was not emulated. This is a focused implementation review, not a cross-browser or full accessibility certification.
 
 ## Independent review
-The Impeccable finish reviewer initially requested landscape sizing, supporting-text contrast, and canonical no-JavaScript state fixes. After a batch correction and recapture, all three were scored resolved with disposition **ship**. This verdict covers those three fixes, not an unrestricted accessibility audit.
+The independent file-only finish review returned **ship**, opened all twelve required screenshots and the contact sheet, and found no material source fixes. It judged fidelity against the human-approved Windows direction; no generated UI comp or reproduction measurement was supplied. Dynamic interaction/build facts in that report are parent-reported, while screenshot validity and visual judgments are independent.
 
-Supporting text now uses #566b83: measured contrast ranges from 4.71:1 to 5.25:1 on the identified solid surfaces. A static detector also reported the intentionally selected Geist typeface as “overused” and advisory coverage gaps for fine-grained literals outside the initial token frontmatter. These are not reported as a clean detector pass; the final design record documents the implemented system.
+The detector ran once before documentation reconciliation. Its advisories largely reflected stale macOS token/ramp records, plus generic Geist warnings; the user explicitly preserved the local Geist font. This is not claimed as a clean detector pass or a second detector run. The final documenter extracted the Windows tokens and component patterns from the actual stylesheet, Razor and script, then updated DESIGN.md, the schemaVersion 2 sidecar and branch guidance.
 
 ## Evidence
-Local screenshots are in `.impeccable/review/`: desktop-home, desktop-finder, desktop-example, desktop-about, mobile-home, mobile-example, mobile-search, landscape-category and landscape-example PNG files. The original landscape failure is retained as landscape-before.png for comparison. These are review artifacts, not public website assets.
+- `.impeccable/review/windows/`: twelve required capture files.
+- `.impeccable/review/windows-contact.jpg`: contact sheet.
+- `.impeccable/review/windows-review.md`: independent disposition, evidence and scope.
+- `docs/design-brief.md`: approved direction, modes and recorded `seed:0ef4e066c55ebfc6`.

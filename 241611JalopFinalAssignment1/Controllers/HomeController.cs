@@ -17,7 +17,7 @@ namespace _241611JalopFinalAssignment1.Controllers
         {
             var model = new ShowcaseViewModel(); // Default values select the desktop with no open window.
             if (Request.Headers["X-Showcase-Partial"] == "true") // Check whether JavaScript requested only the window content.
-                return PartialView("_FinderWindow", model); // Render without the page layout; the desktop model produces no window HTML.
+                return PartialView("_ExplorerWindow", model); // Render without the page layout; the desktop model produces no window HTML.
             return View(model); // Render Views/Home/Index.cshtml with this model and the shared layout.
         }
 
@@ -26,7 +26,7 @@ namespace _241611JalopFinalAssignment1.Controllers
         {
             var model = new ShowcaseViewModel(IsAbout: true); // Named argument: set IsAbout to true and keep the other defaults.
             if (Request.Headers["X-Showcase-Partial"] == "true") // Enhanced navigation needs only part of the page.
-                return PartialView("_FinderWindow", model); // Return the About window HTML without the full page layout.
+                return PartialView("_ExplorerWindow", model); // Return the About window HTML without the full page layout.
             return View("Index", model); // Reuse the desktop view, with this model selecting the About window.
         }
 

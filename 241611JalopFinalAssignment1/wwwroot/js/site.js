@@ -6,6 +6,7 @@
     const dialog = document.querySelector('[data-search-dialog]');
     const input = document.querySelector('[data-search-input]');
     const notice = document.querySelector('.navigation-notice');
+    const startMenu = document.querySelector('[data-start-menu]'); // Native details stores whether Start is expanded.
     const routeCache = new Map([['/', ''], [location.pathname, host.innerHTML]]);
     let pendingRequest;
     let navigationVersion = 0;
@@ -27,7 +28,7 @@
             if (category && folder.dataset.category === category) folder.setAttribute('aria-current', 'page');
             else folder.removeAttribute('aria-current');
         });
-        document.querySelectorAll('.dock-item').forEach(item => {
+        document.querySelectorAll('.taskbar-item').forEach(item => {
             const active = category ? item.dataset.category === category : item.getAttribute('href') === (windowElement ? '/about' : '/');
             item.classList.toggle('is-active', active);
             if (active) item.setAttribute('aria-current', 'page');
@@ -106,12 +107,15 @@
     }
 
     function openSearch() {
+        if (startMenu) startMenu.open = false; // Keep Start and search from covering one another.
+        document.querySelector('.taskbar-search')?.focus(); // Give dialog dismissal a visible control to return focus to.
         if (!dialog.open) dialog.showModal();
         input.focus();
     }
 
     document.addEventListener('click', event => {
         if (!(event.target instanceof Element)) return;
+        if (startMenu?.open && !event.target.closest('[data-start-menu]')) startMenu.open = false; // Clicking outside dismisses Start.
         if (event.target.closest('[data-search-open]')) { openSearch(); return; }
         if (event.target.closest('[data-search-close]')) { dialog.close(); return; }
         if (event.target === dialog) {
@@ -122,8 +126,8 @@
         if (event.target.closest('[data-minimize]')) {
             minimized = true;
             syncDesktop();
-            const activeDock = document.querySelector('.dock-item.is-active');
-            activeDock?.focus({ preventScroll: true });
+            const activeApp = document.querySelector('.taskbar-item.is-active'); // The active taskbar shortcut restores the minimized example.
+            activeApp?.focus({ preventScroll: true });
             return;
         }
         if (event.target.closest('[data-maximize]')) { maximized = !maximized; syncDesktop(); return; }
@@ -132,8 +136,11 @@
         const destination = new URL(link.href, location.href);
         if (destination.origin !== location.origin) return;
         event.preventDefault();
+        if (startMenu) startMenu.open = false; // Selecting any canonical link dismisses the menu.
         if (dialog.open) dialog.close();
-        if (minimized && link.closest('.dock') && lastWindowUrl && (link.dataset.category === host.querySelector('[data-window]')?.dataset.category || destination.pathname === '/about' && !link.dataset.category)) {
+        const selectedCategory = host.querySelector('[data-window]')?.dataset.category; // About has no category; its shortcut must not restore a different minimized window.
+        const restoresWindow = selectedCategory ? link.dataset.category === selectedCategory : destination.pathname === '/about';
+        if (minimized && link.closest('.taskbar') && lastWindowUrl && restoresWindow) {
             minimized = false;
             syncDesktop();
             host.querySelector('.example-detail')?.focus({ preventScroll: true });
@@ -152,6 +159,11 @@
     dialog.addEventListener('close', () => { input.value = ''; input.dispatchEvent(new Event('input')); });
     document.addEventListener('keydown', event => {
         if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') { event.preventDefault(); openSearch(); }
+        if (event.key === 'Escape' && startMenu?.open) {
+            startMenu.open = false; // Escape closes Start before it can close the Explorer window behind it.
+            startMenu.querySelector('summary')?.focus();
+            return;
+        }
         if (event.key === 'Escape' && !dialog.open && host.querySelector('[data-window]') && !minimized) navigate('/');
     });
     window.addEventListener('popstate', () => navigate(location.pathname, { push: false }));
@@ -159,9 +171,9 @@
     function updateClock() {
         const now = new Date();
         clock.dateTime = now.toISOString();
-        const date = new Intl.DateTimeFormat('en-US', { weekday: 'short', month: 'short', day: 'numeric' }).format(now);
+        const date = new Intl.DateTimeFormat('en-US', { month: 'numeric', day: 'numeric', year: 'numeric' }).format(now); // Use the visitor's local time zone.
         const time = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit', hour12: false }).format(now);
-        clock.textContent = `${date.replace(',', '')}  ${time}`;
+        clock.textContent = `${time}\n${date}`; // A line break gives the Windows taskbar its two-line clock.
     }
     updateClock();
     setInterval(updateClock, 30000);

@@ -1,6 +1,6 @@
 # Project instructions
 
-Read PRODUCT.md and DESIGN.md before UI changes, then .agents/skills/showcase-ui/SKILL.md. User instructions and the approved macOS reference override generic skill presets.
+Read PRODUCT.md and DESIGN.md before UI changes, then .agents/skills/showcase-ui/SKILL.md. User instructions and the approved Windows 11 inspired direction on this branch override generic skill presets.
 
 - Preserve ASP.NET Core MVC, net8.0, Razor, CSS and plain JavaScript.
 - Controllers handle routes; Models holds presentation data; Views holds Razor pages/partials; wwwroot holds public assets.
