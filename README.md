@@ -1,6 +1,6 @@
 # C# Programming Showcase
 
-A Windows 11 inspired ASP.NET Core MVC template with four concept folders, five unimplemented example slots per folder, a light Explorer window, Start navigation, search and a persistent taskbar. The `windows-design` branch contains this design; `main` retains the earlier macOS version.
+A Windows 11 inspired ASP.NET Core MVC template with four concept app shortcuts, five unimplemented example slots per concept, a light Windows application, Start navigation, search and a persistent taskbar. The `windows-design` branch contains this design; `main` retains the earlier macOS version.
 
 ## Run
 Install the .NET 8 SDK (or a newer compatible SDK with the .NET 8 runtime), open this folder in Visual Studio or a terminal, and run:

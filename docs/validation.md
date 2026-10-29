@@ -1,6 +1,16 @@
 # Validation — Windows redesign, 2026-10-29
 
-This record applies to `windows-design`. Earlier macOS layout results belong to that version's history and do not describe the current taskbar or Explorer geometry.
+This record applies to `windows-design`. The detailed review below records the earlier Explorer version; it is historical evidence for that version, not validation of the later application shell.
+
+## Application-shell refinement
+- Both isolated builds passed with zero warnings and errors: initial `dotnet build 241611JalopFinalAssignment1.sln --property:OutputPath=bin/app-check/ --property:UseAppHost=false` and final `dotnet build 241611JalopFinalAssignment1.sln --property:OutputPath=bin/app-final/ --property:UseAppHost=false`.
+- All seven existing `node --test tests/navigation.test.cjs` checks passed after the final JavaScript changes.
+- All 24 canonical category/example routes and four checked partial endpoints returned HTTP 200. Full canonical HTML contains no `folder.svg` reference.
+- Browser checks confirmed exact Example 01 restoration with Enter, maximize/restore/minimize and correct Back/Forward URLs. The 390px example pane scrolled to expose Output using End (scrollTop 62px of 63px). Start displayed app icons; Escape dismissed it and returned focus to its summary. At 320px, measured caption targets were 44×46px and example tabs 47×44px, with no horizontal document overflow.
+- The detector ran once for this refinement and saved `.impeccable/review/application/detector.json`. It reported two generic Geist warnings and documentation token/color/font/radius advisories; no other categories were reported. No second run or clean detector pass is claimed.
+- The targeted documentation checks parsed the constrained YAML frontmatter and JSON, resolved component references, retained schemaVersion 2 and ten representative previews, and found no obsolete Explorer preview. Documentation diffs pass whitespace checks.
+- Current captures in `.impeccable/review/application/` cover desktop app/icons/example at 1280px, phone app/search/Start at 390px, a 320px phone and 844px short landscape. Search filtering and unmatched feedback, close, About, Start Escape/focus, and keyboard scrolling were checked. Landscape has no horizontal document overflow. Reduced motion remains source-verified; browser JavaScript-disabled emulation remains unavailable.
+- A fresh independent reviewer inspected all eight current originals and the contact sheet and returned **ship**, with no material source fixes. Report: `.impeccable/review/application/review.md`. The earlier Explorer review below is historical. Documentation/sidebar and selection records were reconciled to the actual source values after review; no rendered styles changed.
 
 ## Build and regression checks
 - `dotnet build 241611JalopFinalAssignment1.sln --property:OutputPath=bin/windows-check/ --property:UseAppHost=false` succeeded with zero warnings and errors.

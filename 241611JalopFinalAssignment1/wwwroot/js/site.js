@@ -24,9 +24,9 @@
         const maximize = windowElement?.querySelector('[data-maximize]');
         maximize?.setAttribute('aria-pressed', String(maximized));
         maximize?.setAttribute('aria-label', maximized ? 'Restore window size' : 'Maximize window');
-        document.querySelectorAll('.desktop-folder').forEach(folder => {
-            if (category && folder.dataset.category === category) folder.setAttribute('aria-current', 'page');
-            else folder.removeAttribute('aria-current');
+        document.querySelectorAll('.desktop-shortcut').forEach(shortcut => { // App shortcuts share the same category selection as the sidebar.
+            if (category && shortcut.dataset.category === category) shortcut.setAttribute('aria-current', 'page');
+            else shortcut.removeAttribute('aria-current');
         });
         document.querySelectorAll('.taskbar-item').forEach(item => {
             const active = category ? item.dataset.category === category : item.getAttribute('href') === (windowElement ? '/about' : '/');
@@ -87,7 +87,7 @@
             if (push && url !== location.pathname) history.pushState({}, '', url);
             minimized = false;
             syncDesktop();
-            const detail = host.querySelector('.example-detail');
+            const detail = host.querySelector('.example-detail') || host.querySelector('.about-content'); // Both app pages have a visible focus destination.
             if (detail) detail.focus({ preventScroll: true });
             else if (!host.querySelector('[data-window]')) document.querySelector('.welcome-action').focus({ preventScroll: true });
             else {

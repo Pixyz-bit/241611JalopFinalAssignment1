@@ -11,15 +11,23 @@ colors:
   line: "#dde3eb"
   desktop-text: "#f5f8ff"
   desktop-ground: "#061a45"
-  sidebar: "#f0f3f8"
+  sidebar: "#eaf0f8"
   selection: "#e0edfa"
-  sidebar-selected: "#dce7f5"
+  example-selection: "#e0edfc"
+  selection-ink: "#075b9f"
+  sidebar-selected: "#d7e6f7"
   taskbar: "rgb(234 241 252 / .94)"
   start-panel: "#eef3fb"
   status: "#edf1f6"
   status-ink: "#47596e"
-  folder-front: "#ffda79"
-  folder-front-shade: "#efb63f"
+  app-cyan-top: "#159acb"
+  app-cyan-bottom: "#0b5ba9"
+  app-amber-top: "#f3ca78"
+  app-amber-bottom: "#dca039"
+  app-violet-top: "#9183df"
+  app-violet-bottom: "#5a47ac"
+  app-mint-top: "#1b9b8e"
+  app-mint-bottom: "#0b6d65"
   focus: "#0067c0"
 typography:
   display:
@@ -36,10 +44,10 @@ typography:
     letterSpacing: "-0.035em"
   title:
     fontFamily: "Geist, Segoe UI, sans-serif"
-    fontSize: "28px"
+    fontSize: "22px"
     fontWeight: 550
-    lineHeight: 1.3
-    letterSpacing: "-0.025em"
+    lineHeight: 1.4
+    letterSpacing: "-0.02em"
   body:
     fontFamily: "Geist, Segoe UI, sans-serif"
     fontSize: "13px"
@@ -63,7 +71,9 @@ typography:
 rounded:
   row: "4px"
   control: "5px"
-  tab: "7px 7px 0 0"
+  app-icon: "12px"
+  app-icon-compact: "10px"
+  app-icon-taskbar: "6px"
   window: "8px"
   search-pill: "20px"
 spacing:
@@ -86,15 +96,16 @@ components:
     typography: "{typography.label}"
   sidebar-link:
     textColor: "{colors.ink}"
-    rounded: "{rounded.row}"
-    padding: "8px 10px"
+    rounded: "{rounded.control}"
+    padding: "10px 12px"
   sidebar-link-selected:
     backgroundColor: "{colors.sidebar-selected}"
-    rounded: "{rounded.row}"
-  example-row-selected:
-    backgroundColor: "{colors.selection}"
-    rounded: "{rounded.row}"
-    padding: "10px 8px"
+    rounded: "{rounded.control}"
+  example-tab-selected:
+    backgroundColor: "{colors.example-selection}"
+    textColor: "{colors.selection-ink}"
+    rounded: "{rounded.control}"
+    padding: "8px"
   status-pill:
     backgroundColor: "{colors.status}"
     textColor: "{colors.status-ink}"
@@ -103,13 +114,13 @@ components:
   empty-interface:
     backgroundColor: "{colors.surface}"
     rounded: "{rounded.control}"
-    padding: "16px"
+    padding: "18px"
   search-field:
     backgroundColor: "{colors.paper}"
     textColor: "{colors.ink}"
     rounded: "{rounded.control}"
     padding: "10px 14px"
-  desktop-folder:
+  desktop-shortcut:
     textColor: "{colors.desktop-text}"
     rounded: "{rounded.row}"
     padding: "10px 3px 8px"
@@ -121,8 +132,11 @@ components:
     backgroundColor: "{colors.start-panel}"
     rounded: "{rounded.window}"
     padding: "30px 34px 0"
-  explorer-window:
-    backgroundColor: "{colors.paper}"
+  application-icon:
+    rounded: "{rounded.app-icon}"
+    size: "58px"
+  application-shell:
+    backgroundColor: "{colors.surface}"
     textColor: "{colors.ink}"
     rounded: "{rounded.window}"
 ---
@@ -133,21 +147,21 @@ components:
 
 **Creative North Star: "A desktop for curious minds."**
 
-The approved Windows 11 inspired world pairs an original cobalt bloom wallpaper with warm yellow folder silhouettes, a full-width translucent taskbar and a light Explorer workspace. Desktop familiarity invites exploration; compact application typography keeps the examples easy to navigate.
+The approved Windows 11 inspired world pairs an original cobalt bloom wallpaper with colored application badges, a full-width translucent taskbar and a light Windows application workspace. Desktop familiarity invites exploration; compact application typography keeps the examples easy to navigate.
 
 The Windows direction is deliberate on `windows-design`; `main` retains the earlier macOS version. The user-approved metaphor and existing MVC implementation govern this system. Surface composition and visitor modes live in docs/design-brief.md.
 
 **Key Characteristics:**
 - Dark cobalt raster bloom with readable light desktop text.
-- Yellow folders, a centered taskbar app group and a left-aligned welcome.
-- One light Explorer workspace with a tab, right caption controls and clear blue selection.
+- Shared concept app icons, a centered taskbar app group and a left-aligned welcome.
+- One light application with brand titlebar, right caption controls, category navigation and five example tabs.
 - Local Geist typography, canonical links and visible keyboard focus.
 
 ## Colors
 
-Explorer Blue marks interactive links, active indicators and focus. Soft Blue supports the About emblem. Warm folder yellow balances the cobalt desktop and identifies the collection without replacing readable labels.
+Application Blue marks interactive links, active indicators and focus. Soft Blue supports the About emblem. Cyan, amber, violet and mint gradients give the four concepts consistent app identities across desktop, Start, search, taskbar and page headings.
 
-The light workspace uses Paper for detail, Surface for address chrome and empty interfaces, Sidebar for navigation, Line for pane boundaries, and dark Ink with Muted supporting text. Selection and Sidebar Selected distinguish their separate navigation regions. Taskbar is deliberately translucent; Start Panel remains a readable pale surface.
+The light workspace uses Paper for detail, Surface for the application ground and empty interfaces, Sidebar for navigation, Line for pane boundaries, and dark Ink with Muted supporting text. Selection and Sidebar Selected distinguish example tabs and category navigation. Taskbar is deliberately translucent; Start Panel remains a readable pale surface.
 
 **The Readable Desktop Rule.** Check light labels against the wallpaper beneath them; an average image color cannot establish text contrast.
 
@@ -155,7 +169,7 @@ The light workspace uses Paper for detail, Surface for address chrome and empty 
 
 The self-hosted Geist variable face is preserved, with Segoe UI and sans-serif fallbacks. The welcome uses the display role with a stronger second line (650); About uses the headline role. Example titles use the title role; navigation and template sections use compact label/detail roles. Small metadata stays subordinate to category and example names.
 
-Category-overview headings use a responsive size (clamp(26px, 2.5vw, 34px)), weight (550) and line height (1.25). Body explanations have comfortable leading (1.85) and bounded measures (42ch for overview, 55ch for template text). The taskbar clock uses tabular numerals and two lines.
+Category headings use a responsive size (clamp(26px, 2.5vw, 34px)), weight (600) and line height (1.25). Category and template explanations use comfortable leading (1.8) and bounded measures (62ch and 60ch). The taskbar clock uses tabular numerals and two lines.
 
 **The Two Registers Rule.** Keep expressive welcome and About headings separate from compact application navigation and example detail.
 
@@ -163,37 +177,37 @@ Category-overview headings use a responsive size (clamp(26px, 2.5vw, 34px)), wei
 
 Desktop shortcuts form a left rail (108px wide); the welcome begins at 20% of viewport width. The taskbar spans the full bottom edge and uses three columns to center Start, search and category shortcuts independently of the brand and clock. Its desktop height is defined by the frontmatter taskbar component.
 
-Ordinary Explorer reserves the shortcut rail and taskbar: top max(24px, 6vh), left max(146px, (100vw - 1150px) / 2), right max(32px, (100vw - 1280px) / 2), bottom taskbar height + max(28px, 5vh). Its sidebar/example/detail columns are 185px / 215px / flexible. At 1100px the first two columns become 164px / 182px. Panes scroll independently.
+The ordinary application window reserves the shortcut rail and taskbar: top max(24px, 6vh), left max(146px, (100vw - 1150px) / 2), right max(32px, (100vw - 1280px) / 2), bottom taskbar height + max(28px, 5vh). Its sidebar/main columns are 218px / flexible, becoming 194px / flexible at 1100px. The main content scrolls within the bounded window. A category heading leads into five equal-width canonical example tabs and an overview or example workspace.
 
-At 720px and below, taskbar height becomes 64px plus the bottom safe-area inset, the tray/brand disappear, home folders form four columns, and Explorer sits 10px from the sides and 12px above the taskbar. Category navigation becomes two columns; all five examples remain visible in a numbered strip. Caption, back, search and category controls use at least 44px mobile targets. At 360px and below, About stays available in Start while its taskbar shortcut and the example-strip heading hide to preserve control width. Short-height rules at 680px and 500px reduce spacing while keeping content panes scrollable.
+At 720px and below, taskbar height becomes 64px plus the bottom safe-area inset, the tray/brand disappear, home app shortcuts form four columns, and the application sits 10px from the sides and 12px above the taskbar. Category navigation becomes two columns; all five examples remain visible in a numbered strip. Caption, taskbar, search and category controls use at least 44px mobile targets. At 360px and below, About stays available in Start while its taskbar shortcut hides to preserve control width. Short-height rules at 680px and 500px reduce spacing while keeping content panes scrollable.
 
-**The Persistent Taskbar Rule.** Maximized Explorer fills the viewport above the taskbar; the taskbar remains visible and never covers window detail or status content.
+**The Persistent Taskbar Rule.** The maximized application fills the viewport above the taskbar; the taskbar remains visible and never covers application content.
 
 ## Elevation & Depth
 
-The bloom carries the sculptural material as a raster asset. Explorer, Start and search share one diffuse window shadow (0 20px 70px -14px rgb(3 17 43 / .48)). Taskbar glass uses a pale translucent fill and backdrop blur (24px); working and reading surfaces remain light and solid. Small folder, welcome-action and tooltip shadows support separation without a second shadow system.
+The bloom carries the sculptural material as a raster asset. The application, Start and search share one diffuse window shadow (0 20px 70px -14px rgb(3 17 43 / .48)). Taskbar glass uses a pale translucent fill and backdrop blur (24px); working and reading surfaces remain light and solid. Small app-icon, welcome-action and tooltip shadows support separation without a second shadow system.
 
 Window entry lasts 220ms with the shared easing cubic-bezier(.16, 1, .3, 1), moving from a small downward offset and slight scale. Desktop hover changes are brief (140ms); welcome fades use 180ms. The reduced-motion media rule disables animation, transitions and smooth scrolling.
 
-**The Material Boundary Rule.** Keep translucency on desktop chrome and preserve solid reading surfaces inside Explorer, Start and search.
+**The Material Boundary Rule.** Keep translucency on desktop chrome and preserve solid reading surfaces inside the application, Start and search.
 
 ## Shapes
 
-Compact rectangular controls and rows use small corners; windows and dialogs use the window radius. The Explorer tab rounds only its upper corners. Search in the taskbar uses a pill silhouette, while working search fields keep compact control corners and a blue lower border. Yellow SVG folders have a tab, paper insert and warmer front; their geometry remains a reusable local asset. Maximized Explorer has square corners.
+Compact controls and example tabs use small corners; windows and dialogs use the window radius. Search in the taskbar uses a pill silhouette, while working search fields keep compact control corners. Concept badges use a rounded square (58px, radius 12px) with a CSS gradient and the existing SVG category glyph. Start uses 46px badges with 10px corners; taskbar uses 28px badges with 6px corners; search uses 36px badges with 8px corners. Maximized application windows have square corners.
 
 ## Components
 
-### Desktop folders and welcome
+### Application icons and welcome
 
-Folders are canonical category anchors with visible names and counts, a local yellow silhouette and category emblem. Hover and the active category use a subtle pale wash and border. Light focus outlines remain visible on the dark wallpaper. The welcome action opens Input/Output directly.
+Desktop app shortcuts are canonical category anchors with visible names and counts. The shared _ConceptIcon partial wraps each category glyph in a consistent gradient badge. Hover and the active category use a subtle pale wash and border. Light focus outlines remain visible on the dark wallpaper. The welcome action opens Input/Output directly.
 
 ### Taskbar and Start
 
 The taskbar groups Start, search, four categories and About, with active blue indicators and hover/keyboard tooltips. The clock displays local time and date when enhanced by JavaScript. Start uses native details/summary so its canonical links remain usable without JavaScript; enhancement dismisses it on outside click, Escape or link selection. Escape returns focus to Start.
 
-### Explorer
+### Application shell and example tabs
 
-A single tab, right-aligned minimize/maximize/close controls, address path, optional search, command strip, sidebar, example list and detail region form one shared shell. Selected categories show a blue leading mark; selected examples use the selection fill. Minimize retains the current example, and its active taskbar shortcut restores that exact view. Close returns to the desktop. Maximize retains access to the taskbar.
+A brand titlebar and right-aligned minimize/maximize/close controls sit above category navigation and one main content area. The sidebar contains concept search, category links and About/Desktop utilities. A shared app badge, category title and description lead into five numbered canonical example tabs. Selected categories show a blue leading mark; selected example tabs use the selection fill, border and blue underline. The workspace groups honest Description, Interface and Output sections without file-browser chrome or filename suffixes. Minimize retains the current example, and its active taskbar shortcut restores that exact view. Close returns to the desktop. Maximize retains access to the taskbar.
 
 ### Search
 
@@ -207,12 +221,12 @@ Use the neutral status pill and dashed interface container to explain that the s
 
 ### Do:
 - **Do** read PRODUCT.md, DESIGN.md and the project showcase-ui skill before changing the interface.
-- **Do** preserve the approved Windows desktop materials and shared Explorer template on this branch.
+- **Do** preserve the approved Windows desktop materials and shared application template on this branch.
 - **Do** keep canonical navigation, visible focus and the exact-example minimize/restore behavior.
 - **Do** check desktop, narrow phone, short landscape, keyboard and reduced-motion behavior after UI changes.
 
 ### Don't:
 - **Don't** import React or introduce a frontend build pipeline into this MVC template.
 - **Don't** replace the authored bloom with CSS sculpture or use purchased operating-system assets.
-- **Don't** cover the persistent taskbar when maximizing Explorer.
+- **Don't** cover the persistent taskbar when maximizing the application.
 - **Don't** replace honest empty examples with invented execution or persistence.

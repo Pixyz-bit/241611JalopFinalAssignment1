@@ -17,13 +17,13 @@
     ├── Models/                   ShowcaseViewModel, ConceptCatalog
     ├── Views/
     │   ├── Home/Index.cshtml      Desktop composition
-    │   └── Shared/               Layout, Explorer window and SVG symbols
+    │   └── Shared/               Layout, application shell, concept icons and SVG symbols
     ├── Properties/               Launch profiles
     ├── wwwroot/
     │   ├── css/site.css          Shared tokens and responsive styles
     │   ├── js/site.js            Navigation, search and window controls
     │   ├── fonts/               Self-hosted Geist and license
-    │   └── images/              Wallpaper, provenance, folder and favicon
+    │   └── images/              Wallpaper, provenance and favicon (legacy folder retained)
     └── Program.cs
 ```
 
@@ -47,16 +47,19 @@ New or changed code should include brief beginner-friendly notes beside meaningf
 - `int?` means the C# parameter can contain an integer or `null`. The category-only route supplies no example number; the example route still requires its numbered segment.
 - `IActionResult` lets the action return different kinds of responses, including a full view, a partial view or HTTP 404.
 
-## Rendering and navigation
-All canonical URLs render complete Razor pages. Requests with `X-Showcase-Partial: true` return only the Explorer partial. JavaScript enhances same-origin links and pushes browser history. The initial view and desktop are cached immediately; each other route is fetched once on its first visit and kept in memory until the page reloads. Back/Forward and repeated tab selections reuse the cached view. Clicking the already active route does nothing.
+## Shared application surfaces
+`Views/Shared/_ShowcaseWindow.cshtml` owns the brand titlebar, category sidebar, five example tabs and the scrollable overview/example workspace. `Views/Shared/_ConceptIcon.cshtml` wraps an existing SVG category glyph in a reusable CSS gradient badge; desktop, Start, search, taskbar and category headings share it. There is no address path, file list or filename suffix.
 
-Switching categories, examples or About keeps the outer Explorer element mounted and updates its contents, so its opening animation plays only when opening a window from the desktop. The current view stays visible during first-time requests. A delayed “Opening…” notice and accessible busy state appear only for uncached navigation; aborted or superseded requests cannot replace a newer selection. Failed enhanced navigation falls back to full-page navigation. Ctrl/Cmd+K opens search; Escape closes search or the open window. Minimized windows are restored from their active taskbar shortcut, keeping the exact selected example. The taskbar remains visible when Explorer is maximized. Start uses native details/summary and canonical links; JavaScript adds outside/Escape dismissal, returning focus to Start on Escape. About has its own restoration check so it cannot restore a different minimized category.
+## Rendering and navigation
+All canonical URLs render complete Razor pages. Requests with `X-Showcase-Partial: true` return only the _ShowcaseWindow partial. JavaScript enhances same-origin links and pushes browser history. The initial view and desktop are cached immediately; each other route is fetched once on its first visit and kept in memory until the page reloads. Back/Forward and repeated tab selections reuse the cached view. Clicking the already active route does nothing.
+
+Switching categories, examples or About keeps the outer application element mounted and updates its contents, so its opening animation plays only when opening a window from the desktop. The current view stays visible during first-time requests. A delayed “Opening…” notice and accessible busy state appear only for uncached navigation; aborted or superseded requests cannot replace a newer selection. Failed enhanced navigation falls back to full-page navigation. Ctrl/Cmd+K opens search; Escape closes search or the open window. Minimized windows are restored from their active taskbar shortcut, keeping the exact selected example. The taskbar remains visible when the application is maximized. Start uses native details/summary and canonical links; JavaScript adds outside/Escape dismissal, returning focus to Start on Escape. About has its own restoration check so it cannot restore a different minimized category.
 
 The route cache is suitable for the current read-only template. When adding real CRUD or other changing server data, explicitly invalidate affected cached routes after successful mutations, or opt those views out of caching; do not serve stale records or cache POST responses.
 
 ## Adding your examples
 1. Give examples real titles/descriptions in a typed view model, keyed by category and number.
-2. Add each example's UI as a Razor partial beneath `Views/Concepts/<Category>/` when that real example exists. Select it within the shared Explorer detail region; retain the shared shell.
+2. Add each example's UI as a Razor partial beneath `Views/Concepts/<Category>/` when that real example exists. Select it within the shared application workspace; retain the shared shell.
 3. Add controller actions and strongly typed input models for actual form handling. Use POST, validation and antiforgery for mutations.
 4. Add data storage and CRUD services only when implementing real CRUD; the current catalog is static navigation metadata, not a persistence layer.
 5. Replace “Not implemented yet” only once that example works. Do not present fake Run/Save results.

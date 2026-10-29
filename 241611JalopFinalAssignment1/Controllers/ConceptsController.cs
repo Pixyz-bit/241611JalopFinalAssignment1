@@ -12,7 +12,7 @@ public sealed class ConceptsController : Controller
         var concept = ConceptCatalog.Find(category); // Look up the category using its URL slug.
         if (concept is null || example is < 1 or > 5) return NotFound(); // Return HTTP 404 for an unknown category or an example outside 1-5.
         var model = new ShowcaseViewModel(concept, example); // Pass the selected category and optional example to Razor.
-        if (Request.Headers["X-Showcase-Partial"] == "true") return PartialView("_ExplorerWindow", model); // Enhanced navigation needs only the window HTML.
+        if (Request.Headers["X-Showcase-Partial"] == "true") return PartialView("_ShowcaseWindow", model); // Enhanced navigation needs only the window HTML.
         return View("~/Views/Home/Index.cshtml", model); // Direct visits receive the complete page using the shared desktop view.
     }
 }

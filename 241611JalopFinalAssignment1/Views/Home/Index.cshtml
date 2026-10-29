@@ -5,23 +5,23 @@
     @* Canonical links keep the desktop usable when JavaScript controls are hidden. *@
     <noscript><style>[data-search-open], [data-minimize], [data-maximize] { display: none !important; }</style></noscript>
     <main id="main-content" class="desktop-workspace">
-        <nav class="desktop-folders" aria-label="Programming concepts">
+        <nav class="desktop-apps" aria-label="Programming concepts">
             @foreach (var category in ConceptCatalog.Categories)
             {
-                <a href="/concepts/@category.Slug" class="desktop-folder" data-navigate data-category="@category.Slug">
-                    @* The versioned asset URL refreshes the folder when its design changes. *@
-                    <span class="folder-art"><img src="~/images/folder.svg" asp-append-version="true" width="64" height="56" alt="" /><svg class="folder-emblem icon"><use href="#icon-@category.Icon" /></svg></span>
-                    <span class="folder-name">@category.Name</span><span class="folder-count">5 examples</span>
+                <a href="/concepts/@category.Slug" class="desktop-shortcut" data-navigate data-category="@category.Slug">
+                    @* The shared icon partial gives every category the same app identity across surfaces. *@
+                    <partial name="_ConceptIcon" model="category" />
+                    <span class="shortcut-name">@category.Name</span><span class="shortcut-count">5 examples</span>
                 </a>
             }
-            <a href="/about" class="desktop-folder about-shortcut" data-navigate><span class="desktop-about-icon"><svg class="icon"><use href="#icon-code" /></svg></span><span class="folder-name">Read me</span></a>
+            <a href="/about" class="desktop-shortcut about-shortcut" data-navigate><span class="app-icon app-icon-about"><svg class="icon"><use href="#icon-code" /></svg></span><span class="shortcut-name">About this app</span></a>
         </nav>
         <section class="welcome" aria-label="Welcome" inert="@(Model.HasWindow ? "inert" : null)">
             <h1>C# Programming<br /><span>Showcase.</span></h1>
-            <p class="welcome-description">Small concepts. Endless possibilities.<br />Open a folder. Make something yours.</p>
-            <a href="/concepts/input-output" class="welcome-action" data-navigate><svg class="icon"><use href="#icon-folder" /></svg> Explore the concepts <svg class="icon"><use href="#icon-arrow" /></svg></a>
+            <p class="welcome-description">Small concepts. Endless possibilities.<br />Open an app. Make something yours.</p>
+            <a href="/concepts/input-output" class="welcome-action" data-navigate><svg class="icon"><use href="#icon-code" /></svg> Explore the concepts <svg class="icon"><use href="#icon-arrow" /></svg></a>
         </section>
-        <div id="window-host" class="window-host" aria-live="polite"><partial name="_ExplorerWindow" model="Model" /></div>
+        <div id="window-host" class="window-host" aria-live="polite"><partial name="_ShowcaseWindow" model="Model" /></div>
         <span class="desktop-signature">C# Programming Showcase<span>Built with curiosity.</span></span>
     </main>
     <footer class="taskbar">
@@ -37,19 +37,19 @@
                     <nav class="start-pinned" aria-label="Pinned concepts">
                         @foreach (var category in ConceptCatalog.Categories)
                         {
-                            <a href="/concepts/@category.Slug" data-navigate><img src="~/images/folder.svg" asp-append-version="true" alt="" width="48" height="42" /><span>@category.Name</span></a>
+                            <a href="/concepts/@category.Slug" data-navigate><partial name="_ConceptIcon" model="category" /><span>@category.Name</span></a>
                         }
                     </nav>
-                    <div class="start-recommended"><h3>Your collection</h3><p>20 example slots, ready for your ideas.</p><a href="/about" data-navigate><svg class="icon"><use href="#icon-file" /></svg><span>Read me<small>About this showcase</small></span></a></div>
+                    <div class="start-recommended"><h3>Your collection</h3><p>20 example slots, ready for your ideas.</p><a href="/about" data-navigate><svg class="icon"><use href="#icon-info" /></svg><span>About this app<small>About this showcase</small></span></a></div>
                     <div class="start-footer"><span><svg class="icon"><use href="#icon-code" /></svg> C# Programming</span><a href="/" data-navigate>Show desktop <svg class="icon"><use href="#icon-home" /></svg></a></div>
                 </div>
             </details>
             <button class="taskbar-search" data-search-open type="button" aria-label="Search concepts"><svg class="icon"><use href="#icon-search" /></svg><span>Search</span><kbd>Ctrl K</kbd></button>
             @foreach (var category in ConceptCatalog.Categories)
             {
-                <a class="taskbar-item" href="/concepts/@category.Slug" data-navigate data-category="@category.Slug" aria-label="@category.Name"><span class="taskbar-app app-@category.Accent"><svg class="icon"><use href="#icon-@category.Icon" /></svg></span><span class="taskbar-tooltip">@category.Name</span><span class="taskbar-indicator"></span></a>
+                <a class="taskbar-item" href="/concepts/@category.Slug" data-navigate data-category="@category.Slug" aria-label="@category.Name"><partial name="_ConceptIcon" model="category" /><span class="taskbar-tooltip">@category.Name</span><span class="taskbar-indicator"></span></a>
             }
-            <a class="taskbar-item" href="/about" data-navigate aria-label="About this showcase"><span class="taskbar-app app-info"><svg class="icon"><use href="#icon-info" /></svg></span><span class="taskbar-tooltip">About</span><span class="taskbar-indicator"></span></a>
+            <a class="taskbar-item" href="/about" data-navigate aria-label="About this showcase"><span class="app-icon app-icon-about"><svg class="icon"><use href="#icon-info" /></svg></span><span class="taskbar-tooltip">About</span><span class="taskbar-indicator"></span></a>
         </nav>
         <div class="taskbar-tray"><time class="desktop-clock" data-clock datetime="@DateTimeOffset.UtcNow.ToString("o")">@DateTime.UtcNow.ToString("HH:mm")</time><a href="/" class="show-desktop" data-navigate aria-label="Show desktop"></a></div>
     </footer>
@@ -61,10 +61,10 @@
     <nav class="search-results" aria-label="Search results">
         @foreach (var category in ConceptCatalog.Categories)
         {
-            <a href="/concepts/@category.Slug" class="search-result" data-navigate data-search-text="@category.Name @category.Description"><img src="~/images/folder.svg" asp-append-version="true" width="40" height="35" alt="" /><span>@category.Name<small>5 example slots</small></span><svg class="icon"><use href="#icon-chevron" /></svg></a>
+            <a href="/concepts/@category.Slug" class="search-result" data-navigate data-search-text="@category.Name @category.Description"><partial name="_ConceptIcon" model="category" /><span>@category.Name<small>5 example slots</small></span><svg class="icon"><use href="#icon-chevron" /></svg></a>
         }
     </nav>
     <p class="search-empty" hidden>No concepts match. Try “input”, “loops”, or “arrays”.</p>
-    <p class="search-footer">Select a folder to explore its examples.</p>
+    <p class="search-footer">Select an app to explore its examples.</p>
 </dialog>
 <div class="navigation-notice" role="status" hidden>Opening…</div>
