@@ -107,7 +107,7 @@ button:active, summary:active { opacity: .8; }
 .showcase-window { pointer-events: auto; height: 100%; display: flex; flex-direction: column; min-height: 0; overflow: hidden; background: var(--surface); border-radius: var(--radius-window); box-shadow: var(--window-shadow); animation: window-open 220ms var(--ease); }
 @keyframes window-open { from { opacity: .5; transform: translateY(12px) scale(.985); } to { opacity: 1; transform: none; } }
 .showcase-window.is-minimized { display: none; }
-.app-titlebar { display: flex; justify-content: space-between; align-items: center; min-height: 48px; padding-left: 20px; background: #e6edf7; }
+.app-titlebar { display: flex; flex-shrink: 0; justify-content: space-between; align-items: center; min-height: 48px; padding-left: 20px; background: #e6edf7; }
 .app-identity { display: flex; gap: 12px; align-items: center; min-width: 0; font-size: 12px; font-weight: 550; }
 .app-identity > .icon { color: var(--blue); width: 23px; height: 23px; }
 .app-identity > span { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
@@ -121,10 +121,7 @@ button:active, summary:active { opacity: .8; }
 .plain-button:hover { background: #e1e7f0; }
 .app-body { flex: 1; min-height: 0; display: grid; grid-template-columns: 218px minmax(0,1fr); }
 .app-sidebar { display: flex; flex-direction: column; padding: 20px 12px 14px; background: var(--sidebar); overflow-y: auto; }
-.app-search { width: 100%; display: flex; align-items: center; gap: 8px; padding: 8px 9px; min-height: 36px; background: var(--paper); border: 1px solid #c7d2e1; border-bottom-color: #8b9eb8; border-radius: 5px; font-size: 11px; text-align: left; }
-.app-search .icon { width: 15px; height: 15px; color: var(--muted); }
-.app-search kbd { margin-left: auto; font: inherit; font-size: 9px; color: var(--muted); white-space: nowrap; }
-.sidebar-caption { margin: 24px 12px 9px; color: var(--muted); font-size: 11px; font-weight: 550; }
+.sidebar-caption { margin: 0 12px 9px; color: var(--muted); font-size: 11px; font-weight: 550; }
 .sidebar-link { position: relative; display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 10px 12px; margin-bottom: 4px; border-radius: 5px; font-size: 12px; }
 .sidebar-link .icon { width: 18px; height: 18px; color: var(--blue); }
 .sidebar-link:hover { background: #dfe8f4; }
@@ -132,12 +129,12 @@ button:active, summary:active { opacity: .8; }
 .sidebar-link.is-selected::before { content: ''; position: absolute; width: 3px; height: 18px; background: var(--blue); border-radius: 2px; left: 0; top: 50%; transform: translateY(-50%); }
 .sidebar-utilities { margin-top: auto; padding-top: 24px; }
 .sidebar-utilities .sidebar-link { color: var(--muted); }
-/* The heading identifies the category while the sidebar selects its example route. */
-.example-detail { overflow-y: auto; min-width: 0; padding: 36px 40px; outline-offset: -4px; }
-.app-page-heading { display: flex; align-items: flex-start; gap: 20px; margin-bottom: 30px; }
-.app-page-heading > .app-icon { width: 56px; height: 56px; border-radius: 12px; margin-top: 2px; }
-.app-page-heading h3 { font-size: clamp(26px,2.5vw,34px); line-height: 1.25; letter-spacing: -.025em; font-weight: 600; margin: 0 0 10px; }
-.app-page-heading p { margin: 0; color: var(--muted); line-height: 1.8; font-size: 13px; max-width: 62ch; }
+/* A compact full-width header gives the scrolling example workspace more room. */
+.example-detail { overflow-y: auto; min-width: 0; padding: 24px; outline-offset: -4px; }
+.app-page-heading { display: flex; flex-shrink: 0; align-items: flex-start; gap: 16px; margin: 0; padding: 16px 24px; border-bottom: 1px solid var(--line); }
+.app-page-heading > .app-icon { width: 44px; height: 44px; border-radius: 12px; margin-top: 2px; }
+.app-page-heading h3 { font-size: 28px; line-height: 1.25; letter-spacing: -.025em; font-weight: 600; margin: 0 0 6px; }
+.app-page-heading p { margin: 0; color: var(--muted); line-height: 1.8; font-size: 13px; max-width: 100ch; }
 .category-intro { display: flex; gap: 18px; padding: 28px; margin-top: 0; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); }
 .category-intro > .icon { width: 25px; height: 25px; color: var(--blue); margin-top: 2px; }
 .category-intro h4 { font-size: 17px; line-height: 1.5; font-weight: 550; margin: 0 0 8px; }
@@ -156,7 +153,7 @@ button:active, summary:active { opacity: .8; }
 .template-section p { font-size: 12px; color: var(--muted); line-height: 1.8; margin: 0; max-width: 60ch; }
 .empty-interface { display: flex; align-items: center; gap: 12px; background: var(--surface); border: 1px dashed #c9d4e3; border-radius: 5px; padding: 18px; }
 .empty-interface .icon { color: #5b7392; }
-.app-statusbar { display: flex; justify-content: space-between; align-items: center; gap: 10px; min-height: 30px; padding: 5px 18px; border-top: 1px solid var(--line); background: var(--sidebar); font-size: 10px; color: var(--muted); }
+.app-statusbar { display: flex; flex-shrink: 0; justify-content: space-between; align-items: center; gap: 10px; min-height: 30px; padding: 5px 18px; border-top: 1px solid var(--line); background: var(--sidebar); font-size: 10px; color: var(--muted); }
 .app-statusbar > span { white-space: nowrap; }
 /* :has() lets the host fill the screen above the taskbar only while maximized. */
 .window-host:has(.is-maximized:not(.is-minimized)) { top: 0; left: 0; right: 0; bottom: var(--taskbar-height); }
@@ -195,8 +192,7 @@ button:active, summary:active { opacity: .8; }
     .taskbar-brand span { display: none; }
     .app-body { grid-template-columns: 194px minmax(0,1fr); }
     .window-host { left: 138px; right: 22px; }
-    .example-detail { padding: 28px; }
-    .app-search kbd { display: none; }
+    .example-detail { padding: 24px; }
 }
 /* On phones, desktop categories stay available and the sidebar becomes five numbered example links. */
 @media (max-width: 720px) {
@@ -231,10 +227,10 @@ button:active, summary:active { opacity: .8; }
     .examples-sidebar { grid-template-columns: repeat(5,minmax(0,1fr)); }
     .examples-sidebar .sidebar-link { justify-content: center; }
     .examples-sidebar .icon, .sidebar-example-word { display: none; }
-    .app-sidebar > .sidebar-caption, .app-search, .sidebar-utilities { display: none; }
+    .app-sidebar > .sidebar-caption, .sidebar-utilities { display: none; }
     .sidebar-link { font-size: 11px; padding: 8px; gap: 8px; min-height: 44px; margin: 0; }
     .example-detail { flex: 1; min-height: 0; padding: 22px 18px; }
-    .app-page-heading { gap: 14px; margin-bottom: 24px; }
+    .app-page-heading { gap: 14px; padding: 18px; }
     .app-page-heading > .app-icon { width: 42px; height: 42px; border-radius: 10px; }
     .app-page-heading > .app-icon .icon { width: 24px; height: 24px; }
     .app-page-heading h3 { font-size: 25px; }
@@ -274,9 +270,8 @@ button:active, summary:active { opacity: .8; }
     .welcome-description { margin-bottom: 12px; }
     .window-host { top: 6px; bottom: calc(var(--taskbar-height) + 6px); }
     .app-sidebar { padding-top: 10px; }
-    .app-search { display: none; }
     .sidebar-caption { margin-top: 4px; }
-    .app-page-heading { margin-bottom: 20px; }
+    .app-page-heading { padding: 12px 18px; }
     .app-page-heading p { font-size: 12px; }
 }
 /* About remains accessible in Start when its taskbar shortcut cannot fit. */

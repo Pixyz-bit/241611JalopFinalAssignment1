@@ -12,9 +12,16 @@
                 <a class="caption-button close" href="/" data-navigate aria-label="Close window"><svg class="icon" aria-hidden="true"><use href="#icon-close" /></svg></a>
             </div>
         </header>
+        @if (Model.Category is not null)
+        {
+            @* This full-width category header stays below the titlebar and above both content columns. *@
+            <header class="app-page-heading">
+                <partial name="_ConceptIcon" model="Model.Category" />
+                <div><h3 id="detail-title">@Model.Category.Name</h3><p>@Model.Category.Description</p></div>
+            </header>
+        }
         <div class="app-body">
             <nav class="app-sidebar @(Model.Category is not null ? "examples-sidebar" : "")" aria-label="@(Model.Category is not null ? $"{Model.Category.Name} examples" : "Categories")">
-                <button class="app-search" data-search-open type="button" aria-label="Search concepts"><svg class="icon" aria-hidden="true"><use href="#icon-search" /></svg><span>Search concepts</span><kbd>Ctrl K</kbd></button>
                 <p class="sidebar-caption">@(Model.Category is not null ? "Examples" : "Concepts")</p>
                 @if (Model.Category is not null)
                 {
@@ -51,10 +58,6 @@
             else
             {
                 <section class="example-detail" aria-labelledby="detail-title" tabindex="-1">
-                    <header class="app-page-heading">
-                        <partial name="_ConceptIcon" model="Model.Category!" />
-                        <div><h3 id="detail-title">@Model.Category!.Name</h3><p>@Model.Category.Description</p></div>
-                    </header>
                     @if (Model.Example.HasValue)
                     {
                         <div class="example-workspace">
@@ -67,7 +70,7 @@
                     }
                     else
                     {
-                        <div class="category-intro"><svg class="icon" aria-hidden="true"><use href="#icon-code" /></svg><div><h4>Choose an example to get started</h4><p>Five example slots are ready for your ideas. Select an example in the navigation to open its description, interface, and output.</p><a class="primary-link" href="/concepts/@Model.Category.Slug/example-1" data-navigate>Open Example 01 <svg class="icon" aria-hidden="true"><use href="#icon-arrow" /></svg></a></div></div>
+                        <div class="category-intro"><svg class="icon" aria-hidden="true"><use href="#icon-code" /></svg><div><h4>Choose an example to get started</h4><p>Five example slots are ready for your ideas. Select an example in the navigation to open its description, interface, and output.</p><a class="primary-link" href="/concepts/@Model.Category!.Slug/example-1" data-navigate>Open Example 01 <svg class="icon" aria-hidden="true"><use href="#icon-arrow" /></svg></a></div></div>
                     }
                 </section>
             }

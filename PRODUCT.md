@@ -10,7 +10,7 @@ ASP.NET Core MVC targeting .NET 8. Razor, plain CSS and JavaScript; no React, No
 - Title: C# Programming Showcase.
 - Input/Output, Nested If…Else, Loops, Arrays; five unimplemented example slots each.
 - On `windows-design`: Windows 11 inspired cobalt bloom desktop, shared concept app icons, left shortcut rail and welcome, persistent full-width taskbar, native Start navigation and two-line clock.
-- One light Windows application with brand titlebar, right caption controls, sidebar with five canonical example links, page heading and an example workspace.
+- One light Windows application with brand titlebar, right caption controls, full-width category header beneath the titlebar, sidebar with five canonical example links and an example workspace.
 - Minimize preserves the selected example; its active taskbar shortcut restores it. Maximize keeps the taskbar visible.
 - Functional canonical URLs without JavaScript; enhanced cached navigation, history and search.
 - Mobile, keyboard, visible focus and reduced-motion support.

@@ -63,3 +63,15 @@ The detector ran once before documentation reconciliation. Its advisories largel
 
 - Fixed About overlapping the taskbar at intermediate desktop heights. Compact rail spacing now begins at 760px, retains About, and uses bounded scrolling on very short screens. Mobile keeps its existing four-column layout.
 - Browser measurements: at 700px height About ended at 440px, above the taskbar at 642px; at 800px it ended at 658px, above 742px. At 420px the rail ended at 326px and scrolled above the taskbar at 362px. Mobile at 390px had no horizontal overflow. Capture: `.impeccable/review/shortcut-rail/700px.png`.
+
+## Full-width category header
+
+- Preserved the Windows titlebar as the first row. Moved the category icon/title/description beneath it, spanning the example sidebar and workspace. Removed sidebar search; Start and Ctrl/Cmd+K remain available.
+- Build passed with zero warnings/errors; seven navigation tests passed. All 20 canonical example routes plus partial rendering and About passed.
+- Browser review confirmed matching category-header/window widths, header directly below the titlebar, five canonical links, keyboard selection, Back/Forward, maximize above the taskbar and exact-example minimize/restore.
+- At 390px the header and window were both 370px wide with no horizontal overflow. At 1024x500 the workspace retained 242px of scrolling height and the titlebar remained 48px tall. Existing reduced-motion CSS remains active. Captures: `.impeccable/review/category-header/`.
+
+## Compact category header
+
+- Reduced desktop header padding to 16px vertically, title to 28px and icon to 44px. Descriptions may use up to 100ch; workspace padding is 24px.
+- At 1280x800 the Loops header is 97px tall, reclaiming about 56px compared with the previous desktop header; the workspace has 479px of height. At 390px the header still matches the window width and there is no horizontal overflow. Captures: `.impeccable/review/compact-header/`.
