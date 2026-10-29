@@ -75,3 +75,8 @@ The detector ran once before documentation reconciliation. Its advisories largel
 
 - Reduced desktop header padding to 16px vertically, title to 28px and icon to 44px. Descriptions may use up to 100ch; workspace padding is 24px.
 - At 1280x800 the Loops header is 97px tall, reclaiming about 56px compared with the previous desktop header; the workspace has 479px of height. At 390px the header still matches the window width and there is no horizontal overflow. Captures: `.impeccable/review/compact-header/`.
+
+## Wallpaper framing
+
+- Desktop uses centered `contain` sizing over the existing cobalt ground, preserving the complete wallpaper composition rather than enlarging and cropping it with `cover`. Portrait screens retain a focused cover crop at 65% horizontal position.
+- Reviewed desktop at 1280x800 and mobile at 390x844; mobile has no horizontal overflow. The raster is unchanged and retains its aspect ratio. Captures: `.impeccable/review/wallpaper-fit/`.

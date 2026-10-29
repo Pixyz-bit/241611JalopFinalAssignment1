@@ -177,7 +177,7 @@ At 720px and below, taskbar height becomes 64px plus the bottom safe-area inset,
 
 ## Elevation & Depth
 
-The bloom carries the sculptural material as a raster asset. The application, Start and search share one diffuse window shadow (0 20px 70px -14px rgb(3 17 43 / .48)). Taskbar glass uses a pale translucent fill and backdrop blur (24px); working and reading surfaces remain light and solid. Small app-icon, welcome-action and tooltip shadows support separation without a second shadow system.
+The bloom carries the sculptural material as a raster asset. Desktop wallpaper uses centered `contain` sizing over the cobalt ground so the complete landscape composition is visible without zoom cropping or distortion. Portrait layouts at 720px and below use `cover` with the focal position at 65% horizontally to keep the bloom visible. The application, Start and search share one diffuse window shadow (0 20px 70px -14px rgb(3 17 43 / .48)). Taskbar glass uses a pale translucent fill and backdrop blur (24px); working and reading surfaces remain light and solid. Small app-icon, welcome-action and tooltip shadows support separation without a second shadow system.
 
 Window entry lasts 220ms with the shared easing cubic-bezier(.16, 1, .3, 1), moving from a small downward offset and slight scale. Desktop hover changes are brief (140ms); welcome fades use 180ms. The reduced-motion media rule disables animation, transitions and smooth scrolling.
 

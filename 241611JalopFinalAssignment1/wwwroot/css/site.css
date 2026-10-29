@@ -26,8 +26,8 @@ button:active, summary:active { opacity: .8; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 .skip-link { position: fixed; z-index: 100; top: 12px; left: 12px; padding: 10px 16px; background: var(--paper); transform: translateY(-160%); border-radius: 4px; }
 .skip-link:focus { transform: none; }
-/* The authored wallpaper supplies the desktop material; the wash protects text contrast. */
-.desktop { min-height: 100dvh; background: linear-gradient(90deg, rgb(2 14 40 / .40), rgb(2 14 40 / .05)), url('../images/windows-bloom.webp') center / cover fixed; }
+/* Fit the complete wallpaper inside the viewport instead of enlarging and cropping it. */
+.desktop { min-height: 100dvh; background-color: #061a45; background-image: linear-gradient(90deg, rgb(2 14 40 / .40), rgb(2 14 40 / .05)), url('../images/windows-bloom.webp'); background-position: center; background-size: cover, contain; background-repeat: no-repeat; background-attachment: fixed; }
 .desktop-workspace { min-height: calc(100dvh - var(--taskbar-height)); position: relative; }
 /* Bound the shortcut rail above the taskbar; very short screens can scroll its links. */
 .desktop-apps { position: absolute; top: 24px; left: 20px; display: grid; grid-auto-rows: max-content; gap: 8px; width: 108px; max-height: calc(100dvh - var(--taskbar-height) - 48px); overflow-y: auto; scrollbar-width: thin; }
@@ -197,6 +197,8 @@ button:active, summary:active { opacity: .8; }
 /* On phones, desktop categories stay available and the sidebar becomes five numbered example links. */
 @media (max-width: 720px) {
     :root { --taskbar-height: calc(64px + env(safe-area-inset-bottom, 0px)); }
+    /* A portrait screen needs a crop; keep the bloom in view without stretching it. */
+    .desktop { background-size: cover; background-position: center, 65% center; }
     .taskbar { display: flex; justify-content: center; padding: 4px 8px calc(4px + env(safe-area-inset-bottom, 0px)); gap: 0; }
     .taskbar-brand, .taskbar-tray { display: none; }
     .taskbar-apps { gap: 3px; }
