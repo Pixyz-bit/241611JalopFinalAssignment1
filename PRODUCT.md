@@ -8,7 +8,7 @@ ASP.NET Core MVC targeting .NET 8. Razor, plain CSS and JavaScript; no React, No
 
 ## Confirmed requirements
 - Title: C# Programming Showcase.
-- Input/Output, Conditional, Repetition, Basic CRUD; five empty example slots each.
+- Input/Output, Nested If…Else, Loops, Arrays; five empty example slots each.
 - macOS-inspired blue mountain desktop, dimensional folders, translucent menu and dock.
 - One Finder-style window with category sidebar, example list and detail area.
 - Functional canonical URLs without JavaScript; enhanced browser navigation.

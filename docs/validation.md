@@ -35,7 +35,7 @@
 - Open category, choose example, change category and return to desktop.
 - Minimize and restore from active dock preserves the selected example.
 - Maximize/restore state updates correctly.
-- Search finds Repetition for “loop”; an unmatched query shows the empty state; close returns focus to the page.
+- Search finds Loops for “loop”; an unmatched query shows the empty state; close returns focus to the page.
 - Browser Back and Forward restore category/example routes.
 - No browser console errors observed in the checked navigation flow.
 - Desktop 1440×900, shorter desktop 1280×720, phone 390×844 and smaller phone 375×667 checked. No document horizontal overflow in checked portrait/desktop sizes; 375px category navigation fits without horizontal clipping.

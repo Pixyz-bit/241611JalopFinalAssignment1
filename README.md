@@ -24,4 +24,4 @@ With Node.js available, run `node --test tests/navigation.test.cjs` from the sol
 - [docs/assets.md](docs/assets.md): wallpaper provenance and font licensing.
 - [docs/validation.md](docs/validation.md): verification results.
 
-Input/Output, Conditional, Repetition and Basic CRUD each have Example 01–05. The example programming logic is intentionally left to the owner.
+Input/Output, Nested If…Else, Loops and Arrays each have Example 01–05. The example programming logic is intentionally left to the owner.

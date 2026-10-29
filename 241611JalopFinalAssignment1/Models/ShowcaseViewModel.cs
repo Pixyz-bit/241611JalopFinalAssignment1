@@ -16,9 +16,10 @@ public static class ConceptCatalog // A shared category list; static means no ne
     public static IReadOnlyList<ConceptCategory> Categories { get; } = Array.AsReadOnly(new[]
     {
         new ConceptCategory("input-output", "Input/Output", "Start a conversation with your program. Read input, work with values, and display the result.", "terminal", "cyan"),
-        new ConceptCategory("conditional", "Conditional", "Give your code a choice. Explore decisions, comparisons, and the paths a program can take.", "branch", "amber"),
-        new ConceptCategory("repetition", "Repetition", "Find the rhythm in your code. Explore loops and the things worth doing more than once.", "repeat", "violet"),
-        new ConceptCategory("basic-crud", "Basic CRUD", "Give your data a place to live. Explore creating, reading, updating, and deleting records.", "database", "mint")
+        // These names and URL slugs are reused by folders, navigation, search and example links.
+        new ConceptCategory("nested-if-else", "Nested If…Else", "Give your code a choice. Explore nested if…else statements and decisions within decisions.", "branch", "amber"),
+        new ConceptCategory("loops", "Loops", "Find the rhythm in your code. Explore loops and the things worth doing more than once.", "repeat", "violet"),
+        new ConceptCategory("arrays", "Arrays", "Keep related values together. Explore array elements, indexes, and working with collections of values.", "grid", "mint")
     });
     // Find a category by its URL slug; ? allows the input and result to be null.
     public static ConceptCategory? Find(string? slug)

@@ -89,7 +89,7 @@ test('a visited route is fetched once and its window stays mounted', async () =>
     const app = setup();
     await app.navigate('/concepts/input-output');
     const window = app.host.window;
-    await app.navigate('/concepts/conditional');
+    await app.navigate('/concepts/nested-if-else');
     assert.equal(app.host.window, window);
     await app.navigate('/concepts/input-output');
     assert.equal(app.host.window, window);
@@ -108,9 +108,9 @@ test('the initial server view and desktop need no additional request', async () 
 
 test('reselecting the active route neither fetches nor adds history', async () => {
     const app = setup();
-    await app.navigate('/concepts/repetition');
+    await app.navigate('/concepts/loops');
     const children = app.host.window.childNodes;
-    await app.navigate('/concepts/repetition');
+    await app.navigate('/concepts/loops');
     assert.equal(app.requests.length, 1);
     assert.equal(app.historyEntries.length, 1);
     assert.equal(app.host.window.childNodes, children);
@@ -119,8 +119,8 @@ test('reselecting the active route neither fetches nor adds history', async () =
 test('Back and Forward use cached content without creating history entries', async () => {
     const app = setup();
     await app.navigate('/concepts/input-output');
-    await app.navigate('/concepts/conditional');
-    for (const path of ['/concepts/input-output', '/concepts/conditional']) {
+    await app.navigate('/concepts/nested-if-else');
+    for (const path of ['/concepts/input-output', '/concepts/nested-if-else']) {
         app.location.pathname = path;
         await app.navigate(path, { push: false });
         assert.equal(app.host.window.dataset.category, path);
@@ -134,15 +134,15 @@ test('returning to the active route cancels an older pending tab change', async 
     await app.navigate('/concepts/input-output');
     let finish;
     app.queued.push(() => new Promise(resolve => { finish = resolve; }));
-    const pending = app.navigate('/concepts/conditional');
+    const pending = app.navigate('/concepts/nested-if-else');
     await app.navigate('/concepts/input-output');
     assert.equal(app.requests[1].signal.aborted, true);
-    finish({ ok: true, text: async () => markup('conditional') });
+    finish({ ok: true, text: async () => markup('nested-if-else') });
     await pending;
     assert.equal(app.location.pathname, '/concepts/input-output');
     assert.equal(app.host.window.dataset.category, '/concepts/input-output');
     assert.equal(app.fallbacks.length, 0);
-    await app.navigate('/concepts/conditional');
+    await app.navigate('/concepts/nested-if-else');
     assert.equal(app.requests.length, 3, 'aborted content must not poison the route cache');
 });
 
@@ -150,20 +150,20 @@ test('a late failed request cannot redirect away from a newer selection', async 
     const app = setup();
     let fail;
     app.queued.push(() => new Promise((resolve, reject) => { fail = reject; }));
-    const pending = app.navigate('/concepts/conditional');
-    await app.navigate('/concepts/basic-crud');
+    const pending = app.navigate('/concepts/nested-if-else');
+    await app.navigate('/concepts/arrays');
     fail(new Error('Older request failed'));
     await pending;
-    assert.equal(app.location.pathname, '/concepts/basic-crud');
+    assert.equal(app.location.pathname, '/concepts/arrays');
     assert.equal(app.fallbacks.length, 0);
 });
 
 test('failed routes fall back to the server and remain retryable', async () => {
     const app = setup();
     app.queued.push(async () => ({ ok: false, status: 503 }));
-    await app.navigate('/concepts/conditional');
-    assert.deepEqual(app.fallbacks, ['/concepts/conditional']);
-    await app.navigate('/concepts/conditional');
+    await app.navigate('/concepts/nested-if-else');
+    assert.deepEqual(app.fallbacks, ['/concepts/nested-if-else']);
+    await app.navigate('/concepts/nested-if-else');
     assert.equal(app.requests.length, 2);
-    assert.equal(app.host.window.dataset.category, '/concepts/conditional');
+    assert.equal(app.host.window.dataset.category, '/concepts/nested-if-else');
 });

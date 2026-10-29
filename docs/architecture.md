@@ -35,14 +35,14 @@ The existing wwwroot/lib starter libraries are retained but are not loaded by th
 - `/concepts/{category}/example-{number}`: one of five example slots.
 - `/about`: showcase information.
 
-Category slugs: input-output, conditional, repetition, basic-crud. Unknown categories and example numbers outside 1–5 return HTTP 404.
+Category slugs: input-output, nested-if-else, loops, arrays. Unknown categories and example numbers outside 1–5 return HTTP 404.
 
 ## Learning notes and code comments
 New or changed code should include brief beginner-friendly notes beside meaningful lines explaining what the line does or what unfamiliar syntax means. Use the appropriate comment syntax for C#, Razor, JavaScript or CSS. If an inline note makes a line difficult to read, put it immediately above that line. Keep notes accurate when changing code; reserve longer explanations for this document. Braces and other purely structural lines do not need individual comments.
 
 `Controllers/ConceptsController.cs` includes these routing notes beside the relevant code:
 - `[HttpGet]` means the action handles GET requests.
-- `{category}` captures a route value, such as `conditional`, from the URL.
+- `{category}` captures a route value, such as `nested-if-else`, from the URL.
 - `{example:int}` requires the captured example value to be an integer. The action separately checks that it is between 1 and 5.
 - `int?` means the C# parameter can contain an integer or `null`. The category-only route supplies no example number; the example route still requires its numbered segment.
 - `IActionResult` lets the action return different kinds of responses, including a full view, a partial view or HTTP 404.
