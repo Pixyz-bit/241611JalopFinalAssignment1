@@ -13,8 +13,6 @@ colors:
   desktop-ground: "#061a45"
   sidebar: "#eaf0f8"
   selection: "#e0edfa"
-  example-selection: "#e0edfc"
-  selection-ink: "#075b9f"
   sidebar-selected: "#d7e6f7"
   taskbar: "rgb(234 241 252 / .94)"
   start-panel: "#eef3fb"
@@ -75,7 +73,6 @@ rounded:
   app-icon-compact: "10px"
   app-icon-taskbar: "6px"
   window: "8px"
-  search-pill: "20px"
 spacing:
   xs: "4px"
   compact: "6px"
@@ -101,11 +98,6 @@ components:
   sidebar-link-selected:
     backgroundColor: "{colors.sidebar-selected}"
     rounded: "{rounded.control}"
-  example-tab-selected:
-    backgroundColor: "{colors.example-selection}"
-    textColor: "{colors.selection-ink}"
-    rounded: "{rounded.control}"
-    padding: "8px"
   status-pill:
     backgroundColor: "{colors.status}"
     textColor: "{colors.status-ink}"
@@ -154,14 +146,14 @@ The Windows direction is deliberate on `windows-design`; `main` retains the earl
 **Key Characteristics:**
 - Dark cobalt raster bloom with readable light desktop text.
 - Shared concept app icons, a centered taskbar app group and a left-aligned welcome.
-- One light application with brand titlebar, right caption controls, category navigation and five example tabs.
+- One light application with brand titlebar, right caption controls, five canonical example links in the sidebar.
 - Local Geist typography, canonical links and visible keyboard focus.
 
 ## Colors
 
-Application Blue marks interactive links, active indicators and focus. Soft Blue supports the About emblem. Cyan, amber, violet and mint gradients give the four concepts consistent app identities across desktop, Start, search, taskbar and page headings.
+Application Blue marks interactive links, active indicators and focus. Soft Blue supports the About emblem. Blue/charcoal, amber, violet and teal artwork gives the four concepts consistent app identities across desktop, Start, search, taskbar and page headings.
 
-The light workspace uses Paper for detail, Surface for the application ground and empty interfaces, Sidebar for navigation, Line for pane boundaries, and dark Ink with Muted supporting text. Selection and Sidebar Selected distinguish example tabs and category navigation. Taskbar is deliberately translucent; Start Panel remains a readable pale surface.
+The light workspace uses Paper for detail, Surface for the application ground and empty interfaces, Sidebar for navigation, Line for pane boundaries, and dark Ink with Muted supporting text. Sidebar Selected marks the current example with a pale fill and blue leading indicator. Taskbar is deliberately translucent; Start Panel remains a readable pale surface.
 
 **The Readable Desktop Rule.** Check light labels against the wallpaper beneath them; an average image color cannot establish text contrast.
 
@@ -175,11 +167,11 @@ Category headings use a responsive size (clamp(26px, 2.5vw, 34px)), weight (600)
 
 ## Layout
 
-Desktop shortcuts form a left rail (108px wide); the welcome begins at 20% of viewport width. The taskbar spans the full bottom edge and uses three columns to center Start, search and category shortcuts independently of the brand and clock. Its desktop height is defined by the frontmatter taskbar component.
+Desktop shortcuts form a left rail (108px wide); the welcome begins at 20% of viewport width. The taskbar spans the full bottom edge and uses three columns to center Start and category shortcuts independently of the brand and clock. Its desktop height is defined by the frontmatter taskbar component.
 
-The ordinary application window reserves the shortcut rail and taskbar: top max(24px, 6vh), left max(146px, (100vw - 1150px) / 2), right max(32px, (100vw - 1280px) / 2), bottom taskbar height + max(28px, 5vh). Its sidebar/main columns are 218px / flexible, becoming 194px / flexible at 1100px. The main content scrolls within the bounded window. A category heading leads into five equal-width canonical example tabs and an overview or example workspace.
+The ordinary application window reserves the shortcut rail and taskbar: top max(24px, 6vh), left max(146px, (100vw - 1150px) / 2), right max(32px, (100vw - 1280px) / 2), bottom taskbar height + max(28px, 5vh). Its sidebar/main columns are 218px / flexible, becoming 194px / flexible at 1100px. The main content scrolls within the bounded window. The sidebar selects Example 1 through Example 5; a category heading leads directly into an overview or example workspace.
 
-At 720px and below, taskbar height becomes 64px plus the bottom safe-area inset, the tray/brand disappear, home app shortcuts form four columns, and the application sits 10px from the sides and 12px above the taskbar. Category navigation becomes two columns; all five examples remain visible in a numbered strip. Caption, taskbar, search and category controls use at least 44px mobile targets. At 360px and below, About stays available in Start while its taskbar shortcut hides to preserve control width. Short-height rules at 680px and 500px reduce spacing while keeping content panes scrollable.
+At 720px and below, taskbar height becomes 64px plus the bottom safe-area inset, the tray/brand disappear, home app shortcuts form four columns, and the application sits 10px from the sides and 12px above the taskbar. The example sidebar becomes a row of five numbered targets; About retains a two-column category menu. Caption, taskbar, search and category controls use at least 44px mobile targets. At 360px and below, About stays available in Start while its taskbar shortcut hides to preserve control width. At desktop heights up to 760px the shortcut rail uses compact icons and hides counts while retaining About. The rail is bounded above the taskbar and scrolls when necessary. Rules at 500px further reduce application spacing.
 
 **The Persistent Taskbar Rule.** The maximized application fills the viewport above the taskbar; the taskbar remains visible and never covers application content.
 
@@ -193,25 +185,25 @@ Window entry lasts 220ms with the shared easing cubic-bezier(.16, 1, .3, 1), mov
 
 ## Shapes
 
-Compact controls and example tabs use small corners; windows and dialogs use the window radius. Search in the taskbar uses a pill silhouette, while working search fields keep compact control corners. Concept badges use a rounded square (58px, radius 12px) with a CSS gradient and the existing SVG category glyph. Start uses 46px badges with 10px corners; taskbar uses 28px badges with 6px corners; search uses 36px badges with 8px corners. Maximized application windows have square corners.
+Compact controls and sidebar links use small corners; windows and dialogs use the window radius. Search fields keep compact control corners; the taskbar has no search bar. The four approved category icons use original transparent PNG artwork inspired by layered Windows Fluent app icons. Each image retains its own silhouette, shading and transparent margins without an added tile or CSS shadow. Containers are 58px on the desktop, 46px in Start, 28px in the taskbar and 36px in search; responsive rules adjust their size. About retains its existing code badge. Maximized application windows have square corners.
 
 ## Components
 
 ### Application icons and welcome
 
-Desktop app shortcuts are canonical category anchors with visible names and counts. The shared _ConceptIcon partial wraps each category glyph in a consistent gradient badge. Hover and the active category use a subtle pale wash and border. Light focus outlines remain visible on the dark wallpaper. The welcome action opens Input/Output directly.
+Desktop app shortcuts are canonical category anchors with visible names and counts. The shared _ConceptIcon partial loads the category PNG by its canonical slug, with a versioned asset URL. The approved terminal, branching paths, repeat arrows and data grid use simple layered forms and restrained shading. Exact generation prompts and asset paths are recorded in docs/icon-preview-prompts.json. Hover and the active category use a subtle pale wash and border. Light focus outlines remain visible on the dark wallpaper. The welcome action opens Input/Output directly.
 
 ### Taskbar and Start
 
-The taskbar groups Start, search, four categories and About, with active blue indicators and hover/keyboard tooltips. The clock displays local time and date when enhanced by JavaScript. Start uses native details/summary so its canonical links remain usable without JavaScript; enhancement dismisses it on outside click, Escape or link selection. Escape returns focus to Start.
+The taskbar groups Start, four categories and About, with active blue indicators and hover/keyboard tooltips. The clock displays local time and date when enhanced by JavaScript. Start uses native details/summary so its canonical links remain usable without JavaScript; enhancement dismisses it on outside click, Escape or link selection. Escape returns focus to Start.
 
-### Application shell and example tabs
+### Application shell and example navigation
 
-A brand titlebar and right-aligned minimize/maximize/close controls sit above category navigation and one main content area. The sidebar contains concept search, category links and About/Desktop utilities. A shared app badge, category title and description lead into five numbered canonical example tabs. Selected categories show a blue leading mark; selected example tabs use the selection fill, border and blue underline. The workspace groups honest Description, Interface and Output sections without file-browser chrome or filename suffixes. Minimize retains the current example, and its active taskbar shortcut restores that exact view. Close returns to the desktop. Maximize retains access to the taskbar.
+A brand titlebar and right-aligned minimize/maximize/close controls sit above example navigation and one main content area. The sidebar contains concept search, Example 1 through Example 5, and About/Desktop utilities. About retains category links because it has no current category. A shared app badge, category title and description lead directly into the workspace. The selected example uses a pale fill and blue leading mark. The workspace groups honest Description, Interface and Output sections without file-browser chrome or filename suffixes. Minimize retains the current example, and its active taskbar shortcut restores that exact view. Close returns to the desktop. Maximize retains access to the taskbar.
 
 ### Search
 
-Native dialog supplies modal focus containment. A visible label, blue focus treatment, local filtering, canonical result links, explicit close control and empty state support the task. Ctrl/Cmd+K opens it; Escape closes it. Dismissal returns focus to the taskbar search control.
+Native dialog supplies modal focus containment. A visible label, blue focus treatment, local filtering, canonical result links, explicit close control and empty state support the task. Ctrl/Cmd+K opens it; Escape closes it. Dismissal returns focus to Start. Search remains available in Start, the desktop application sidebar and Ctrl/Cmd+K.
 
 ### Empty examples
 

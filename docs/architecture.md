@@ -48,7 +48,7 @@ New or changed code should include brief beginner-friendly notes beside meaningf
 - `IActionResult` lets the action return different kinds of responses, including a full view, a partial view or HTTP 404.
 
 ## Shared application surfaces
-`Views/Shared/_ShowcaseWindow.cshtml` owns the brand titlebar, category sidebar, five example tabs and the scrollable overview/example workspace. `Views/Shared/_ConceptIcon.cshtml` wraps an existing SVG category glyph in a reusable CSS gradient badge; desktop, Start, search, taskbar and category headings share it. There is no address path, file list or filename suffix.
+`Views/Shared/_ShowcaseWindow.cshtml` owns the brand titlebar, sidebar example links and the scrollable overview/example workspace. `Views/Shared/_ConceptIcon.cshtml` loads the approved transparent PNG from `wwwroot/images/concepts/<slug>.png` with cache versioning; desktop, Start, search, taskbar and category headings share it. There is no address path, file list or filename suffix.
 
 ## Rendering and navigation
 All canonical URLs render complete Razor pages. Requests with `X-Showcase-Partial: true` return only the _ShowcaseWindow partial. JavaScript enhances same-origin links and pushes browser history. The initial view and desktop are cached immediately; each other route is fetched once on its first visit and kept in memory until the page reloads. Back/Forward and repeated tab selections reuse the cached view. Clicking the already active route does nothing.

@@ -108,7 +108,7 @@
 
     function openSearch() {
         if (startMenu) startMenu.open = false; // Keep Start and search from covering one another.
-        document.querySelector('.taskbar-search')?.focus(); // Give dialog dismissal a visible control to return focus to.
+        startMenu?.querySelector('summary')?.focus(); // Return focus to Start when search closes; the taskbar search bar was removed.
         if (!dialog.open) dialog.showModal();
         input.focus();
     }

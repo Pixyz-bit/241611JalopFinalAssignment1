@@ -42,3 +42,24 @@ The detector ran once before documentation reconciliation. Its advisories largel
 - `.impeccable/review/windows-contact.jpg`: contact sheet.
 - `.impeccable/review/windows-review.md`: independent disposition, evidence and scope.
 - `docs/design-brief.md`: approved direction, modes and recorded `seed:0ef4e066c55ebfc6`.
+
+## Example sidebar and taskbar refinement
+
+- Replaced category links inside a concept application with its five canonical example links and removed duplicate content tabs. About retains category navigation.
+- Removed the taskbar search bar. Start, sidebar search and Ctrl/Cmd+K remain available; search dismissal returns focus to Start.
+- Build passed with zero warnings/errors using an isolated output directory; all seven navigation tests passed.
+- Browser checks covered keyboard selection, Back/Forward, search dismissal, exact-example minimize/restore and desktop/mobile rendering. At 390px all five links were at least 69 by 44px, with no horizontal overflow. Captures are in `.impeccable/review/sidebar/`.
+- Generated icon proposals remain preview-only until explicit user approval.
+- The detector reported existing font and palette/type-ramp advisories; this refinement preserves the approved visual system.
+
+## Approved Fluent category artwork
+
+- Applied the four user-approved generated PNGs through the shared category icon partial; source alpha is preserved and no enclosing CSS tile or shadow is added. About keeps its code badge.
+- Build passed with zero warnings/errors; all seven navigation tests passed.
+- Browser review confirmed loaded, versioned assets on desktop, Start, taskbar, search and category headings. At 390px there were no broken icons or horizontal overflow. Screenshots are in `.impeccable/review/approved-icons/`.
+- Exact prompts, approval status and public asset paths are recorded in `docs/icon-preview-prompts.json`.
+
+## Desktop shortcut rail bounds
+
+- Fixed About overlapping the taskbar at intermediate desktop heights. Compact rail spacing now begins at 760px, retains About, and uses bounded scrolling on very short screens. Mobile keeps its existing four-column layout.
+- Browser measurements: at 700px height About ended at 440px, above the taskbar at 642px; at 800px it ended at 658px, above 742px. At 420px the rail ended at 326px and scrolled above the taskbar at 362px. Mobile at 390px had no horizontal overflow. Capture: `.impeccable/review/shortcut-rail/700px.png`.

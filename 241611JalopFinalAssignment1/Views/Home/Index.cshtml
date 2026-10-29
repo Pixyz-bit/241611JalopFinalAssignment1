@@ -44,7 +44,6 @@
                     <div class="start-footer"><span><svg class="icon"><use href="#icon-code" /></svg> C# Programming</span><a href="/" data-navigate>Show desktop <svg class="icon"><use href="#icon-home" /></svg></a></div>
                 </div>
             </details>
-            <button class="taskbar-search" data-search-open type="button" aria-label="Search concepts"><svg class="icon"><use href="#icon-search" /></svg><span>Search</span><kbd>Ctrl K</kbd></button>
             @foreach (var category in ConceptCatalog.Categories)
             {
                 <a class="taskbar-item" href="/concepts/@category.Slug" data-navigate data-category="@category.Slug" aria-label="@category.Name"><partial name="_ConceptIcon" model="category" /><span class="taskbar-tooltip">@category.Name</span><span class="taskbar-indicator"></span></a>

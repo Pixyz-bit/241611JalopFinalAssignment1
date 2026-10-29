@@ -13,12 +13,24 @@
             </div>
         </header>
         <div class="app-body">
-            <nav class="app-sidebar" aria-label="Categories">
+            <nav class="app-sidebar @(Model.Category is not null ? "examples-sidebar" : "")" aria-label="@(Model.Category is not null ? $"{Model.Category.Name} examples" : "Categories")">
                 <button class="app-search" data-search-open type="button" aria-label="Search concepts"><svg class="icon" aria-hidden="true"><use href="#icon-search" /></svg><span>Search concepts</span><kbd>Ctrl K</kbd></button>
-                <p class="sidebar-caption">Concepts</p>
-                @foreach (var category in ConceptCatalog.Categories)
+                <p class="sidebar-caption">@(Model.Category is not null ? "Examples" : "Concepts")</p>
+                @if (Model.Category is not null)
                 {
-                    <a href="/concepts/@category.Slug" class="sidebar-link @(category == Model.Category ? "is-selected" : "")" data-navigate aria-current="@(category == Model.Category ? "page" : null)"><svg class="icon sidebar-icon-@category.Accent" aria-hidden="true"><use href="#icon-@category.Icon" /></svg><span>@category.Name</span></a>
+                    @* Each sidebar entry opens an example in the current category using a real MVC route. *@
+                    @for (var number = 1; number <= 5; number++)
+                    {
+                        <a href="/concepts/@Model.Category.Slug/example-@number" class="sidebar-link sidebar-example @(number == Model.Example ? "is-selected" : "")" data-navigate aria-current="@(number == Model.Example ? "page" : null)"><svg class="icon" aria-hidden="true"><use href="#icon-code" /></svg><span><span class="sidebar-example-word">Example </span>@number</span></a>
+                    }
+                }
+                else
+                {
+                    @* About has no selected category, so it keeps category shortcuts available. *@
+                    @foreach (var category in ConceptCatalog.Categories)
+                    {
+                        <a href="/concepts/@category.Slug" class="sidebar-link" data-navigate><svg class="icon" aria-hidden="true"><use href="#icon-@category.Icon" /></svg><span>@category.Name</span></a>
+                    }
                 }
                 <div class="sidebar-utilities">
                     <a href="/about" class="sidebar-link @(Model.IsAbout ? "is-selected" : "")" data-navigate aria-current="@(Model.IsAbout ? "page" : null)"><svg class="icon" aria-hidden="true"><use href="#icon-info" /></svg><span>About this app</span></a>
@@ -43,13 +55,6 @@
                         <partial name="_ConceptIcon" model="Model.Category!" />
                         <div><h3 id="detail-title">@Model.Category!.Name</h3><p>@Model.Category.Description</p></div>
                     </header>
-                    @* Each example is a real route; JavaScript only enhances these app tabs. *@
-                    <div class="example-selector"><span class="example-selector-label">Examples</span><nav class="example-tabs" aria-label="@Model.Category.Name examples">
-                        @for (var number = 1; number <= 5; number++)
-                        {
-                            <a href="/concepts/@Model.Category.Slug/example-@number" class="example-tab @(number == Model.Example ? "is-selected" : "")" data-navigate aria-current="@(number == Model.Example ? "page" : null)" aria-label="Example @number.ToString("00"), not implemented yet"><span class="example-word">Example </span>@number.ToString("00")</a>
-                        }
-                    </nav></div>
                     @if (Model.Example.HasValue)
                     {
                         <div class="example-workspace">
@@ -62,7 +67,7 @@
                     }
                     else
                     {
-                        <div class="category-intro"><svg class="icon" aria-hidden="true"><use href="#icon-code" /></svg><div><h4>Choose an example to get started</h4><p>Five example slots are ready for your ideas. Select an example above to open its description, interface, and output.</p><a class="primary-link" href="/concepts/@Model.Category.Slug/example-1" data-navigate>Open Example 01 <svg class="icon" aria-hidden="true"><use href="#icon-arrow" /></svg></a></div></div>
+                        <div class="category-intro"><svg class="icon" aria-hidden="true"><use href="#icon-code" /></svg><div><h4>Choose an example to get started</h4><p>Five example slots are ready for your ideas. Select an example in the navigation to open its description, interface, and output.</p><a class="primary-link" href="/concepts/@Model.Category.Slug/example-1" data-navigate>Open Example 01 <svg class="icon" aria-hidden="true"><use href="#icon-arrow" /></svg></a></div></div>
                     }
                 </section>
             }

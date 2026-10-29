@@ -8,7 +8,7 @@ The user explicitly approved a Windows 11 inspired replacement on `windows-desig
 - **OWN-WORLD:** original dark cobalt bloom raster, shared gradient concept app badges, pale taskbar glass, a compact light Windows application and the existing self-hosted Geist face with Segoe UI fallback.
 - **STORY:** desktop → category overview → one of five clearly unimplemented example templates. Ordinary links and browser history remain meaningful.
 - **FIRST VIEWPORT:** left shortcut rail and left-aligned C# Programming Showcase welcome; persistent full-width taskbar with centered Start/search/category shortcuts and a two-line clock. No irrelevant system apps.
-- **FORM:** one application window with brand titlebar, right caption controls, category sidebar, category heading, five canonical example tabs and Description/Interface/Output workspace. Maximization fills the space above the visible taskbar. Mobile reflows categories into two columns and examples into five numbered targets. The recorded direction roll is `seed:0ef4e066c55ebfc6`; the user's pinned Windows metaphor overrides alternative worlds.
+- **FORM:** one application window with brand titlebar, right caption controls, sidebar with five canonical example links, category heading and Description/Interface/Output workspace. Maximization fills the space above the visible taskbar. Mobile reflows categories into two columns and examples into five numbered targets. The recorded direction roll is `seed:0ef4e066c55ebfc6`; the user's pinned Windows metaphor overrides alternative worlds.
 - **SIGNATURE:** minimize retains the current example and its active taskbar shortcut restores that exact example; About navigation must not restore a different minimized category.
 
 ## Modes
