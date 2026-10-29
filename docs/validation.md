@@ -80,3 +80,8 @@ The detector ran once before documentation reconciliation. Its advisories largel
 
 - Desktop uses centered `contain` sizing over the existing cobalt ground, preserving the complete wallpaper composition rather than enlarging and cropping it with `cover`. Portrait screens retain a focused cover crop at 65% horizontal position.
 - Reviewed desktop at 1280x800 and mobile at 390x844; mobile has no horizontal overflow. The raster is unchanged and retains its aspect ratio. Captures: `.impeccable/review/wallpaper-fit/`.
+
+## User-supplied wallpaper replacement
+
+- Replaced the generated bloom with the user-supplied `windows-wallpaper.png`. Restored centered `cover` sizing on desktop and phone, removing the empty bands introduced by `contain`. No image stretching or extra zoom scale is used.
+- Visual checks passed at approximately 1917x866 and 390x844: the wallpaper reaches every edge with no horizontal overflow. Captures: `.impeccable/review/supplied-wallpaper/`. This supersedes the earlier Wallpaper framing entry.

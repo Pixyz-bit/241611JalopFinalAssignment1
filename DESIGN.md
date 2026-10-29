@@ -139,7 +139,7 @@ components:
 
 **Creative North Star: "A desktop for curious minds."**
 
-The approved Windows 11 inspired world pairs an original cobalt bloom wallpaper with colored application badges, a full-width translucent taskbar and a light Windows application workspace. Desktop familiarity invites exploration; compact application typography keeps the examples easy to navigate.
+The approved Windows 11 inspired world pairs the user-supplied blue Windows wallpaper with colored application badges, a full-width translucent taskbar and a light Windows application workspace. Desktop familiarity invites exploration; compact application typography keeps the examples easy to navigate.
 
 The Windows direction is deliberate on `windows-design`; `main` retains the earlier macOS version. The user-approved metaphor and existing MVC implementation govern this system. Surface composition and visitor modes live in docs/design-brief.md.
 
@@ -177,7 +177,7 @@ At 720px and below, taskbar height becomes 64px plus the bottom safe-area inset,
 
 ## Elevation & Depth
 
-The bloom carries the sculptural material as a raster asset. Desktop wallpaper uses centered `contain` sizing over the cobalt ground so the complete landscape composition is visible without zoom cropping or distortion. Portrait layouts at 720px and below use `cover` with the focal position at 65% horizontally to keep the bloom visible. The application, Start and search share one diffuse window shadow (0 20px 70px -14px rgb(3 17 43 / .48)). Taskbar glass uses a pale translucent fill and backdrop blur (24px); working and reading surfaces remain light and solid. Small app-icon, welcome-action and tooltip shadows support separation without a second shadow system.
+The bloom carries the sculptural material as a raster asset. Desktop wallpaper uses centered `cover` sizing to fill every viewport edge without empty bands or distortion. This is the smallest proportional scale that covers the screen; some edge cropping is necessary when the screen and image aspect ratios differ. Portrait layouts also use centered `cover` sizing. The active asset is `wwwroot/images/windows-wallpaper.png`, supplied by the user; the earlier generated bloom remains unused. The application, Start and search share one diffuse window shadow (0 20px 70px -14px rgb(3 17 43 / .48)). Taskbar glass uses a pale translucent fill and backdrop blur (24px); working and reading surfaces remain light and solid. Small app-icon, welcome-action and tooltip shadows support separation without a second shadow system.
 
 Window entry lasts 220ms with the shared easing cubic-bezier(.16, 1, .3, 1), moving from a small downward offset and slight scale. Desktop hover changes are brief (140ms); welcome fades use 180ms. The reduced-motion media rule disables animation, transitions and smooth scrolling.
 
@@ -219,6 +219,6 @@ Use the neutral status pill and dashed interface container to explain that the s
 
 ### Don't:
 - **Don't** import React or introduce a frontend build pipeline into this MVC template.
-- **Don't** replace the authored bloom with CSS sculpture or use purchased operating-system assets.
+- **Don't** replace the approved user-supplied wallpaper with CSS sculpture.
 - **Don't** cover the persistent taskbar when maximizing the application.
 - **Don't** replace honest empty examples with invented execution or persistence.
