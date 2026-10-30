@@ -72,7 +72,9 @@ button:active, summary:active { opacity: .8; }
 .show-desktop { width: 8px; align-self: stretch; border-left: 1px solid #b5c2d4; margin-right: -15px; }
 .show-desktop:hover { background: #cfddf0; }
 /* Start is a real navigation panel, rather than a nonfunctional system imitation. */
-.start-panel { position: fixed; bottom: calc(var(--taskbar-height) + 10px); left: 50%; transform: translateX(-50%); width: min(580px, calc(100vw - 24px)); max-height: calc(100dvh - 90px); overflow-y: auto; background: #eef3fb; border-radius: 8px; padding: 30px 34px 0; box-shadow: var(--window-shadow); }
+/* Resize the panel itself so its contents keep their smaller, natural text and icon sizes. */
+.start-panel { position: fixed; bottom: calc(var(--taskbar-height) + 10px); left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; width: min(var(--start-panel-width, 580px), calc(100vw - 24px)); height: var(--start-panel-height, auto); max-height: calc(100dvh - var(--taskbar-height) - 22px); overflow-y: auto; background: #eef3fb; border-radius: 8px; padding: 30px 34px 0; box-shadow: var(--window-shadow); }
+.start-panel > * { flex-shrink: 0; } /* Short screens scroll instead of squeezing the controls. */
 .start-panel h2 { margin: 0 0 20px; font-size: 18px; font-weight: 600; }
 .start-search { display: flex; gap: 12px; align-items: center; width: 100%; min-height: 44px; text-align: left; padding: 10px 14px; border: 1px solid #bac6d6; border-bottom: 2px solid var(--blue); border-radius: 5px; background: var(--paper); color: var(--muted); }
 .start-heading { display: flex; align-items: center; justify-content: space-between; margin: 24px 0 12px; }
@@ -87,7 +89,7 @@ button:active, summary:active { opacity: .8; }
 .start-recommended > a:hover { background: #e0e9f7; }
 .start-recommended .icon { color: var(--blue); width: 28px; height: 28px; }
 .start-recommended small { display: block; color: var(--muted); font-size: 11px; }
-.start-footer { display: flex; justify-content: space-between; gap: 12px; margin: 0 -34px; padding: 16px 30px; background: #e1e9f6; font-size: 12px; }
+.start-footer { display: flex; justify-content: space-between; gap: 12px; margin: auto -34px 0; padding: 16px 30px; background: #e1e9f6; font-size: 12px; } /* Auto top margin keeps the footer at the bottom of a taller panel. */
 .start-footer > span, .start-footer a { display: flex; gap: 10px; align-items: center; }
 /* Reusable vector app badges replace folder artwork on every navigation surface. */
 .app-icon { --app-top: #159acb; --app-bottom: #0b5ba9; display: inline-grid; place-items: center; flex: 0 0 auto; width: 58px; height: 58px; border-radius: 12px; color: #f7fbff; background: linear-gradient(145deg, var(--app-top), var(--app-bottom)); box-shadow: inset 0 1px 0 rgb(245 251 255 / .4), 0 5px 10px -4px rgb(3 20 50 / .4); }

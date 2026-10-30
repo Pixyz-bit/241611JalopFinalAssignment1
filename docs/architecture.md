@@ -57,6 +57,8 @@ Switching categories, examples or About keeps the outer application element moun
 
 The route cache is suitable for the current read-only template. When adding real CRUD or other changing server data, explicitly invalidate affected cached routes after successful mutations, or opt those views out of caching; do not serve stale records or cache POST responses.
 
+`fitStartPanel` resets and measures Start's natural width and content height when it opens, the viewport resizes, or fonts finish loading. It chooses the smaller available-width/available-height ratio and writes CSS width and height variables for the outer panel. This preserves the panel's proportions while its text, icons, controls and padding keep their natural sizes. A column flex layout and automatic top margin hold the footer at the bottom. A minimum sizing factor of 1 preserves small-screen control sizes; CSS constrains the panel height and allows scrolling when content cannot fit.
+
 ## Adding your examples
 1. Give examples real titles/descriptions in a typed view model, keyed by category and number.
 2. Add each example's UI as a Razor partial beneath `Views/Concepts/<Category>/` when that real example exists. Select it within the shared application workspace; retain the shared shell.

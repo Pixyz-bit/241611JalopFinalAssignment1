@@ -1,28 +1,27 @@
 using System.Diagnostics;
-using _241611JalopFinalAssignment1.Models; // Makes this project's model types available here.
-using Microsoft.AspNetCore.Mvc; // Provides Controller, IActionResult and MVC attributes.
+using _241611JalopFinalAssignment1.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace _241611JalopFinalAssignment1.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger; // Stores a logger for this controller; readonly prevents reassignment after construction.
-
-        public HomeController(ILogger<HomeController> logger) // Constructor: ASP.NET Core supplies the logger automatically (dependency injection).
+        private readonly ILogger<HomeController> _logger;
+        public HomeController(ILogger<HomeController> logger) // ASP.NET Core supplies this controller's logger automatically.
         {
             _logger = logger; // Keep the supplied logger so controller methods can use it.
         }
 
-        public IActionResult Index() // Handles the desktop route (/); IActionResult allows different kinds of responses.
+        public IActionResult Index() // Shows the desktop page (/); IActionResult allows different kinds of responses.
         {
-            var model = new ShowcaseViewModel(); // Default values select the desktop with no open window.
-            if (Request.Headers["X-Showcase-Partial"] == "true") // Check whether JavaScript requested only the window content.
-                return PartialView("_ShowcaseWindow", model); // Render without the page layout; the desktop model produces no window HTML.
+            var model = new ShowcaseViewModel(); // The default model selects the desktop without an open window.
+            if (Request.Headers["X-Showcase-Partial"] == "true") // Enhanced navigation requests only the shared window markup.
+                return PartialView("_ShowcaseWindow", model); // Use the existing partial; the desktop model renders no open window.
             return View(model); // Render Views/Home/Index.cshtml with this model and the shared layout.
         }
 
         [HttpGet("about")] // A GET request to /about calls the method below.
-        public IActionResult About() // Prepares the About window.
+        public IActionResult About() // Shows the About window.
         {
             var model = new ShowcaseViewModel(IsAbout: true); // Named argument: set IsAbout to true and keep the other defaults.
             if (Request.Headers["X-Showcase-Partial"] == "true") // Enhanced navigation needs only part of the page.

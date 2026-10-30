@@ -14,6 +14,26 @@
     let minimized = false;
     let lastWindowUrl = null;
 
+    function fitStartPanel() {
+        if (!startMenu?.open) return; // Closed details have no measurable panel; fit when Start opens.
+        const panel = startMenu.querySelector('.start-panel');
+        panel.style.removeProperty('--start-panel-width'); // Reset the outer size before measuring the natural responsive layout.
+        panel.style.removeProperty('--start-panel-height');
+        const naturalBounds = panel.getBoundingClientRect(); // Preserve fractional pixels so rounding cannot introduce a scrollbar.
+        const naturalWidth = naturalBounds.width;
+        const naturalHeight = Math.max(panel.scrollHeight, naturalBounds.height); // Include content that scrolls on short screens.
+        const bottom = parseFloat(getComputedStyle(panel).bottom); // The CSS offset already reserves the taskbar and its gap.
+        const availableHeight = window.innerHeight - bottom - 12; // Leave a small margin at the top of the viewport.
+        // The smaller ratio fits both axes; keeping at least 1 preserves readable controls on small screens.
+        const scale = Math.max(1, Math.min((window.innerWidth - 24) / naturalWidth, availableHeight / naturalHeight));
+        panel.style.setProperty('--start-panel-width', `${naturalWidth * scale}px`); // Enlarge only the box, preserving its width-to-height ratio.
+        panel.style.setProperty('--start-panel-height', `${naturalHeight * scale}px`); // Text, icons and controls keep their natural CSS sizes.
+    }
+
+    startMenu?.addEventListener('toggle', fitStartPanel); // Measure after native details reveals its contents.
+    window.addEventListener('resize', fitStartPanel); // Refit an open panel when the viewport or browser zoom changes.
+    document.fonts?.ready.then(fitStartPanel); // Font loading can change the panel's natural height.
+
     function syncDesktop() {
         const windowElement = host.querySelector('[data-window]');
         const category = windowElement?.dataset.category;
