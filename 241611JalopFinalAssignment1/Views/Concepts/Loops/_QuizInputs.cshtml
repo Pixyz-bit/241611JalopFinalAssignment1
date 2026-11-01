@@ -1,0 +1,14 @@
+@model QuizRetryViewModel
+<input asp-for="StateToken" type="hidden" />
+<span asp-validation-for="StateToken" id="round-error" class="temperature-errors"></span>
+<p id="quiz-question" class="loop-question">@Model.Question.Prompt</p>
+<label asp-for="Answer">Your answer</label>
+<select asp-for="Answer" required disabled="@Model.IsFinished" class="example-input" aria-invalid="@(ViewData.ModelState[nameof(Model.Answer)]?.Errors.Count > 0 ? "true" : null)" aria-describedby="quiz-question answer-help answer-error">
+    <option value="">Choose an answer</option>
+    @for (var index = 0; index < Model.Question.Options.Length; index++)
+    {
+        <option value="@index">@Model.Question.Options[index]</option>
+    }
+</select>
+<span asp-validation-for="Answer" id="answer-error" class="temperature-errors"></span>
+<p id="answer-help" class="example-hint">@Model.AttemptsRemaining of @Model.AttemptLimit attempts remaining. Choose New quiz for a fresh round.</p>

@@ -3,9 +3,9 @@ document.addEventListener('input', event => {
     if (!(event.target instanceof Element)) return;
     const form = event.target.closest('[data-example-form]');
     if (!form) return;
-    if (form.closest('.nested-example')) {
+    if (form.closest('.nested-example, .loop-example')) {
         // A changed field no longer belongs to the server's previous validation message.
-        const summary = form.querySelector('[data-decision-errors]');
+        const summary = form.querySelector('[data-decision-errors], [data-loop-errors]');
         if (summary) summary.hidden = true;
         const errorId = event.target.getAttribute('aria-describedby');
         const error = errorId ? document.getElementById(errorId) : null;

@@ -2,6 +2,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+// Both GET and POST controllers use the same protected round format.
+builder.Services.AddSingleton<_241611JalopFinalAssignment1.Services.LoopRoundTokens>();
 
 var app = builder.Build();
 

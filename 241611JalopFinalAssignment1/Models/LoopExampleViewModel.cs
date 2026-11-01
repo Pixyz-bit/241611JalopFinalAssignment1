@@ -32,11 +32,11 @@ public sealed class PyramidViewModel : LoopExampleViewModel
 
     [Required(ErrorMessage = "Enter the number of rows.")]
     [Range(1, 20, ErrorMessage = "Choose between 1 and 20 rows.")]
-    public int? Rows { get; set; } = 5;
+    public int? Rows { get; set; }
 
     [Required(ErrorMessage = "Enter a symbol.")]
     [RegularExpression("^[!-~]$", ErrorMessage = "Use one printable keyboard symbol or letter, without spaces.")]
-    public string? Symbol { get; set; } = "*";
+    public string? Symbol { get; set; }
 }
 
 public sealed class SumDigitsViewModel : LoopExampleViewModel

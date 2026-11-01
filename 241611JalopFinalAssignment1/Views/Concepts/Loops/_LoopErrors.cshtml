@@ -6,7 +6,7 @@
         <ul>
             @foreach (var field in ViewData.ModelState)
             {
-                @foreach (var error in field.Value.Errors) { <li><a href="#@field.Key">@error.ErrorMessage</a></li> }
+                @foreach (var error in field.Value.Errors) { <li><a href="@(field.Key == "StateToken" ? "#loop-reset" : $"#{field.Key}")">@error.ErrorMessage</a></li> }
             }
         </ul>
     </div>

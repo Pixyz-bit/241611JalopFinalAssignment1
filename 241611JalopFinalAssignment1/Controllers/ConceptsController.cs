@@ -1,9 +1,11 @@
 using _241611JalopFinalAssignment1.Models;
 using Microsoft.AspNetCore.Mvc;
+using _241611JalopFinalAssignment1.Services;
+using System.Security.Cryptography;
 
 namespace _241611JalopFinalAssignment1.Controllers;
 
-public sealed class ConceptsController : Controller
+public sealed class ConceptsController(LoopRoundTokens roundTokens) : Controller
 {
     [HttpGet("concepts/{category}")] // Handles GET requests; {category} captures the category (page name) from the URL.
     [HttpGet("concepts/{category}/example-{example:int}")] // Handles GET requests; {example:int} requires an integer example number.
@@ -21,9 +23,11 @@ public sealed class ConceptsController : Controller
             // Match each loop slot to its own validated input model.
             Loop = category == "loops" ? example switch
             {
-                1 => new PyramidViewModel(),
+                1 => new PyramidViewModel { Rows = 5, Symbol = "*" },
                 2 => new SumDigitsViewModel(),
                 3 => new PrimeFactorsViewModel(),
+                4 => new GuessGameViewModel { StateToken = roundTokens.Protect("guess", new GuessRound(RandomNumberGenerator.GetInt32(1, 101), new())) },
+                5 => NewQuiz(),
                 _ => null
             } : null,
             // A switch chooses the typed form for each implemented decision slot.
@@ -45,6 +49,12 @@ public sealed class ConceptsController : Controller
 
         return View("~/Views/Home/Index.cshtml", model); // Direct visits receive the complete page using the shared desktop view.
     }   
+
+    private QuizRetryViewModel NewQuiz()
+    {
+        var questionId = RandomNumberGenerator.GetInt32(LoopQuizCatalog.Questions.Count);
+        return new QuizRetryViewModel { QuestionId = questionId, StateToken = roundTokens.Protect("quiz", new QuizRound(questionId, new())) };
+    }
 
     //POST Request: processes the form for Temperature Converter
     [HttpPost("concepts/input-output/example-3")] // Handles a submitted form at this URL.

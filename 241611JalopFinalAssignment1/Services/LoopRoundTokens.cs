@@ -1,0 +1,29 @@
+using System.Security.Cryptography;
+using System.Text.Json;
+using Microsoft.AspNetCore.DataProtection;
+
+namespace _241611JalopFinalAssignment1.Services;
+
+// Protected round values carry game progress between native POSTs without a database.
+public sealed class LoopRoundTokens(IDataProtectionProvider provider)
+{
+    public string Protect<T>(string purpose, T value) =>
+        provider.CreateProtector("Showcase.Loops", purpose, "v1").Protect(JsonSerializer.Serialize(value));
+
+    public bool TryRead<T>(string purpose, string? token, out T? value) where T : class
+    {
+        value = null;
+        if (string.IsNullOrWhiteSpace(token) || token.Length > 8192) return false;
+        try
+        {
+            // The purpose keeps a quiz token from being reused as a guessing-game token.
+            var json = provider.CreateProtector("Showcase.Loops", purpose, "v1").Unprotect(token);
+            value = JsonSerializer.Deserialize<T>(json);
+            return value is not null;
+        }
+        catch (Exception error) when (error is CryptographicException or JsonException or FormatException)
+        {
+            return false; // Invalid round data becomes a validation message, not a server error.
+        }
+    }
+}

@@ -1,0 +1,8 @@
+@model GuessGameViewModel
+@* The protected round token preserves the target and attempt history across native requests. *@
+<input asp-for="StateToken" type="hidden" />
+<span asp-validation-for="StateToken" id="round-error" class="temperature-errors"></span>
+<label asp-for="Guess">Your guess</label>
+<input asp-for="Guess" type="number" min="1" max="100" step="1" required disabled="@Model.IsFinished" class="example-input" aria-invalid="@(ViewData.ModelState[nameof(Model.Guess)]?.Errors.Count > 0 ? "true" : null)" aria-describedby="guess-help guess-error" placeholder="1–100" />
+<span asp-validation-for="Guess" id="guess-error" class="temperature-errors"></span>
+<p id="guess-help" class="example-hint">@Model.AttemptsRemaining of @Model.AttemptLimit attempts remaining. Each submission adds one guess.</p>

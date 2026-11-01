@@ -10,7 +10,7 @@
             <partial name="@($"~/Views/Concepts/Loops/{Model.InputPartial}.cshtml")" model="Model" />
             <div class="temperature-actions">
                 <button class="temperature-confirm" type="submit" disabled="@Model.IsFinished">@Model.SubmitLabel</button>
-                <a class="temperature-clear" href="/concepts/loops/example-@ViewData["LoopNumber"]">@Model.ClearLabel</a>
+                <a id="loop-reset" class="temperature-clear" href="/concepts/loops/example-@ViewData["LoopNumber"]">@Model.ClearLabel</a>
             </div>
             <details class="decision-flow"><summary>How the @Model.LoopKind loop works</summary><pre tabindex="0" aria-label="@Model.Title loop structure">@Model.Code</pre></details>
         </section>

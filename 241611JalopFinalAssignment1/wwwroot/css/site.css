@@ -295,6 +295,8 @@ button:active, summary:active { opacity: .8; }
 /* Shared example actions reuse the Windows application's paper, ink and blue focus tokens. */
 .temperature-confirm { min-height: 36px; min-width: 96px; padding: 6px 18px; background: var(--blue); color: var(--paper); border-radius: var(--radius-control); font-size: 12px; font-weight: 550; }
 .temperature-confirm:hover { background: #075b9f; }
+/* Completed game rounds keep the action visible while making its disabled state clear. */
+.temperature-confirm:disabled { opacity: .55; cursor: not-allowed; }
 .temperature-errors { display: block; margin-top: 6px; color: var(--danger); font-size: 12px; line-height: 1.5; }
 .temperature-errors.field-validation-valid { display: none; }
 .temperature-clear:hover { background: var(--blue-soft); }
@@ -354,6 +356,7 @@ button:active, summary:active { opacity: .8; }
 .example-textarea { resize: vertical; min-height: 144px; line-height: 1.7; }
 /* Monospace preserves the centered pyramid; wide patterns scroll inside their result panel. */
 .loop-pyramid { max-width: 100%; margin: 4px 0; overflow-x: auto; font-family: Consolas, monospace; font-size: 14px; line-height: 1.5; white-space: pre; }
+.loop-question { margin: 0 0 16px; font-size: 13px; line-height: 1.7; }
 /* Decision explanations reuse the form's measure and scroll locally on narrow screens. */
 .decision-flow { max-width: 520px; margin-top: 20px; border-top: 1px solid var(--line); font-size: 12px; }
 .decision-flow summary { display: list-item; padding: 12px 4px; cursor: pointer; color: var(--ink); font-weight: 550; }
