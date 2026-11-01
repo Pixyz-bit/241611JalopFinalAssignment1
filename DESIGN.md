@@ -163,7 +163,7 @@ The light workspace uses Paper for detail, Surface for the application ground an
 
 The self-hosted Geist variable face is preserved, with Segoe UI and sans-serif fallbacks. The welcome uses the display role with a stronger second line (650); About uses the headline role. Example titles use the title role; navigation and template sections use compact label/detail roles. Small metadata stays subordinate to category and example names.
 
-Category headings use 28px type (25px on phones), weight 600 and line height 1.25. The header uses 16px vertical/24px horizontal padding and a 44px icon. Its description can span up to 100ch, avoiding unnecessary wrapping on desktops; template text remains bounded at 60ch. The example workspace uses 24px padding, reduced on phones. The taskbar clock uses tabular numerals and two lines.
+Category headings use 28px type (25px on phones), weight 600 and line height 1.25. The header uses 16px vertical/24px horizontal padding and a 44px icon. Its description can span up to 100ch, avoiding unnecessary wrapping on desktops; template text remains bounded at 60ch. Implemented examples use a 12px pane inset and shared panel padding; empty templates retain their original spacing. The taskbar clock uses tabular numerals and two lines.
 
 **The Two Registers Rule.** Keep expressive welcome and About headings separate from compact application navigation and example detail.
 
