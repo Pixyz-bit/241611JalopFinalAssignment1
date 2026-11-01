@@ -113,3 +113,6 @@ The detector ran once before documentation reconciliation. Its advisories largel
 - Build passed with zero warnings/errors; all seven navigation tests passed. HTTP checks verified seven representative conversions, validation, the server Swap fallback and Clear GET reset.
 - Browser checks covered 23 Fahrenheit -> -5 Celsius, Swap reusing -5 then Confirm returning 23 Fahrenheit, input/unit edits clearing stale result/formula, Clear resetting fields and focus, Enter confirming, and Swap after cached Back navigation.
 - Desktop at 1280x800 and phone at 375x812 were inspected. Mobile has no horizontal overflow; Swap, Clear and Confirm retain 44px touch targets. The stacked mobile workspace scrolls normally. Existing reduced-motion rules remain unchanged. Captures: `.impeccable/review/temperature-actions/`.
+
+## Time Unit Converter
+Build and seven navigation tests passed. Checked hours/seconds, fractional minutes, zero, missing/negative input and invalid units. Canonical form submissions calculate on the server.

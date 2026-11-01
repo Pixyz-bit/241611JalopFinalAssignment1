@@ -22,7 +22,7 @@
 - Convert an entered temperature between temperature units; the exact unit controls remain an implementation choice.
 - This is an approved concept awaiting implementation.
 
-### Example 4 — Time Unit Converter (confirmed)
+### Example 4 — Time Unit Converter (implemented)
 
 - User enters a numeric value and selects separate From and To units.
 - Both unit selectors offer seconds, minutes and hours.

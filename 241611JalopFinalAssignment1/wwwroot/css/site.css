@@ -337,3 +337,15 @@ button:active, summary:active { opacity: .8; }
     .temperature-pair, .temperature-enhanced .temperature-pair { grid-template-columns: minmax(0,1fr); gap: 8px; }
     .temperature-swap { margin: 0; justify-self: center; }
 }
+
+/* Shared example forms keep the same compact, light Windows control language. */
+.example-form { max-width: 520px; }
+.example-form label { display: block; margin: 0 0 6px; font-size: 12px; font-weight: 550; }
+.example-input { display: block; width: 100%; min-width: 0; min-height: 40px; padding: 8px 10px; border: 1px solid var(--field-border); border-radius: var(--radius-control); background: var(--paper); color: var(--ink); font: inherit; color-scheme: light; }
+.example-fields { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; margin-top: 16px; }
+.example-hint { margin: 12px 0 0; font-size: 12px; color: var(--muted); line-height: 1.7; }
+.example-result { display: flex; flex-direction: column; gap: 6px; margin-top: 20px; padding: 16px; border-radius: var(--radius-control); background: var(--blue-soft); color: var(--ink); overflow-wrap: anywhere; }
+.example-result strong { font-size: 22px; font-weight: 550; font-variant-numeric: tabular-nums; }
+.example-result-label { color: var(--muted); font-size: 12px; }
+@media (max-width:720px) { .example-input { min-height: 44px; } }
+@media (max-width:480px) { .example-fields { grid-template-columns: minmax(0,1fr); gap: 12px; } }

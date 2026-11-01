@@ -49,4 +49,5 @@ public sealed record ShowcaseViewModel(
 
     // Example 3 can carry its form data alongside the existing page selection.
     public TemperatureConverterViewModel? Temperature { get; init; }
+    public TimeConverterViewModel? Time { get; init; } // Example 4 form and calculated output.
 }

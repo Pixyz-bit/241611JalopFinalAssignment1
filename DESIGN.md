@@ -230,3 +230,7 @@ Use the neutral status pill and dashed interface container to explain that the s
 - **Don't** replace the approved user-supplied wallpaper with CSS sculpture.
 - **Don't** cover the persistent taskbar when maximizing the application.
 - **Don't** replace honest empty examples with invented execution or persistence.
+
+### Shared Input/Output forms
+
+Time conversion and subsequent examples reuse labeled white inputs, compact blue actions, canonical Clear links and pale-blue output. Forms use a 520px maximum measure, two columns on desktop and one on phones. Editing an enhanced form hides stale output; calculations and validation remain in C#.
