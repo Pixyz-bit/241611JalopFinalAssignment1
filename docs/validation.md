@@ -116,3 +116,6 @@ The detector ran once before documentation reconciliation. Its advisories largel
 
 ## Time Unit Converter
 Build and seven navigation tests passed. Checked hours/seconds, fractional minutes, zero, missing/negative input and invalid units. Canonical form submissions calculate on the server.
+
+## Character and Word Counter
+Build and seven navigation tests passed. Confirmed empty text, repeated whitespace, CRLF normalization, combining accents, emoji and the 10,000 input-length limit. Browser confirmed Hello world -> 11 characters / 2 words.

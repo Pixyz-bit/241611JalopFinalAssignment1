@@ -16,4 +16,19 @@ public sealed class InputOutputController : Controller
         }
         return View("~/Views/Home/Index.cshtml", new ShowcaseViewModel(ConceptCatalog.Find("input-output"), 4) { Time = input });
     }
+
+    [HttpPost("concepts/input-output/example-5")]
+    [ValidateAntiForgeryToken]
+    public IActionResult CountText([Bind("Text")] TextCounterViewModel input)
+    {
+        if (ModelState.IsValid)
+        {
+            // Normalize browser line endings so each line break counts once.
+            var text = (input.Text ?? "").Replace("\r\n", "\n").Replace("\r", "\n");
+            input.Characters = System.Globalization.StringInfo.ParseCombiningCharacters(text).Length;
+            input.Words = System.Text.RegularExpressions.Regex.Matches(text, @"\S+").Count; // Ignore repeated spaces, tabs and blank lines.
+            input.HasResult = true;
+        }
+        return View("~/Views/Home/Index.cshtml", new ShowcaseViewModel(ConceptCatalog.Find("input-output"), 5) { TextCounter = input });
+    }
 }

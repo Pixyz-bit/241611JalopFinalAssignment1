@@ -64,6 +64,10 @@
                         <partial name="~/Views/Concepts/InputOutput/_TemperatureConverter.cshtml"
                                  model="Model.Temperature" />
                     }
+                    else if (Model.TextCounter is not null)
+                    {
+                        <partial name="~/Views/Concepts/InputOutput/_TextCounter.cshtml" model="Model.TextCounter" />
+                    }
                     else if (Model.Time is not null)
                     {
                         <partial name="~/Views/Concepts/InputOutput/_TimeConverter.cshtml" model="Model.Time" />

@@ -29,10 +29,10 @@
 - Output: the equivalent value in the selected destination unit. For example, 3 hours converts to 10,800 seconds.
 - This is an approved concept awaiting implementation.
 
-### Example 5 — Character and Word Counter (confirmed)
+### Example 5 — Character and Word Counter (implemented)
 
 - User enters text or a paragraph in a multiline text box.
 - Output: character count and word count for the entered text.
-- This is an approved concept awaiting implementation. Details such as whether spaces count as characters remain to be finalized.
+- This is an approved concept awaiting implementation. Characters include spaces and normalized line breaks; Unicode text elements count once. Words are nonempty whitespace-separated groups.
 
 All five Input/Output concepts are now selected. These planning decisions do not implement the examples or replace their current placeholders.

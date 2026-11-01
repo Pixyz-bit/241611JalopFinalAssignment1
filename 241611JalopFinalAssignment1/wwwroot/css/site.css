@@ -349,3 +349,8 @@ button:active, summary:active { opacity: .8; }
 .example-result-label { color: var(--muted); font-size: 12px; }
 @media (max-width:720px) { .example-input { min-height: 44px; } }
 @media (max-width:480px) { .example-fields { grid-template-columns: minmax(0,1fr); gap: 12px; } }
+
+.example-textarea { resize: vertical; min-height: 144px; line-height: 1.7; }
+.counter-totals { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 24px; }
+.counter-totals > div { display: flex; flex-direction: column; gap: 4px; }
+.counter-totals span { font-size: 12px; color: var(--muted); }
