@@ -17,13 +17,13 @@
     ├── Models/                   ShowcaseViewModel, ConceptCatalog
     ├── Views/
     │   ├── Home/Index.cshtml      Desktop composition
-    │   └── Shared/               Layout, Finder window and SVG symbols
+    │   └── Shared/               Layout, application shell, concept icons and SVG symbols
     ├── Properties/               Launch profiles
     ├── wwwroot/
     │   ├── css/site.css          Shared tokens and responsive styles
     │   ├── js/site.js            Navigation, search and window controls
     │   ├── fonts/               Self-hosted Geist and license
-    │   └── images/              Wallpaper, provenance, folder and favicon
+    │   └── images/              Wallpaper, provenance and favicon (legacy folder retained)
     └── Program.cs
 ```
 
@@ -47,18 +47,42 @@ New or changed code should include brief beginner-friendly notes beside meaningf
 - `int?` means the C# parameter can contain an integer or `null`. The category-only route supplies no example number; the example route still requires its numbered segment.
 - `IActionResult` lets the action return different kinds of responses, including a full view, a partial view or HTTP 404.
 
-## Rendering and navigation
-All canonical URLs render complete Razor pages. Requests with `X-Showcase-Partial: true` return only the Finder partial. JavaScript enhances same-origin links and pushes browser history. The initial view and desktop are cached immediately; each other route is fetched once on its first visit and kept in memory until the page reloads. Back/Forward and repeated tab selections reuse the cached view. Clicking the already active route does nothing.
+## Shared application surfaces
+`Views/Shared/_ShowcaseWindow.cshtml` owns the brand titlebar, full-width category header, sidebar example links and the scrollable overview/example workspace. `Views/Shared/_ConceptIcon.cshtml` loads the approved transparent PNG from `wwwroot/images/concepts/<slug>.png` with cache versioning; desktop, Start, search, taskbar and category headings share it. There is no address path, file list or filename suffix.
 
-Switching categories, examples or About keeps the outer Finder element mounted and updates its contents, so its opening animation plays only when opening a window from the desktop. The current view stays visible during first-time requests. A delayed “Opening…” notice and accessible busy state appear only for uncached navigation; aborted or superseded requests cannot replace a newer selection. Failed enhanced navigation falls back to full-page navigation. Ctrl/Cmd+K opens search; Escape closes search or the open window. Minimized windows are restored from their active dock shortcut.
+## Rendering and navigation
+All canonical URLs render complete Razor pages. Requests with `X-Showcase-Partial: true` return only the _ShowcaseWindow partial. JavaScript enhances same-origin links and pushes browser history. The initial view and desktop are cached immediately; each other route is fetched once on its first visit and kept in memory until the page reloads. Back/Forward and repeated tab selections reuse the cached view. Clicking the already active route does nothing.
+
+Switching categories, examples or About keeps the outer application element mounted and updates its contents, so its opening animation plays only when opening a window from the desktop. The current view stays visible during first-time requests. A delayed “Opening…” notice and accessible busy state appear only for uncached navigation; aborted or superseded requests cannot replace a newer selection. Failed enhanced navigation falls back to full-page navigation. Ctrl/Cmd+K opens search; Escape closes search or the open window. Minimized windows are restored from their active taskbar shortcut, keeping the exact selected example. The taskbar remains visible when the application is maximized. Start uses native details/summary and canonical links; JavaScript adds outside/Escape dismissal, returning focus to Start on Escape. About has its own restoration check so it cannot restore a different minimized category.
 
 The route cache is suitable for the current read-only template. When adding real CRUD or other changing server data, explicitly invalidate affected cached routes after successful mutations, or opt those views out of caching; do not serve stale records or cache POST responses.
 
+`fitStartPanel` resets and measures Start's natural width and content height when it opens, the viewport resizes, or fonts finish loading. It chooses the smaller available-width/available-height ratio and writes CSS width and height variables for the outer panel. This preserves the panel's proportions while its text, icons, controls and padding keep their natural sizes. A column flex layout and automatic top margin hold the footer at the bottom. A minimum sizing factor of 1 preserves small-screen control sizes; CSS constrains the panel height and allows scrolling when content cannot fit.
+
+## Implemented Nested If…Else examples
+
+`NestedIfElseController` handles antiforgery-protected POST routes 1–5. `ConceptsController` initializes their typed GET models, and `_ShowcaseWindow` selects the corresponding Razor partial. `NestedExampleViewModel` shares result text, ordered decision steps and the text flow; each concrete model defines only its input fields and descriptive metadata. Bind allowlists accept inputs only. The algorithms use explicit nested `if`/`else` blocks so the C# matches the learning diagrams.
+
+`_DecisionResult`, `_DecisionErrors` and `_DecisionFlow` share output, linked validation feedback and native details disclosures. `examples.js` hides outdated output after edits and focuses server feedback after native POST. Clear always performs a canonical GET. Login removes submitted passwords from ModelState and the model before returning HTML. ATM calculations are independent simulations with no saved balance. See [nested-if-else.md](nested-if-else.md) for accounts, numeric limits and test commands.
+
 ## Adding your examples
 1. Give examples real titles/descriptions in a typed view model, keyed by category and number.
-2. Add each example's UI as a Razor partial beneath `Views/Concepts/<Category>/` when that real example exists. Select it within the shared Finder detail region; retain the shared shell.
+2. Add each example's UI as a Razor partial beneath `Views/Concepts/<Category>/` when that real example exists. Select it within the shared application workspace; retain the shared shell.
 3. Add controller actions and strongly typed input models for actual form handling. Use POST, validation and antiforgery for mutations.
 4. Add data storage and CRUD services only when implementing real CRUD; the current catalog is static navigation metadata, not a persistence layer.
 5. Replace “Not implemented yet” only once that example works. Do not present fake Run/Save results.
 
 Do not create 20 empty controller/view copies now. The shared template keeps initial behavior consistent and gives each future example an explicit slot.
+
+
+## Temperature converter
+`TemperatureConverterViewModel` carries Value, FromUnit and ToUnit as validated inputs, with Result and Formula as controller-generated output. The TemperatureUnit enum constrains the three available scales: Celsius, Fahrenheit and Kelvin. `ConceptsController.ConvertTemperature` binds only the three input properties, validates the selected scale's absolute-zero limit, and normalizes through Celsius before calculating the chosen destination using decimal arithmetic. Same-unit conversions preserve the exact input. A tuple switch selects the explanatory formula, and Kelvin uses K without a degree sign. The canonical GET route initializes the form; POST returns the complete desktop view with validation or results. The shared window chooses the temperature partial before falling back to numbered placeholders. Confirm is a normal antiforgery-protected form submission and works without JavaScript.
+
+
+Converter interactions use delegated input/change/click handlers so they survive cached navigation. Editing a value/unit clears the result, its symbol, formula and outdated validation feedback. Swap exchanges units and, when available, copies the full-precision confirmed result into the input; C# still performs every calculation on Confirm. Clear resets to an empty Celsius-to-Fahrenheit form and focuses the input. The raw confirmed result is only a browser convenience, never a trusted posted output. A noscript Swap submit action recalculates on the server, swaps fields and clears ModelState so Razor renders the new inputs. Clear falls back to the canonical GET route.
+
+
+## Implemented Input/Output examples
+`InputOutputController` handles canonical POST routes for time (4), text (5) and ID (1), while `ConceptsController` initializes their GET view models. Time normalizes through seconds; text uses Unicode text elements and whitespace-separated word groups after newline normalization. All form output is server calculated and Razor encoded.
+
+ID generation posts only named text fields and an antiforgery token. The photo picker has no name or matching model property; JavaScript keeps a single blob URL in memory, validates type/size/decoding and revokes it on Clear, navigation and page exit. No storage API, database or server photo path is used. AJAX returns validated text as JSON; textContent inserts it safely into the preview. Native POST still renders a text-only card. Revision checks prevent old responses from restoring a preview after edits or Clear. The server rejects file submissions and limits the request to 16 KB.

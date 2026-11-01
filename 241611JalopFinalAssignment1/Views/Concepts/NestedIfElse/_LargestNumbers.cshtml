@@ -1,0 +1,18 @@
+@model LargestNumbersViewModel
+<div class="example-workspace nested-example">
+    <div class="example-heading"><h4>@Model.Title</h4></div>
+    <p class="detail-description">@Model.Description</p>
+    <form asp-controller="NestedIfElse" asp-action="FindLargest" method="post" class="example-form" data-example-form>
+        <partial name="~/Views/Concepts/NestedIfElse/_DecisionErrors.cshtml" model="Model" />
+        @* Unlike triangle sides, these inputs allow zero and negative values. *@
+        <div class="example-fields">
+            <div><label asp-for="A">Number A</label><input asp-for="A" class="example-input" type="number" step="any" min="-1000000000000" max="1000000000000" required aria-describedby="a-error" aria-invalid="@(ViewData.ModelState[nameof(Model.A)]?.Errors.Count > 0 ? "true" : null)" /><span asp-validation-for="A" id="a-error" class="temperature-errors"></span></div>
+            <div><label asp-for="B">Number B</label><input asp-for="B" class="example-input" type="number" step="any" min="-1000000000000" max="1000000000000" required aria-describedby="b-error" aria-invalid="@(ViewData.ModelState[nameof(Model.B)]?.Errors.Count > 0 ? "true" : null)" /><span asp-validation-for="B" id="b-error" class="temperature-errors"></span></div>
+            <div><label asp-for="C">Number C</label><input asp-for="C" class="example-input" type="number" step="any" min="-1000000000000" max="1000000000000" required aria-describedby="c-error" aria-invalid="@(ViewData.ModelState[nameof(Model.C)]?.Errors.Count > 0 ? "true" : null)" /><span asp-validation-for="C" id="c-error" class="temperature-errors"></span></div>
+        </div>
+        <div class="temperature-actions"><button class="temperature-confirm" type="submit">Find largest</button><a class="temperature-clear" href="/concepts/nested-if-else/example-5">Clear</a></div>
+        <p class="example-hint" data-example-hint>Enter three numbers, then choose Find largest. Equal maximum values are supported.</p>
+        <partial name="~/Views/Concepts/NestedIfElse/_DecisionResult.cshtml" model="Model" />
+    </form>
+    <partial name="~/Views/Concepts/NestedIfElse/_DecisionFlow.cshtml" model="Model" />
+</div>

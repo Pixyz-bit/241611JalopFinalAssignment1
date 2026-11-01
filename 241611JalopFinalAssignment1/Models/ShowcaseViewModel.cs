@@ -21,6 +21,7 @@ public static class ConceptCatalog // A shared category list; static means no ne
         new ConceptCategory("loops", "Loops", "Find the rhythm in your code. Explore loops and the things worth doing more than once.", "repeat", "violet"),
         new ConceptCategory("arrays", "Arrays", "Keep related values together. Explore array elements, indexes, and working with collections of values.", "grid", "mint")
     });
+    
     // Find a category by its URL slug; ? allows the input and result to be null.
     public static ConceptCategory? Find(string? slug)
     {
@@ -43,6 +44,13 @@ public sealed record ShowcaseViewModel(
     bool IsAbout = false) // True shows About; these default values let the controller omit arguments.
 {
     public bool HasWindow => Category is not null || IsAbout; // Computed value: show a window if a category is selected OR About is open.
-    // ? : chooses between two values; ?. reads Name only if Category exists; ?? supplies a fallback when the result is null.
+
     public string WindowTitle => IsAbout ? "About this showcase" : Category?.Name ?? "Desktop"; // Title is About, the selected category's name, or Desktop.
+
+    // Example 3 can carry its form data alongside the existing page selection.
+    public TemperatureConverterViewModel? Temperature { get; init; }
+    public IdCardViewModel? IdCard { get; init; } // Example 1 text-only ID data.
+    public TextCounterViewModel? TextCounter { get; init; }
+    public TimeConverterViewModel? Time { get; init; } // Example 4 form and calculated output.
+    public NestedExampleViewModel? Nested { get; init; } // One of the five nested-decision forms.
 }

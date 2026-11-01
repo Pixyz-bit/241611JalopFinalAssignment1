@@ -1,0 +1,22 @@
+@model TimeConverterViewModel
+<div class="example-workspace">
+    <div class="example-heading"><h4>Time Unit Converter</h4></div>
+    <p class="detail-description">Convert seconds, minutes and hours. Decimal values are welcome.</p>
+    <form asp-controller="InputOutput" asp-action="ConvertTime" method="post" class="example-form" data-example-form>
+        <label asp-for="Value">Amount</label>
+        <input asp-for="Value" type="number" step="any" class="example-input" placeholder="For example, 3" aria-describedby="time-error" />
+        <span asp-validation-for="Value" id="time-error" class="temperature-errors"></span>
+        <div class="example-fields">
+            <div><label asp-for="FromUnit">From</label><select asp-for="FromUnit" asp-items="Html.GetEnumSelectList<TimeUnit>()" class="example-input"></select><span asp-validation-for="FromUnit" class="temperature-errors"></span></div>
+            <div><label asp-for="ToUnit">To</label><select asp-for="ToUnit" asp-items="Html.GetEnumSelectList<TimeUnit>()" class="example-input"></select><span asp-validation-for="ToUnit" class="temperature-errors"></span></div>
+        </div>
+        <div class="temperature-actions"><button class="temperature-confirm" type="submit">Convert</button><a class="temperature-clear" href="/concepts/input-output/example-4">Clear</a></div>
+        @* Keep calculations on the server; JavaScript only hides results after the input changes. *@
+        <div class="example-result" data-example-result hidden="@(!Model.Result.HasValue)" role="status">
+            <span class="example-result-label">Converted time</span>
+            <strong>@Model.Result?.ToString("N8").TrimEnd('0').TrimEnd(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator.ToCharArray()) @Model.ToUnit.ToString().ToLowerInvariant()</strong>
+            <span>@Model.Value?.ToString("0.########") @Model.FromUnit.ToString().ToLowerInvariant() → @Model.ToUnit.ToString().ToLowerInvariant()</span>
+        </div>
+        <p class="example-hint" data-example-hint>Choose Convert to calculate. Results show up to 8 decimal places.</p>
+    </form>
+</div>

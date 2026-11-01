@@ -1,6 +1,6 @@
 ---
 name: showcase-ui
-description: Build or refine this C# Programming Showcase MVC interface while preserving its approved macOS desktop design, reusable example templates, and project structure.
+description: Build or refine this C# Programming Showcase MVC interface while preserving its approved Windows 11 inspired desktop design, reusable example templates, and project structure.
 ---
 
 # Showcase UI
@@ -15,9 +15,9 @@ Read the solution-root PRODUCT.md, DESIGN.md and AGENTS.md first. Use docs/archi
 These are dependencies in this workstation's skill catalog, not copied project source. Resolve by skill name through the available catalog on another machine. If absent, follow the project's durable design rules and report the missing augmentation.
 
 ## Project-specific decisions
-The supplied macOS reference and user-approved MVC stack override React, Tailwind, generic landing-page layouts and other conflicting defaults. Keep dimensional blue folders, a blue mountain wallpaper, glass desktop chrome, and one Finder window. Use one shared CSS token set, not a parallel generated design system.
+The approved Windows direction on this branch and user-approved MVC stack override React, Tailwind, generic landing-page layouts and other conflicting defaults. Keep the original cobalt bloom raster wallpaper, shared gradient concept app icons, left desktop rail and welcome, persistent full-width taskbar, native Start panel and one light Windows application with a brand titlebar, category navigation and five canonical example tabs. The maximized application fills the area above the taskbar. Keep the current example when minimizing and restore it from its active taskbar shortcut. Use one shared CSS token set, not a parallel generated design system.
 
 Keep all 20 examples honest empty templates until the user supplies their logic. Every link must have a server-rendered route. Add examples through the existing Models/Controllers/Views structure; preserve shared sidebar and shell partials.
 
 ## Validation
-Build the solution; check affected canonical and partial routes, history, search, close/minimize/maximize, keyboard focus and reduced motion. Inspect the home desktop and an open Finder at desktop and mobile sizes. Keep documentation in docs/, public assets in wwwroot/, and project skills here.
+Build the solution; check affected canonical and partial routes, history, search, close/minimize/maximize, keyboard focus and reduced motion. Inspect the home desktop and an open application at desktop and mobile sizes. Keep documentation in docs/, public assets in wwwroot/, and project skills here.

@@ -1,10 +1,15 @@
 # Asset sources
 
-## Wallpaper
-`241611JalopFinalAssignment1/wwwroot/images/mountain-wallpaper.webp` is an original wallpaper generated with the built-in image-generation tool, then encoded as WebP for the site. It is a landscape asset, not a screenshot of Apple's interface. The exact prompt is stored in the adjacent `.json` provenance file.
+## Active Windows wallpaper
+`241611JalopFinalAssignment1/wwwroot/images/windows-bloom.webp` is an original dark cobalt sculptural bloom generated with the built-in image-generation tool for the user-approved Windows 11 inspired direction. It is a standalone wallpaper, not a UI screenshot, operating-system asset or approved pixel comp. The raster supplies its folded, flowing material; CSS supplies a left-side contrast wash and layout.
+
+The source output was 1672×941, encoded as WebP at quality 90 (about 92 KB). Its exact generation prompt and creation timestamp are preserved in the adjacent `windows-bloom.webp.json`; the adjacent JSON is the provenance record used for this WebP format. The record describes broad cobalt silk ribbons, a bloom occupying the right/lower area, quiet navy space for text, and no text, logos, icons or UI. Keep this provenance with the asset when replacing or re-encoding it.
+
+## Historical wallpaper
+`mountain-wallpaper.webp` and its adjacent provenance JSON are retained historical source from the macOS design. The Windows stylesheet does not reference it. It was also generated with the built-in image-generation tool. The latest provenance scan found two raster assets and zero missing prompt records.
 
 ## Font
-Geist variable font, self-hosted at `wwwroot/fonts/geist-latin.ttf`. Source: the official Google Fonts `ofl/geist/Geist[wght].ttf`, weights 100–900. License: `wwwroot/fonts/OFL.txt` (SIL Open Font License, supplied by the same repository).
+Geist variable font, self-hosted at `wwwroot/fonts/geist-latin.ttf`. Source: the official Google Fonts `ofl/geist/Geist[wght].ttf`, weights 100–900. License: `wwwroot/fonts/OFL.txt` (SIL Open Font License, supplied by the same repository). Segoe UI and sans-serif are fallbacks; the chosen local font remains Geist.
 
 ## Icons
-Folder and favicon: project-authored SVG assets in `wwwroot/images/`. Interface symbols: a consistent project-authored SVG set in `Views/Shared/_Icons.cshtml`, 24-unit view boxes, 1.7-unit strokes. No Apple logo or proprietary application icons are shipped.
+Active concept app icons use CSS gradient badges around the existing category SVG glyphs through `Views/Shared/_ConceptIcon.cshtml`; no new generated raster or icon image was added. The favicon is project-authored SVG in `wwwroot/images/`. The earlier yellow `folder.svg` is retained as a historical asset and is not used by the current interface. Interface symbols are project-authored SVG in `Views/Shared/_Icons.cshtml`, with 24-unit view boxes; CSS sets default strokes to 1.6 units and varies individual icons for legibility. No purchased or proprietary operating-system application artwork is shipped.

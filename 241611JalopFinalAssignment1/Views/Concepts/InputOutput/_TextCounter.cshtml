@@ -1,0 +1,17 @@
+@model TextCounterViewModel
+<div class="example-workspace">
+    <div class="example-heading"><h4>Character and Word Counter</h4></div>
+    <p class="detail-description">Count the characters and words in a sentence or paragraph.</p>
+    <form asp-controller="InputOutput" asp-action="CountText" method="post" class="example-form" data-example-form>
+        <label asp-for="Text">Your text</label>
+        <textarea asp-for="Text" rows="6" maxlength="10000" class="example-input example-textarea" aria-describedby="text-rules text-error" placeholder="Type or paste your paragraph here…"></textarea>
+        <span asp-validation-for="Text" id="text-error" class="temperature-errors"></span>
+        <p id="text-rules" class="example-hint">Characters include spaces and line breaks. Each visible symbol, including a combined emoji, counts once. Words are nonempty groups separated by whitespace.</p>
+        <div class="temperature-actions"><button type="submit" class="temperature-confirm">Count</button><a href="/concepts/input-output/example-5" class="temperature-clear">Clear</a></div>
+        @* Encode all entered text through Razor; never render it with Html.Raw. *@
+        <div class="example-result" data-example-result hidden="@(!Model.HasResult)" role="status">
+            <div class="counter-totals"><div><span>Characters</span><strong data-character-count>@Model.Characters</strong></div><div><span>Words</span><strong data-word-count>@Model.Words</strong></div></div>
+        </div>
+        <p class="example-hint" data-example-hint>Choose Count to calculate. Empty text returns zero.</p>
+    </form>
+</div>
