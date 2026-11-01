@@ -57,7 +57,8 @@
             }
             else
             {
-                <section class="example-detail" aria-labelledby="detail-title" tabindex="-1">
+                @* Give the time converter more room while keeping other examples at their shared spacing. *@
+                <section class="example-detail @(Model.Time is not null ? "example-detail--time" : "")" aria-labelledby="detail-title" tabindex="-1">
                     @if (Model.Temperature is not null)
                     {
                         @* Use the working converter instead of the generic placeholder. *@

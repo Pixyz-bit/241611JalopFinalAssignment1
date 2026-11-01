@@ -12,4 +12,16 @@ public class TimeConverterViewModel
     [EnumDataType(typeof(TimeUnit))]
     public TimeUnit ToUnit { get; set; } = TimeUnit.Seconds;
     public decimal? Result { get; set; } // Calculated by C#, never trusted from a submitted form.
+
+    // A tuple switch selects the explanation for the chosen source and destination units.
+    public string Formula => (FromUnit, ToUnit) switch
+    {
+        (TimeUnit.Hours, TimeUnit.Seconds) => "Seconds = Hours × 3,600",
+        (TimeUnit.Hours, TimeUnit.Minutes) => "Minutes = Hours × 60",
+        (TimeUnit.Minutes, TimeUnit.Seconds) => "Seconds = Minutes × 60",
+        (TimeUnit.Minutes, TimeUnit.Hours) => "Hours = Minutes ÷ 60",
+        (TimeUnit.Seconds, TimeUnit.Minutes) => "Minutes = Seconds ÷ 60",
+        (TimeUnit.Seconds, TimeUnit.Hours) => "Hours = Seconds ÷ 3,600",
+        _ => "Output = Input (same unit)"
+    };
 }

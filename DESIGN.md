@@ -235,6 +235,10 @@ Use the neutral status pill and dashed interface container to explain that the s
 
 Time conversion and subsequent examples reuse labeled white inputs, compact blue actions, canonical Clear links and pale-blue output. Forms use a 520px maximum measure, two columns on desktop and one on phones. Editing an enhanced form hides stale output; calculations and validation remain in C#.
 
+Input/Output Example 4 fills the available pane height with a two-panel bento layout. A shared heading sits above a white Input panel on the left and a pale-blue Result panel on the right. Amount, From and To stack vertically above Convert and Clear. The result panel stays visible before conversion, after invalid input and after edits; successful output emphasizes the complete conversion with a directional arrow (for example, “23 hours → 82,800 seconds”), with precision guidance at the bottom. Panels share the available height and use 20px inner padding, reduced to 16px on phones. A 12px pane inset and 16px panel gap keep the workspace compact. At viewport widths up to 1000px the result stacks below the inputs to accommodate the sidebar; content scrolls when needed. Calculations and validation remain server-rendered.
+
+Panel headings use 16px type. The complete conversion scales from 24px to 32px, with tabular numerals and wrapping for large conversions. A unit-specific formula sits below it at 12px, matching the Converted time label; both hide when inputs change. The workspace has no additional outer padding beyond the pane inset.
+
 ### ID preview
 
 The ID generator uses the shared light form controls beside a compact sample ID card, stacking below 1100px. The card uses the existing blue-soft header, neutral photo frame and readable wrapping for long names/courses. Generate has a busy state and validated text feedback. The photo is optional and local-only; no download or upload control is provided.

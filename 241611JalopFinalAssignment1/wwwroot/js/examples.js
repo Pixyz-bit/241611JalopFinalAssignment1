@@ -14,6 +14,12 @@ document.addEventListener('input', event => {
     }
     form.dataset.revision = String(Number(form.dataset.revision || 0) + 1);
     form.closest('.example-workspace').querySelectorAll('[data-example-result]').forEach(result => { result.hidden = true; });
+    // A persistent result panel returns to its empty state when its inputs change.
+    const emptyResult = form.querySelector('[data-example-empty]');
+    if (emptyResult) {
+        emptyResult.hidden = false;
+        emptyResult.textContent = 'Inputs changed. Convert again to update the result.';
+    }
     const hint = form.querySelector('[data-example-hint]');
     if (hint) hint.textContent = 'Inputs changed. Submit again to update the result.';
 });
