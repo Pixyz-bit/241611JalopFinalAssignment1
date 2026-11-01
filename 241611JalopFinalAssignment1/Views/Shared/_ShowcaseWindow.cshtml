@@ -89,6 +89,14 @@
                     {
                         <partial name="~/Views/Concepts/NestedIfElse/_BmiCalculator.cshtml" model="bmi" />
                     }
+                    else if (Model.Nested is TriangleClassifierViewModel triangle)
+                    {
+                        <partial name="~/Views/Concepts/NestedIfElse/_TriangleClassifier.cshtml" model="triangle" />
+                    }
+                    else if (Model.Nested is LargestNumbersViewModel largest)
+                    {
+                        <partial name="~/Views/Concepts/NestedIfElse/_LargestNumbers.cshtml" model="largest" />
+                    }
                     else if (Model.Example.HasValue)
                     {
                         <div class="example-workspace">

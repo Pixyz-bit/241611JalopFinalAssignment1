@@ -138,6 +138,91 @@ public sealed class NestedIfElseController : Controller
         return Example(3, input);
     }
 
+    [HttpPost("concepts/nested-if-else/example-4")]
+    [ValidateAntiForgeryToken]
+    public IActionResult ClassifyTriangle([Bind("A,B,C")] TriangleClassifierViewModel input)
+    {
+        if (ModelState.IsValid && input.A is decimal a && input.B is decimal b && input.C is decimal c)
+        {
+            input.Decisions.Add("All sides positive? Yes.");
+            // && means every inequality must pass; equality describes a flat, invalid triangle.
+            if (a + b > c && a + c > b && b + c > a)
+            {
+                input.Decisions.Add("Every pair sums to more than the third side? Yes.");
+                if (a == b && b == c)
+                {
+                    input.Decisions.Add("All three sides equal? Yes.");
+                    input.Result = "Equilateral";
+                    input.Detail = "All three sides have the same length.";
+                }
+                else
+                {
+                    input.Decisions.Add("All three sides equal? No.");
+                    if (a == b || a == c || b == c) // || means at least one pair is equal.
+                    {
+                        input.Decisions.Add("Any two sides equal? Yes.");
+                        input.Result = "Isosceles";
+                        input.Detail = "Exactly two sides have the same length.";
+                    }
+                    else
+                    {
+                        input.Decisions.Add("Any two sides equal? No.");
+                        input.Result = "Scalene";
+                        input.Detail = "All three sides have different lengths.";
+                    }
+                }
+            }
+            else
+            {
+                input.Decisions.Add("Every pair sums to more than the third side? No.");
+                input.Result = "Not a valid triangle";
+                input.Detail = "The sum of any two sides must be greater than the remaining side.";
+            }
+        }
+        return Example(4, input);
+    }
+
+    [HttpPost("concepts/nested-if-else/example-5")]
+    [ValidateAntiForgeryToken]
+    public IActionResult FindLargest([Bind("A,B,C")] LargestNumbersViewModel input)
+    {
+        if (ModelState.IsValid && input.A is decimal a && input.B is decimal b && input.C is decimal c)
+        {
+            decimal largest;
+            if (a >= b) // >= includes equality, so tied values follow a predictable branch.
+            {
+                input.Decisions.Add("A >= B? Yes.");
+                if (a >= c)
+                {
+                    input.Decisions.Add("A >= C? Yes. Select A.");
+                    largest = a;
+                }
+                else
+                {
+                    input.Decisions.Add("A >= C? No. Select C.");
+                    largest = c;
+                }
+            }
+            else
+            {
+                input.Decisions.Add("A >= B? No.");
+                if (b >= c)
+                {
+                    input.Decisions.Add("B >= C? Yes. Select B.");
+                    largest = b;
+                }
+                else
+                {
+                    input.Decisions.Add("B >= C? No. Select C.");
+                    largest = c;
+                }
+            }
+            input.Result = $"Largest: {largest:G29}"; // G29 preserves significant decimal digits.
+            input.Detail = $"Compared A = {a:G29}, B = {b:G29} and C = {c:G29}. Tied maximum values share the same result.";
+        }
+        return Example(5, input);
+    }
+
     private IActionResult Example(int number, NestedExampleViewModel input)
     {
         // Reuse the desktop shell for both results and validation feedback.

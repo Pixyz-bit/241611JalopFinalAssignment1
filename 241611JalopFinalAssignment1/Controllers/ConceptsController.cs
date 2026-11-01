@@ -24,6 +24,8 @@ public sealed class ConceptsController : Controller
                 1 => new LoginAccessViewModel(),
                 2 => new AtmWithdrawalViewModel(),
                 3 => new BmiCalculatorViewModel(),
+                4 => new TriangleClassifierViewModel(),
+                5 => new LargestNumbersViewModel(),
                 _ => null
             } : null,
             Temperature =
