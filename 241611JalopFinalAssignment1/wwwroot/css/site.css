@@ -340,31 +340,41 @@ button:active, summary:active { opacity: .8; }
 
 /* Shared example forms keep the same compact, light Windows control language. */
 .example-form { max-width: 520px; }
-/* Example 4 fills the pane; min-height still allows scrolling when its result needs more room. */
-.example-detail--time { padding: 12px; }
-.time-example { min-height: 100%; padding: 0; display: flex; flex-direction: column; border: 0; background: transparent; }
-.time-example .detail-description { margin-bottom: 16px; }
+/* Implemented examples fill the pane and scroll when longer forms or results need more room. */
+.example-detail--split { padding: 12px; }
+.example-split { min-height: 100%; padding: 0; display: flex; flex-direction: column; border: 0; background: transparent; }
+.example-split .detail-description { margin-bottom: 16px; }
 /* Each panel shares the remaining height, with inputs first in both reading and keyboard order. */
-.time-example .time-layout { flex: 1; max-width: none; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
-.time-panel { min-width: 0; display: flex; flex-direction: column; padding: 20px; border: 1px solid var(--line); border-radius: var(--radius-window); background: var(--paper); }
-.time-panel h5 { margin: 0 0 16px; font-size: 16px; line-height: 1.4; font-weight: 550; }
-.time-fields { display: grid; gap: 12px; }
-.time-input-panel .temperature-actions { margin-top: 16px; }
-.time-output-panel { background: var(--blue-soft); }
-.time-result-status { overflow-wrap: anywhere; }
-.time-empty { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.7; }
-.time-result { display: flex; flex-direction: column; align-items: flex-start; }
-.time-result-value { max-width: 100%; margin-top: 12px; font-size: clamp(24px, 2.5vw, 32px); line-height: 1.25; letter-spacing: -.025em; font-weight: 550; font-variant-numeric: tabular-nums; }
+.example-split .example-layout { flex: 1; max-width: none; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
+.example-panel { min-width: 0; display: flex; flex-direction: column; padding: 20px; border: 1px solid var(--line); border-radius: var(--radius-window); background: var(--paper); }
+.example-panel h5 { margin: 0 0 16px; font-size: 16px; line-height: 1.4; font-weight: 550; }
+.example-input-fields { display: grid; gap: 12px; }
+.example-input-panel .temperature-actions { margin-top: 16px; }
+.example-output-panel { background: var(--blue-soft); }
+.example-result-status { overflow-wrap: anywhere; }
+.example-empty { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.7; }
+.example-result-content { display: flex; flex-direction: column; align-items: flex-start; }
+.example-result-value, .example-output-panel .example-result strong { max-width: 100%; margin-top: 12px; font-size: clamp(24px, 2.5vw, 32px); line-height: 1.25; letter-spacing: -.025em; font-weight: 550; font-variant-numeric: tabular-nums; }
 /* The formula shares the 12px Converted time label size and hides with stale results. */
-.time-result-formula { margin: 16px 0 0; line-height: 1.8; }
-.time-precision { margin: auto 0 0; padding-top: 24px; color: var(--muted); font-size: 12px; }
+.example-result-formula { margin: 16px 0 0; line-height: 1.8; }
+.example-result-note { margin: auto 0 0; padding-top: 24px; color: var(--muted); font-size: 12px; }
+/* Keep every form vertical and flatten feedback inside its already-tinted Result panel. */
+.example-input-panel .example-fields { grid-template-columns: minmax(0, 1fr); gap: 12px; margin-top: 0; }
+.example-output-panel .example-result { margin: 0; padding: 0; background: transparent; border-radius: 0; gap: 12px; font-size: 12px; line-height: 1.8; }
+.example-panel .decision-flow { max-width: none; }
+.example-panel .decision-path-title { margin: 16px 0 0; font-size: 12px; }
+.example-panel .temperature-actions { flex-wrap: wrap; }
+.example-input-panel .temperature-swap { display: none; width: auto; margin: 0; }
+.temperature-enhanced .example-input-panel .temperature-swap { display: inline-flex; }
+.id-example .example-fields { margin-top: 12px; }
+.id-example .id-course { margin-block: 12px; }
 /* Stack before the app's sidebar leaves too little width for two readable panels. */
 @media (max-width: 1000px) {
-    .time-example .time-layout { grid-template-columns: minmax(0, 1fr); }
-    .time-output-panel { min-height: 220px; }
+    .example-split .example-layout { grid-template-columns: minmax(0, 1fr); }
+    .example-output-panel { min-height: 220px; }
 }
 @media (max-width: 720px) {
-    .time-panel { padding: 16px; }
+    .example-panel { padding: 16px; }
 }
 .example-form label { display: block; margin: 0 0 6px; font-size: 12px; font-weight: 550; }
 .example-input { display: block; width: 100%; min-width: 0; min-height: 40px; padding: 8px 10px; border: 1px solid var(--field-border); border-radius: var(--radius-control); background: var(--paper); color: var(--ink); font: inherit; color-scheme: light; }

@@ -203,11 +203,13 @@
 
     document.documentElement?.classList?.add('temperature-enhanced');
     function clearTemperatureResult(form, message = 'Inputs changed. Choose Confirm to update the result.') {
-        form.querySelector('#temperature-result').value = '';
-        form.querySelector('[data-temperature-result-unit]').textContent = '';
+        // Clear feedback inside the persistent Result panel without removing the panel itself.
+        form.querySelector('[data-example-result]').hidden = true;
+        const empty = form.querySelector('[data-example-empty]');
+        empty.hidden = false;
+        empty.textContent = message;
         form.dataset.confirmedResult = ''; // Never reuse an output belonging to earlier inputs.
         form.querySelector('#temperature-help').textContent = message;
-        form.closest('.temperature-example').querySelector('[data-temperature-formula]').textContent = 'Your calculation will appear here after confirmation.';
         form.querySelectorAll('.temperature-errors').forEach(error => { error.textContent = ''; });
         form.querySelectorAll('[aria-invalid]').forEach(field => field.removeAttribute('aria-invalid'));
     }

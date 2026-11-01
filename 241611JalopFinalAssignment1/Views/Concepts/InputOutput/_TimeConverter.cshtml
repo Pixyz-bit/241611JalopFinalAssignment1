@@ -4,13 +4,13 @@
     var resultText = Model.Result?.ToString("N8").TrimEnd('0').TrimEnd(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator.ToCharArray());
 }
 @* The shared form contains both panels, so native POST works without JavaScript. *@
-<div class="example-workspace time-example">
+<div class="example-workspace example-split">
     <div class="example-heading"><h4>Time Unit Converter</h4></div>
     <p class="detail-description">Convert seconds, minutes and hours. Decimal values are welcome.</p>
-    <form asp-controller="InputOutput" asp-action="ConvertTime" method="post" class="example-form time-layout" data-example-form>
-        <section class="time-panel time-input-panel" aria-labelledby="time-input-title">
+    <form asp-controller="InputOutput" asp-action="ConvertTime" method="post" class="example-form example-layout" data-example-form>
+        <section class="example-panel example-input-panel" aria-labelledby="time-input-title">
             <h5 id="time-input-title">Input</h5>
-            <div class="time-fields">
+            <div class="example-input-fields">
                 <div>
                     <label asp-for="Value">Amount</label>
                     <input asp-for="Value" type="number" step="any" class="example-input" placeholder="For example, 3" aria-describedby="time-error" />
@@ -30,19 +30,19 @@
             <div class="temperature-actions"><button class="temperature-confirm" type="submit">Convert</button><a class="temperature-clear" href="/concepts/input-output/example-4">Clear</a></div>
         </section>
         @* Keep this panel visible in empty, invalid and successful states to preserve the layout. *@
-        <section class="time-panel time-output-panel" aria-labelledby="time-result-title">
-            <h5 id="time-result-title">Result</h5>
-            <div class="time-result-status" role="status" aria-atomic="true">
-                <p class="time-empty" data-example-empty hidden="@(Model.Result.HasValue)">Your result will appear here.</p>
-                <div class="time-result" data-example-result hidden="@(!Model.Result.HasValue)">
+        <section class="example-panel example-output-panel" aria-labelledby="example-result-content-title">
+            <h5 id="example-result-content-title">Result</h5>
+            <div class="example-result-status" role="status" aria-atomic="true">
+                <partial name="_ExampleEmpty" model="Model.Result.HasValue" />
+                <div class="example-result-content" data-example-result hidden="@(!Model.Result.HasValue)">
                     <span class="example-result-label">Converted time</span>
                     @* Emphasize the complete conversion; the arrow shows its direction. *@
-                    <strong class="time-result-value">@Model.Value?.ToString("0.########") @Model.FromUnit.ToString().ToLowerInvariant() → @resultText @Model.ToUnit.ToString().ToLowerInvariant()</strong>
+                    <strong class="example-result-value">@Model.Value?.ToString("0.########") @Model.FromUnit.ToString().ToLowerInvariant() → @resultText @Model.ToUnit.ToString().ToLowerInvariant()</strong>
                     @* Reuse the label typography so the formula supports the larger conversion. *@
-                    <p class="time-result-formula example-result-label">Formula: @Model.Formula</p>
+                    <p class="example-result-formula example-result-label">Formula: @Model.Formula</p>
                 </div>
             </div>
-            <p class="time-precision">Up to 8 decimal places.</p>
+            <p class="example-result-note">Up to 8 decimal places.</p>
         </section>
     </form>
 </div>

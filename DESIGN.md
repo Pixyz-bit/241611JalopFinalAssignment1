@@ -211,7 +211,7 @@ Native dialog supplies modal focus containment. A visible label, blue focus trea
 
 ### Temperature converter
 
-Input/Output Example 3 follows the light Windows workspace: Paper fields with Ink values, compact 5px corners, visible From/To labels, the shared blue Confirm action and a plain muted Formula label. The form is capped at 440px rather than 680px; number fields are 48px tall with 24px type. Selector and button heights are 36px on desktop and at least 44px on phones. Field Border provides visible control boundaries; Danger marks inline validation. The formula uses a simple top divider, without a colored badge. Celsius, Fahrenheit and Kelvin are selectable in either direction. Output is readonly, uses a pale-blue fill and includes its unit symbol after server confirmation. An inline Swap control exchanges units and reuses the full-precision confirmed result; editing any input clears stale output and formula. Clear resets the value, units and feedback. Confirm and Clear share one compact action row, followed by a confirmed equivalence message or an input hint. Below 400px the fields stack to preserve readable unit labels and 44px touch targets. Without JavaScript, Clear is a canonical GET link and Swap is a server form action. No new animation is introduced; the existing reduced-motion rules remain in force.
+Input/Output Example 3 uses the shared two-panel example layout. Amount, From and To stack in the Input panel above Confirm, Clear and Swap units. The Result panel shows a 24–32px conversion with unit symbols and a 12px formula below it. Celsius, Fahrenheit and Kelvin are selectable in either direction. Swap reuses the full-precision confirmed result; editing clears stale output and formula. Without JavaScript, Clear is a canonical GET link and Swap is a server form action. Shared fields and mobile touch targets match the other examples.
 
 ### Empty examples
 
@@ -233,7 +233,7 @@ Use the neutral status pill and dashed interface container to explain that the s
 
 ### Shared Input/Output forms
 
-Time conversion and subsequent examples reuse labeled white inputs, compact blue actions, canonical Clear links and pale-blue output. Forms use a 520px maximum measure, two columns on desktop and one on phones. Editing an enhanced form hides stale output; calculations and validation remain in C#.
+All implemented examples reuse the approved Example 4 layout: a shared heading and description, white Input panel on the left and pale-blue Result panel on the right. Shared CSS classes own the full-width form grid, 12px pane inset, 16px panel gap, 20px panel padding (16px on phones), 16px panel headings, vertical fields and 24–32px primary result text. Panels fill the available pane height and stack at viewport widths up to 1000px. Longer forms and results scroll within the workspace. Result panels remain present in empty, invalid and edited states; calculations and validation remain in C#. Unimplemented slots retain their honest empty templates.
 
 Input/Output Example 4 fills the available pane height with a two-panel bento layout. A shared heading sits above a white Input panel on the left and a pale-blue Result panel on the right. Amount, From and To stack vertically above Convert and Clear. The result panel stays visible before conversion, after invalid input and after edits; successful output emphasizes the complete conversion with a directional arrow (for example, “23 hours → 82,800 seconds”), with precision guidance at the bottom. Panels share the available height and use 20px inner padding, reduced to 16px on phones. A 12px pane inset and 16px panel gap keep the workspace compact. At viewport widths up to 1000px the result stacks below the inputs to accommodate the sidebar; content scrolls when needed. Calculations and validation remain server-rendered.
 
@@ -241,7 +241,7 @@ Panel headings use 16px type. The complete conversion scales from 24px to 32px, 
 
 ### ID preview
 
-The ID generator uses the shared light form controls beside a compact sample ID card, stacking below 1100px. The card uses the existing blue-soft header, neutral photo frame and readable wrapping for long names/courses. Generate has a busy state and validated text feedback. The photo is optional and local-only; no download or upload control is provided.
+The ID generator places its vertical form in the shared Input panel and its compact sample ID card in the Result panel. The card uses the existing blue-soft header, neutral photo frame and readable wrapping for long names/courses. Generate has a busy state and validated text feedback. The photo is optional and local-only; no download or upload control is provided. Clear restores the empty Result state.
 
 ### Nested decision examples
 

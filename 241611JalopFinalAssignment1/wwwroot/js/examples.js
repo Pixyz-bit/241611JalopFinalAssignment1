@@ -18,7 +18,7 @@ document.addEventListener('input', event => {
     const emptyResult = form.querySelector('[data-example-empty]');
     if (emptyResult) {
         emptyResult.hidden = false;
-        emptyResult.textContent = 'Inputs changed. Convert again to update the result.';
+        emptyResult.textContent = 'Inputs changed. Submit again to update the result.';
     }
     const hint = form.querySelector('[data-example-hint]');
     if (hint) hint.textContent = 'Inputs changed. Submit again to update the result.';
@@ -99,6 +99,7 @@ decisionFeedback?.focus();
             else { image.removeAttribute('src'); image.hidden = true; }
             card.querySelector('[data-id-photo-placeholder]').hidden = !image.hidden;
             card.hidden = false;
+            form.querySelector('[data-example-empty]').hidden = true; // Replace the empty state with the generated ID.
             hint.textContent = 'ID preview ready. Nothing is saved.';
         } catch {
             if (form.isConnected) hint.textContent = 'Could not generate the preview. Check your connection and try again.';
@@ -116,6 +117,9 @@ decisionFeedback?.focus();
         form.dataset.revision = String(Number(form.dataset.revision || 0) + 1);
         const card = form.closest('.id-example').querySelector('[data-id-preview]');
         card.hidden = true;
+        const empty = form.querySelector('[data-example-empty]');
+        empty.hidden = false;
+        empty.textContent = 'Your result will appear here.';
         const image = card.querySelector('[data-id-photo-preview]');
         image.removeAttribute('src'); image.hidden = true;
         form.querySelector('[data-id-photo-status]').textContent = '';
