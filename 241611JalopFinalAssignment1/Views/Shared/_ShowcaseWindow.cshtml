@@ -81,6 +81,10 @@
                         @* Each working nested example keeps the same canonical shell and sidebar. *@
                         <partial name="~/Views/Concepts/NestedIfElse/_LoginAccess.cshtml" model="login" />
                     }
+                    else if (Model.Nested is AtmWithdrawalViewModel atm)
+                    {
+                        <partial name="~/Views/Concepts/NestedIfElse/_AtmWithdrawal.cshtml" model="atm" />
+                    }
                     else if (Model.Example.HasValue)
                     {
                         <div class="example-workspace">

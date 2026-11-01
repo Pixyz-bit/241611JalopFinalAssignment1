@@ -61,6 +61,39 @@ public sealed class NestedIfElseController : Controller
         return Example(1, input);
     }
 
+    [HttpPost("concepts/nested-if-else/example-2")]
+    [ValidateAntiForgeryToken]
+    public IActionResult Withdraw([Bind("Balance,Amount")] AtmWithdrawalViewModel input)
+    {
+        if (ModelState.IsValid && input.Balance is decimal balance && input.Amount is decimal amount)
+        {
+            input.Decisions.Add("Valid amounts? Yes.");
+            if (amount <= balance)
+            {
+                input.Decisions.Add("Enough balance? Yes.");
+                if (amount % 100m == 0m) // % gives the remainder; zero means complete ₱100 bills.
+                {
+                    input.Decisions.Add("Multiple of ₱100? Yes.");
+                    input.Result = "Withdrawal successful";
+                    input.Detail = $"Withdrew ₱{amount:N2}. Remaining balance: ₱{balance - amount:N2}.";
+                }
+                else
+                {
+                    input.Decisions.Add("Multiple of ₱100? No.");
+                    input.Result = "Use multiples of ₱100";
+                    input.Detail = $"Balance stays at ₱{balance:N2}. Try 100, 200 or another multiple of 100.";
+                }
+            }
+            else
+            {
+                input.Decisions.Add("Enough balance? No.");
+                input.Result = "Insufficient balance";
+                input.Detail = $"Balance stays at ₱{balance:N2}. Choose an amount within the balance.";
+            }
+        }
+        return Example(2, input);
+    }
+
     private IActionResult Example(int number, NestedExampleViewModel input)
     {
         // Reuse the desktop shell for both results and validation feedback.

@@ -1,0 +1,16 @@
+@model AtmWithdrawalViewModel
+<div class="example-workspace nested-example">
+    <div class="example-heading"><h4>@Model.Title</h4></div>
+    <p class="detail-description">@Model.Description</p>
+    <form asp-controller="NestedIfElse" asp-action="Withdraw" method="post" class="example-form" data-example-form>
+        @* These bounds mirror C# validation; the server still checks every posted value. *@
+        <div class="example-fields">
+            <div><label asp-for="Balance">Starting balance (₱)</label><input asp-for="Balance" class="example-input" type="number" step="0.01" min="0" max="1000000000000" required aria-describedby="balance-error" aria-invalid="@(ViewData.ModelState[nameof(Model.Balance)]?.Errors.Count > 0 ? "true" : null)" /><span asp-validation-for="Balance" id="balance-error" class="temperature-errors"></span></div>
+            <div><label asp-for="Amount">Withdrawal amount (₱)</label><input asp-for="Amount" class="example-input" type="number" step="0.01" min="0.01" max="1000000000000" required aria-describedby="amount-error" aria-invalid="@(ViewData.ModelState[nameof(Model.Amount)]?.Errors.Count > 0 ? "true" : null)" /><span asp-validation-for="Amount" id="amount-error" class="temperature-errors"></span></div>
+        </div>
+        <div class="temperature-actions"><button class="temperature-confirm" type="submit">Withdraw</button><a class="temperature-clear" href="/concepts/nested-if-else/example-2">Clear</a></div>
+        <p class="example-hint" data-example-hint>Try a balance of ₱5,000 and a withdrawal of ₱1,200. Each submission starts with the balance you enter.</p>
+        <partial name="~/Views/Concepts/NestedIfElse/_DecisionResult.cshtml" model="Model" />
+    </form>
+    <partial name="~/Views/Concepts/NestedIfElse/_DecisionFlow.cshtml" model="Model" />
+</div>
