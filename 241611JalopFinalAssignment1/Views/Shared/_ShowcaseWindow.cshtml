@@ -76,6 +76,11 @@
                     {
                         <partial name="~/Views/Concepts/InputOutput/_TimeConverter.cshtml" model="Model.Time" />
                     }
+                    else if (Model.Nested is LoginAccessViewModel login)
+                    {
+                        @* Each working nested example keeps the same canonical shell and sidebar. *@
+                        <partial name="~/Views/Concepts/NestedIfElse/_LoginAccess.cshtml" model="login" />
+                    }
                     else if (Model.Example.HasValue)
                     {
                         <div class="example-workspace">

@@ -52,4 +52,5 @@ public sealed record ShowcaseViewModel(
     public IdCardViewModel? IdCard { get; init; } // Example 1 text-only ID data.
     public TextCounterViewModel? TextCounter { get; init; }
     public TimeConverterViewModel? Time { get; init; } // Example 4 form and calculated output.
+    public NestedExampleViewModel? Nested { get; init; } // One of the five nested-decision forms.
 }

@@ -1,0 +1,8 @@
+@model NestedExampleViewModel
+@* All output comes from C#; Razor encodes text before placing it in the page. *@
+<div class="example-result" data-example-result hidden="@(Model.Result is null)" role="status" aria-atomic="true">
+    <strong>@Model.Result</strong>
+    <span>@Model.Detail</span>
+    <h5 class="decision-path-title">Decision path</h5>
+    <ol class="decision-path">@foreach (var decision in Model.Decisions) { <li>@decision</li> }</ol>
+</div>

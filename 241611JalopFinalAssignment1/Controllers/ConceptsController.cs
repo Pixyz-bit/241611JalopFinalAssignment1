@@ -18,6 +18,7 @@ public sealed class ConceptsController : Controller
             IdCard = category == "input-output" && example == 1 ? new IdCardViewModel() : null,
             TextCounter = category == "input-output" && example == 5 ? new TextCounterViewModel() : null,
             Time = category == "input-output" && example == 4 ? new TimeConverterViewModel() : null,
+            Nested = category == "nested-if-else" && example == 1 ? new LoginAccessViewModel() : null,
             Temperature =
                 category == "input-output" && example == 3 ? new TemperatureConverterViewModel() : null,
         };
