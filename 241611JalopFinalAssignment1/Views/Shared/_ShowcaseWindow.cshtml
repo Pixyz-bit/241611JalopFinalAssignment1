@@ -85,11 +85,20 @@
                     {
                         <partial name="~/Views/Concepts/NestedIfElse/_AtmWithdrawal.cshtml" model="atm" />
                     }
+                    else if (Model.Nested is BmiCalculatorViewModel bmi)
+                    {
+                        <partial name="~/Views/Concepts/NestedIfElse/_BmiCalculator.cshtml" model="bmi" />
+                    }
                     else if (Model.Example.HasValue)
                     {
                         <div class="example-workspace">
                             <div class="example-heading"><h4>Example @Model.Example.Value.ToString("00")</h4><span class="status-pill"><span></span>Not implemented yet</span></div>
                             <p class="detail-description">A blank canvas for your next idea.</p>
+                            @if (Model.Category?.Slug == "input-output" && Model.Example == 2)
+                            {
+                                @* Preserve this slot while directing earlier BMI visitors to its new category. *@
+                                <p class="detail-description">Looking for BMI? <a href="/concepts/nested-if-else/example-3" class="primary-link" data-navigate>Open the BMI Calculator in Nested If…Else</a>.</p>
+                            }
                             <div class="template-section"><h5>Description</h5><p>Add the example’s title and explain what it does.</p></div>
                             <div class="template-section"><h5>Interface</h5><div class="empty-interface"><svg class="icon" aria-hidden="true"><use href="#icon-code" /></svg><p>Your inputs and controls will go here.</p></div></div>
                             <div class="template-section"><h5>Output</h5><p>The result will appear here when you add your C# logic.</p></div>

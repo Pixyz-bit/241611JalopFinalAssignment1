@@ -94,6 +94,50 @@ public sealed class NestedIfElseController : Controller
         return Example(2, input);
     }
 
+    [HttpPost("concepts/nested-if-else/example-3")]
+    [ValidateAntiForgeryToken]
+    public IActionResult CalculateBmi([Bind("Weight,Height")] BmiCalculatorViewModel input)
+    {
+        if (ModelState.IsValid && input.Weight is decimal weight && input.Height is decimal height)
+        {
+            input.Decisions.Add("Valid positive measurements? Yes.");
+            var bmi = weight / (height * height); // Height must be in meters, and is squared here.
+            string category;
+            if (bmi < 18.5m)
+            {
+                input.Decisions.Add("BMI below 18.5? Yes.");
+                category = "Underweight";
+            }
+            else
+            {
+                input.Decisions.Add("BMI below 18.5? No.");
+                if (bmi < 25m)
+                {
+                    input.Decisions.Add("BMI below 25? Yes.");
+                    category = "Healthy weight";
+                }
+                else
+                {
+                    input.Decisions.Add("BMI below 25? No.");
+                    if (bmi < 30m)
+                    {
+                        input.Decisions.Add("BMI below 30? Yes.");
+                        category = "Overweight";
+                    }
+                    else
+                    {
+                        input.Decisions.Add("BMI below 30? No.");
+                        category = "Obesity";
+                    }
+                }
+            }
+            // Classify first, then round for display so boundary decisions use the full value.
+            input.Result = category;
+            input.Detail = $"BMI: {bmi:0.00} kg/m². Formula: {weight:0.######} / ({height:0.######} × {height:0.######}). Category uses the unrounded value.";
+        }
+        return Example(3, input);
+    }
+
     private IActionResult Example(int number, NestedExampleViewModel input)
     {
         // Reuse the desktop shell for both results and validation feedback.
