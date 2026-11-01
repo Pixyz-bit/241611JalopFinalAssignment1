@@ -7,7 +7,8 @@ public sealed class ConceptsController : Controller
 {
     [HttpGet("concepts/{category}")] // Handles GET requests; {category} captures the category (page name) from the URL.
     [HttpGet("concepts/{category}/example-{example:int}")] // Handles GET requests; {example:int} requires an integer example number.
-    public IActionResult Index(string category, int? example) // IActionResult supports responses such as a view or 404; int? allows example to be absent (null).
+    
+    public IActionResult Index(string category, int? example) // GET Request: Prepares the page
     {
         var concept = ConceptCatalog.Find(category); // Look up the category using its URL slug.
         if (concept is null || example is < 1 or > 5) return NotFound(); // Return HTTP 404 for an unknown category or an example outside 1-5.
@@ -22,12 +23,13 @@ public sealed class ConceptsController : Controller
             return PartialView("_ShowcaseWindow", model); // Enhanced navigation needs only the window HTML.
 
         return View("~/Views/Home/Index.cshtml", model); // Direct visits receive the complete page using the shared desktop view.
-    }
+    }   
 
+    //POST Request: processes the form for Temperature Converter
     [HttpPost("concepts/input-output/example-3")] // Handles a submitted form at this URL.
     [ValidateAntiForgeryToken] // Checks the form's antiforgery token.
     public IActionResult ConvertTemperature(
-        [Bind("Value,FromUnit,ToUnit")] TemperatureConverterViewModel input)
+        [Bind("Value,FromUnit,ToUnit")] TemperatureConverterViewModel input, string? command)
     {
         // Binding accepts only editable inputs; users cannot submit their own result or formula.
         if (ModelState.IsValid && input.Value is decimal value)
@@ -72,6 +74,16 @@ public sealed class ConceptsController : Controller
                     _ => $"{value:0.##} {input.FromUnit} = {input.Result:0.##} {input.ToUnit}"
                 };
             }
+        }
+
+        // Without JavaScript, Swap still works as a server action using the full-precision result.
+        if (command == "swap" && input.Result is decimal converted)
+        {
+            (input.FromUnit, input.ToUnit) = (input.ToUnit, input.FromUnit);
+            input.Value = converted;
+            input.Result = null;
+            input.Formula = null;
+            ModelState.Clear(); // Let Razor display the swapped values instead of the original POST values.
         }
 
         // Rebuild the same application window with the submitted data and result.

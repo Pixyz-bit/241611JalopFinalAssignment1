@@ -1,11 +1,17 @@
-@model TemperatureConverterViewModel
+@model TemperatureConverterViewModel //“Use the temperature model.”
+@{
+    // Unit symbols also label the confirmed result and its feedback message.
+    var fromSymbol = Model.FromUnit switch { TemperatureUnit.Celsius => "°C", TemperatureUnit.Fahrenheit => "°F", _ => "K" };
+    var toSymbol = Model.ToUnit switch { TemperatureUnit.Celsius => "°C", TemperatureUnit.Fahrenheit => "°F", _ => "K" };
+}
 
 <div class="example-workspace temperature-example">
     <div class="example-heading"><h4>Temperature Converter</h4></div>
     <p class="detail-description">Convert between Celsius, Fahrenheit and Kelvin.</p>
 
-    @* A normal MVC form keeps validation and calculations available without JavaScript. *@
-    <form asp-controller="Concepts" asp-action="ConvertTemperature" method="post" class="temperature-form">
+    @* “When submitted, send this form to ConvertTemperature() in ConceptsController.” *@
+    <form asp-controller="Concepts" asp-action="ConvertTemperature" method="post" class="temperature-form" 
+          data-confirmed-result="@(Model.Result?.ToString(System.Globalization.CultureInfo.InvariantCulture))">
         <div class="temperature-pair">
             <div class="temperature-field">
                 <label asp-for="Value" class="temperature-field-label">From</label>
@@ -22,13 +28,19 @@
                 <span asp-validation-for="Value" id="temperature-error" class="temperature-errors"></span>
                 <span asp-validation-for="FromUnit" class="temperature-errors"></span>
             </div>
-            <span class="temperature-equals" aria-hidden="true">=</span>
+            @* JavaScript enables the inline swap; the noscript button below preserves a server fallback. *@
+            <button type="button" class="temperature-swap" data-temperature-swap aria-label="Swap units" title="Swap units">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h15m-4-4 4 4-4 4M20 17H5m4-4-4 4 4 4" /></svg>
+            </button>
             <div class="temperature-field">
                 @* The confirmed output is readonly and excluded from the controller's input binding. *@
                 <label for="temperature-result" class="temperature-field-label">To</label>
-                <div class="temperature-panel">
+                <div class="temperature-panel temperature-output-panel">
+                    <div class="temperature-output-row">
                     <input id="temperature-result" type="text" readonly class="temperature-value"
                            value="@(Model.Result?.ToString("0.##"))" placeholder="—" />
+                    <span class="temperature-result-unit" data-temperature-result-unit>@(Model.Result.HasValue ? toSymbol : "")</span>
+                    </div>
                     <label asp-for="ToUnit" class="sr-only">To unit</label>
                     <select asp-for="ToUnit" class="temperature-unit">
                         <option value="Celsius">Celsius (°C)</option>
@@ -39,12 +51,16 @@
                 <span asp-validation-for="ToUnit" class="temperature-errors"></span>
             </div>
         </div>
-        <p id="temperature-help" class="temperature-help">Choose Confirm to update the result.</p>
-        <button type="submit" class="temperature-confirm">Confirm</button>
+        <div class="temperature-actions">
+            <button type="submit" class="temperature-confirm">Confirm</button>
+            <a href="/concepts/input-output/example-3" class="temperature-clear" data-temperature-clear>Clear</a>
+            <noscript><button type="submit" name="command" value="swap" class="temperature-clear">Swap units</button></noscript>
+        </div>
+        <p id="temperature-help" class="temperature-help" role="status">@(Model.Result.HasValue ? $"{Model.Value:0.##} {fromSymbol} = {Model.Result:0.##} {toSymbol}" : "Choose Confirm to update the result.")</p>
     </form>
 
     <div class="temperature-formula" aria-live="polite">
         <span class="temperature-formula-label">Formula</span>
-        <span>@(Model.Formula ?? "Your calculation will appear here after confirmation.")</span>
+        <span data-temperature-formula>@(Model.Formula ?? "Your calculation will appear here after confirmation.")</span>
     </div>
 </div>

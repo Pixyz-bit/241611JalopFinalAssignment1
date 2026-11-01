@@ -317,3 +317,23 @@ button:active, summary:active { opacity: .8; }
     .temperature-value { font-size: 22px; }
     .temperature-unit { font-size: 11px; padding-inline: 3px; }
 }
+
+/* Output tint and quiet secondary actions preserve the application's light control language. */
+.temperature-pair { grid-template-columns: repeat(2,minmax(0,1fr)); }
+.temperature-enhanced .temperature-pair { grid-template-columns: minmax(0,1fr) 44px minmax(0,1fr); }
+.temperature-output-row { display: flex; align-items: center; height: 48px; background: var(--blue-soft); border-bottom: 1px solid var(--line); }
+.temperature-output-row .temperature-value { flex: 1; width: 0; height: 46px; border: 0; background: transparent; padding-right: 2px; }
+.temperature-result-unit { padding-right: 10px; color: var(--muted); font-size: 12px; }
+.temperature-swap { display: none; place-items: center; width: 44px; min-height: 44px; margin-top: 42px; border-radius: var(--radius-control); color: var(--blue); background: transparent; }
+.temperature-enhanced .temperature-swap { display: grid; }
+.temperature-swap:hover, .temperature-clear:hover { background: var(--blue-soft); }
+.temperature-actions { display: flex; align-items: center; gap: 8px; margin-top: 12px; }
+.temperature-clear { display: inline-flex; justify-content: center; align-items: center; min-height: 36px; padding: 6px 14px; border: 1px solid var(--field-border); border-radius: var(--radius-control); background: var(--paper); color: var(--ink); font-size: 12px; }
+.temperature-help { margin: 8px 0 0; }
+.temperature-formula { margin-top: 16px; }
+@media (max-width: 720px) { .temperature-clear { min-height: 44px; } }
+@media (max-width: 400px) {
+    /* Stack narrow fields so full unit names and values remain readable. */
+    .temperature-pair, .temperature-enhanced .temperature-pair { grid-template-columns: minmax(0,1fr); gap: 8px; }
+    .temperature-swap { margin: 0; justify-self: center; }
+}

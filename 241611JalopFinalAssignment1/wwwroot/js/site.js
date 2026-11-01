@@ -198,4 +198,46 @@
     updateClock();
     setInterval(updateClock, 30000);
     syncDesktop();
+
+    // Delegated listeners also handle converters inserted by cached navigation.
+
+    document.documentElement?.classList?.add('temperature-enhanced');
+    function clearTemperatureResult(form, message = 'Inputs changed. Choose Confirm to update the result.') {
+        form.querySelector('#temperature-result').value = '';
+        form.querySelector('[data-temperature-result-unit]').textContent = '';
+        form.dataset.confirmedResult = ''; // Never reuse an output belonging to earlier inputs.
+        form.querySelector('#temperature-help').textContent = message;
+        form.closest('.temperature-example').querySelector('[data-temperature-formula]').textContent = 'Your calculation will appear here after confirmation.';
+        form.querySelectorAll('.temperature-errors').forEach(error => { error.textContent = ''; });
+        form.querySelectorAll('[aria-invalid]').forEach(field => field.removeAttribute('aria-invalid'));
+    }
+    function temperatureInputChanged(event) {
+        if (!(event.target instanceof Element)) return;
+        const form = event.target.closest('.temperature-form');
+        if (form && event.target.matches('[name="Value"], [name="FromUnit"], [name="ToUnit"]')) clearTemperatureResult(form);
+    }
+    document.addEventListener('input', temperatureInputChanged);
+    document.addEventListener('change', temperatureInputChanged);
+    document.addEventListener('click', event => {
+        if (!(event.target instanceof Element)) return;
+        const control = event.target.closest('[data-temperature-swap], [data-temperature-clear]');
+        if (!control) return;
+        const form = control.closest('.temperature-form');
+        event.preventDefault();
+        const value = form.querySelector('[name="Value"]');
+        const from = form.querySelector('[name="FromUnit"]');
+        const to = form.querySelector('[name="ToUnit"]');
+        if (control.matches('[data-temperature-swap]')) {
+            [from.value, to.value] = [to.value, from.value]; // Exchange the units without calculating in JavaScript.
+            if (form.dataset.confirmedResult) value.value = form.dataset.confirmedResult;
+            clearTemperatureResult(form, 'Units swapped. Choose Confirm to convert.');
+        } else {
+            value.value = '';
+            from.value = 'Celsius';
+            to.value = 'Fahrenheit';
+            clearTemperatureResult(form, 'Choose Confirm to update the result.');
+        }
+        value.focus(); // Return keyboard users to the next editable field.
+    });
+
 })();

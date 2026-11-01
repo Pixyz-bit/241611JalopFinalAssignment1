@@ -106,3 +106,10 @@ The detector ran once before documentation reconciliation. Its advisories largel
 - Build passed with zero warnings/errors; all seven navigation tests passed. HTTP checks passed all nine unit combinations, additional decimal/absolute-zero cases (14 valid cases total), eight invalid submissions, all 20 example routes and converter partial rendering. Submitted output values are excluded from binding.
 - Browser review passed at 1280x800, 375x812, 320x740 and 1024x500, with no horizontal overflow. Confirmed 0 Celsius -> 273.15 Kelvin and 0 Kelvin -> -273.15 Celsius, negative Kelvin validation, keyboard focus and Back navigation. No motion was added; global reduced-motion styling is preserved.
 - Captures are in `.impeccable/review/temperature-light/`. The detector reports existing shared CSS font/token-ramp advisories; the approved app font and established shell are preserved. This entry supersedes the previous dark converter presentation.
+
+
+## Temperature converter actions and feedback
+- Added Swap, Clear, pale-blue output with a unit symbol, confirmed equivalence feedback and tighter action/formula spacing.
+- Build passed with zero warnings/errors; all seven navigation tests passed. HTTP checks verified seven representative conversions, validation, the server Swap fallback and Clear GET reset.
+- Browser checks covered 23 Fahrenheit -> -5 Celsius, Swap reusing -5 then Confirm returning 23 Fahrenheit, input/unit edits clearing stale result/formula, Clear resetting fields and focus, Enter confirming, and Swap after cached Back navigation.
+- Desktop at 1280x800 and phone at 375x812 were inspected. Mobile has no horizontal overflow; Swap, Clear and Confirm retain 44px touch targets. The stacked mobile workspace scrolls normally. Existing reduced-motion rules remain unchanged. Captures: `.impeccable/review/temperature-actions/`.

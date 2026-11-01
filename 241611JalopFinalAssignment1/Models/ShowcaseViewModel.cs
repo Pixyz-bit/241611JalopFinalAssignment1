@@ -21,6 +21,7 @@ public static class ConceptCatalog // A shared category list; static means no ne
         new ConceptCategory("loops", "Loops", "Find the rhythm in your code. Explore loops and the things worth doing more than once.", "repeat", "violet"),
         new ConceptCategory("arrays", "Arrays", "Keep related values together. Explore array elements, indexes, and working with collections of values.", "grid", "mint")
     });
+    
     // Find a category by its URL slug; ? allows the input and result to be null.
     public static ConceptCategory? Find(string? slug)
     {
