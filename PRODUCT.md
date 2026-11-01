@@ -13,6 +13,7 @@ ASP.NET Core MVC targeting .NET 8. Razor, plain CSS and JavaScript; no React, No
 - One light Windows application with brand titlebar, right caption controls, full-width category header beneath the titlebar, sidebar with five canonical example links and an example workspace.
 - Minimize preserves the selected example; its active taskbar shortcut restores it. Maximize keeps the taskbar visible.
 - Functional canonical URLs without JavaScript; enhanced cached navigation, history and search.
+- Approved Loops slots: Pyramid Generator (`for`), Sum of Digits (`while`), Prime Factorization (`while`), Number Guessing Game (`do…while`) and Quiz Retry Simulator (`do…while`). Use the shared Input/Result layout. The two games retain a round across submissions and provide an explicit reset.
 - Mobile, keyboard, visible focus and reduced-motion support.
 - `main` retains the earlier macOS design for comparison; this redesign does not merge into it automatically.
 
