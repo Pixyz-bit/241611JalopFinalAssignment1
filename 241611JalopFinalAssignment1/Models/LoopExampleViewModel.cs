@@ -28,7 +28,7 @@ public sealed class PyramidViewModel : LoopExampleViewModel
     public override string ActionName => "GeneratePyramid";
     public override string SubmitLabel => "Generate";
     public override string InputPartial => "_PyramidInputs";
-    public override string Code => "for (int row = 1; row <= rows; row++)\n{\n    // Add 2 * (rows - row) leading spaces.\n    // Add 2 * row - 1 symbols, with one space between them.\n}";
+    public override string Code => "for (int row = 1; row <= rows; row++)\n{\n    // Add rows - row leading spaces.\n    // Add row symbols, with one space between them.\n}";
 
     [Required(ErrorMessage = "Enter the number of rows.")]
     [Range(1, 20, ErrorMessage = "Choose between 1 and 20 rows.")]

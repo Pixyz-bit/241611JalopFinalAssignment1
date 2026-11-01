@@ -18,9 +18,9 @@ public sealed class LoopsController(LoopRoundTokens roundTokens) : Controller
             var symbols = 0;
             for (var row = 1; row <= rows; row++)
             {
-                // Each symbol gap adds a character, so double the padding to keep the pyramid centered.
-                for (var space = 0; space < 2 * (rows - row); space++) pattern.Append(' ');
-                for (var column = 0; column < 2 * row - 1; column++)
+                // One less leading space per row centers symbols separated by single spaces.
+                for (var space = 0; space < rows - row; space++) pattern.Append(' ');
+                for (var column = 0; column < row; column++) // Row 1 has one symbol, row 2 has two, and so on.
                 {
                     if (column > 0) pattern.Append(' '); // Separate symbols without adding a trailing space.
                     pattern.Append(input.Symbol);
@@ -30,7 +30,7 @@ public sealed class LoopsController(LoopRoundTokens roundTokens) : Controller
             }
             input.Pattern = pattern.ToString();
             input.Result = $"{rows} {(rows == 1 ? "row" : "rows")}";
-            input.Detail = $"{symbols} symbols, separated by one space. Each row adds two symbols to the previous row.";
+            input.Detail = $"{symbols} symbols, separated by one space. Each row adds one symbol to the previous row.";
         }
         return Example(1, input);
     }
