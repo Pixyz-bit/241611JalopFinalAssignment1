@@ -74,3 +74,9 @@ Do not create 20 empty controller/view copies now. The shared template keeps ini
 
 
 Converter interactions use delegated input/change/click handlers so they survive cached navigation. Editing a value/unit clears the result, its symbol, formula and outdated validation feedback. Swap exchanges units and, when available, copies the full-precision confirmed result into the input; C# still performs every calculation on Confirm. Clear resets to an empty Celsius-to-Fahrenheit form and focuses the input. The raw confirmed result is only a browser convenience, never a trusted posted output. A noscript Swap submit action recalculates on the server, swaps fields and clears ModelState so Razor renders the new inputs. Clear falls back to the canonical GET route.
+
+
+## Implemented Input/Output examples
+`InputOutputController` handles canonical POST routes for time (4), text (5) and ID (1), while `ConceptsController` initializes their GET view models. Time normalizes through seconds; text uses Unicode text elements and whitespace-separated word groups after newline normalization. All form output is server calculated and Razor encoded.
+
+ID generation posts only named text fields and an antiforgery token. The photo picker has no name or matching model property; JavaScript keeps a single blob URL in memory, validates type/size/decoding and revokes it on Clear, navigation and page exit. No storage API, database or server photo path is used. AJAX returns validated text as JSON; textContent inserts it safely into the preview. Native POST still renders a text-only card. Revision checks prevent old responses from restoring a preview after edits or Clear. The server rejects file submissions and limits the request to 16 KB.

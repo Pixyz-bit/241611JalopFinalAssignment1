@@ -64,6 +64,10 @@
                         <partial name="~/Views/Concepts/InputOutput/_TemperatureConverter.cshtml"
                                  model="Model.Temperature" />
                     }
+                    else if (Model.IdCard is not null)
+                    {
+                        <partial name="~/Views/Concepts/InputOutput/_IdCard.cshtml" model="Model.IdCard" />
+                    }
                     else if (Model.TextCounter is not null)
                     {
                         <partial name="~/Views/Concepts/InputOutput/_TextCounter.cshtml" model="Model.TextCounter" />

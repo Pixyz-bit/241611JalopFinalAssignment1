@@ -2,14 +2,14 @@
 
 ## Input/Output
 
-### Example 1 — ID Card Generator (confirmed)
+### Example 1 — ID Card Generator (implemented)
 
 - User enters their details and selects a photo, then chooses Generate ID to display a card preview on the page.
 - Preview only: no download button.
 - The photo stays local to the browser. Do not upload it, include it in form submissions, save it to a database/server folder, or persist it in localStorage/IndexedDB.
 - JavaScript handles the local photo preview; C# validates and formats the text details.
 - Clear releases the temporary photo reference and resets the form and preview. Page reload resets the preview state; do not restore it from the application's navigation cache.
-- This is an approved concept awaiting implementation. Keep the current example placeholder until implementation is requested.
+- Implemented with text-only MVC validation and browser-only photo preview.
 
 ### Example 2 — BMI Calculator (confirmed)
 
@@ -35,4 +35,4 @@
 - Output: character count and word count for the entered text.
 - This is an approved concept awaiting implementation. Characters include spaces and normalized line breaks; Unicode text elements count once. Words are nonempty whitespace-separated groups.
 
-All five Input/Output concepts are now selected. These planning decisions do not implement the examples or replace their current placeholders.
+Examples 1, 3, 4 and 5 are implemented. Example 2 (BMI) is still a planned placeholder.

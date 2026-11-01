@@ -119,3 +119,8 @@ Build and seven navigation tests passed. Checked hours/seconds, fractional minut
 
 ## Character and Word Counter
 Build and seven navigation tests passed. Confirmed empty text, repeated whitespace, CRLF normalization, combining accents, emoji and the 10,000 input-length limit. Browser confirmed Hello world -> 11 characters / 2 words.
+
+## ID Card Generator
+Build and all seven navigation tests passed. Checked valid text-only MVC and JSON responses, trimming and required/year validation. All 20 canonical routes passed. Browser generated a card from sample details and a local test image; the image source was a blob URL and the file picker was absent from named form fields. Clear removed the image source, hid the card and emptied details. No-photo preview also passed.
+
+Final example checks: desktop/mobile forms fit without horizontal overflow and phone inputs are 44px high. Synthetic file submissions to the ID endpoint were rejected with HTTP 400. The photo decode-ready guard prevents generating a card before a selected image is ready; cleanup also hides photo output on page exit.

@@ -15,6 +15,7 @@ public sealed class ConceptsController : Controller
 
         var model = new ShowcaseViewModel(concept, example)
         {
+            IdCard = category == "input-output" && example == 1 ? new IdCardViewModel() : null,
             TextCounter = category == "input-output" && example == 5 ? new TextCounterViewModel() : null,
             Time = category == "input-output" && example == 4 ? new TimeConverterViewModel() : null,
             Temperature =

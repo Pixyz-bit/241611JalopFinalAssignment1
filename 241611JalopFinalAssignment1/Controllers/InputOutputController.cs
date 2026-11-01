@@ -31,4 +31,26 @@ public sealed class InputOutputController : Controller
         }
         return View("~/Views/Home/Index.cshtml", new ShowcaseViewModel(ConceptCatalog.Find("input-output"), 5) { TextCounter = input });
     }
+
+    [HttpPost("concepts/input-output/example-1")]
+    [ValidateAntiForgeryToken]
+    [RequestSizeLimit(16384)] // The endpoint accepts a small text form, not photo uploads.
+    public IActionResult GenerateId([Bind("FullName,StudentNumber,Course,YearLevel")] IdCardViewModel input)
+    {
+        if (Request.Form.Files.Count > 0) return BadRequest(); // Reject files even if a custom client submits one.
+        if (ModelState.IsValid)
+        {
+            input.FullName = input.FullName!.Trim();
+            input.StudentNumber = input.StudentNumber!.Trim();
+            input.Course = input.Course!.Trim();
+            input.HasResult = true;
+        }
+        if (Request.Headers["X-Id-Preview"] == "true")
+        {
+            if (!ModelState.IsValid) return BadRequest(new { errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
+            // JSON carries validated text only; the selected photo remains in the browser.
+            return Json(new { fullName = input.FullName, studentNumber = input.StudentNumber, course = input.Course, yearLevel = input.YearLevel });
+        }
+        return View("~/Views/Home/Index.cshtml", new ShowcaseViewModel(ConceptCatalog.Find("input-output"), 1) { IdCard = input });
+    }
 }

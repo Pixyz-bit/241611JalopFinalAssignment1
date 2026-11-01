@@ -234,3 +234,7 @@ Use the neutral status pill and dashed interface container to explain that the s
 ### Shared Input/Output forms
 
 Time conversion and subsequent examples reuse labeled white inputs, compact blue actions, canonical Clear links and pale-blue output. Forms use a 520px maximum measure, two columns on desktop and one on phones. Editing an enhanced form hides stale output; calculations and validation remain in C#.
+
+### ID preview
+
+The ID generator uses the shared light form controls beside a compact sample ID card, stacking below 1100px. The card uses the existing blue-soft header, neutral photo frame and readable wrapping for long names/courses. Generate has a busy state and validated text feedback. The photo is optional and local-only; no download or upload control is provided.

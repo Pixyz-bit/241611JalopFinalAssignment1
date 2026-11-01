@@ -1,0 +1,32 @@
+@model IdCardViewModel
+<div class="example-workspace id-example">
+    <div class="example-heading"><h4>ID Card Generator</h4></div>
+    <p class="detail-description">Create a sample student ID preview. Your photo stays on this device.</p>
+    <div class="id-layout">
+        <form asp-controller="InputOutput" asp-action="GenerateId" method="post" class="example-form" data-example-form data-id-form>
+            <label asp-for="FullName">Full name</label><input asp-for="FullName" class="example-input" required maxlength="80" autocomplete="off" /><span asp-validation-for="FullName" class="temperature-errors"></span>
+            <div class="example-fields">
+                <div><label asp-for="StudentNumber">Student number</label><input asp-for="StudentNumber" class="example-input" required maxlength="30" autocomplete="off" /><span asp-validation-for="StudentNumber" class="temperature-errors"></span></div>
+                <div><label asp-for="YearLevel">Year level</label><select asp-for="YearLevel" class="example-input" required><option value="">Select year</option>@for (var year = 1; year <= 6; year++) { <option value="@year">Year @year</option> }</select><span asp-validation-for="YearLevel" class="temperature-errors"></span></div>
+            </div>
+            <div class="id-course"><label asp-for="Course">Course</label><input asp-for="Course" class="example-input" required maxlength="80" autocomplete="off" /><span asp-validation-for="Course" class="temperature-errors"></span></div>
+            @* No name attribute: browsers exclude the photo from FormData and native form submissions. *@
+            <label for="id-photo" class="id-photo-label">Photo <span>(optional)</span></label>
+            <input id="id-photo" type="file" accept="image/jpeg,image/png,image/webp" class="example-input" aria-describedby="photo-help" />
+            <p id="photo-help" class="example-hint">JPG, PNG or WebP, up to 5 MB. Preview only; no upload or download.</p>
+            <p data-id-photo-status class="example-hint" role="status"></p>
+            <div data-id-errors class="temperature-errors" role="alert"></div>
+            <div class="temperature-actions"><button type="submit" class="temperature-confirm">Generate ID</button><a href="/concepts/input-output/example-1" class="temperature-clear" data-id-clear>Clear</a></div>
+            <p class="example-hint" data-example-hint role="status">Enter your details, then choose Generate ID.</p>
+            <noscript><p class="example-hint">Text previews work here. Local photo previews require JavaScript.</p></noscript>
+        </form>
+        <section class="id-preview" data-example-result data-id-preview hidden="@(!Model.HasResult)" aria-label="Sample student ID preview">
+            <header class="id-card-header"><svg class="icon" aria-hidden="true"><use href="#icon-code" /></svg><span>Student ID <small>Sample preview</small></span></header>
+            <div class="id-card-body">
+                <div class="id-photo"><img data-id-photo-preview alt="Selected ID portrait" hidden /><span data-id-photo-placeholder>No photo</span></div>
+                <div class="id-card-details"><h5 data-id-name>@Model.FullName</h5><dl><dt>Student number</dt><dd data-id-number>@Model.StudentNumber</dd><dt>Course</dt><dd data-id-course>@Model.Course</dd><dt>Year level</dt><dd data-id-year>@Model.YearLevel</dd></dl></div>
+            </div>
+            <p class="id-card-footer">For this programming example only</p>
+        </section>
+    </div>
+</div>
