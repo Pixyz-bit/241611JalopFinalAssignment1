@@ -3,11 +3,24 @@ document.addEventListener('input', event => {
     if (!(event.target instanceof Element)) return;
     const form = event.target.closest('[data-example-form]');
     if (!form) return;
+    if (form.closest('.nested-example')) {
+        // A changed field no longer belongs to the server's previous validation message.
+        const summary = form.querySelector('[data-decision-errors]');
+        if (summary) summary.hidden = true;
+        const errorId = event.target.getAttribute('aria-describedby');
+        const error = errorId ? document.getElementById(errorId) : null;
+        if (error) error.textContent = '';
+        event.target.removeAttribute('aria-invalid');
+    }
     form.dataset.revision = String(Number(form.dataset.revision || 0) + 1);
     form.closest('.example-workspace').querySelectorAll('[data-example-result]').forEach(result => { result.hidden = true; });
     const hint = form.querySelector('[data-example-hint]');
     if (hint) hint.textContent = 'Inputs changed. Submit again to update the result.';
 });
+
+// Native POST reloads the document; bring its outcome or errors into keyboard focus.
+const decisionFeedback = document.querySelector('[data-decision-errors], .nested-example [data-example-result]:not([hidden])');
+decisionFeedback?.focus();
 
 // The sole photo reference is an in-memory blob URL, revoked on clear, navigation or page exit.
 (() => {

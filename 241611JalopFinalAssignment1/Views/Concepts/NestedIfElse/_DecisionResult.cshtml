@@ -1,6 +1,6 @@
 @model NestedExampleViewModel
 @* All output comes from C#; Razor encodes text before placing it in the page. *@
-<div class="example-result" data-example-result hidden="@(Model.Result is null)" role="status" aria-atomic="true">
+<div class="example-result" data-example-result hidden="@(Model.Result is null)" role="status" aria-atomic="true" tabindex="-1">
     <strong>@Model.Result</strong>
     <span>@Model.Detail</span>
     <h5 class="decision-path-title">Decision path</h5>

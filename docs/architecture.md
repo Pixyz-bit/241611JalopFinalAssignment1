@@ -59,6 +59,12 @@ The route cache is suitable for the current read-only template. When adding real
 
 `fitStartPanel` resets and measures Start's natural width and content height when it opens, the viewport resizes, or fonts finish loading. It chooses the smaller available-width/available-height ratio and writes CSS width and height variables for the outer panel. This preserves the panel's proportions while its text, icons, controls and padding keep their natural sizes. A column flex layout and automatic top margin hold the footer at the bottom. A minimum sizing factor of 1 preserves small-screen control sizes; CSS constrains the panel height and allows scrolling when content cannot fit.
 
+## Implemented Nested If…Else examples
+
+`NestedIfElseController` handles antiforgery-protected POST routes 1–5. `ConceptsController` initializes their typed GET models, and `_ShowcaseWindow` selects the corresponding Razor partial. `NestedExampleViewModel` shares result text, ordered decision steps and the text flow; each concrete model defines only its input fields and descriptive metadata. Bind allowlists accept inputs only. The algorithms use explicit nested `if`/`else` blocks so the C# matches the learning diagrams.
+
+`_DecisionResult`, `_DecisionErrors` and `_DecisionFlow` share output, linked validation feedback and native details disclosures. `examples.js` hides outdated output after edits and focuses server feedback after native POST. Clear always performs a canonical GET. Login removes submitted passwords from ModelState and the model before returning HTML. ATM calculations are independent simulations with no saved balance. See [nested-if-else.md](nested-if-else.md) for accounts, numeric limits and test commands.
+
 ## Adding your examples
 1. Give examples real titles/descriptions in a typed view model, keyed by category and number.
 2. Add each example's UI as a Razor partial beneath `Views/Concepts/<Category>/` when that real example exists. Select it within the shared application workspace; retain the shared shell.

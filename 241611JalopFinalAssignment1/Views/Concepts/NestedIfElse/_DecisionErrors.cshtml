@@ -1,0 +1,17 @@
+@model NestedExampleViewModel
+@if (!ViewData.ModelState.IsValid)
+{
+    @* Linked errors give keyboard users a direct route to each field needing attention. *@
+    <div class="decision-errors" role="alert" tabindex="-1" data-decision-errors>
+        <h5>Check your inputs</h5>
+        <ul>
+            @foreach (var field in ViewData.ModelState)
+            {
+                @foreach (var error in field.Value.Errors)
+                {
+                    <li><a href="#@field.Key">@error.ErrorMessage</a></li>
+                }
+            }
+        </ul>
+    </div>
+}

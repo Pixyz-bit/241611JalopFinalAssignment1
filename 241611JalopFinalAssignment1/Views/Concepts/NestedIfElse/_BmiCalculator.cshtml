@@ -3,6 +3,7 @@
     <div class="example-heading"><h4>@Model.Title</h4></div>
     <p class="detail-description">@Model.Description</p>
     <form asp-controller="NestedIfElse" asp-action="CalculateBmi" method="post" class="example-form" data-example-form>
+        <partial name="~/Views/Concepts/NestedIfElse/_DecisionErrors.cshtml" model="Model" />
         @* Unit labels prevent confusing a height in centimeters with the formula's meters. *@
         <div class="example-fields">
             <div><label asp-for="Weight">Weight (kg)</label><input asp-for="Weight" class="example-input" type="number" step="any" min="0.000001" max="1000000000" required placeholder="For example, 60" aria-describedby="weight-error" aria-invalid="@(ViewData.ModelState[nameof(Model.Weight)]?.Errors.Count > 0 ? "true" : null)" /><span asp-validation-for="Weight" id="weight-error" class="temperature-errors"></span></div>

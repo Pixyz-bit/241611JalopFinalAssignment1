@@ -238,3 +238,7 @@ Time conversion and subsequent examples reuse labeled white inputs, compact blue
 ### ID preview
 
 The ID generator uses the shared light form controls beside a compact sample ID card, stacking below 1100px. The card uses the existing blue-soft header, neutral photo frame and readable wrapping for long names/courses. Generate has a busy state and validated text feedback. The photo is optional and local-only; no download or upload control is provided.
+
+### Nested decision examples
+
+The five decision examples inherit the shared 520px form measure, labeled Paper inputs, blue actions, canonical Clear links and pale-blue results. Each result includes an ordered Decision path. A native details disclosure reveals the monospace text decision tree, with horizontal scrolling inside the tree on narrow phones. Login also shows a compact table of public sample accounts. Inline validation is supplemented by a linked error summary. After native POST, keyboard focus moves to errors or the result; editing a field hides outdated output. All mobile fields, actions and disclosure targets are at least 44px high. No motion or palette changes are introduced.

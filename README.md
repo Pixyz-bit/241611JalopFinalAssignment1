@@ -1,6 +1,6 @@
 # C# Programming Showcase
 
-A Windows 11 inspired ASP.NET Core MVC template with four concept app shortcuts, five unimplemented example slots per concept, a light Windows application, Start navigation, search and a persistent taskbar. The `windows-design` branch contains this design; `main` retains the earlier macOS version.
+A Windows 11 inspired ASP.NET Core MVC showcase with four concept app shortcuts, five example slots per concept, a light Windows application, Start navigation, search and a persistent taskbar. Input/Output has four working examples; Nested If…Else has five. The `windows-design` branch contains this design; `main` retains the earlier macOS version.
 
 ## Run
 Install the .NET 8 SDK (or a newer compatible SDK with the .NET 8 runtime), open this folder in Visual Studio or a terminal, and run:
@@ -32,6 +32,8 @@ These commands select a local version; they do not merge or push either branch.
 ## Navigation regression checks
 With Node.js available, run `node --test tests/navigation.test.cjs` from the solution root. These development checks need no npm packages; the application itself runs with .NET only.
 
+With the app running, use `node --test tests/nested-if-else.test.cjs` to verify the five decision examples through real HTTP forms. Set `SHOWCASE_BASE_URL` if the app uses a port other than 5196. See [docs/nested-if-else.md](docs/nested-if-else.md) for the example order, public sample accounts and decision rules.
+
 ## Project guidance
 - [PRODUCT.md](PRODUCT.md): scope and confirmed decisions.
 - [DESIGN.md](DESIGN.md): visual rules and reusable tokens.
@@ -41,4 +43,4 @@ With Node.js available, run `node --test tests/navigation.test.cjs` from the sol
 - [docs/assets.md](docs/assets.md): wallpaper provenance and font licensing.
 - [docs/validation.md](docs/validation.md): verification results and limits.
 
-Input/Output, Nested If…Else, Loops and Arrays each have Example 01–05. The example programming logic is intentionally left to the owner.
+Input/Output, Nested If…Else, Loops and Arrays each have Example 01–05. The remaining empty slots are available for the owner's next examples.

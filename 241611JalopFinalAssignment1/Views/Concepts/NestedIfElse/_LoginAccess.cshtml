@@ -3,6 +3,7 @@
     <div class="example-heading"><h4>@Model.Title</h4></div>
     <p class="detail-description">@Model.Description</p>
     <form asp-controller="NestedIfElse" asp-action="CheckAccess" method="post" class="example-form" data-example-form>
+        <partial name="~/Views/Concepts/NestedIfElse/_DecisionErrors.cshtml" model="Model" />
         @* Real labels and linked errors keep the form usable with a keyboard or screen reader. *@
         <div class="example-fields">
             <div><label asp-for="Username">Sample username</label><input asp-for="Username" class="example-input" required autocomplete="off" maxlength="40" aria-describedby="username-error" aria-invalid="@(ViewData.ModelState[nameof(Model.Username)]?.Errors.Count > 0 ? "true" : null)" /><span asp-validation-for="Username" id="username-error" class="temperature-errors"></span></div>

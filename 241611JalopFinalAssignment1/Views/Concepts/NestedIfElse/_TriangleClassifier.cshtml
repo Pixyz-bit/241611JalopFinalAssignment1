@@ -3,6 +3,7 @@
     <div class="example-heading"><h4>@Model.Title</h4></div>
     <p class="detail-description">@Model.Description</p>
     <form asp-controller="NestedIfElse" asp-action="ClassifyTriangle" method="post" class="example-form" data-example-form>
+        <partial name="~/Views/Concepts/NestedIfElse/_DecisionErrors.cshtml" model="Model" />
         @* Each side has its own validation message so invalid measurements are easy to locate. *@
         <div class="example-fields">
             <div><label asp-for="A">Side A</label><input asp-for="A" class="example-input" type="number" step="any" min="0.000001" max="1000000000000" required aria-describedby="a-error" aria-invalid="@(ViewData.ModelState[nameof(Model.A)]?.Errors.Count > 0 ? "true" : null)" /><span asp-validation-for="A" id="a-error" class="temperature-errors"></span></div>

@@ -357,6 +357,11 @@ button:active, summary:active { opacity: .8; }
 .decision-flow pre { margin: 0 0 12px; padding: 12px; overflow: auto; background: var(--surface); border-radius: var(--radius-control); line-height: 1.8; }
 .decision-path-title { margin: 10px 0 0; font-size: 12px; font-weight: 550; }
 .decision-path { margin: 0; padding-left: 20px; font-size: 12px; line-height: 1.8; }
+/* A text summary supplements each inline error without relying on color alone. */
+.decision-errors { margin-bottom: 16px; padding: 12px; border: 1px solid var(--danger); border-radius: var(--radius-control); font-size: 12px; }
+.decision-errors h5 { margin: 0 0 6px; font-size: 13px; }
+.decision-errors ul { margin: 0; padding-left: 20px; }
+.decision-errors a { text-decoration: underline; text-underline-offset: 3px; }
 .sample-accounts { overflow-x: auto; }
 .sample-accounts table { width: 100%; border-collapse: collapse; text-align: left; }
 .sample-accounts th, .sample-accounts td { padding: 8px 4px; border-bottom: 1px solid var(--line); }
