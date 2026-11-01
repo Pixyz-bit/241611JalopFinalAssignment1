@@ -20,10 +20,11 @@ async function submit(number, fields, tokenRequired = true) {
 
 test('pyramid output preserves centering, row widths and encoded symbols', async () => {
     for (const [Rows, Symbol, expected] of [
-        ['1', '*', '*'], ['3', '*', '  *\n ***\n*****'], ['2', '<', ' <\n<<<']
+        ['1', '*', '*'], ['3', '*', '    *\n  * * *\n* * * * *'], ['2', '<', '  <\n< < <']
     ]) {
         const { html } = await submit(1, { Rows, Symbol });
-        assert.equal(html.match(/aria-label="Generated pyramid">([\s\S]*?)<\/pre>/)?.[1]?.trimEnd(), expected);
+        // Compare exact whitespace so extra trailing spaces cannot hide behind trimming.
+        assert.equal(html.match(/aria-label="Generated pyramid">([\s\S]*?)<\/pre>/)?.[1], expected);
     }
 });
 

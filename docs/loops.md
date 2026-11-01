@@ -10,7 +10,7 @@ All five use the existing Input/Result panels, field styles, result typography, 
 
 ## Limits and behavior
 
-- Pyramid: 1–20 rows and one printable ASCII keyboard character; nested for loops append padding and symbols. Razor encodes the output, including `<` and `>`.
+- Pyramid: 1–20 rows and one printable ASCII keyboard character; nested for loops append two leading spaces per missing row and one space between symbols, without trailing spaces. Rows retain 1, 3, 5, … symbols and stay centered. Razor encodes the output, including `<` and `>`.
 - Digit sum: 1–18 decimal digits, including zero and leading zeros. A while loop extracts digits from right to left; zero has a sum of zero and requires no loop iterations.
 - Prime factors: whole numbers from 2 to 1,000,000,000,000. Nested while loops remove repeated factors, testing only odd divisors after 2 and stopping at the square root of the remaining number.
 - Guessing: a random target from 1–100 and at most 10 guesses. Higher/lower feedback, history, completion and New game work through native POST/GET.
