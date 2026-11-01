@@ -5,13 +5,15 @@ const { test } = require('node:test');
 const vm = require('node:vm');
 
 const source = readFileSync(resolve(__dirname, '../241611JalopFinalAssignment1/wwwroot/js/site.js'), 'utf8');
+const windowStateSource = readFileSync(resolve(__dirname, '../241611JalopFinalAssignment1/wwwroot/js/window-state.js'), 'utf8');
 const markup = category => `<section data-window data-category="${category}"></section>`;
 
 // Minimal DOM boundary: exercise the real navigation code with deterministic network timing.
-function setup(initialPath = '/', initialHtml = '') {
+function setup(initialPath = '/', initialHtml = '', { storage = new Map(), storageBlocked = false } = {}) {
     function classes() {
         const values = new Set();
         return {
+            add: value => values.add(value),
             contains: value => values.has(value),
             toggle(value, enabled) { if (enabled) values.add(value); else values.delete(value); }
         };
@@ -60,9 +62,14 @@ function setup(initialPath = '/', initialHtml = '') {
     const context = {
         AbortController, Intl, Date, Map, setTimeout, clearTimeout,
         setInterval() {}, Element: class {}, location,
+        sessionStorage: {
+            getItem(key) { if (storageBlocked) throw new Error('Storage blocked'); return storage.get(key) ?? null; },
+            setItem(key, value) { if (storageBlocked) throw new Error('Storage blocked'); storage.set(key, value); }
+        },
         history: { pushState(state, title, url) { location.pathname = url; historyEntries.push(url); } },
         window: { addEventListener() {} },
         document: {
+            documentElement: { classList: classes() },
             querySelector: selector => nodes.get(selector) ?? null,
             querySelectorAll: () => [], getElementById: () => host,
             addEventListener() {},
@@ -80,7 +87,8 @@ function setup(initialPath = '/', initialHtml = '') {
         }
     };
     vm.createContext(context);
-    const testSource = source.replace(/\}\)\(\);\s*$/, 'globalThis.navigationUnderTest = { navigate }; })();');
+    vm.runInContext(windowStateSource, context); // A fresh document restores appearance before navigation initializes.
+    const testSource = source.replace(/\}\)\(\);\s*$/, 'globalThis.navigationUnderTest = { navigate, setWindowMaximized }; })();');
     vm.runInContext(testSource, context);
     return { ...context.navigationUnderTest, host, location, requests, queued, fallbacks, historyEntries };
 }
@@ -95,6 +103,28 @@ test('a visited route is fetched once and its window stays mounted', async () =>
     assert.equal(app.host.window, window);
     assert.equal(app.requests.length, 2);
     assert.equal(app.host.window.dataset.category, '/concepts/input-output');
+});
+
+test('a new document preserves maximized size after a native form submission', () => {
+    const storage = new Map();
+    const route = '/concepts/input-output/example-3';
+    const before = setup(route, markup('input-output'), { storage });
+    before.setWindowMaximized(true);
+    const after = setup(route, markup('input-output'), { storage });
+    assert.equal(after.host.window.classList.contains('is-maximized'), true);
+    after.setWindowMaximized(false);
+    const restored = setup(route, markup('input-output'), { storage });
+    assert.equal(restored.host.window.classList.contains('is-maximized'), false);
+});
+
+test('blocked browser storage does not break window controls or navigation', async () => {
+    const app = setup('/concepts/input-output', markup('input-output'), { storageBlocked: true });
+    app.setWindowMaximized(true);
+    assert.equal(app.host.window.classList.contains('is-maximized'), true);
+    await app.navigate('/concepts/nested-if-else');
+    assert.equal(app.host.window.classList.contains('is-maximized'), true);
+    app.setWindowMaximized(false);
+    assert.equal(app.host.window.classList.contains('is-maximized'), false);
 });
 
 test('the initial server view and desktop need no additional request', async () => {

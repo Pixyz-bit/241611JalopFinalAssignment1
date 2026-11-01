@@ -22,3 +22,7 @@ dotnet run --project 241611JalopFinalAssignment1 --launch-profile http --no-buil
 ```
 
 The build passes with zero warnings or errors. All 17 test cases pass. Integration tests require the local app on port 5196 (or `SHOWCASE_BASE_URL`). The application was rerun after each implementation batch and left running for review.
+
+## Window size after form submissions
+
+The maximized preference now survives native POSTs and reloads within the current tab. Browser checks measured identical 1280×662 window bounds before and after Confirm at a 1280×720 viewport. Invalid submissions also retain maximized mode; choosing Restore remains effective after the next submission. Mobile submissions keep the maximized application above the taskbar. Restored maximized windows skip the opening scale animation. The two added regression cases cover a fresh document restoring its size and graceful operation when browser storage is blocked; the complete suite now has 19 passing cases.

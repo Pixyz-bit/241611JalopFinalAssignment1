@@ -177,6 +177,8 @@ At 720px and below, taskbar height becomes 64px plus the bottom safe-area inset,
 
 **The Persistent Taskbar Rule.** The maximized application fills the viewport above the taskbar; the taskbar remains visible and never covers application content.
 
+The chosen window size persists within the current browser tab across native form submissions and reloads. A small early script restores maximized geometry before the page paints; the regular navigation script synchronizes the caption controls. Browser storage holds only the window-size preference. When storage is unavailable, controls still work for the current page.
+
 ## Elevation & Depth
 
 The bloom carries the sculptural material as a raster asset. Desktop wallpaper uses centered `cover` sizing to fill every viewport edge without empty bands or distortion. This is the smallest proportional scale that covers the screen; some edge cropping is necessary when the screen and image aspect ratios differ. Portrait layouts also use centered `cover` sizing. The active asset is `wwwroot/images/windows-wallpaper.png`, supplied by the user; the earlier generated bloom remains unused. The application, Start and search share one diffuse window shadow (0 20px 70px -14px rgb(3 17 43 / .48)). Taskbar glass uses a pale translucent fill and backdrop blur (24px); working and reading surfaces remain light and solid. Small app-icon, welcome-action and tooltip shadows support separation without a second shadow system.

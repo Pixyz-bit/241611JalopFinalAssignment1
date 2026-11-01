@@ -9,6 +9,8 @@
     <title>@ViewData["Title"] — C# Programming Showcase</title>
     <link rel="icon" type="image/svg+xml" href="~/images/favicon.svg" />
     <link rel="preload" href="~/fonts/geist-latin.ttf" as="font" type="font/ttf" crossorigin />
+    @* Restore window geometry before styles load, including after a native form submission. *@
+    <script src="~/js/window-state.js" asp-append-version="true"></script>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>

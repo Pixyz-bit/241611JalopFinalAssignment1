@@ -159,8 +159,12 @@ button:active, summary:active { opacity: .8; }
 .app-statusbar { display: flex; flex-shrink: 0; justify-content: space-between; align-items: center; gap: 10px; min-height: 30px; padding: 5px 18px; border-top: 1px solid var(--line); background: var(--sidebar); font-size: 10px; color: var(--muted); }
 .app-statusbar > span { white-space: nowrap; }
 /* :has() lets the host fill the screen above the taskbar only while maximized. */
-.window-host:has(.is-maximized:not(.is-minimized)) { top: 0; left: 0; right: 0; bottom: var(--taskbar-height); }
-.showcase-window.is-maximized { border-radius: 0; }
+/* The root class also applies before the deferred navigation script restores caption controls. */
+.window-host:has(.is-maximized:not(.is-minimized)),
+.window-maximized .window-host:has(.showcase-window:not(.is-minimized)) { top: 0; left: 0; right: 0; bottom: var(--taskbar-height); }
+.showcase-window.is-maximized, .window-maximized .showcase-window { border-radius: 0; }
+/* A restored maximized window keeps its full size instead of replaying the opening scale. */
+.window-maximized .showcase-window { animation: none; }
 .about-content { overflow-y: auto; min-height: 0; padding: 42px; }
 .about-logo { display: grid; place-items: center; width: 56px; height: 56px; color: var(--blue); background: var(--blue-soft); border-radius: 12px; margin-bottom: 24px; }
 .about-logo .icon { width: 34px; height: 34px; }

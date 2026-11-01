@@ -10,7 +10,8 @@
     const routeCache = new Map([['/', ''], [location.pathname, host.innerHTML]]);
     let pendingRequest;
     let navigationVersion = 0;
-    let maximized = false;
+    // The early script restores the tab's previous size across native POSTs and reloads.
+    let maximized = document.documentElement?.classList?.contains('window-maximized') ?? false;
     let minimized = false;
     let lastWindowUrl = null;
 
@@ -56,6 +57,17 @@
         });
         if (windowElement) lastWindowUrl = location.pathname;
         document.title = `${windowElement?.querySelector('#window-title')?.textContent || 'Desktop'} — C# Programming Showcase`;
+    }
+
+    function setWindowMaximized(value) {
+        maximized = value;
+        document.documentElement?.classList?.toggle('window-maximized', value);
+        try {
+            sessionStorage.setItem('showcase-window-maximized', String(value)); // Save appearance only, never form data.
+        } catch {
+            // Window controls remain usable even when browser storage is blocked.
+        }
+        syncDesktop();
     }
 
     function renderWindow(html) {
@@ -150,7 +162,7 @@
             activeApp?.focus({ preventScroll: true });
             return;
         }
-        if (event.target.closest('[data-maximize]')) { maximized = !maximized; syncDesktop(); return; }
+        if (event.target.closest('[data-maximize]')) { setWindowMaximized(!maximized); return; }
         const link = event.target.closest('a[data-navigate]');
         if (!link || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || link.target === '_blank') return;
         const destination = new URL(link.href, location.href);
