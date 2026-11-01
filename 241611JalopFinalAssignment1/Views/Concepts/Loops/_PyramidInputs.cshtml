@@ -1,0 +1,14 @@
+@model PyramidViewModel
+<div class="example-input-fields">
+    <div>
+        <label asp-for="Rows">Rows</label>
+        <input asp-for="Rows" type="number" min="1" max="20" step="1" required class="example-input" aria-describedby="rows-error" />
+        <span asp-validation-for="Rows" id="rows-error" class="temperature-errors"></span>
+    </div>
+    <div>
+        <label asp-for="Symbol">Symbol</label>
+        <input asp-for="Symbol" maxlength="1" required class="example-input" aria-describedby="symbol-help symbol-error" />
+        <span asp-validation-for="Symbol" id="symbol-error" class="temperature-errors"></span>
+        <p id="symbol-help" class="example-hint">1–20 rows. Use one keyboard symbol or letter, without spaces.</p>
+    </div>
+</div>

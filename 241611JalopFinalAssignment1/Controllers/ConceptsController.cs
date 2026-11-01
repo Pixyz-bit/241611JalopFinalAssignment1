@@ -18,6 +18,14 @@ public sealed class ConceptsController : Controller
             IdCard = category == "input-output" && example == 1 ? new IdCardViewModel() : null,
             TextCounter = category == "input-output" && example == 5 ? new TextCounterViewModel() : null,
             Time = category == "input-output" && example == 4 ? new TimeConverterViewModel() : null,
+            // Match each loop slot to its own validated input model.
+            Loop = category == "loops" ? example switch
+            {
+                1 => new PyramidViewModel(),
+                2 => new SumDigitsViewModel(),
+                3 => new PrimeFactorsViewModel(),
+                _ => null
+            } : null,
             // A switch chooses the typed form for each implemented decision slot.
             Nested = category == "nested-if-else" ? example switch
             {

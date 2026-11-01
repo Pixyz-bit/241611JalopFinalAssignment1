@@ -53,7 +53,8 @@ public sealed record ShowcaseViewModel(
     public TextCounterViewModel? TextCounter { get; init; }
     public TimeConverterViewModel? Time { get; init; } // Example 4 form and calculated output.
     public NestedExampleViewModel? Nested { get; init; } // One of the five nested-decision forms.
+    public LoopExampleViewModel? Loop { get; init; } // Typed inputs and server-generated loop output.
 
     // Working examples share the input/result layout; empty slots keep their existing template.
-    public bool HasImplementedExample => Temperature is not null || IdCard is not null || TextCounter is not null || Time is not null || Nested is not null;
+    public bool HasImplementedExample => Temperature is not null || IdCard is not null || TextCounter is not null || Time is not null || Nested is not null || Loop is not null;
 }

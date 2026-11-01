@@ -1,0 +1,13 @@
+@if (!ViewData.ModelState.IsValid)
+{
+    @* Linked errors preserve the same keyboard recovery used by the decision examples. *@
+    <div class="decision-errors" role="alert" tabindex="-1" data-loop-errors>
+        <h5>Check your inputs</h5>
+        <ul>
+            @foreach (var field in ViewData.ModelState)
+            {
+                @foreach (var error in field.Value.Errors) { <li><a href="#@field.Key">@error.ErrorMessage</a></li> }
+            }
+        </ul>
+    </div>
+}

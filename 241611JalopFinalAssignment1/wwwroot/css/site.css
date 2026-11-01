@@ -352,6 +352,8 @@ button:active, summary:active { opacity: .8; }
 @media (max-width:480px) { .example-fields { grid-template-columns: minmax(0,1fr); gap: 12px; } }
 
 .example-textarea { resize: vertical; min-height: 144px; line-height: 1.7; }
+/* Monospace preserves the centered pyramid; wide patterns scroll inside their result panel. */
+.loop-pyramid { max-width: 100%; margin: 4px 0; overflow-x: auto; font-family: Consolas, monospace; font-size: 14px; line-height: 1.5; white-space: pre; }
 /* Decision explanations reuse the form's measure and scroll locally on narrow screens. */
 .decision-flow { max-width: 520px; margin-top: 20px; border-top: 1px solid var(--line); font-size: 12px; }
 .decision-flow summary { display: list-item; padding: 12px 4px; cursor: pointer; color: var(--ink); font-weight: 550; }

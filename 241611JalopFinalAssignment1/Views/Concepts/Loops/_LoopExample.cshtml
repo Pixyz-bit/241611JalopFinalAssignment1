@@ -1,0 +1,36 @@
+@model LoopExampleViewModel
+<div class="example-workspace example-split loop-example">
+    <div class="example-heading"><h4>@Model.Title</h4></div>
+    <p class="detail-description">@Model.Description</p>
+    @* All loop forms use the same native input/result layout and canonical reset link. *@
+    <form asp-controller="Loops" asp-action="@Model.ActionName" method="post" class="example-form example-layout" data-example-form>
+        <section class="example-panel example-input-panel" aria-labelledby="loop-input-title">
+            <h5 id="loop-input-title">Input</h5>
+            <partial name="~/Views/Concepts/Loops/_LoopErrors.cshtml" />
+            <partial name="@($"~/Views/Concepts/Loops/{Model.InputPartial}.cshtml")" model="Model" />
+            <div class="temperature-actions">
+                <button class="temperature-confirm" type="submit" disabled="@Model.IsFinished">@Model.SubmitLabel</button>
+                <a class="temperature-clear" href="/concepts/loops/example-@ViewData["LoopNumber"]">@Model.ClearLabel</a>
+            </div>
+            <details class="decision-flow"><summary>How the @Model.LoopKind loop works</summary><pre tabindex="0" aria-label="@Model.Title loop structure">@Model.Code</pre></details>
+        </section>
+        <section class="example-panel example-output-panel" aria-labelledby="loop-result-title">
+            <h5 id="loop-result-title">Result</h5>
+            <div class="example-result-status" role="status" aria-atomic="true">
+                <partial name="_ExampleEmpty" model="@(Model.Result is not null)" />
+                <div class="example-result" data-example-result hidden="@(Model.Result is null)" tabindex="-1">
+                    <span class="example-result-label">@Model.LoopKind loop</span>
+                    <strong>@Model.Result</strong>
+                    @* Razor encodes symbols and numbers; pre preserves the pyramid's spaces. *@
+                    @if (Model.Pattern is not null) { <pre class="loop-pyramid" tabindex="0" aria-label="Generated pyramid">@Model.Pattern</pre> }
+                    <span>@Model.Detail</span>
+                    @if (Model.Steps.Count > 0)
+                    {
+                        <h6 class="decision-path-title">Loop steps</h6>
+                        <ol class="decision-path">@foreach (var step in Model.Steps) { <li>@step</li> }</ol>
+                    }
+                </div>
+            </div>
+        </section>
+    </form>
+</div>

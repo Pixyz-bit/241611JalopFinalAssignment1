@@ -25,7 +25,7 @@ document.addEventListener('input', event => {
 });
 
 // Native POST reloads the document; bring its outcome or errors into keyboard focus.
-const decisionFeedback = document.querySelector('[data-decision-errors], .nested-example [data-example-result]:not([hidden])');
+const decisionFeedback = document.querySelector('[data-decision-errors], [data-loop-errors], .nested-example [data-example-result]:not([hidden]), .loop-example [data-example-result]:not([hidden])');
 decisionFeedback?.focus();
 
 // The sole photo reference is an in-memory blob URL, revoked on clear, navigation or page exit.
