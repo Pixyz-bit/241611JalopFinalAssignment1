@@ -27,6 +27,8 @@ colors:
   app-mint-top: "#1b9b8e"
   app-mint-bottom: "#0b6d65"
   focus: "#0067c0"
+  field-border: "#7d8da2"
+  danger: "#a4262c"
 typography:
   display:
     fontFamily: "Geist, Segoe UI, sans-serif"
@@ -206,6 +208,10 @@ A brand titlebar and right-aligned minimize/maximize/close controls remain at th
 ### Search
 
 Native dialog supplies modal focus containment. A visible label, blue focus treatment, local filtering, canonical result links, explicit close control and empty state support the task. Ctrl/Cmd+K opens it; Escape closes it. Dismissal returns focus to Start. Search remains available in Start and Ctrl/Cmd+K.
+
+### Temperature converter
+
+Input/Output Example 3 follows the light Windows workspace: Paper fields with Ink values, compact 5px corners, visible From/To labels, the shared blue Confirm action and a plain muted Formula label. The form is capped at 440px rather than 680px; number fields are 48px tall with 24px type. Selector and button heights are 36px on desktop and at least 44px on phones. Field Border provides visible control boundaries; Danger marks inline validation. The formula uses a simple top divider, without a colored badge. Celsius, Fahrenheit and Kelvin are selectable in either direction. Output is readonly and appears after server confirmation. No new animation is introduced; the existing reduced-motion rules remain in force.
 
 ### Empty examples
 

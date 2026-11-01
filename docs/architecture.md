@@ -67,3 +67,7 @@ The route cache is suitable for the current read-only template. When adding real
 5. Replace “Not implemented yet” only once that example works. Do not present fake Run/Save results.
 
 Do not create 20 empty controller/view copies now. The shared template keeps initial behavior consistent and gives each future example an explicit slot.
+
+
+## Temperature converter
+`TemperatureConverterViewModel` carries Value, FromUnit and ToUnit as validated inputs, with Result and Formula as controller-generated output. The TemperatureUnit enum constrains the three available scales: Celsius, Fahrenheit and Kelvin. `ConceptsController.ConvertTemperature` binds only the three input properties, validates the selected scale's absolute-zero limit, and normalizes through Celsius before calculating the chosen destination using decimal arithmetic. Same-unit conversions preserve the exact input. A tuple switch selects the explanatory formula, and Kelvin uses K without a degree sign. The canonical GET route initializes the form; POST returns the complete desktop view with validation or results. The shared window chooses the temperature partial before falling back to numbered placeholders. Confirm is a normal antiforgery-protected form submission and works without JavaScript.

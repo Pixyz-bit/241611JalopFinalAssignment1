@@ -3,7 +3,8 @@
 :root {
     --blue: #0067c0; --blue-soft: #e5f1fb; --ink: #202a35; --muted: #526170;
     --paper: #fcfdff; --surface: #f3f5f8; --line: #dde3eb; --desktop-text: #f5f8ff;
-    --sidebar: #eaf0f8; --selection: #e0edfa; --focus: #0067c0; --taskbar-height: 58px;
+    --sidebar: #eaf0f8; --selection: #e0edfa; --focus: #0067c0;
+    --field-border: #7d8da2; --danger: #a4262c; --taskbar-height: 58px;
     --radius-control: 5px; --radius-window: 8px; --ease: cubic-bezier(.16, 1, .3, 1);
     --window-shadow: 0 20px 70px -14px rgb(3 17 43 / .48);
 }
@@ -286,3 +287,33 @@ button:active, summary:active { opacity: .8; }
 /* Transparent category artwork supplies its own silhouette and shading at every icon size. */
 .app-icon.app-icon-image { background: none; box-shadow: none; border-radius: 0; }
 .app-icon-image > img { display: block; width: 100%; height: 100%; object-fit: contain; }
+
+/* Compact light controls reuse the Windows application's paper, ink and blue focus tokens. */
+.temperature-example .detail-description { margin-bottom: 20px; }
+.temperature-form { max-width: 440px; }
+.temperature-pair { display: grid; grid-template-columns: minmax(0,1fr) 20px minmax(0,1fr); align-items: start; gap: 8px; }
+.temperature-field { min-width: 0; }
+.temperature-field-label { display: block; margin-bottom: 6px; font-size: 12px; font-weight: 550; }
+.temperature-panel { overflow: hidden; border: 1px solid var(--field-border); border-radius: var(--radius-control); background: var(--paper); color: var(--ink); }
+.temperature-panel:focus-within { border-color: var(--focus); }
+.temperature-value { display: block; width: 100%; min-width: 0; height: 48px; padding: 6px 10px; border: 0; border-bottom: 1px solid var(--line); background: var(--paper); color: var(--ink); text-align: center; font-size: 24px; font-variant-numeric: tabular-nums; font-family: inherit; caret-color: var(--blue); }
+.temperature-value::placeholder { color: var(--muted); opacity: 1; }
+.temperature-value:focus-visible, .temperature-unit:focus-visible { outline: 2px solid var(--focus); outline-offset: -3px; }
+.temperature-unit { display: block; width: 100%; min-width: 0; min-height: 36px; padding: 6px 8px; border: 0; border-radius: 0; background: var(--paper); color: var(--ink); font: inherit; font-size: 12px; color-scheme: light; }
+.temperature-equals { padding-top: 44px; text-align: center; font-size: 20px; color: var(--muted); }
+.temperature-help { margin: 10px 0 12px; color: var(--muted); font-size: 12px; }
+.temperature-confirm { min-height: 36px; min-width: 96px; padding: 6px 18px; background: var(--blue); color: var(--paper); border-radius: var(--radius-control); font-size: 12px; font-weight: 550; }
+.temperature-confirm:hover { background: #075b9f; }
+.temperature-errors { display: block; margin-top: 6px; color: var(--danger); font-size: 12px; line-height: 1.5; }
+.temperature-errors.field-validation-valid { display: none; }
+.temperature-formula { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; max-width: 440px; margin-top: 20px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 12px; color: var(--ink); }
+.temperature-formula-label { color: var(--muted); font-weight: 550; }
+@media (max-width: 720px) {
+    /* Keep touch targets generous even though the overall form is smaller. */
+    .temperature-unit, .temperature-confirm { min-height: 44px; }
+}
+@media (max-width: 360px) {
+    .temperature-pair { gap: 5px; grid-template-columns: minmax(0,1fr) 14px minmax(0,1fr); }
+    .temperature-value { font-size: 22px; }
+    .temperature-unit { font-size: 11px; padding-inline: 3px; }
+}

@@ -58,7 +58,13 @@
             else
             {
                 <section class="example-detail" aria-labelledby="detail-title" tabindex="-1">
-                    @if (Model.Example.HasValue)
+                    @if (Model.Temperature is not null)
+                    {
+                        @* Use the working converter instead of the generic placeholder. *@
+                        <partial name="~/Views/Concepts/InputOutput/_TemperatureConverter.cshtml"
+                                 model="Model.Temperature" />
+                    }
+                    else if (Model.Example.HasValue)
                     {
                         <div class="example-workspace">
                             <div class="example-heading"><h4>Example @Model.Example.Value.ToString("00")</h4><span class="status-pill"><span></span>Not implemented yet</span></div>

@@ -85,3 +85,24 @@ The detector ran once before documentation reconciliation. Its advisories largel
 
 - Replaced the generated bloom with the user-supplied `windows-wallpaper.png`. Restored centered `cover` sizing on desktop and phone, removing the empty bands introduced by `contain`. No image stretching or extra zoom scale is used.
 - Visual checks passed at approximately 1917x866 and 390x844: the wallpaper reaches every edge with no horizontal overflow. Captures: `.impeccable/review/supplied-wallpaper/`. This supersedes the earlier Wallpaper framing entry.
+
+## Temperature converter Razor repair
+
+- Fixed the malformed conditional in `_ShowcaseWindow.cshtml`: converter first, numbered placeholder second, category overview last. Restored the placeholder content for the other 19 examples.
+- Build passed with zero warnings/errors; all seven navigation tests passed.
+- Local HTTP checks verified 0, 25, 100, -40 and 12.5 Celsius conversions; missing, nonnumeric and out-of-range inputs showed validation without a result.
+- All 20 example routes, partial converter rendering, category overview and About returned their expected content.
+
+
+## Paired temperature converter with Confirm
+- Build passed with zero warnings/errors; all seven navigation tests passed.
+- HTTP checks covered seven conversion cases (forward, reverse, decimals, same units and both absolute-zero boundaries), six invalid submissions (missing/nonnumeric/out-of-range/unsupported units) and all 20 canonical example routes. Client-supplied Result is excluded from binding.
+- Browser checks confirmed 0 Celsius gives 32 Fahrenheit and keyboard-confirmed 212 Fahrenheit gives 100 Celsius. Invalid temperatures show validation and no output. Desktop at 1280x800 and phone at 390x844 render the paired fields correctly; mobile has no horizontal overflow and selectors/Confirm are 44px high. Captures: `.impeccable/review/temperature-converter/`.
+
+
+## Compact light temperature converter and Kelvin
+- Replaced charcoal panels and the yellow formula badge with existing Paper/Ink/Blue styling, visible From/To labels and inline field errors. Width is 440px (previously 680px); number fields are 48px high (previously 72px). Mobile selectors and Confirm remain at least 44px high.
+- Added Kelvin to both selectors. Server-side validation enforces each scale's absolute-zero limit; calculations normalize through Celsius and retain decimal precision. Kelvin is displayed as K without a degree sign.
+- Build passed with zero warnings/errors; all seven navigation tests passed. HTTP checks passed all nine unit combinations, additional decimal/absolute-zero cases (14 valid cases total), eight invalid submissions, all 20 example routes and converter partial rendering. Submitted output values are excluded from binding.
+- Browser review passed at 1280x800, 375x812, 320x740 and 1024x500, with no horizontal overflow. Confirmed 0 Celsius -> 273.15 Kelvin and 0 Kelvin -> -273.15 Celsius, negative Kelvin validation, keyboard focus and Back navigation. No motion was added; global reduced-motion styling is preserved.
+- Captures are in `.impeccable/review/temperature-light/`. The detector reports existing shared CSS font/token-ramp advisories; the approved app font and established shell are preserved. This entry supersedes the previous dark converter presentation.

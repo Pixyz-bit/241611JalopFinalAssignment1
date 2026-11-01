@@ -43,6 +43,9 @@ public sealed record ShowcaseViewModel(
     bool IsAbout = false) // True shows About; these default values let the controller omit arguments.
 {
     public bool HasWindow => Category is not null || IsAbout; // Computed value: show a window if a category is selected OR About is open.
-    // ? : chooses between two values; ?. reads Name only if Category exists; ?? supplies a fallback when the result is null.
+
     public string WindowTitle => IsAbout ? "About this showcase" : Category?.Name ?? "Desktop"; // Title is About, the selected category's name, or Desktop.
+
+    // Example 3 can carry its form data alongside the existing page selection.
+    public TemperatureConverterViewModel? Temperature { get; init; }
 }
