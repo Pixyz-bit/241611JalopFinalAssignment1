@@ -63,7 +63,7 @@ The route cache is suitable for the current read-only template. When adding real
 
 ## Implemented Nested If…Else examples
 
-All nine working examples share `.example-split`, `.example-layout`, `.example-panel`, `.example-input-panel` and `.example-output-panel`. The model's `HasImplementedExample` selects a compact workspace inset; placeholders retain the original template. A native form contains the two panels, with inputs first in DOM and keyboard order. `_ExampleEmpty` keeps an honest empty state in the Result panel. Shared CSS stacks the panels below 1000px and sets primary results to 24–32px and explanatory text to 12px. Keep teaching notes with inputs, and put confirmed output and its explanation in the Result panel. The ID card remains a preview artifact within that panel.
+All working examples share `.example-split`, `.example-layout`, `.example-panel`, `.example-input-panel` and `.example-output-panel`. The model's `HasImplementedExample` selects a compact workspace inset; placeholders retain the original template. A native form contains the two panels, with inputs first in DOM and keyboard order. `_ExampleEmpty` keeps an honest empty state in the Result panel. Shared CSS stacks the panels below 1000px and sets primary results to 24–32px and explanatory text to 12px. Keep teaching notes with inputs, and put confirmed output and its explanation in the Result panel. The ID card remains a preview artifact within that panel.
 
 `examples.js` hides stale results and restores the shared empty state after edits. ID generation and Clear explicitly toggle the card and empty state together. Temperature retains its own delegated Clear/Swap handlers so Swap can reuse the full-precision C# result before invalidating it. No calculation moves into JavaScript.
 
@@ -71,7 +71,11 @@ All nine working examples share `.example-split`, `.example-layout`, `.example-p
 
 `_DecisionResult`, `_DecisionErrors` and `_DecisionFlow` share output, linked validation feedback and native details disclosures. `examples.js` hides outdated output after edits and focuses server feedback after native POST. Clear always performs a canonical GET. Login removes submitted passwords from ModelState and the model before returning HTML. ATM calculations are independent simulations with no saved balance. See [nested-if-else.md](nested-if-else.md) for accounts, numeric limits and test commands.
 
+## Implemented loop examples
+
+See [loops.md](loops.md) for the five implemented loop examples, limits, protected game rounds and validation commands. `LoopsController` calculates every result. `LoopExampleViewModel` supplies shared presentation metadata, while typed input partials retain strongly typed Razor binding. `_LoopExample` owns the common form and panels; `LoopNumber` selects the canonical reset URL. `Services/LoopRoundTokens` uses ASP.NET Core Data Protection with separate guessing/quiz purposes to protect hidden round data. The two do…while actions recheck the submitted attempt history, stopping at a correct answer or attempt limit; each valid request appends only one attempt. No database or server session is used.
 ## Adding your examples
+
 1. Give examples real titles/descriptions in a typed view model, keyed by category and number.
 2. Add each example's UI as a Razor partial beneath `Views/Concepts/<Category>/` when that real example exists. Select it within the shared application workspace; retain the shared shell.
 3. Add controller actions and strongly typed input models for actual form handling. Use POST, validation and antiforgery for mutations.

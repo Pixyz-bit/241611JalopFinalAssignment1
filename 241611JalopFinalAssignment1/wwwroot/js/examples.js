@@ -7,9 +7,12 @@ document.addEventListener('input', event => {
         // A changed field no longer belongs to the server's previous validation message.
         const summary = form.querySelector('[data-decision-errors], [data-loop-errors]');
         if (summary) summary.hidden = true;
-        const errorId = event.target.getAttribute('aria-describedby');
-        const error = errorId ? document.getElementById(errorId) : null;
-        if (error) error.textContent = '';
+        // A field may describe both a hint and an error; clear only its validation messages.
+        const describedIds = (event.target.getAttribute('aria-describedby') || '').split(/\s+/);
+        describedIds.forEach(id => {
+            const error = id ? document.getElementById(id) : null;
+            if (error?.classList.contains('temperature-errors')) error.textContent = '';
+        });
         event.target.removeAttribute('aria-invalid');
     }
     form.dataset.revision = String(Number(form.dataset.revision || 0) + 1);

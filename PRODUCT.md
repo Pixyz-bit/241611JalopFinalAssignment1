@@ -8,7 +8,7 @@ ASP.NET Core MVC targeting .NET 8. Razor, plain CSS and JavaScript; no React, No
 
 ## Confirmed requirements
 - Title: C# Programming Showcase.
-- Input/Output, Nested If…Else, Loops, Arrays; five example slots each. Input/Output implements ID preview (1), temperature conversion (3), time conversion (4) and text counting (5); slot 2 stays available and links to BMI's new location. Nested If…Else implements Login and Access Checker (1), ATM Withdrawal Simulator (2), BMI Calculator (3), Triangle Classifier (4) and Largest of Three Numbers (5). Loops and Arrays remain placeholders.
+- Input/Output, Nested If…Else, Loops, Arrays; five example slots each. Input/Output implements ID preview (1), temperature conversion (3), time conversion (4) and text counting (5); slot 2 stays available and links to BMI's new location. Nested If…Else implements Login and Access Checker (1), ATM Withdrawal Simulator (2), BMI Calculator (3), Triangle Classifier (4) and Largest of Three Numbers (5). Loops implements the five approved examples listed below. Arrays remains unimplemented.
 - On `windows-design`: Windows 11 inspired desktop with the user-supplied blue wallpaper, shared concept app icons, left shortcut rail and welcome, persistent full-width taskbar, native Start navigation and two-line clock.
 - One light Windows application with brand titlebar, right caption controls, full-width category header beneath the titlebar, sidebar with five canonical example links and an example workspace.
 - Minimize preserves the selected example; its active taskbar shortcut restores it. Maximize keeps the taskbar visible.

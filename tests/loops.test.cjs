@@ -62,6 +62,20 @@ test('invalid numeric inputs and missing antiforgery cannot produce loop results
 });
 
 const roundToken = html => html.match(/name="StateToken"[^>]*value="([^"]+)"/)?.[1];
+
+test('all five loop slots support canonical pages and partial navigation', async () => {
+    for (let number = 1; number <= 5; number++) {
+        for (const headers of [{}, { 'X-Showcase-Partial': 'true' }]) {
+            const response = await fetch(path(number), { headers });
+            const html = await response.text();
+            assert.equal(response.status, 200);
+            assert.ok(!html.includes('Not implemented yet'));
+            assert.ok(html.includes('data-example-form'));
+            assert.ok(html.includes(`href="/concepts/loops/example-${number}"`));
+            if (headers['X-Showcase-Partial']) assert.ok(!html.includes('<!DOCTYPE html>'));
+        }
+    }
+});
 const outcome = html => html.match(/<strong>([^<]+)<\/strong>/)?.[1];
 async function freshRound(number) {
     const html = await (await fetch(path(number))).text();
