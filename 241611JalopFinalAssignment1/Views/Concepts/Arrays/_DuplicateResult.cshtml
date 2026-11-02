@@ -1,0 +1,13 @@
+@model DuplicateFinderViewModel
+<partial name="~/Views/Concepts/Arrays/_IndexedValues.cshtml" model="Model.OutputValues" />
+@if (Model.Duplicates.Count > 0)
+{
+    <div class="array-table-scroll">
+        <table class="array-table"><caption>Repeated values</caption><thead><tr><th scope="col">Value</th><th scope="col">Count</th><th scope="col">Indexes</th></tr></thead><tbody>
+        @foreach (var duplicate in Model.Duplicates)
+        {
+            <tr><th scope="row">@duplicate.Value</th><td>@duplicate.Count</td><td>@string.Join(", ", duplicate.Indexes)</td></tr>
+        }
+        </tbody></table>
+    </div>
+}

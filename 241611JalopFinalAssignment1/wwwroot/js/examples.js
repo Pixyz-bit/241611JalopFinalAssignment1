@@ -3,9 +3,9 @@ document.addEventListener('input', event => {
     if (!(event.target instanceof Element)) return;
     const form = event.target.closest('[data-example-form]');
     if (!form) return;
-    if (form.closest('.nested-example, .loop-example')) {
+    if (form.closest('.nested-example, .loop-example, .array-example')) {
         // A changed field no longer belongs to the server's previous validation message.
-        const summary = form.querySelector('[data-decision-errors], [data-loop-errors]');
+        const summary = form.querySelector('[data-decision-errors], [data-loop-errors], [data-array-errors]');
         if (summary) summary.hidden = true;
         // A field may describe both a hint and an error; clear only its validation messages.
         const describedIds = (event.target.getAttribute('aria-describedby') || '').split(/\s+/);
@@ -28,7 +28,7 @@ document.addEventListener('input', event => {
 });
 
 // Native POST reloads the document; bring its outcome or errors into keyboard focus.
-const decisionFeedback = document.querySelector('[data-decision-errors], [data-loop-errors], .nested-example [data-example-result]:not([hidden]), .loop-example [data-example-result]:not([hidden])');
+const decisionFeedback = document.querySelector('[data-decision-errors], [data-loop-errors], [data-array-errors], .nested-example [data-example-result]:not([hidden]), .loop-example [data-example-result]:not([hidden]), .array-example [data-example-result]:not([hidden])');
 decisionFeedback?.focus();
 
 // The sole photo reference is an in-memory blob URL, revoked on clear, navigation or page exit.

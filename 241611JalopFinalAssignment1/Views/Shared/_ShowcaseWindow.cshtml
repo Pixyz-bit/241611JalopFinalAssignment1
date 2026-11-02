@@ -104,6 +104,10 @@
                         ViewData["LoopNumber"] = Model.Example;
                         <partial name="~/Views/Concepts/Loops/_LoopExample.cshtml" model="Model.Loop" />
                     }
+                    else if (Model.ArrayExample is not null)
+                    {
+                        <partial name="~/Views/Concepts/Arrays/_ArrayExample.cshtml" model="Model.ArrayExample" />
+                    }
                     else if (Model.Example.HasValue)
                     {
                         <div class="example-workspace">

@@ -1,0 +1,8 @@
+@model string[]
+@* Visible zero-based indexes make the one-dimensional array structure explicit. *@
+<ol class="array-values" aria-label="Array values and indexes">
+    @for (var index = 0; index < Model.Length; index++)
+    {
+        <li><span class="array-index">Index @index</span><span data-array-value>@Model[index]</span></li>
+    }
+</ol>

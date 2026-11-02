@@ -20,6 +20,12 @@ public sealed class ConceptsController(LoopRoundTokens roundTokens) : Controller
             IdCard = category == "input-output" && example == 1 ? new IdCardViewModel() : null,
             TextCounter = category == "input-output" && example == 5 ? new TextCounterViewModel() : null,
             Time = category == "input-output" && example == 4 ? new TimeConverterViewModel() : null,
+            ArrayExample = category == "arrays" ? example switch
+            {
+                1 => new DuplicateFinderViewModel(),
+                2 => new ArraySortViewModel(),
+                _ => null
+            } : null,
             // Match each loop slot to its own validated input model.
             Loop = category == "loops" ? example switch
             {
