@@ -165,3 +165,10 @@ Final example checks: desktop/mobile forms fit without horizontal overflow and p
 - Name, course and year values now share the name's responsive font size and 550 weight. The model supplies one ordinal year label (1st through 6th year) to both Razor and the enhanced JSON preview.
 - Build passed with zero warnings/errors. All 13 navigation/Input-Output tests passed, including native and JSON label agreement for all six years. The layout detector reported no findings.
 - Browser checks at 1440×960, 390×844 and 320×640 confirmed equal computed sizes/weights across all three values, the “2nd year” result, no horizontal overflow and a preserved 4:5 ratio. Ordinary details fit inside the card. The app was rebuilt/rerun and remains at http://localhost:5196.
+
+## Named example navigation
+
+- Centralized the 19 approved titles and the honest Available slot label in Models/ExampleCatalog.cs. Headings and sidebar links share the catalog. Canonical URLs and selected-state semantics remain unchanged.
+- Desktop labels wrap beside fixed-size icons. Below 720px, full names appear in a horizontal scroll row with at least 44px link targets. Existing focus and reduced-motion styling is preserved.
+- The final build passed with zero warnings/errors after stopping the app to release its executable. All 41 regression cases passed, including names, destinations and selected states on all 20 full and partial routes. The layout detector reported no findings.
+- Local browser use was disabled in Work settings during this task. Desktop/mobile rendered inspection and interactive keyboard review could not be completed; no visual verification is claimed. The app was rerun at http://localhost:5196 for review.

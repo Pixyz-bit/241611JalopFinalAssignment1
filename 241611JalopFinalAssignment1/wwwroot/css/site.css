@@ -127,6 +127,9 @@ button:active, summary:active { opacity: .8; }
 .sidebar-caption { margin: 0 12px 9px; color: var(--muted); font-size: 11px; font-weight: 550; }
 .sidebar-link { position: relative; display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 10px 12px; margin-bottom: 4px; border-radius: 5px; font-size: 12px; }
 .sidebar-link .icon { width: 18px; height: 18px; color: var(--blue); }
+/* Long example names wrap while their navigation icons retain a consistent size. */
+.sidebar-example .icon { flex-shrink: 0; }
+.sidebar-example > span { min-width: 0; overflow-wrap: anywhere; line-height: 1.5; }
 .sidebar-link:hover { background: #dfe8f4; }
 .sidebar-link.is-selected { background: #d7e6f7; }
 .sidebar-link.is-selected::before { content: ''; position: absolute; width: 3px; height: 18px; background: var(--blue); border-radius: 2px; left: 0; top: 50%; transform: translateY(-50%); }
@@ -232,10 +235,11 @@ button:active, summary:active { opacity: .8; }
     .caption-button { width: 44px; }
     .app-body { display: flex; flex-direction: column; }
     .app-sidebar { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 2px; padding: 8px; flex: 0 0 auto; }
-    /* Five example links form a compact row on phones; About keeps its category grid. */
-    .examples-sidebar { grid-template-columns: repeat(5,minmax(0,1fr)); }
-    .examples-sidebar .sidebar-link { justify-content: center; }
-    .examples-sidebar .icon, .sidebar-example-word { display: none; }
+    /* Full names remain readable in a horizontally scrollable row on phones. */
+    .examples-sidebar { display: flex; flex-direction: row; gap: 4px; overflow-x: auto; }
+    .examples-sidebar .sidebar-link { flex: 0 0 auto; max-width: 220px; justify-content: center; }
+    .examples-sidebar .sidebar-example > span { white-space: nowrap; }
+    .examples-sidebar .icon { display: none; }
     .app-sidebar > .sidebar-caption, .sidebar-utilities { display: none; }
     .sidebar-link { font-size: 11px; padding: 8px; gap: 8px; min-height: 44px; margin: 0; }
     .example-detail { flex: 1; min-height: 0; padding: 22px 18px; }

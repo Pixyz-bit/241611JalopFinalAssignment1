@@ -28,7 +28,7 @@
                     @* Each sidebar entry opens an example in the current category using a real MVC route. *@
                     @for (var number = 1; number <= 5; number++)
                     {
-                        <a href="/concepts/@Model.Category.Slug/example-@number" class="sidebar-link sidebar-example @(number == Model.Example ? "is-selected" : "")" data-navigate aria-current="@(number == Model.Example ? "page" : null)"><svg class="icon" aria-hidden="true"><use href="#icon-code" /></svg><span><span class="sidebar-example-word">Example </span>@number</span></a>
+                        <a href="/concepts/@Model.Category.Slug/example-@number" class="sidebar-link sidebar-example @(number == Model.Example ? "is-selected" : "")" data-navigate aria-current="@(number == Model.Example ? "page" : null)"><svg class="icon" aria-hidden="true"><use href="#icon-code" /></svg><span>@ExampleCatalog.GetTitle(Model.Category.Slug, number)</span></a>
                     }
                 }
                 else
