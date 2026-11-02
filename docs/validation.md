@@ -147,3 +147,9 @@ Final example checks: desktop/mobile forms fit without horizontal overflow and p
 - Replaced the 85.6:54 ratio with a fixed 11:5 ratio, making the same-width card approximately 28% shorter. Reduced header/body padding, made the photo fill its body height, and replaced the percentage-based label column with a shared content-sized column. Metadata rows distribute within the available height.
 - Rebuilt/reran successfully with zero warnings/errors. All nine navigation tests and three Input/Output integration tests passed; the layout detector reported no findings.
 - Inspected 1440×960, 1024×768, 390×844 and 320×640. The ratio remains 2.2:1 without horizontal overflow. A decoded local photo stays inside the card. Maximum-length text wraps without horizontal overflow; the keyboard can scroll to the final detail. Generate and Clear remain functional. Existing reduced-motion styling is preserved.
+
+### Portrait ID follow-up
+
+- Implemented the approved 4:5 portrait wireframe: centered header, photo and name above a left-aligned vertical list of student details. The card is centered at up to 420px wide. Its own container controls type/spacing, and separate photo/detail rows prevent overlap. Cards narrower than 280px reserve more space for text.
+- Browser measurements at 1440×960, 1024×768, 390×844 and 320×640 confirmed a constant 0.8 width/height ratio, centered photo, no photo/detail overlap and no document horizontal overflow. Ordinary details fit at 320px; maximum-length names/courses wrap and scroll locally with keyboard access. Generate and Clear were verified.
+- Both builds passed with zero warnings/errors, the 12 navigation/Input-Output regression cases passed, and the layout detector reported no findings. Existing focus and reduced-motion rules remain intact. Rebuilt/reran after each code batch; the app remains at http://localhost:5196.
