@@ -7,7 +7,7 @@ public sealed record GridMatch(int Row, int Column);
 public sealed class GridSearchViewModel : ArrayExampleViewModel
 {
     public override int Number => 4;
-    public override string Title => "Number Search in a Grid";
+    public override string Title => ExampleCatalog.GetTitle("arrays", 4);
     public override string Description => "Search a 3×3 number array and find every matching row and column.";
     public override string Dimension => "Two-dimensional array";
     public override string ActionName => "SearchGrid";
@@ -26,7 +26,7 @@ public sealed class GridSearchViewModel : ArrayExampleViewModel
 public sealed class GroupOrganizerViewModel : ArrayExampleViewModel
 {
     public override int Number => 5;
-    public override string Title => "Group Member Organizer";
+    public override string Title => ExampleCatalog.GetTitle("arrays", 5);
     public override string Description => "Arrange three groups of three names. Rows represent groups; columns represent members.";
     public override string Dimension => "Two-dimensional array";
     public override string ActionName => "OrganizeGroups";

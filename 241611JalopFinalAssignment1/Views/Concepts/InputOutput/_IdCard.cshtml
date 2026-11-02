@@ -1,6 +1,6 @@
 @model IdCardViewModel
 <div class="example-workspace example-split id-example">
-    <div class="example-heading"><h4>ID Card Generator</h4></div>
+    <div class="example-heading"><h4>@ExampleCatalog.GetTitle("input-output", 1)</h4></div>
     <p class="detail-description">Create a sample student ID preview. Your photo stays on this device.</p>
     @* The preview and its empty state share the same form as the input panel. *@
     <form asp-controller="InputOutput" asp-action="GenerateId" method="post" class="example-form example-layout" data-example-form data-id-form>

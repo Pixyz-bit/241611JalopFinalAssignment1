@@ -1,6 +1,6 @@
 @model TextCounterViewModel
 <div class="example-workspace example-split">
-    <div class="example-heading"><h4>Character and Word Counter</h4></div>
+    <div class="example-heading"><h4>@ExampleCatalog.GetTitle("input-output", 5)</h4></div>
     <p class="detail-description">Count the characters and words in a sentence or paragraph.</p>
     @* A single native form keeps inputs first and the persistent result panel second. *@
     <form asp-controller="InputOutput" asp-action="CountText" method="post" class="example-form example-layout" data-example-form>

@@ -48,6 +48,8 @@ New or changed code should include brief beginner-friendly notes beside meaningf
 - `IActionResult` lets the action return different kinds of responses, including a full view, a partial view or HTTP 404.
 
 ## Shared application surfaces
+
+`Models/ExampleCatalog.cs` supplies the approved title for each category/slot. Example model titles, Input/Output headings and the shared sidebar use this catalog so labels stay consistent. Input/Output slot 2 remains available; its navigation label does not imply an implemented example.
 `Views/Shared/_ShowcaseWindow.cshtml` owns the brand titlebar, full-width category header, sidebar example links and the scrollable overview/example workspace. `Views/Shared/_ConceptIcon.cshtml` loads the approved transparent PNG from `wwwroot/images/concepts/<slug>.png` with cache versioning; desktop, Start, search, taskbar and category headings share it. There is no address path, file list or filename suffix.
 
 ## Rendering and navigation

@@ -38,7 +38,7 @@ public sealed record ArrayDuplicate(string Value, int Count, IReadOnlyList<int> 
 public sealed class DuplicateFinderViewModel : FlatArrayViewModel
 {
     public override int Number => 1;
-    public override string Title => "Duplicate Finder";
+    public override string Title => ExampleCatalog.GetTitle("arrays", 1);
     public override string Description => "Find repeated numbers or names and see how often each value appears.";
     public override string ActionName => "FindDuplicates";
     public override string SubmitLabel => "Find duplicates";
@@ -50,7 +50,7 @@ public sealed class DuplicateFinderViewModel : FlatArrayViewModel
 public sealed class ArraySortViewModel : FlatArrayViewModel
 {
     public override int Number => 2;
-    public override string Title => "Array Sort";
+    public override string Title => ExampleCatalog.GetTitle("arrays", 2);
     public override string Description => "Sort numbers numerically or names alphabetically, in either direction.";
     public override string ActionName => "SortValues";
     public override string SubmitLabel => "Sort";

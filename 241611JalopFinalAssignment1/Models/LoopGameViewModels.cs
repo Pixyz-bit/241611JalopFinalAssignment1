@@ -19,7 +19,7 @@ public sealed record QuizRound(int QuestionId, List<int> Answers);
 
 public sealed class GuessGameViewModel : RetryLoopViewModel
 {
-    public override string Title => "Number Guessing Game";
+    public override string Title => ExampleCatalog.GetTitle("loops", 4);
     public override string Description => "Guess the number from 1 to 100. A do…while loop checks your attempts and gives higher/lower feedback.";
     public override string ActionName => "GuessNumber";
     public override string SubmitLabel => "Guess";
@@ -51,7 +51,7 @@ public static class LoopQuizCatalog
 
 public sealed class QuizRetryViewModel : RetryLoopViewModel
 {
-    public override string Title => "Quiz Retry Simulator";
+    public override string Title => ExampleCatalog.GetTitle("loops", 5);
     public override string Description => "Answer a C# loop question. A do…while loop checks your answers until correct or three attempts are used.";
     public override string ActionName => "RetryQuiz";
     public override string SubmitLabel => "Check answer";

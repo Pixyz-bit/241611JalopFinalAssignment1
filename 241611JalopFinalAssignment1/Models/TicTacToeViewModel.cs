@@ -7,7 +7,7 @@ public sealed record TicTacToeRound(List<int> Moves);
 public sealed class TicTacToeViewModel : ArrayExampleViewModel
 {
     public override int Number => 3;
-    public override string Title => "Tic-Tac-Toe";
+    public override string Title => ExampleCatalog.GetTitle("arrays", 3);
     public override string Description => "Two players take turns on a 3×3 array. Complete a row, column or diagonal to win.";
     public override string Dimension => "Two-dimensional array";
     public override string ActionName => "PlayMove";

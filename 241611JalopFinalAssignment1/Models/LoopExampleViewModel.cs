@@ -22,7 +22,7 @@ public abstract class LoopExampleViewModel
 
 public sealed class PyramidViewModel : LoopExampleViewModel
 {
-    public override string Title => "Pyramid Generator";
+    public override string Title => ExampleCatalog.GetTitle("loops", 1);
     public override string Description => "Build a centered pyramid one row at a time using nested for loops.";
     public override string LoopKind => "for";
     public override string ActionName => "GeneratePyramid";
@@ -41,7 +41,7 @@ public sealed class PyramidViewModel : LoopExampleViewModel
 
 public sealed class SumDigitsViewModel : LoopExampleViewModel
 {
-    public override string Title => "Sum of Digits";
+    public override string Title => ExampleCatalog.GetTitle("loops", 2);
     public override string Description => "Use a while loop to extract each digit and add it to a running total.";
     public override string LoopKind => "while";
     public override string ActionName => "SumDigits";
@@ -57,7 +57,7 @@ public sealed class SumDigitsViewModel : LoopExampleViewModel
 
 public sealed class PrimeFactorsViewModel : LoopExampleViewModel
 {
-    public override string Title => "Prime Factorization";
+    public override string Title => ExampleCatalog.GetTitle("loops", 3);
     public override string Description => "Use while loops to repeatedly divide a whole number into its prime factors.";
     public override string LoopKind => "while";
     public override string ActionName => "Factorize";
