@@ -134,3 +134,10 @@ Final example checks: desktop/mobile forms fit without horizontal overflow and p
 - No motion was added. Source and browser CSS inspection confirmed the existing reduced-motion rule disables animations/transitions and smooth scrolling. The browser tool does not expose media preference emulation, so an OS-preference toggle was not exercised.
 - The Impeccable detector ran over changed surfaces. It reports the existing shared Geist and design token/ramp advisories; the approved font, palette and shell are preserved. Its context loader also identified pre-existing legacy PRODUCT metadata and an outdated design sidecar; their separate `init`/`document` migrations are outside this feature.
 - Review captures: [desktop](review/nested-if-else/desktop.jpg), [mobile](review/nested-if-else/mobile.jpg). Example behavior and commands: [nested-if-else.md](nested-if-else.md).
+
+## Landscape ID card — November 2, 2026
+
+- The ID card fills the Result panel width at a fixed 85.6:54 landscape ratio. Removed the subtitle and programming-example footer. Container queries stack panels according to the workspace width and pair student number/year only when the Input panel has enough room.
+- Browser checks covered 1440×960, 1280×720, 1024×768, 844×390, 390×844 and 320×640, including restored and maximized windows. No document horizontal overflow was measured; the portrait remained inside the card. The workspace scrolls vertically on short screens and keeps the taskbar clear.
+- Maximum-length text wraps and scrolls inside the keyboard-focusable details region without changing the card ratio. End scrolls the details; regenerating returns them to the name. Confirmed local photo decoding/display, validation feedback, Generate, Clear and browser Back/Forward.
+- Build passed with zero warnings/errors; all 39 existing regression cases passed. The layout detector reported no findings. Existing visible focus and reduced-motion rules remain intact; no motion was added. Rebuilt/reran after each code batch; the app remains on http://localhost:5196.
