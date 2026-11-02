@@ -141,3 +141,9 @@ Final example checks: desktop/mobile forms fit without horizontal overflow and p
 - Browser checks covered 1440×960, 1280×720, 1024×768, 844×390, 390×844 and 320×640, including restored and maximized windows. No document horizontal overflow was measured; the portrait remained inside the card. The workspace scrolls vertically on short screens and keeps the taskbar clear.
 - Maximum-length text wraps and scrolls inside the keyboard-focusable details region without changing the card ratio. End scrolls the details; regenerating returns them to the name. Confirmed local photo decoding/display, validation feedback, Generate, Clear and browser Back/Forward.
 - Build passed with zero warnings/errors; all 39 existing regression cases passed. The layout detector reported no findings. Existing visible focus and reduced-motion rules remain intact; no motion was added. Rebuilt/reran after each code batch; the app remains on http://localhost:5196.
+
+### Compact ID spacing follow-up
+
+- Replaced the 85.6:54 ratio with a fixed 11:5 ratio, making the same-width card approximately 28% shorter. Reduced header/body padding, made the photo fill its body height, and replaced the percentage-based label column with a shared content-sized column. Metadata rows distribute within the available height.
+- Rebuilt/reran successfully with zero warnings/errors. All nine navigation tests and three Input/Output integration tests passed; the layout detector reported no findings.
+- Inspected 1440×960, 1024×768, 390×844 and 320×640. The ratio remains 2.2:1 without horizontal overflow. A decoded local photo stays inside the card. Maximum-length text wraps without horizontal overflow; the keyboard can scroll to the final detail. Generate and Clear remain functional. Existing reduced-motion styling is preserved.
