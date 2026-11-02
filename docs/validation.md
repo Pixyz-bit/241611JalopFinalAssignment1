@@ -159,3 +159,9 @@ Final example checks: desktop/mobile forms fit without horizontal overflow and p
 - Swapped the prominent name and student number: the number is centered immediately beneath the larger photo, while Full name begins the labeled detail list. The number retains a screen-reader label. Tightened header/body padding and the photo gap; detail groups fill the available height rather than leaving a blank footer area.
 - Checked 1440×960, 1024×768, 390×844 and 320×640. The card retains its 4:5 ratio; ordinary details fit without internal scrolling, photo-to-number spacing is about 6px, and bottom inset is about 10–13px. No overlap or horizontal overflow was measured. Maximum-length fields still wrap and support keyboard scrolling.
 - Build passed with zero warnings/errors; all 12 navigation/Input-Output tests passed. The layout detector reported no findings. The app was rebuilt/rerun and remains on http://localhost:5196.
+
+### Consistent ID value typography and ordinal years
+
+- Name, course and year values now share the name's responsive font size and 550 weight. The model supplies one ordinal year label (1st through 6th year) to both Razor and the enhanced JSON preview.
+- Build passed with zero warnings/errors. All 13 navigation/Input-Output tests passed, including native and JSON label agreement for all six years. The layout detector reported no findings.
+- Browser checks at 1440×960, 390×844 and 320×640 confirmed equal computed sizes/weights across all three values, the “2nd year” result, no horizontal overflow and a preserved 4:5 ratio. Ordinary details fit inside the card. The app was rebuilt/rerun and remains at http://localhost:5196.

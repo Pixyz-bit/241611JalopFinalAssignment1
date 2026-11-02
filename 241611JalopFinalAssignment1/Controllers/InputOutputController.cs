@@ -49,7 +49,7 @@ public sealed class InputOutputController : Controller
         {
             if (!ModelState.IsValid) return BadRequest(new { errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage) });
             // JSON carries validated text only; the selected photo remains in the browser.
-            return Json(new { fullName = input.FullName, studentNumber = input.StudentNumber, course = input.Course, yearLevel = input.YearLevel });
+            return Json(new { fullName = input.FullName, studentNumber = input.StudentNumber, course = input.Course, yearLevel = input.YearLevel, yearLabel = input.YearLevelLabel });
         }
         return View("~/Views/Home/Index.cshtml", new ShowcaseViewModel(ConceptCatalog.Find("input-output"), 1) { IdCard = input });
     }

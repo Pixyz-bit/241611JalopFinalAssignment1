@@ -4,7 +4,7 @@ const test = require('node:test');
 const base = process.env.SHOWCASE_BASE_URL || 'http://localhost:5196';
 
 // Native HTTP submissions verify the forms and antiforgery tokens without JavaScript.
-async function submit(number, fields) {
+async function submit(number, fields, headers = {}) {
     const url = `${base}/concepts/input-output/example-${number}`;
     const page = await fetch(url);
     assert.equal(page.status, 200);
@@ -13,7 +13,7 @@ async function submit(number, fields) {
     assert.ok(token, 'the form includes an antiforgery token');
     const body = new URLSearchParams({ ...fields, __RequestVerificationToken: token[1] });
     const cookies = page.headers.getSetCookie().map(cookie => cookie.split(';')[0]).join('; ');
-    const response = await fetch(url, { method: 'POST', body, headers: { Cookie: cookies } });
+    const response = await fetch(url, { method: 'POST', body, headers: { ...headers, Cookie: cookies } });
     assert.equal(response.status, 200);
     return await response.text();
 }
@@ -50,5 +50,18 @@ test('invalid converter inputs show validation without exposing a result', async
         assert.ok(html.includes('field-validation-error'));
         assert.match(html, /data-example-result[^>]*hidden/);
         assert.ok(!html.match(/data-example-empty[^>]*hidden/));
+    }
+});
+
+// Check the actual labels returned by both rendering paths, including the special 1st/2nd/3rd endings.
+test('ID year labels agree between native and enhanced previews for all supported years', async () => {
+    const labels = ['1st year', '2nd year', '3rd year', '4th year', '5th year', '6th year'];
+    for (const [index, label] of labels.entries()) {
+        const fields = { FullName: 'Mira Santos', StudentNumber: '241611', Course: 'BSIT', YearLevel: String(index + 1) };
+        const html = await submit(1, fields);
+        assert.ok(html.includes(`data-id-year>${label}</dd>`));
+        const preview = JSON.parse(await submit(1, fields, { 'X-Id-Preview': 'true' }));
+        assert.equal(preview.yearLabel, label);
+        assert.equal(preview.yearLevel, index + 1);
     }
 });

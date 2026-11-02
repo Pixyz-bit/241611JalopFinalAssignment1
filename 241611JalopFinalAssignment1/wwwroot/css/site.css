@@ -424,8 +424,8 @@ button:active, summary:active { opacity: .8; }
 .id-card-details dl { flex: 1 0 auto; display: grid; grid-template-columns: minmax(0, 1fr); align-content: space-between; gap: clamp(6px, 2cqi, 8px); margin: 0; }
 .id-card-details dl > div { min-width: 0; }
 .id-card-details dt { font-size: clamp(10px, 3cqi, 12px); color: var(--muted); }
-.id-card-details dd { margin: 0; font-size: clamp(12px, 3.5cqi, 14px); }
-.id-card-details [data-id-name] { font-size: clamp(14px, 4cqi, 18px); font-weight: 550; }
+/* Name, course and year share the same readable value typography. */
+.id-card-details dd { margin: 0; font-size: clamp(14px, 4cqi, 18px); font-weight: 550; }
 @container id-workspace (max-width: 760px) {
     .id-example .example-layout { grid-template-columns: minmax(0, 1fr); }
 }

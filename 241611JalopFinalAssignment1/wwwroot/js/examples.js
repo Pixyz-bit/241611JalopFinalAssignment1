@@ -97,7 +97,7 @@ if (decisionFeedback) decisionFeedback.focus({ preventScroll: Boolean(decisionFe
             card.querySelector('[data-id-name]').textContent = data.fullName;
             card.querySelector('[data-id-number]').textContent = data.studentNumber;
             card.querySelector('[data-id-course]').textContent = data.course;
-            card.querySelector('[data-id-year]').textContent = data.yearLevel;
+            card.querySelector('[data-id-year]').textContent = data.yearLabel; // Reuse the server's ordinal label, such as "2nd year".
             const image = card.querySelector('[data-id-photo-preview]');
             if (photoForm === form && photoUrl) { image.src = photoUrl; image.hidden = false; }
             else { image.removeAttribute('src'); image.hidden = true; }
