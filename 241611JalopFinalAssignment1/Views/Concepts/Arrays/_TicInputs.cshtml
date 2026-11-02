@@ -3,7 +3,7 @@
 <span asp-validation-for="StateToken" id="board-state-error" class="temperature-errors"></span>
 <p id="tic-help" class="example-hint tic-status">@(Model.IsFinished ? "Game complete." : $"{Model.CurrentPlayer} plays next. Choose an empty square.")</p>
 @* Native buttons make each square usable with keyboard, touch and without JavaScript. *@
-<div id="Cell" class="tic-board" role="group" aria-label="Tic-tac-toe board" aria-describedby="tic-help tic-error" tabindex="-1">
+<div id="Cell" class="tic-board" role="group" aria-label="Tic-tac-toe board" aria-describedby="tic-help tic-error" aria-invalid="@(ViewData.ModelState[nameof(Model.Cell)]?.Errors.Count > 0 ? "true" : null)" tabindex="-1">
     @for (var index = 0; index < 9; index++)
     {
         var mark = Model.Board[index / 3, index % 3];

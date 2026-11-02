@@ -361,6 +361,7 @@ button:active, summary:active { opacity: .8; }
 .array-values { display: grid; grid-template-columns: repeat(auto-fit, minmax(72px, 1fr)); gap: 8px; list-style: none; margin: 8px 0 0; padding: 0; }
 .array-values li { min-width: 0; display: flex; flex-direction: column; gap: 4px; padding: 10px; border: 1px solid var(--line); border-radius: var(--radius-control); background: var(--paper); overflow-wrap: anywhere; font-size: 13px; }
 .array-index { color: var(--muted); font-size: 10px; }
+.array-example .example-textarea { min-height: 96px; }
 .array-table-scroll { max-width: 100%; overflow-x: auto; margin-top: 12px; }
 .array-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 12px; }
 .array-table caption { text-align: left; padding-bottom: 8px; font-weight: 550; }
@@ -368,6 +369,8 @@ button:active, summary:active { opacity: .8; }
 .array-fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
 .array-fieldset legend { margin-bottom: 8px; padding: 0; font-size: 12px; font-weight: 550; }
 .array-input-grid, .array-member-fields { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.array-input-grid > div, .array-member-fields > div { min-width: 0; }
+.array-input-grid .temperature-errors { overflow-wrap: anywhere; }
 .array-search-value { margin-top: 16px; }
 .array-matrix { table-layout: fixed; }
 .array-matrix td { background: var(--paper); }

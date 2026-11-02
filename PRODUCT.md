@@ -8,13 +8,13 @@ ASP.NET Core MVC targeting .NET 8. Razor, plain CSS and JavaScript; no React, No
 
 ## Confirmed requirements
 - Title: C# Programming Showcase.
-- Input/Output, Nested If…Else, Loops, Arrays; five example slots each. Input/Output implements ID preview (1), temperature conversion (3), time conversion (4) and text counting (5); slot 2 stays available and links to BMI's new location. Nested If…Else implements Login and Access Checker (1), ATM Withdrawal Simulator (2), BMI Calculator (3), Triangle Classifier (4) and Largest of Three Numbers (5). Loops implements the five approved examples listed below. Arrays remains unimplemented.
+- Input/Output, Nested If…Else, Loops, Arrays; five example slots each. Input/Output implements ID preview (1), temperature conversion (3), time conversion (4) and text counting (5); slot 2 stays available and links to BMI's new location. Nested If…Else implements Login and Access Checker (1), ATM Withdrawal Simulator (2), BMI Calculator (3), Triangle Classifier (4) and Largest of Three Numbers (5). Loops and Arrays implement the five approved examples listed below for each category.
 - On `windows-design`: Windows 11 inspired desktop with the user-supplied blue wallpaper, shared concept app icons, left shortcut rail and welcome, persistent full-width taskbar, native Start navigation and two-line clock.
 - One light Windows application with brand titlebar, right caption controls, full-width category header beneath the titlebar, sidebar with five canonical example links and an example workspace.
 - Minimize preserves the selected example; its active taskbar shortcut restores it. Maximize keeps the taskbar visible.
 - Functional canonical URLs without JavaScript; enhanced cached navigation, history and search.
 - Approved Loops slots: Pyramid Generator (`for`), Sum of Digits (`while`), Prime Factorization (`while`), Number Guessing Game (`do…while`) and Quiz Retry Simulator (`do…while`). Use the shared Input/Result layout. The two games retain a round across submissions and provide an explicit reset.
-- Selected Arrays examples: Duplicate Finder and Array Sort (one-dimensional); Tic-Tac-Toe, Number Search in a Grid and Group Member Organizer (two-dimensional). These complete the required two one-dimensional and three two-dimensional examples. They are planned and remain unimplemented; selection notes are in docs/arrays.md.
+- Implemented Arrays slots: Duplicate Finder (1) and Array Sort (2), using one-dimensional arrays; Tic-Tac-Toe (3), Number Search in a Grid (4) and Group Member Organizer (5), using two-dimensional arrays. These complete the required two one-dimensional and three two-dimensional examples. Duplicate Finder and Array Sort support numbers or names; Tic-Tac-Toe is a local two-player simulation. Details are in docs/arrays.md.
 - Mobile, keyboard, visible focus and reduced-motion support.
 - `main` retains the earlier macOS design for comparison; this redesign does not merge into it automatically.
 

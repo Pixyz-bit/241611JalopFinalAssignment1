@@ -73,7 +73,14 @@ All working examples share `.example-split`, `.example-layout`, `.example-panel`
 
 ## Implemented loop examples
 
-See [loops.md](loops.md) for the five implemented loop examples, limits, protected game rounds and validation commands. `LoopsController` calculates every result. `LoopExampleViewModel` supplies shared presentation metadata, while typed input partials retain strongly typed Razor binding. `_LoopExample` owns the common form and panels; `LoopNumber` selects the canonical reset URL. `Services/LoopRoundTokens` uses ASP.NET Core Data Protection with separate guessing/quiz purposes to protect hidden round data. The two do…while actions recheck the submitted attempt history, stopping at a correct answer or attempt limit; each valid request appends only one attempt. No database or server session is used.
+See [loops.md](loops.md) for the five implemented loop examples, limits, protected game rounds and validation commands. `LoopsController` calculates every result. `LoopExampleViewModel` supplies shared presentation metadata, while typed input partials retain strongly typed Razor binding. `_LoopExample` owns the common form and panels; `LoopNumber` selects the canonical reset URL. `Services/ExampleStateTokens` uses ASP.NET Core Data Protection with separate guessing/quiz purposes to protect hidden round data. The two do…while actions recheck the submitted attempt history, stopping at a correct answer or attempt limit; each valid request appends only one attempt. No database or server session is used.
+
+## Implemented array examples
+
+`ArraysController` handles the five array POST routes; `ConceptsController` initializes their GET models. `ArrayExampleViewModel` provides trusted view/action metadata and common result data. `_ArrayExample` supplies the same two-panel native form as the other categories, with typed input and result partials. One-dimensional examples use actual string/decimal arrays. Grid search and group organization validate flat form fields before copying them into rectangular C# arrays. Invalid collections are normalized before Razor indexes them.
+
+`ExampleStateTokens` is the shared Data Protection codec for loop games and Tic-Tac-Toe. Its original root protection purpose remains unchanged so existing loop tokens continue to work; the separate `arrays-tic-tac-toe` purpose prevents token reuse across examples. The Tic-Tac-Toe controller reconstructs a `char[,]` from protected moves and derives the next player, winner and draw state server-side. Buttons submit cell positions through normal forms, including without JavaScript. See [arrays.md](arrays.md) for limits and validation.
+
 ## Adding your examples
 
 1. Give examples real titles/descriptions in a typed view model, keyed by category and number.

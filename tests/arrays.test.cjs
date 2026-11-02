@@ -21,6 +21,20 @@ async function submit(number, fields, withToken = true) {
 const values = html => [...html.matchAll(/data-array-value>(.*?)<\/span>/gs)].map(match => match[1]);
 const outcome = html => html.match(/<strong>(.*?)<\/strong>/s)?.[1];
 const stateToken = html => html.match(/name="StateToken"[^>]*value="([^"]+)"/)?.[1];
+
+test('all five array slots support complete and partial canonical routes with antiforgery', async () => {
+    for (let number = 1; number <= 5; number++) {
+        for (const headers of [{}, { 'X-Showcase-Partial': 'true' }]) {
+            const response = await fetch(path(number), { headers });
+            const html = await response.text();
+            assert.equal(response.status, 200);
+            assert.ok(html.includes('data-example-form'));
+            assert.ok(!html.includes('Not implemented yet'));
+            if (headers['X-Showcase-Partial']) assert.ok(!html.includes('<!DOCTYPE html>'));
+        }
+        assert.equal((await submit(number, {}, false)).response.status, 400);
+    }
+});
 const cells = entries => Object.fromEntries(entries.map((value, index) => [`Cells[${index}]`, String(value)]));
 const members = entries => Object.fromEntries(entries.map((value, index) => [`Members[${index}]`, value]));
 
