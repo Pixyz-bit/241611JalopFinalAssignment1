@@ -153,3 +153,9 @@ Final example checks: desktop/mobile forms fit without horizontal overflow and p
 - Implemented the approved 4:5 portrait wireframe: centered header, photo and name above a left-aligned vertical list of student details. The card is centered at up to 420px wide. Its own container controls type/spacing, and separate photo/detail rows prevent overlap. Cards narrower than 280px reserve more space for text.
 - Browser measurements at 1440×960, 1024×768, 390×844 and 320×640 confirmed a constant 0.8 width/height ratio, centered photo, no photo/detail overlap and no document horizontal overflow. Ordinary details fit at 320px; maximum-length names/courses wrap and scroll locally with keyboard access. Generate and Clear were verified.
 - Both builds passed with zero warnings/errors, the 12 navigation/Input-Output regression cases passed, and the layout detector reported no findings. Existing focus and reduced-motion rules remain intact. Rebuilt/reran after each code batch; the app remains at http://localhost:5196.
+
+### Student number beneath the photo
+
+- Swapped the prominent name and student number: the number is centered immediately beneath the larger photo, while Full name begins the labeled detail list. The number retains a screen-reader label. Tightened header/body padding and the photo gap; detail groups fill the available height rather than leaving a blank footer area.
+- Checked 1440×960, 1024×768, 390×844 and 320×640. The card retains its 4:5 ratio; ordinary details fit without internal scrolling, photo-to-number spacing is about 6px, and bottom inset is about 10–13px. No overlap or horizontal overflow was measured. Maximum-length fields still wrap and support keyboard scrolling.
+- Build passed with zero warnings/errors; all 12 navigation/Input-Output tests passed. The layout detector reported no findings. The app was rebuilt/rerun and remains on http://localhost:5196.

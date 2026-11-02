@@ -103,7 +103,7 @@ if (decisionFeedback) decisionFeedback.focus({ preventScroll: Boolean(decisionFe
             else { image.removeAttribute('src'); image.hidden = true; }
             card.querySelector('[data-id-photo-placeholder]').hidden = !image.hidden;
             card.hidden = false;
-            // Start each generated card at the name, even after scrolling a previous long result.
+            // Start each generated card at the student number after scrolling a previous long result.
             card.querySelector('.id-card-details').scrollTop = 0;
             form.querySelector('[data-example-empty]').hidden = true; // Replace the empty state with the generated ID.
             hint.textContent = 'ID preview ready. Nothing is saved.';
