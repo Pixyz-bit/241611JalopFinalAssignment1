@@ -243,7 +243,7 @@ Panel headings use 16px type. The complete conversion scales from 24px to 32px, 
 
 ### ID preview
 
-The ID generator places its vertical form in the shared Input panel and its compact sample ID card in the Result panel. The card uses the existing blue-soft header, neutral photo frame and readable wrapping for long names/courses. Generate has a busy state and validated text feedback. The photo is optional and local-only; no download or upload control is provided. Clear restores the empty Result state.
+The ID generator uses the shared Input/Result panels with a slightly wider Result column. Its landscape card fills the Result panel width at a fixed 85.6:54 ratio, with a Student ID header, a portrait on the left and student details on the right. It has no subtitle or footer. Typography and spacing respond to the Result container; unusually long names/courses wrap and scroll inside a keyboard-focusable details region so the ratio remains fixed without overlap. Below 760px of actual workspace width the panels stack; student number and year share a row only when the Input container exceeds 340px. Generate has a busy state and validated text feedback. The photo is optional and local-only; no download or upload control is provided. Clear restores the empty Result state.
 
 ### Nested decision examples
 

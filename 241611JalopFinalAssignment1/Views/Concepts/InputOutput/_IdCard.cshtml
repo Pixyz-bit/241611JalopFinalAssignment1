@@ -26,13 +26,20 @@
             <h5 id="id-result-title">Result</h5>
             <div class="example-result-status" role="status" aria-atomic="true">
                 <partial name="_ExampleEmpty" model="Model.HasResult" />
-                <section class="id-preview" data-example-result data-id-preview hidden="@(!Model.HasResult)" aria-label="Sample student ID preview">
-                    <header class="id-card-header"><svg class="icon" aria-hidden="true"><use href="#icon-code" /></svg><span>Student ID <small>Sample preview</small></span></header>
+                <section class="id-preview" data-example-result data-id-preview hidden="@(!Model.HasResult)" aria-label="Student ID preview">
+                    <header class="id-card-header"><svg class="icon" aria-hidden="true"><use href="#icon-code" /></svg><span>Student ID</span></header>
                     <div class="id-card-body">
                         <div class="id-photo"><img data-id-photo-preview alt="Selected ID portrait" hidden /><span data-id-photo-placeholder>No photo</span></div>
-                        <div class="id-card-details"><h6 data-id-name>@Model.FullName</h6><dl><dt>Student number</dt><dd data-id-number>@Model.StudentNumber</dd><dt>Course</dt><dd data-id-course>@Model.Course</dd><dt>Year level</dt><dd data-id-year>@Model.YearLevel</dd></dl></div>
+                        @* Keyboard users can scroll unusually long details without changing the card's fixed ratio. *@
+                        <div class="id-card-details" role="region" aria-label="Student details" tabindex="0">
+                            <h6 data-id-name>@Model.FullName</h6>
+                            <dl>
+                                <div><dt>Student number</dt><dd data-id-number>@Model.StudentNumber</dd></div>
+                                <div><dt>Course</dt><dd data-id-course>@Model.Course</dd></div>
+                                <div><dt>Year level</dt><dd data-id-year>@Model.YearLevel</dd></div>
+                            </dl>
+                        </div>
                     </div>
-                    <p class="id-card-footer">For this programming example only</p>
                 </section>
             </div>
         </section>
