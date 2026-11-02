@@ -55,6 +55,58 @@ public sealed class ArraysController : Controller
         return Example(input);
     }
 
+    [HttpPost("concepts/arrays/example-4")]
+    [ValidateAntiForgeryToken]
+    public IActionResult SearchGrid([Bind("Cells,SearchValue")] GridSearchViewModel input)
+    {
+        var count = input.Cells?.Count ?? 0;
+        if (count != 9) ModelState.AddModelError(nameof(input.Cells), "Enter all nine grid values.");
+        input.Cells = NormalizeCells(input.Cells); // Even invalid collections must remain safe to render as nine inputs.
+        var grid = new decimal[3, 3];
+        for (var index = 0; index < 9; index++)
+        {
+            if (!TryNumber(input.Cells[index]?.Trim(), out var value))
+                ModelState.AddModelError($"Cells[{index}]", $"Row {index / 3 + 1}, column {index % 3 + 1}: enter a number from −1,000,000,000 to 1,000,000,000.");
+            else grid[index / 3, index % 3] = value;
+        }
+        if (ModelState.IsValid && input.SearchValue is decimal target)
+        {
+            input.Grid = grid;
+            for (var row = 0; row < grid.GetLength(0); row++)
+                for (var column = 0; column < grid.GetLength(1); column++)
+                    if (grid[row, column] == target) input.Matches.Add(new(row, column));
+            input.Result = input.Matches.Count == 0 ? "Not found" : $"{input.Matches.Count} {(input.Matches.Count == 1 ? "match" : "matches")}";
+            input.Detail = $"Searching for {FormatNumber(target)}. Row and column labels start at 1; C# indexes start at 0.";
+        }
+        return Example(input);
+    }
+
+    [HttpPost("concepts/arrays/example-5")]
+    [ValidateAntiForgeryToken]
+    public IActionResult OrganizeGroups([Bind("Members")] GroupOrganizerViewModel input)
+    {
+        if (input.Members?.Count != 9) ModelState.AddModelError(nameof(input.Members), "Enter all nine member names.");
+        input.Members = NormalizeCells(input.Members);
+        var groups = new string[3, 3];
+        for (var index = 0; index < 9; index++)
+        {
+            var name = input.Members[index]?.Trim();
+            if (string.IsNullOrEmpty(name) || name.Length > 40)
+                ModelState.AddModelError($"Members[{index}]", $"Group {index / 3 + 1}, member {index % 3 + 1}: enter a name of 1–40 characters.");
+            else groups[index / 3, index % 3] = name;
+        }
+        if (ModelState.IsValid)
+        {
+            input.Groups = groups;
+            input.Result = "3 groups organized";
+            input.Detail = "9 member slots. Names stay in the groups and positions you entered.";
+        }
+        return Example(input);
+    }
+
+    private static List<string?> NormalizeCells(List<string?>? cells) =>
+        (cells ?? new()).Take(9).Concat(Enumerable.Repeat<string?>(null, 9)).Take(9).ToList();
+
     private bool TryReadValues(FlatArrayViewModel input, out string[] values, out decimal[] numbers)
     {
         values = (input.Values ?? "").Split(new[] { ',', '\r', '\n' }, StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);

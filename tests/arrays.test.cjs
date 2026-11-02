@@ -20,6 +20,8 @@ async function submit(number, fields, withToken = true) {
 
 const values = html => [...html.matchAll(/data-array-value>(.*?)<\/span>/gs)].map(match => match[1]);
 const outcome = html => html.match(/<strong>(.*?)<\/strong>/s)?.[1];
+const cells = entries => Object.fromEntries(entries.map((value, index) => [`Cells[${index}]`, String(value)]));
+const members = entries => Object.fromEntries(entries.map((value, index) => [`Members[${index}]`, value]));
 
 test('duplicates normalize numbers and compare trimmed names without letter case', async () => {
     const numeric = await submit(1, { ValueKind: 'Numbers', Values: '1,1.0,-2,0,-0' });
@@ -31,6 +33,42 @@ test('duplicates normalize numbers and compare trimmed names without letter case
     assert.ok(names.html.includes('<td>0, 2</td>'));
     const unique = await submit(1, { ValueKind: 'Numbers', Values: '1,2,3' });
     assert.equal(outcome(unique.html), 'No duplicates');
+});
+
+test('grid search finds all matches with row and column positions', async () => {
+    const matrix = cells([5, 2, 5, 4, 5, 6, 7, 8, 9]);
+    const found = await submit(4, { ...matrix, SearchValue: '5' });
+    assert.equal(outcome(found.html), '3 matches');
+    for (const position of ['Row 1, column 1', 'Row 1, column 3', 'Row 2, column 2']) assert.ok(found.html.includes(position));
+    const missing = await submit(4, { ...matrix, SearchValue: '100' });
+    assert.equal(outcome(missing.html), 'Not found');
+    const decimal = await submit(4, { ...cells([-1.5, 0, 1, 2, 3, 4, 5, 6, 7]), SearchValue: '-1.50' });
+    assert.equal(outcome(decimal.html), '1 match');
+});
+
+test('group organizer preserves row membership, trims and encodes names', async () => {
+    const names = [' Ana ', 'Ben', 'Carlo', 'Dana', 'Eli', 'Faye', 'Gio', 'Hana', '<b>Ivan</b>'];
+    const result = await submit(5, members(names));
+    assert.equal(outcome(result.html), '3 groups organized');
+    assert.ok(result.html.includes('<td>Ana</td>'));
+    assert.ok(result.html.includes('<td>Faye</td>'));
+    assert.ok(!result.raw.includes('<td><b>Ivan</b></td>'));
+});
+
+test('incomplete, malformed and oversized grid collections return validation instead of errors', async () => {
+    for (const [number, fields] of [
+        [4, { SearchValue: '5' }], [4, { ...cells([1, 2]), SearchValue: '1' }],
+        [4, { ...cells([1, 2, 3, 4, 5, 6, 7, 8, 'oops']), SearchValue: '1' }],
+        [4, { ...cells(Array(10).fill(1)), SearchValue: '1' }],
+        [4, { ...cells(Array(9).fill(1)), SearchValue: '1000000001' }],
+        [5, {}], [5, members(Array(10).fill('Ana'))],
+        [5, members(['', ...Array(8).fill('Ana')])], [5, members(['A'.repeat(41), ...Array(8).fill('Ana')])]
+    ]) {
+        const { response, html } = await submit(number, fields);
+        assert.equal(response.status, 200);
+        assert.match(html, /data-example-result[^>]*hidden/);
+        assert.ok(html.includes('data-array-errors'));
+    }
 });
 
 test('sort uses numeric order, supports both directions and retains duplicates', async () => {

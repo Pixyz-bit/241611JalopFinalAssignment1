@@ -1,0 +1,21 @@
+@model GroupOrganizerViewModel
+<div id="Members" class="example-input-fields" tabindex="-1">
+    @for (var group = 0; group < 3; group++)
+    {
+        <fieldset class="array-fieldset">
+            <legend>Group @(group + 1)</legend>
+            <div class="array-member-fields">
+                @for (var member = 0; member < 3; member++)
+                {
+                    var index = group * 3 + member; // Convert a row and column to the matching form-field position.
+                    <div>
+                        <label asp-for="Members[index]">Member @(member + 1)</label>
+                        <input asp-for="Members[index]" required maxlength="40" class="example-input" aria-label="Group @(group + 1), member @(member + 1)" aria-describedby="member-error-@index" />
+                        <span asp-validation-for="Members[index]" id="member-error-@index" class="temperature-errors"></span>
+                    </div>
+                }
+            </div>
+        </fieldset>
+    }
+</div>
+<p class="example-hint">Sample names are editable. Enter all nine names, up to 40 characters each.</p>

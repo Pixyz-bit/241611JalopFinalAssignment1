@@ -1,0 +1,22 @@
+@model GridSearchViewModel
+@if (Model.Grid is not null)
+{
+    <div class="array-table-scroll">
+        <table class="array-table array-matrix"><caption>Searched grid</caption><thead><tr><td></td>@for (var column = 0; column < 3; column++) { <th scope="col">Column @(column + 1)</th> }</tr></thead><tbody>
+        @for (var row = 0; row < 3; row++)
+        {
+            <tr><th scope="row">Row @(row + 1)</th>
+            @for (var column = 0; column < 3; column++)
+            {
+                var match = Model.Grid[row, column] == Model.SearchValue;
+                <td class="@(match ? "is-match" : "")">@Model.Grid[row, column].ToString("0.############################") @if (match) { <span class="array-match-label">Match</span> }</td>
+            }
+            </tr>
+        }
+        </tbody></table>
+    </div>
+    @if (Model.Matches.Count > 0)
+    {
+        <ol class="decision-path">@foreach (var match in Model.Matches) { <li>Row @(match.Row + 1), column @(match.Column + 1) — C# index [@match.Row, @match.Column]</li> }</ol>
+    }
+}
