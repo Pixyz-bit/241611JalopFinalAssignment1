@@ -4,9 +4,10 @@ using Microsoft.AspNetCore.DataProtection;
 
 namespace _241611JalopFinalAssignment1.Services;
 
-// Protected round values carry game progress between native POSTs without a database.
-public sealed class LoopRoundTokens(IDataProtectionProvider provider)
+// Protected values carry example progress between native POSTs without a database.
+public sealed class ExampleStateTokens(IDataProtectionProvider provider)
 {
+    // Keep the original root purpose so existing loop-game rounds remain readable.
     public string Protect<T>(string purpose, T value) =>
         provider.CreateProtector("Showcase.Loops", purpose, "v1").Protect(JsonSerializer.Serialize(value));
 

@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 
 namespace _241611JalopFinalAssignment1.Controllers;
 
-public sealed class ConceptsController(LoopRoundTokens roundTokens) : Controller
+public sealed class ConceptsController(ExampleStateTokens roundTokens) : Controller
 {
     [HttpGet("concepts/{category}")] // Handles GET requests; {category} captures the category (page name) from the URL.
     [HttpGet("concepts/{category}/example-{example:int}")] // Handles GET requests; {example:int} requires an integer example number.
@@ -24,6 +24,7 @@ public sealed class ConceptsController(LoopRoundTokens roundTokens) : Controller
             {
                 1 => new DuplicateFinderViewModel(),
                 2 => new ArraySortViewModel(),
+                3 => new TicTacToeViewModel { StateToken = roundTokens.Protect("arrays-tic-tac-toe", new TicTacToeRound(new())) },
                 4 => new GridSearchViewModel { Cells = Enumerable.Range(1, 9).Select(value => (string?)value.ToString()).ToList() },
                 5 => new GroupOrganizerViewModel { Members = new() { "Ana", "Ben", "Carlo", "Dana", "Eli", "Faye", "Gio", "Hana", "Ivan" } },
                 _ => null

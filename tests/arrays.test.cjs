@@ -20,6 +20,7 @@ async function submit(number, fields, withToken = true) {
 
 const values = html => [...html.matchAll(/data-array-value>(.*?)<\/span>/gs)].map(match => match[1]);
 const outcome = html => html.match(/<strong>(.*?)<\/strong>/s)?.[1];
+const stateToken = html => html.match(/name="StateToken"[^>]*value="([^"]+)"/)?.[1];
 const cells = entries => Object.fromEntries(entries.map((value, index) => [`Cells[${index}]`, String(value)]));
 const members = entries => Object.fromEntries(entries.map((value, index) => [`Members[${index}]`, value]));
 
@@ -33,6 +34,59 @@ test('duplicates normalize numbers and compare trimmed names without letter case
     assert.ok(names.html.includes('<td>0, 2</td>'));
     const unique = await submit(1, { ValueKind: 'Numbers', Values: '1,2,3' });
     assert.equal(outcome(unique.html), 'No duplicates');
+});
+
+async function play(moves) {
+    let html = await (await fetch(path(3))).text();
+    let token = stateToken(html);
+    for (const Cell of moves) {
+        ({ html } = await submit(3, { Cell: String(Cell), StateToken: token, Player: 'X', Winner: 'X' }));
+        token = stateToken(html);
+    }
+    return { html, token };
+}
+
+test('tic-tac-toe alternates turns and detects rows, columns and diagonals', async () => {
+    for (const [moves, winner] of [
+        [[0, 3, 1, 4, 2], 'X'], [[0, 1, 2, 4, 6, 7], 'O'],
+        [[0, 1, 4, 2, 8], 'X'], [[2, 0, 4, 1, 6], 'X']
+    ]) {
+        const result = await play(moves);
+        assert.equal(outcome(result.html), `${winner} wins!`);
+        assert.equal((result.html.match(/winning square/g) || []).length, 3);
+        const extra = await submit(3, { Cell: '8', StateToken: result.token });
+        assert.equal(outcome(extra.html), `${winner} wins!`);
+        assert.ok(extra.html.includes('This game has finished'));
+    }
+    const first = await play([0]);
+    assert.equal(outcome(first.html), 'O to move');
+    const occupied = await submit(3, { Cell: '0', StateToken: first.token });
+    assert.ok(occupied.html.includes('That square is occupied'));
+    const next = await submit(3, { Cell: '1', StateToken: stateToken(occupied.html) });
+    assert.equal(outcome(next.html), 'X to move');
+});
+
+test('tic-tac-toe detects a draw and rejects invalid or cross-example state', async () => {
+    const draw = await play([0, 1, 2, 4, 3, 5, 7, 6, 8]);
+    assert.equal(outcome(draw.html), "It's a draw");
+    const loopPage = await (await fetch(`${base}/concepts/loops/example-4`)).text();
+    for (const fields of [{ Cell: '0' }, { Cell: '0', StateToken: 'altered' }, { Cell: '0', StateToken: stateToken(loopPage) }]) {
+        const { response, html } = await submit(3, fields);
+        assert.equal(response.status, 200);
+        assert.match(html, /data-example-result[^>]*hidden/);
+        assert.ok(html.includes('This board is invalid'));
+    }
+    const fresh = await (await fetch(path(3))).text();
+    const invalid = await submit(3, { Cell: '9', StateToken: stateToken(fresh) });
+    assert.match(invalid.html, /data-example-result[^>]*hidden/);
+});
+
+test('tic-tac-toe recognizes every winning row, column and diagonal', async () => {
+    for (const line of [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]) {
+        const other = Array.from({ length: 9 }, (_, index) => index).filter(cell => !line.includes(cell));
+        const { html } = await play([line[0], other[0], line[1], other[1], line[2]]);
+        assert.equal(outcome(html), 'X wins!');
+    }
 });
 
 test('grid search finds all matches with row and column positions', async () => {

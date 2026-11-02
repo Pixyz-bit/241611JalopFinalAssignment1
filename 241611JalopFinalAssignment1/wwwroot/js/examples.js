@@ -29,7 +29,8 @@ document.addEventListener('input', event => {
 
 // Native POST reloads the document; bring its outcome or errors into keyboard focus.
 const decisionFeedback = document.querySelector('[data-decision-errors], [data-loop-errors], [data-array-errors], .nested-example [data-example-result]:not([hidden]), .loop-example [data-example-result]:not([hidden]), .array-example [data-example-result]:not([hidden])');
-decisionFeedback?.focus();
+// Long array output keeps its heading in view; validation summaries still scroll into view.
+if (decisionFeedback) decisionFeedback.focus({ preventScroll: Boolean(decisionFeedback.closest('.array-example') && !decisionFeedback.hasAttribute('data-array-errors')) });
 
 // The sole photo reference is an in-memory blob URL, revoked on clear, navigation or page exit.
 (() => {

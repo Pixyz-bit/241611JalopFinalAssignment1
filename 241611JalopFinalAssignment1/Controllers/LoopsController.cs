@@ -6,7 +6,7 @@ using _241611JalopFinalAssignment1.Services;
 
 namespace _241611JalopFinalAssignment1.Controllers;
 
-public sealed class LoopsController(LoopRoundTokens roundTokens) : Controller
+public sealed class LoopsController(ExampleStateTokens roundTokens) : Controller
 {
     [HttpPost("concepts/loops/example-1")]
     [ValidateAntiForgeryToken] // Native forms must include this site's antiforgery token.
