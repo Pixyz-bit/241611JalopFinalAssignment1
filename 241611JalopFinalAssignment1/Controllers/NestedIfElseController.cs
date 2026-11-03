@@ -63,37 +63,50 @@ public sealed class NestedIfElseController : Controller
 
     [HttpPost("concepts/nested-if-else/example-2")]
     [ValidateAntiForgeryToken]
-    public IActionResult Withdraw([Bind("Balance,Amount")] AtmWithdrawalViewModel input)
+    public IActionResult EvaluateGrade([Bind("Status,Percentage")] GradeEvaluatorViewModel input)
     {
-        if (ModelState.IsValid && input.Balance is decimal balance && input.Amount is decimal amount)
+        // Incomplete and Withdrawn have no numeric equivalent; Graded requires a percentage.
+        if (input.Status == GradeStatus.Graded && input.Percentage is null && ModelState.IsValid)
+            ModelState.AddModelError(nameof(input.Percentage), "Enter a whole-number percentage from 0 to 100.");
+        if (ModelState.IsValid)
         {
-            input.Decisions.Add("Valid amounts? Yes.");
-            if (amount <= balance)
-            {
-                input.Decisions.Add("Enough balance? Yes.");
-                if (amount % 100m == 0m) // % gives the remainder; zero means complete ₱100 bills.
-                {
-                    input.Decisions.Add("Multiple of ₱100? Yes.");
-                    input.Result = "Withdrawal successful";
-                    input.Detail = $"Withdrew ₱{amount:N2}. Remaining balance: ₱{balance - amount:N2}.";
-                }
-                else
-                {
-                    input.Decisions.Add("Multiple of ₱100? No.");
-                    input.Result = "Use multiples of ₱100";
-                    input.Detail = $"Balance stays at ₱{balance:N2}. Try 100, 200 or another multiple of 100.";
-                }
-            }
+            input.Decisions.Add("Incomplete? " + (input.Status == GradeStatus.Incomplete ? "Yes." : "No."));
+            if (input.Status == GradeStatus.Incomplete) input.Result = "INC — Incomplete";
             else
             {
-                input.Decisions.Add("Enough balance? No.");
-                input.Result = "Insufficient balance";
-                input.Detail = $"Balance stays at ₱{balance:N2}. Choose an amount within the balance.";
+                input.Decisions.Add("Withdrawn? " + (input.Status == GradeStatus.Withdrawn ? "Yes." : "No."));
+                if (input.Status == GradeStatus.Withdrawn) input.Result = "W — Withdrawn";
+                else
+                {
+                    var score = input.Percentage!.Value;
+                    // Each else checks the next lower threshold only after the previous check fails.
+                    bool AtLeast(int minimum)
+                    {
+                        var matches = score >= minimum;
+                        input.Decisions.Add($"Percentage >= {minimum}? {(matches ? "Yes." : "No.")}");
+                        return matches;
+                    }
+                    int band;
+                    if (AtLeast(97)) band = 0;
+                    else if (AtLeast(94)) band = 1;
+                    else if (AtLeast(91)) band = 2;
+                    else if (AtLeast(88)) band = 3;
+                    else if (AtLeast(85)) band = 4;
+                    else if (AtLeast(82)) band = 5;
+                    else if (AtLeast(79)) band = 6;
+                    else if (AtLeast(76)) band = 7;
+                    else if (AtLeast(75)) band = 8;
+                    else if (AtLeast(65)) band = 9;
+                    else band = 10;
+                    var match = GradeEvaluatorViewModel.Bands[band];
+                    input.Result = $"{match.Grade} — {match.Equivalent}";
+                    input.Detail = $"Percentage: {score}%. Range: {match.Percentage}%.";
+                }
             }
+            input.Detail ??= "This status has no percentage equivalent.";
         }
         return Example(2, input);
     }
-
     [HttpPost("concepts/nested-if-else/example-3")]
     [ValidateAntiForgeryToken]
     public IActionResult CalculateBmi([Bind("Weight,Height")] BmiCalculatorViewModel input)

@@ -1,0 +1,29 @@
+@model GradeEvaluatorViewModel
+<div class="example-workspace example-split nested-example">
+    <div class="example-heading"><h4>@Model.Title</h4></div>
+    <p class="detail-description">@Model.Description</p>
+    <form asp-controller="NestedIfElse" asp-action="EvaluateGrade" method="post" class="example-form example-layout" data-example-form>
+        <section class="example-panel example-input-panel" aria-labelledby="grade-input-title">
+            <h5 id="grade-input-title">Input</h5>
+            <partial name="~/Views/Concepts/NestedIfElse/_DecisionErrors.cshtml" model="Model" />
+            <div class="example-input-fields">
+                <div><label asp-for="Status">Assessment status</label><select asp-for="Status" asp-items="Html.GetEnumSelectList<GradeStatus>()" class="example-input" aria-describedby="grade-status-error" aria-invalid="@(ViewData.ModelState[nameof(Model.Status)]?.Errors.Count > 0 ? "true" : null)"></select><span asp-validation-for="Status" id="grade-status-error" class="temperature-errors"></span></div>
+                <div><label asp-for="Percentage">Percentage</label><input asp-for="Percentage" class="example-input" type="number" min="0" max="100" step="1" aria-describedby="grade-help grade-percentage-error" aria-invalid="@(ViewData.ModelState[nameof(Model.Percentage)]?.Errors.Count > 0 ? "true" : null)" /><span asp-validation-for="Percentage" id="grade-percentage-error" class="temperature-errors"></span></div>
+            </div>
+            <p class="example-hint" id="grade-help">Required for Graded: enter a whole number from 0 to 100. Leave blank for Incomplete or Withdrawn.</p>
+            <div class="temperature-actions"><button class="temperature-confirm" type="submit">Evaluate grade</button><a class="temperature-clear" href="/concepts/nested-if-else/example-2">Clear</a></div>
+            <p class="example-hint">Scores below 65 are treated as Failure (5.0).</p>
+            <details class="decision-flow"><summary>Grading scale</summary>
+                <div class="sample-accounts"><table><caption class="sr-only">Supplied grading scale</caption><thead><tr><th scope="col">Grade</th><th scope="col">Percentage</th><th scope="col">Equivalent</th></tr></thead><tbody>
+                    @foreach (var band in GradeEvaluatorViewModel.Bands)
+                    {
+                        <tr><td>@band.Grade</td><td>@band.Percentage</td><td>@band.Equivalent</td></tr>
+                    }
+                    <tr><td>INC</td><td>—</td><td>Incomplete</td></tr><tr><td>W</td><td>—</td><td>Withdrawn</td></tr>
+                </tbody></table></div>
+            </details>
+            <partial name="~/Views/Concepts/NestedIfElse/_DecisionFlow.cshtml" model="Model" />
+        </section>
+        <partial name="~/Views/Concepts/NestedIfElse/_DecisionResult.cshtml" model="Model" />
+    </form>
+</div>

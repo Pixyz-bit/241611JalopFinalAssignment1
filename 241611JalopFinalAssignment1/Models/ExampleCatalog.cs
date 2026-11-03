@@ -12,7 +12,7 @@ public static class ExampleCatalog
         },
         ["nested-if-else"] = new[]
         {
-            "Login and Access Checker", "ATM Withdrawal Simulator", "BMI Calculator", "Triangle Classifier", "Largest of Three Numbers"
+            "Login and Access Checker", "Grade Evaluator", "BMI Calculator", "Triangle Classifier", "Largest of Three Numbers"
         },
         ["loops"] = new[]
         {

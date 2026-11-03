@@ -86,9 +86,9 @@
                         @* Each working nested example keeps the same canonical shell and sidebar. *@
                         <partial name="~/Views/Concepts/NestedIfElse/_LoginAccess.cshtml" model="login" />
                     }
-                    else if (Model.Nested is AtmWithdrawalViewModel atm)
+                    else if (Model.Nested is GradeEvaluatorViewModel grade)
                     {
-                        <partial name="~/Views/Concepts/NestedIfElse/_AtmWithdrawal.cshtml" model="atm" />
+                        <partial name="~/Views/Concepts/NestedIfElse/_GradeEvaluator.cshtml" model="grade" />
                     }
                     else if (Model.Nested is BmiCalculatorViewModel bmi)
                     {
