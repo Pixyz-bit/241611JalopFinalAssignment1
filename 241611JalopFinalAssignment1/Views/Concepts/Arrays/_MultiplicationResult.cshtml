@@ -2,7 +2,7 @@
 @if (Model.Products is not null)
 {
     @* Local scrolling keeps a 12-column table inside its result panel on phones. *@
-    <div class="array-table-scroll" tabindex="0" role="region" aria-label="Multiplication table">
+    <div class="array-table-scroll multiplication-result" tabindex="0" role="region" aria-label="Multiplication table">
         <table class="array-table"><caption>Row × column</caption>
             <thead><tr><th scope="col">×</th>@for (var column = 0; column < Model.Products.GetLength(1); column++) { <th scope="col">@(column + 1)</th> }</tr></thead>
             <tbody>
