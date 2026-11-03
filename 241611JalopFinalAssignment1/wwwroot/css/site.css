@@ -122,8 +122,9 @@ button:active, summary:active { opacity: .8; }
 .plain-button { display: inline-grid; place-items: center; width: 36px; height: 36px; border-radius: 4px; background: transparent; color: var(--muted); }
 .plain-button:hover { background: #e1e7f0; }
 .app-body { flex: 1; min-height: 0; display: grid; grid-template-columns: 218px minmax(0,1fr); }
-.app-sidebar { display: flex; flex-direction: column; padding: 20px 12px 14px; background: var(--sidebar); overflow-y: auto; }
-.sidebar-caption { margin: 0 12px 9px; color: var(--muted); font-size: 11px; font-weight: 550; }
+/* Keep the category title above its independently scrollable navigation column. */
+.app-navigation { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+.app-sidebar { flex: 1; min-height: 0; display: flex; flex-direction: column; padding: 12px 12px 14px; background: var(--sidebar); overflow-y: auto; }
 .sidebar-link { position: relative; display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 10px 12px; margin-bottom: 4px; border-radius: 5px; font-size: 12px; }
 .sidebar-link .icon { width: 18px; height: 18px; color: var(--blue); }
 /* Long example names wrap while their navigation icons retain a consistent size. */
@@ -136,10 +137,9 @@ button:active, summary:active { opacity: .8; }
 .sidebar-utilities .sidebar-link { color: var(--muted); }
 /* A compact full-width header gives the scrolling example workspace more room. */
 .example-detail { overflow-y: auto; min-width: 0; padding: 24px; outline-offset: -4px; }
-.app-page-heading { display: flex; flex-shrink: 0; align-items: flex-start; gap: 16px; margin: 0; padding: 16px 24px; border-bottom: 1px solid var(--line); }
-.app-page-heading > .app-icon { width: 44px; height: 44px; border-radius: 12px; margin-top: 2px; }
-.app-page-heading h3 { font-size: 28px; line-height: 1.25; letter-spacing: -.025em; font-weight: 600; margin: 0 0 6px; }
-.app-page-heading p { margin: 0; color: var(--muted); line-height: 1.8; font-size: 13px; max-width: 100ch; }
+.app-page-heading { display: flex; flex-shrink: 0; align-items: center; gap: 12px; margin: 0; padding: 12px; min-height: 60px; }
+.app-page-heading > .app-icon { width: 30px; height: 30px; flex-shrink: 0; }
+.app-page-heading h3 { font-size: 20px; line-height: 1.25; letter-spacing: -.025em; font-weight: 600; margin: 0; overflow-wrap: anywhere; }
 .primary-link { color: var(--blue); display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-size: 12px; font-weight: 550; }
 .primary-link:hover { text-decoration: underline; text-underline-offset: 4px; }
 .primary-link .icon { width: 16px; height: 16px; }
@@ -218,20 +218,19 @@ button:active, summary:active { opacity: .8; }
     .app-identity > .icon { width: 20px; height: 20px; }
     .caption-button { width: 44px; }
     .app-body { display: flex; flex-direction: column; }
+    .app-navigation { flex: 0 0 auto; }
     .app-sidebar { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 2px; padding: 8px; flex: 0 0 auto; }
     /* Full names remain readable in a horizontally scrollable row on phones. */
     .examples-sidebar { display: flex; flex-direction: row; gap: 4px; overflow-x: auto; }
     .examples-sidebar .sidebar-link { flex: 0 0 auto; max-width: 220px; justify-content: center; }
     .examples-sidebar .sidebar-example > span { white-space: nowrap; }
     .examples-sidebar .icon { display: none; }
-    .app-sidebar > .sidebar-caption, .sidebar-utilities { display: none; }
+    .sidebar-utilities { display: none; }
     .sidebar-link { font-size: 11px; padding: 8px; gap: 8px; min-height: 44px; margin: 0; }
     .example-detail { flex: 1; min-height: 0; padding: 22px 18px; }
-    .app-page-heading { gap: 14px; padding: 18px; }
-    .app-page-heading > .app-icon { width: 42px; height: 42px; border-radius: 10px; }
+    .app-page-heading { gap: 12px; padding: 12px 18px; }
+    .app-page-heading > .app-icon { width: 30px; height: 30px; }
     .app-page-heading > .app-icon .icon { width: 24px; height: 24px; }
-    .app-page-heading h3 { font-size: 25px; }
-    .app-page-heading p { font-size: 12px; line-height: 1.8; }
     .example-workspace { margin-top: 0; padding: 20px; }
     .example-heading h4 { font-size: 20px; }
     .start-panel { padding: 22px 20px 0; }
@@ -258,9 +257,7 @@ button:active, summary:active { opacity: .8; }
     .welcome-description { margin-bottom: 12px; }
     .window-host { top: 6px; bottom: calc(var(--taskbar-height) + 6px); }
     .app-sidebar { padding-top: 10px; }
-    .sidebar-caption { margin-top: 4px; }
     .app-page-heading { padding: 12px 18px; }
-    .app-page-heading p { font-size: 12px; }
 }
 /* Start and all four category shortcuts remain visible on narrow phones. */
 @media (max-width: 360px) { .taskbar-apps { gap: 0; } .start-footer { flex-wrap: wrap; } .app-page-heading { gap: 10px; } .example-detail { padding: 20px 14px; } }

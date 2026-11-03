@@ -12,17 +12,17 @@
                 <a class="caption-button close" href="/" data-navigate aria-label="Close window"><svg class="icon" aria-hidden="true"><use href="#icon-close" /></svg></a>
             </div>
         </header>
+        <div class="app-body">
+        @* Group the category heading with its navigation, beside the example workspace. *@
+        <div class="app-navigation">
         @if (Model.Category is not null)
         {
-            @* This full-width category header stays below the titlebar and above both content columns. *@
             <header class="app-page-heading">
                 <partial name="_ConceptIcon" model="Model.Category" />
                 <div><h3 id="detail-title">@Model.Category.Name</h3></div>
             </header>
         }
-        <div class="app-body">
             <nav class="app-sidebar @(Model.Category is not null ? "examples-sidebar" : "")" aria-label="@(Model.Category is not null ? $"{Model.Category.Name} examples" : "Categories")">
-                <p class="sidebar-caption">@(Model.Category is not null ? "Examples" : "Concepts")</p>
                 @if (Model.Category is not null)
                 {
                     @* Each sidebar entry opens an example in the current category using a real MVC route. *@
@@ -36,6 +36,7 @@
                     <a href="/" class="sidebar-link" data-navigate><svg class="icon" aria-hidden="true"><use href="#icon-home" /></svg><span>Back to desktop</span></a>
                 </div>
             </nav>
+        </div>
                 @* Working examples share one compact pane inset and a consistent input/result layout. *@
                 <section class="example-detail @(Model.HasImplementedExample ? "example-detail--split" : "")" aria-labelledby="detail-title" tabindex="-1">
                     @if (Model.Temperature is not null)
