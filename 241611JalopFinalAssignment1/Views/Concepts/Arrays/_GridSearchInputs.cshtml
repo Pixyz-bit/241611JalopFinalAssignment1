@@ -17,4 +17,3 @@
     <input asp-for="SearchValue" type="number" step="any" min="-1000000000" max="1000000000" required class="example-input" aria-describedby="search-error" aria-invalid="@(ViewData.ModelState[nameof(Model.SearchValue)]?.Errors.Count > 0 ? "true" : null)" />
     <span asp-validation-for="SearchValue" id="search-error" class="temperature-errors"></span>
 </div>
-<p class="example-hint">Sample numbers are editable. Fill all nine cells; decimals and repeated values are supported.</p>

@@ -1,7 +1,6 @@
 @model ArrayExampleViewModel
 <div class="example-workspace example-split array-example">
     <div class="example-heading"><h4>@Model.Title</h4></div>
-    <p class="detail-description">@Model.Description</p>
     @* One native form preserves the same panel layout and no-JavaScript behavior as the other examples. *@
     <form asp-controller="Arrays" asp-action="@Model.ActionName" method="post" class="example-form example-layout" data-example-form>
         <section class="example-panel example-input-panel" aria-labelledby="array-input-title">

@@ -1,7 +1,6 @@
 @model RectangleCalculatorViewModel
 <div class="example-workspace example-split rectangle-example">
     <div class="example-heading"><h4>@ExampleCatalog.GetTitle("input-output", 2)</h4></div>
-    <p class="detail-description">Calculate a rectangle’s area and perimeter. Use the same unit for both dimensions.</p>
     @* Both panels share a native form so calculations work without JavaScript. *@
     <form asp-controller="InputOutput" asp-action="CalculateRectangle" method="post" class="example-form example-layout" data-example-form>
         <section class="example-panel example-input-panel" aria-labelledby="rectangle-input-title">
@@ -18,7 +17,6 @@
                     <span asp-validation-for="Width" id="rectangle-width-error" class="temperature-errors"></span>
                 </div>
             </div>
-            <p class="example-hint">Enter dimensions from 0.01 to 1,000,000. Decimals are welcome.</p>
             <div class="temperature-actions"><button class="temperature-confirm" type="submit">Calculate</button><a class="temperature-clear" href="/concepts/input-output/example-2">Clear</a></div>
         </section>
         <section class="example-panel example-output-panel" aria-labelledby="rectangle-result-title">

@@ -1,7 +1,6 @@
 @model TriangleClassifierViewModel
 <div class="example-workspace example-split nested-example">
     <div class="example-heading"><h4>@Model.Title</h4></div>
-    <p class="detail-description">@Model.Description</p>
     @* Inputs and teaching notes stay together; the shared Result panel remains visible beside them. *@
     <form asp-controller="NestedIfElse" asp-action="ClassifyTriangle" method="post" class="example-form example-layout" data-example-form>
         <section class="example-panel example-input-panel" aria-labelledby="decision-input-title">
@@ -14,7 +13,6 @@
                 <div><label asp-for="C">Side C</label><input asp-for="C" class="example-input" type="number" step="any" min="0.000001" max="1000000000000" required aria-describedby="c-error" aria-invalid="@(ViewData.ModelState[nameof(Model.C)]?.Errors.Count > 0 ? "true" : null)" /><span asp-validation-for="C" id="c-error" class="temperature-errors"></span></div>
             </div>
             <div class="temperature-actions"><button class="temperature-confirm" type="submit">Classify triangle</button><a class="temperature-clear" href="/concepts/nested-if-else/example-4">Clear</a></div>
-            <p class="example-hint" data-example-hint>Try 5, 5, 5 for equilateral; 5, 5, 6 for isosceles; or 3, 4, 5 for scalene.</p>
             <partial name="~/Views/Concepts/NestedIfElse/_DecisionFlow.cshtml" model="Model" />
         </section>
         <partial name="~/Views/Concepts/NestedIfElse/_DecisionResult.cshtml" model="Model" />

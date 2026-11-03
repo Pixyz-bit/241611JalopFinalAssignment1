@@ -6,7 +6,6 @@
 @* The shared form contains both panels, so native POST works without JavaScript. *@
 <div class="example-workspace example-split">
     <div class="example-heading"><h4>@ExampleCatalog.GetTitle("input-output", 4)</h4></div>
-    <p class="detail-description">Convert seconds, minutes and hours. Decimal values are welcome.</p>
     <form asp-controller="InputOutput" asp-action="ConvertTime" method="post" class="example-form example-layout" data-example-form>
         <section class="example-panel example-input-panel" aria-labelledby="time-input-title">
             <h5 id="time-input-title">Input</h5>

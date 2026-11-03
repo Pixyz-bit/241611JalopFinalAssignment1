@@ -1,17 +1,14 @@
 @model TextCounterViewModel
 <div class="example-workspace example-split">
     <div class="example-heading"><h4>@ExampleCatalog.GetTitle("input-output", 5)</h4></div>
-    <p class="detail-description">Count the characters and words in a sentence or paragraph.</p>
     @* A single native form keeps inputs first and the persistent result panel second. *@
     <form asp-controller="InputOutput" asp-action="CountText" method="post" class="example-form example-layout" data-example-form>
         <section class="example-panel example-input-panel" aria-labelledby="counter-input-title">
             <h5 id="counter-input-title">Input</h5>
             <label asp-for="Text">Your text</label>
-            <textarea asp-for="Text" rows="6" maxlength="10000" class="example-input example-textarea" aria-describedby="text-rules text-error" placeholder="Type or paste your paragraph here…"></textarea>
+            <textarea asp-for="Text" rows="6" maxlength="10000" class="example-input example-textarea" aria-describedby="text-error" placeholder="Type or paste your paragraph here…"></textarea>
             <span asp-validation-for="Text" id="text-error" class="temperature-errors"></span>
-            <p id="text-rules" class="example-hint">Characters include spaces and line breaks. Each visible symbol, including a combined emoji, counts once. Words are nonempty groups separated by whitespace.</p>
             <div class="temperature-actions"><button type="submit" class="temperature-confirm">Count</button><a href="/concepts/input-output/example-5" class="temperature-clear">Clear</a></div>
-            <p class="example-hint" data-example-hint>Choose Count to calculate. Empty text returns zero.</p>
         </section>
         <section class="example-panel example-output-panel" aria-labelledby="counter-result-title">
             <h5 id="counter-result-title">Result</h5>

@@ -1,5 +1,4 @@
 @model PrimeFactorsViewModel
 <label asp-for="Number">Whole number</label>
-<input asp-for="Number" type="number" min="2" max="1000000000000" step="1" required class="example-input" aria-invalid="@(ViewData.ModelState[nameof(Model.Number)]?.Errors.Count > 0 ? "true" : null)" aria-describedby="number-help number-error" placeholder="For example, 60" />
+<input asp-for="Number" type="number" min="2" max="1000000000000" step="1" required class="example-input" aria-invalid="@(ViewData.ModelState[nameof(Model.Number)]?.Errors.Count > 0 ? "true" : null)" aria-describedby="number-error" placeholder="For example, 60" />
 <span asp-validation-for="Number" id="number-error" class="temperature-errors"></span>
-<p id="number-help" class="example-hint">Choose a whole number from 2 to 1,000,000,000,000.</p>

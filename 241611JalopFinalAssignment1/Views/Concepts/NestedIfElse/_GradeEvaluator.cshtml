@@ -1,17 +1,14 @@
 @model GradeEvaluatorViewModel
 <div class="example-workspace example-split nested-example">
     <div class="example-heading"><h4>@Model.Title</h4></div>
-    <p class="detail-description">@Model.Description</p>
     <form asp-controller="NestedIfElse" asp-action="EvaluateGrade" method="post" class="example-form example-layout" data-example-form>
         <section class="example-panel example-input-panel" aria-labelledby="grade-input-title">
             <h5 id="grade-input-title">Input</h5>
             <partial name="~/Views/Concepts/NestedIfElse/_DecisionErrors.cshtml" model="Model" />
             <div class="example-input-fields">
-                <div><label asp-for="Percentage">Final percentage</label><input asp-for="Percentage" class="example-input" type="number" min="0" max="100" step="1" required aria-describedby="grade-help grade-percentage-error" aria-invalid="@(ViewData.ModelState[nameof(Model.Percentage)]?.Errors.Count > 0 ? "true" : null)" /><span asp-validation-for="Percentage" id="grade-percentage-error" class="temperature-errors"></span></div>
+                <div><label asp-for="Percentage">Final percentage</label><input asp-for="Percentage" class="example-input" type="number" min="0" max="100" step="1" required aria-describedby="grade-percentage-error" aria-invalid="@(ViewData.ModelState[nameof(Model.Percentage)]?.Errors.Count > 0 ? "true" : null)" /><span asp-validation-for="Percentage" id="grade-percentage-error" class="temperature-errors"></span></div>
             </div>
-            <p class="example-hint" id="grade-help">Enter a whole number from 0 to 100. A score of 75 or higher is Passed.</p>
             <div class="temperature-actions"><button class="temperature-confirm" type="submit">Evaluate grade</button><a class="temperature-clear" href="/concepts/nested-if-else/example-2">Clear</a></div>
-            <p class="example-hint">Scores below 75 are Failed.</p>
             <partial name="~/Views/Concepts/NestedIfElse/_DecisionFlow.cshtml" model="Model" />
         </section>
         <partial name="~/Views/Concepts/NestedIfElse/_DecisionResult.cshtml" model="Model" />

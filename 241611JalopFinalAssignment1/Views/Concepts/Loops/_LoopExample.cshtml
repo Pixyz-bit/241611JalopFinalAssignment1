@@ -1,7 +1,6 @@
 @model LoopExampleViewModel
 <div class="example-workspace example-split loop-example">
     <div class="example-heading"><h4>@Model.Title</h4></div>
-    <p class="detail-description">@Model.Description</p>
     @* All loop forms use the same native input/result layout and canonical reset link. *@
     <form asp-controller="Loops" asp-action="@Model.ActionName" method="post" class="example-form example-layout" data-example-form>
         <section class="example-panel example-input-panel" aria-labelledby="loop-input-title">

@@ -6,7 +6,6 @@
 }
 <div class="example-workspace example-split temperature-example">
     <div class="example-heading"><h4>@ExampleCatalog.GetTitle("input-output", 3)</h4></div>
-    <p class="detail-description">Convert between Celsius, Fahrenheit and Kelvin.</p>
     @* Native POST handles calculations; JavaScript only enhances Swap, Clear and stale feedback. *@
     <form asp-controller="Concepts" asp-action="ConvertTemperature" method="post" class="example-form example-layout temperature-form"
           data-confirmed-result="@(Model.Result?.ToString(System.Globalization.CultureInfo.InvariantCulture))">

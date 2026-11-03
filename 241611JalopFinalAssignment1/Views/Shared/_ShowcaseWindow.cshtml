@@ -17,7 +17,7 @@
             @* This full-width category header stays below the titlebar and above both content columns. *@
             <header class="app-page-heading">
                 <partial name="_ConceptIcon" model="Model.Category" />
-                <div><h3 id="detail-title">@Model.Category.Name</h3><p>@Model.Category.Description</p></div>
+                <div><h3 id="detail-title">@Model.Category.Name</h3></div>
             </header>
         }
         <div class="app-body">
@@ -129,6 +129,10 @@
                 </section>
             }
         </div>
-        <footer class="app-statusbar"><span>@(Model.IsAbout ? "C# Programming Showcase" : Model.Category!.Name)</span><span>@(Model.IsAbout ? "About this app" : Model.Example.HasValue ? $"Example {Model.Example.Value:00} of 05" : "5 example slots")</span></footer>
+        @* Example pages use the full window height; About retains its informational footer. *@
+        @if (Model.IsAbout)
+        {
+            <footer class="app-statusbar"><span>C# Programming Showcase</span><span>About this app</span></footer>
+        }
     </section>
 }

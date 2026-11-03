@@ -7,9 +7,8 @@
     </div>
     <div>
         <label asp-for="Values">Array values</label>
-        <textarea asp-for="Values" rows="3" required maxlength="1500" class="example-input example-textarea" aria-describedby="values-help values-error" aria-invalid="@(ViewData.ModelState[nameof(Model.Values)]?.Errors.Count > 0 ? "true" : null)" placeholder="For example: 8, 3, 8, 12"></textarea>
+        <textarea asp-for="Values" rows="3" required maxlength="1500" class="example-input example-textarea" aria-describedby="values-error" aria-invalid="@(ViewData.ModelState[nameof(Model.Values)]?.Errors.Count > 0 ? "true" : null)" placeholder="For example: 8, 3, 8, 12"></textarea>
         <span asp-validation-for="Values" id="values-error" class="temperature-errors"></span>
-        <p id="values-help" class="example-hint">Separate 1–30 values with commas or new lines, up to 40 characters each. Names may include spaces. For numbers, use a decimal point and no thousands separators.</p>
     </div>
     @if (Model is ArraySortViewModel)
     {

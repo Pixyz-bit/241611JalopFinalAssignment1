@@ -1,7 +1,6 @@
 @model LargestNumbersViewModel
 <div class="example-workspace example-split nested-example">
     <div class="example-heading"><h4>@Model.Title</h4></div>
-    <p class="detail-description">@Model.Description</p>
     @* Inputs and teaching notes stay together; the shared Result panel remains visible beside them. *@
     <form asp-controller="NestedIfElse" asp-action="FindLargest" method="post" class="example-form example-layout" data-example-form>
         <section class="example-panel example-input-panel" aria-labelledby="decision-input-title">
@@ -14,7 +13,6 @@
                 <div><label asp-for="C">Number C</label><input asp-for="C" class="example-input" type="number" step="any" min="-1000000000000" max="1000000000000" required aria-describedby="c-error" aria-invalid="@(ViewData.ModelState[nameof(Model.C)]?.Errors.Count > 0 ? "true" : null)" /><span asp-validation-for="C" id="c-error" class="temperature-errors"></span></div>
             </div>
             <div class="temperature-actions"><button class="temperature-confirm" type="submit">Find largest</button><a class="temperature-clear" href="/concepts/nested-if-else/example-5">Clear</a></div>
-            <p class="example-hint" data-example-hint>Enter three numbers, then choose Find largest. Equal maximum values are supported.</p>
             <partial name="~/Views/Concepts/NestedIfElse/_DecisionFlow.cshtml" model="Model" />
         </section>
         <partial name="~/Views/Concepts/NestedIfElse/_DecisionResult.cshtml" model="Model" />

@@ -7,8 +7,7 @@
     </div>
     <div>
         <label asp-for="Symbol">Symbol</label>
-        <input asp-for="Symbol" maxlength="1" required class="example-input" aria-invalid="@(ViewData.ModelState[nameof(Model.Symbol)]?.Errors.Count > 0 ? "true" : null)" aria-describedby="symbol-help symbol-error" />
+        <input asp-for="Symbol" maxlength="1" required class="example-input" aria-invalid="@(ViewData.ModelState[nameof(Model.Symbol)]?.Errors.Count > 0 ? "true" : null)" aria-describedby="symbol-error" />
         <span asp-validation-for="Symbol" id="symbol-error" class="temperature-errors"></span>
-        <p id="symbol-help" class="example-hint">1–20 rows. Use one keyboard symbol or letter, without spaces.</p>
     </div>
 </div>

@@ -1,7 +1,6 @@
 @model LoginAccessViewModel
 <div class="example-workspace example-split nested-example">
     <div class="example-heading"><h4>@Model.Title</h4></div>
-    <p class="detail-description">@Model.Description</p>
     @* Inputs and teaching notes stay together; the shared Result panel remains visible beside them. *@
     <form asp-controller="NestedIfElse" asp-action="CheckAccess" method="post" class="example-form example-layout" data-example-form>
         <section class="example-panel example-input-panel" aria-labelledby="decision-input-title">
@@ -13,7 +12,6 @@
                 <div><label asp-for="Password">Sample password</label><input asp-for="Password" class="example-input" required autocomplete="off" maxlength="80" aria-describedby="password-error" aria-invalid="@(ViewData.ModelState[nameof(Model.Password)]?.Errors.Count > 0 ? "true" : null)" /><span asp-validation-for="Password" id="password-error" class="temperature-errors"></span></div>
             </div>
             <div class="temperature-actions"><button class="temperature-confirm" type="submit">Check access</button><a class="temperature-clear" href="/concepts/nested-if-else/example-1">Clear</a></div>
-            <p class="example-hint" data-example-hint>Use the public sample accounts below. Account names and passwords are case-sensitive.</p>
             <details class="decision-flow" open>
                 <summary>Sample accounts</summary>
                 <div class="sample-accounts"><table><caption class="sr-only">Public teaching accounts</caption><thead><tr><th scope="col">Username</th><th scope="col">Password</th><th scope="col">Role</th></tr></thead><tbody><tr><td>admin</td><td>admin123</td><td>Admin</td></tr><tr><td>student</td><td>student123</td><td>Student</td></tr><tr><td>guest</td><td>guest123</td><td>Guest</td></tr></tbody></table></div>
