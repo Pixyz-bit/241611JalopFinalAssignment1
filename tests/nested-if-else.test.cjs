@@ -64,22 +64,18 @@ test('login checks credentials before trusted sample roles and clears passwords'
     }
 });
 
-test('login flow marks only the recorded route and other examples retain their text trees', async () => {
-    for (const [Username, Password, count, outcome] of [
-        ['admin', 'admin123', 3, 'Admin options'], ['student', 'student123', 4, 'Student options'],
-        ['guest', 'guest123', 4, 'Access denied'], ['admin', 'wrong', 2, 'Invalid credentials']
-    ]) {
-        const { html } = await submit(1, { Username, Password });
-        assert.equal((html.match(/data-flow-active="true"/g) || []).length, count);
-        assert.ok(html.includes(`<div class="flow-outcome">${outcome} <span class="flow-current">Your result</span>`));
-        assert.match(html, /class="decision-flow login-flow" open/);
-    }
-    const empty = await (await fetch(base + path(1))).text();
-    assert.ok(!empty.includes('data-flow-active="true"'));
-    for (let number = 2; number <= 5; number++) {
-        const html = await (await fetch(base + path(number))).text();
-        assert.ok(html.includes('decision tree'));
+test('all five decisions use compact connected text branches in full and partial routes', async () => {
+    for (let number = 1; number <= 5; number++) {
+        for (const partial of [false, true]) {
+        const html = decode(await (await fetch(base + path(number), { headers: partial ? { 'X-Showcase-Partial': 'true' } : {} })).text());
+        const tree = html.match(/<pre class="decision-tree"[^>]*>([\s\S]*?)<\/pre>/)?.[1];
+        assert.ok(tree, 'the tree is keyboard-focusable preserved text');
+        assert.ok(tree.includes('├── Yes:'));
+        assert.ok(tree.includes('└── No:'));
+        assert.ok(!tree.includes('+--'));
+        assert.ok(!tree.split('\n').some(line => /^[│\s]*$/.test(line)), 'no unnecessary vertical-only rows');
         assert.ok(!html.includes('login-flow-tree'));
+        }
     }
 });
 

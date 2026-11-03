@@ -261,6 +261,6 @@ All five array examples share the existing panel grid, controls and 24–32px re
 
 Input/Output Example 2 uses the shared white Input and pale-blue Result panels. Length and width stack above Calculate and a canonical Clear link. Both dimensions use the same unspecified unit. The result shows area in square units and perimeter in units, each at the shared 24–32px result size with a 12px formula. Decimal inputs from 0.01 to 1,000,000 are accepted; results display up to eight decimal places. The existing responsive grid, focus styling and reduced-motion rules apply without new visual tokens.
 
-### Login decision flow pilot
+### Compact decision trees
 
-Nested If…Else Example 1 alone uses a full-workspace-width disclosure below the Input/Result form. Bordered question and outcome nodes, Yes/No arrows and nested branch lines replace its text diagram. The controller's recorded decision list supplies the highlighted route, with a visible Your result label on the final outcome. The disclosure opens after a completed submission; edits remove stale highlights. Below 700px of flow-container width the tree stacks vertically with branch indentation. Examples 2–5 retain their original text trees. Existing palette, focus and reduced-motion rules apply.
+All five Nested If…Else examples use the shared native disclosure beneath their inputs. Their diagrams are plain preserved text using ├──, └── and │ branch characters, four-space nesting and no vertical-only spacer rows. The reference-approved dark panel (#282828) uses light (#f4f4f4) 12px Consolas text at weight 550 and line height 1.7. Wider diagrams scroll locally and remain keyboard-focusable. The login flowchart pilot and its highlighting are removed; the Result panel retains its ordered Decision path.
