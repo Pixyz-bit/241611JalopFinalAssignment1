@@ -63,50 +63,36 @@ public sealed class NestedIfElseController : Controller
 
     [HttpPost("concepts/nested-if-else/example-2")]
     [ValidateAntiForgeryToken]
-    public IActionResult EvaluateGrade([Bind("Status,Percentage")] GradeEvaluatorViewModel input)
+    public IActionResult EvaluateGrade([Bind("Percentage")] GradeEvaluatorViewModel input)
     {
-        // Incomplete and Withdrawn have no numeric equivalent; Graded requires a percentage.
-        if (input.Status == GradeStatus.Graded && input.Percentage is null && ModelState.IsValid)
-            ModelState.AddModelError(nameof(input.Percentage), "Enter a whole-number percentage from 0 to 100.");
-        if (ModelState.IsValid)
+        if (ModelState.IsValid && input.Percentage is int score)
         {
-            input.Decisions.Add("Incomplete? " + (input.Status == GradeStatus.Incomplete ? "Yes." : "No."));
-            if (input.Status == GradeStatus.Incomplete) input.Result = "INC — Incomplete";
-            else
+            // Only check the next threshold after the previous one fails.
+            bool AtLeast(int minimum)
             {
-                input.Decisions.Add("Withdrawn? " + (input.Status == GradeStatus.Withdrawn ? "Yes." : "No."));
-                if (input.Status == GradeStatus.Withdrawn) input.Result = "W — Withdrawn";
-                else
-                {
-                    var score = input.Percentage!.Value;
-                    // Each else checks the next lower threshold only after the previous check fails.
-                    bool AtLeast(int minimum)
-                    {
-                        var matches = score >= minimum;
-                        input.Decisions.Add($"Percentage >= {minimum}? {(matches ? "Yes." : "No.")}");
-                        return matches;
-                    }
-                    int band;
-                    if (AtLeast(97)) band = 0;
-                    else if (AtLeast(94)) band = 1;
-                    else if (AtLeast(91)) band = 2;
-                    else if (AtLeast(88)) band = 3;
-                    else if (AtLeast(85)) band = 4;
-                    else if (AtLeast(82)) band = 5;
-                    else if (AtLeast(79)) band = 6;
-                    else if (AtLeast(76)) band = 7;
-                    else if (AtLeast(75)) band = 8;
-                    else if (AtLeast(65)) band = 9;
-                    else band = 10;
-                    var match = GradeEvaluatorViewModel.Bands[band];
-                    input.Result = $"{match.Grade} — {match.Equivalent}";
-                    input.Detail = $"Percentage: {score}%. Range: {match.Percentage}%.";
-                }
+                var matches = score >= minimum;
+                input.Decisions.Add($"Percentage >= {minimum}? {(matches ? "Yes." : "No.")}");
+                return matches;
             }
-            input.Detail ??= "This status has no percentage equivalent.";
+            int band;
+            if (AtLeast(97)) band = 0;
+            else if (AtLeast(94)) band = 1;
+            else if (AtLeast(91)) band = 2;
+            else if (AtLeast(88)) band = 3;
+            else if (AtLeast(85)) band = 4;
+            else if (AtLeast(82)) band = 5;
+            else if (AtLeast(79)) band = 6;
+            else if (AtLeast(76)) band = 7;
+            else if (AtLeast(75)) band = 8;
+            else if (AtLeast(65)) band = 9;
+            else band = 10;
+            var match = GradeEvaluatorViewModel.Bands[band];
+            input.Result = $"{match.Grade} — {match.Equivalent}";
+            input.Detail = $"Percentage: {score}%. Range: {match.Percentage}%.";
         }
         return Example(2, input);
     }
+
     [HttpPost("concepts/nested-if-else/example-3")]
     [ValidateAntiForgeryToken]
     public IActionResult CalculateBmi([Bind("Weight,Height")] BmiCalculatorViewModel input)
