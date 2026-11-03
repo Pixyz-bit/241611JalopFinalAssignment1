@@ -64,6 +64,25 @@ test('login checks credentials before trusted sample roles and clears passwords'
     }
 });
 
+test('login flow marks only the recorded route and other examples retain their text trees', async () => {
+    for (const [Username, Password, count, outcome] of [
+        ['admin', 'admin123', 3, 'Admin options'], ['student', 'student123', 4, 'Student options'],
+        ['guest', 'guest123', 4, 'Access denied'], ['admin', 'wrong', 2, 'Invalid credentials']
+    ]) {
+        const { html } = await submit(1, { Username, Password });
+        assert.equal((html.match(/data-flow-active="true"/g) || []).length, count);
+        assert.ok(html.includes(`<div class="flow-outcome">${outcome} <span class="flow-current">Your result</span>`));
+        assert.match(html, /class="decision-flow login-flow" open/);
+    }
+    const empty = await (await fetch(base + path(1))).text();
+    assert.ok(!empty.includes('data-flow-active="true"'));
+    for (let number = 2; number <= 5; number++) {
+        const html = await (await fetch(base + path(number))).text();
+        assert.ok(html.includes('decision tree'));
+        assert.ok(!html.includes('login-flow-tree'));
+    }
+});
+
 test('ATM checks balance before denomination and calculates exact remaining pesos', async () => {
     for (const [Balance, Amount, expected] of [
         ['5000', '1200', 'Withdrawal successful'], ['100', '100', 'Withdrawal successful'],

@@ -260,3 +260,7 @@ All five array examples share the existing panel grid, controls and 24–32px re
 ### Rectangle area and perimeter
 
 Input/Output Example 2 uses the shared white Input and pale-blue Result panels. Length and width stack above Calculate and a canonical Clear link. Both dimensions use the same unspecified unit. The result shows area in square units and perimeter in units, each at the shared 24–32px result size with a 12px formula. Decimal inputs from 0.01 to 1,000,000 are accepted; results display up to eight decimal places. The existing responsive grid, focus styling and reduced-motion rules apply without new visual tokens.
+
+### Login decision flow pilot
+
+Nested If…Else Example 1 alone uses a full-workspace-width disclosure below the Input/Result form. Bordered question and outcome nodes, Yes/No arrows and nested branch lines replace its text diagram. The controller's recorded decision list supplies the highlighted route, with a visible Your result label on the final outcome. The disclosure opens after a completed submission; edits remove stale highlights. Below 700px of flow-container width the tree stacks vertically with branch indentation. Examples 2–5 retain their original text trees. Existing palette, focus and reduced-motion rules apply.
