@@ -206,3 +206,10 @@ Only Yes and No are now bold in all five decision trees; conditions, outcomes an
 - Nested If…Else Example 2 replaces ATM with one Final percentage input. The supplied 1.0–5.0 ranges are preserved. As clarified by the user, 65–74 gives 4.0 — Failed and 0–64 gives 5.0 — Failed; 75 gives 3.0 — Passing. INC/W and the temporary status selector are omitted because this example converts one numeric percentage.
 - Build passed with zero warnings/errors. All 43 tests passed, including every whole percentage from 0 through 100, forged output rejection, invalid/missing/fractional/out-of-range input, antiforgery and named canonical/partial routes.
 - Browser checked keyboard Enter with 98 → 1.0 — Excellent, 74 → 4.0 — Failed, Clear, desktop 1280×800 and phone 320×640 with no horizontal page overflow. The shared responsive panels and compact white decision tree are retained. Rebuilt/reran at http://localhost:5196. Capture: .tmp/grade-evaluator.png.
+
+### Grade Evaluator pass/fail simplification and nested-logic audit
+
+- Simplified Example 2 to one whole-number percentage: valid 75–100 is Passed; valid 0–74 is Failed. Invalid input produces errors without a calculated result. The pass/fail check is nested inside the valid-input check.
+- Reviewed all five controller actions and their illustrated trees. Login nests role decisions after matching credentials; BMI nests category thresholds; Triangle nests side equality after triangle validity; Largest nests a comparison with C in each A/B branch. All five demonstrate actual nested decisions in C#.
+- Solution build succeeded with zero warnings/errors, and the updated app was rerun at http://localhost:5196. All 43 regression tests passed, including every integer percentage from 0 through 100, all five examples' outcome branches, invalid inputs and canonical routes.
+- Browser verified keyboard Enter at 75 → Passed, 74 → Failed, editing hides the previous result, the white text disclosure, and canonical Clear. Inspected desktop 1280×800 and mobile 320×740; the shared grid stacks on mobile and the workspace scrolls. Temporary viewport override was reset.

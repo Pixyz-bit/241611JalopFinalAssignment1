@@ -83,14 +83,13 @@ test('all five decisions use compact connected text branches in full and partial
     }
 });
 
-test('grade evaluator translates every final percentage and rejects forged results', async () => {
-    const bands = [[97,'1.0 — Excellent'],[94,'1.25 — Excellent'],[91,'1.5 — Very Good'],[88,'1.75 — Very Good'],[85,'2.0 — Good'],[82,'2.25 — Good'],[79,'2.5 — Satisfactory'],[76,'2.75 — Satisfactory'],[75,'3.0 — Passing'],[65,'4.0 — Failed'],[0,'5.0 — Failed']];
+test('grade evaluator checks valid input before Passed or Failed for every percentage', async () => {
     for (let score = 0; score <= 100; score++) {
         const { html } = await submit(2, { Percentage: String(score), Result: 'Forged' });
-        assert.equal(result(html), bands.find(([minimum]) => score >= minimum)[1], `percentage ${score}`);
+        assert.equal(result(html), score >= 75 ? 'Passed' : 'Failed', `percentage ${score}`);
     }
-
 });
+
 test('BMI uses unrounded adult boundaries and kilograms/meters', async () => {
     for (const [Weight, Height, expected] of [
         ['18.49', '1', 'Underweight'], ['18.5', '1', 'Healthy weight'],

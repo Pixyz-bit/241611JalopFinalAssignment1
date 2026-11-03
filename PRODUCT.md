@@ -19,7 +19,7 @@ ASP.NET Core MVC targeting .NET 8. Razor, plain CSS and JavaScript; no React, No
 - `main` retains the earlier macOS design for comparison; this redesign does not merge into it automatically.
 
 ## Scope
-UI, shared templates, navigation and the owner-approved examples. Implement the supplied decision flows in C# with real validation and results. Login is an educational simulation with no authentication or saved state. Grade Evaluator accepts one final percentage and uses the supplied scale; percentages below 75 are Failed. Keep other slots honestly unimplemented; never invent persistence or CRUD.
+UI, shared templates, navigation and the owner-approved examples. Implement the supplied decision flows in C# with real validation and results. Login is an educational simulation with no authentication or saved state. Grade Evaluator accepts one final whole-number percentage from 0–100, checks validity first, then evaluates Passed at 75 or higher and Failed below 75. Keep other slots honestly unimplemented; never invent persistence or CRUD.
 
 ## Repository layout
 Solution root: AGENTS.md, PRODUCT.md, DESIGN.md and README.md. Detailed notes: docs/. Project skill: .agents/skills/showcase-ui/. App: 241611JalopFinalAssignment1/ with standard Controllers, Models, Views and wwwroot folders. Installed design skills stay in their global folders.
