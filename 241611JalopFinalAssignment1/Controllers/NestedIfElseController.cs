@@ -67,28 +67,24 @@ public sealed class NestedIfElseController : Controller
     {
         if (ModelState.IsValid && input.Percentage is int score)
         {
-            // Only check the next threshold after the previous one fails.
-            bool AtLeast(int minimum)
+            input.Decisions.Add("Valid percentage? Yes.");
+            // This decision runs only after the outer validation check succeeds.
+            if (score >= 75)
             {
-                var matches = score >= minimum;
-                input.Decisions.Add($"Percentage >= {minimum}? {(matches ? "Yes." : "No.")}");
-                return matches;
+                input.Decisions.Add("Percentage >= 75? Yes.");
+                input.Result = "Passed";
             }
-            int band;
-            if (AtLeast(97)) band = 0;
-            else if (AtLeast(94)) band = 1;
-            else if (AtLeast(91)) band = 2;
-            else if (AtLeast(88)) band = 3;
-            else if (AtLeast(85)) band = 4;
-            else if (AtLeast(82)) band = 5;
-            else if (AtLeast(79)) band = 6;
-            else if (AtLeast(76)) band = 7;
-            else if (AtLeast(75)) band = 8;
-            else if (AtLeast(65)) band = 9;
-            else band = 10;
-            var match = GradeEvaluatorViewModel.Bands[band];
-            input.Result = $"{match.Grade} — {match.Equivalent}";
-            input.Detail = $"Percentage: {score}%. Range: {match.Percentage}%.";
+            else
+            {
+                input.Decisions.Add("Percentage >= 75? No.");
+                input.Result = "Failed";
+            }
+            input.Detail = $"Final percentage: {score}%. Passing score: 75%.";
+        }
+        else
+        {
+            // The shared error summary explains invalid input instead of classifying it as Failed.
+            input.Decisions.Add("Valid percentage? No.");
         }
         return Example(2, input);
     }

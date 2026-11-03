@@ -9,17 +9,9 @@
             <div class="example-input-fields">
                 <div><label asp-for="Percentage">Final percentage</label><input asp-for="Percentage" class="example-input" type="number" min="0" max="100" step="1" required aria-describedby="grade-help grade-percentage-error" aria-invalid="@(ViewData.ModelState[nameof(Model.Percentage)]?.Errors.Count > 0 ? "true" : null)" /><span asp-validation-for="Percentage" id="grade-percentage-error" class="temperature-errors"></span></div>
             </div>
-            <p class="example-hint" id="grade-help">Enter a whole number from 0 to 100. For example, 98 becomes 1.0 — Excellent.</p>
+            <p class="example-hint" id="grade-help">Enter a whole number from 0 to 100. A score of 75 or higher is Passed.</p>
             <div class="temperature-actions"><button class="temperature-confirm" type="submit">Evaluate grade</button><a class="temperature-clear" href="/concepts/nested-if-else/example-2">Clear</a></div>
-            <p class="example-hint">Scores below 75 are evaluated as Failed.</p>
-            <details class="decision-flow"><summary>Grading scale</summary>
-                <div class="sample-accounts"><table><caption class="sr-only">Supplied grading scale</caption><thead><tr><th scope="col">Grade</th><th scope="col">Percentage</th><th scope="col">Equivalent</th></tr></thead><tbody>
-                    @foreach (var band in GradeEvaluatorViewModel.Bands)
-                    {
-                        <tr><td>@band.Grade</td><td>@band.Percentage</td><td>@band.Equivalent</td></tr>
-                    }
-                </tbody></table></div>
-            </details>
+            <p class="example-hint">Scores below 75 are Failed.</p>
             <partial name="~/Views/Concepts/NestedIfElse/_DecisionFlow.cshtml" model="Model" />
         </section>
         <partial name="~/Views/Concepts/NestedIfElse/_DecisionResult.cshtml" model="Model" />
