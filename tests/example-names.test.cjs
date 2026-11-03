@@ -18,6 +18,9 @@ test('all categories expose five named links in full and partial pages', async (
                 });
                 assert.equal(response.status, 200);
                 const html = await response.text();
+                assert.ok(!html.includes('app-statusbar'), 'examples reserve no space for a status footer');
+                assert.ok(!html.includes('detail-description'), 'example subtitles are removed');
+                assert.ok(!html.includes('href="/about"'), 'navigation has no retired About links');
                 const links = [...html.matchAll(/<a\b[^>]*class="[^"]*sidebar-example[^>]*>[\s\S]*?<\/a>/g)].map(match => match[0]);
                 assert.equal(links.length, 5);
                 names.forEach((name, index) => {
@@ -27,5 +30,27 @@ test('all categories expose five named links in full and partial pages', async (
                 });
             }
         }
+    }
+});
+
+test('category entry links open Example 1 and retired About URLs return 404', async () => {
+    const home = await (await fetch(base)).text();
+    assert.ok(home.includes('Developed by: Arlan Martin N. Jalop'));
+    assert.ok(home.includes('Section: SBIT3C'));
+    assert.ok(!home.includes('href="/about"'));
+    const categoryLinks = [...home.matchAll(/href="(\/concepts\/[^"\s]+)"/g)].map(match => match[1]);
+    assert.ok(categoryLinks.length >= 4);
+    assert.ok(categoryLinks.every(link => link.endsWith('/example-1')));
+    for (const category of ['input-output', 'nested-if-else', 'loops', 'arrays']) {
+        // Test server redirects too: bookmarks and JavaScript-disabled visits must reach the form.
+        const response = await fetch(`${base}/concepts/${category}`, { redirect: 'manual' });
+        assert.equal(response.status, 302);
+        assert.equal(response.headers.get('location'), `/concepts/${category}/example-1`);
+        const destination = await fetch(new URL(response.headers.get('location'), base));
+        assert.equal(destination.status, 200);
+        assert.ok((await destination.text()).includes('aria-current="page"'));
+    }
+    for (const path of ['/about', '/Home/About']) {
+        assert.equal((await fetch(base + path)).status, 404);
     }
 });

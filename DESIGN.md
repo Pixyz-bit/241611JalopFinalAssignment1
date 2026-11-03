@@ -268,3 +268,11 @@ All five Nested If…Else examples use the shared native disclosure beneath thei
 ### Grade Evaluator
 
 Nested If…Else Example 2 uses a single Final percentage field, Evaluate grade and canonical Clear. The result shows only Passed or Failed using the shared result typography, followed by the entered percentage, passing score and decision path. The compact white text decision tree nests the pass/fail check inside valid-input checking, with only Yes/No bold. Percentages are whole numbers from 0–100; 75 or higher is Passed and scores below 75 are Failed. Invalid input shows errors without a calculated result. There is no decimal conversion or grading-scale disclosure.
+
+### Focused examples and desktop credit
+
+All category entry links on the desktop, Start, taskbar, welcome and search open that category's Example 1 directly. Legacy category-only URLs redirect to the canonical Example 1 route. The category intro screen and About page are removed, along with their links and styles. Reopening the active category still restores its current example, including after minimize. Start and all four category shortcuts remain visible on narrow phones.
+
+All 20 examples omit the bottom app statusbar, category description, example subtitle and static input helper paragraphs. Titles lead directly into the shared Input/Result grid with a 16px gap. Input labels, placeholders, constraints, validation, results, formulas and teaching disclosures remain functional; live game/attempt state and photo feedback remain available. Removed helper IDs are removed from aria-describedby while error associations remain.
+
+The desktop welcome description reads “Developed by: Arlan Martin N. Jalop” and “Section: SBIT3C” on separate lines, using the existing welcome typography. The taskbar brand returns to the desktop. These explicit user refinements supersede earlier references to About, category overview screens and example helper copy in this document.
