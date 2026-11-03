@@ -122,55 +122,63 @@ public sealed class ArraysController(ExampleStateTokens stateTokens) : Controlle
 
     [HttpPost("concepts/arrays/example-4")]
     [ValidateAntiForgeryToken]
-    public IActionResult SearchGrid([Bind("Cells,SearchValue")] GridSearchViewModel input)
+    public IActionResult GenerateTable([Bind("Rows,Columns")] MultiplicationTableViewModel input)
     {
-        var count = input.Cells?.Count ?? 0;
-        if (count != 9) ModelState.AddModelError(nameof(input.Cells), "Enter all nine grid values.");
-        input.Cells = NormalizeCells(input.Cells); // Even invalid collections must remain safe to render as nine inputs.
-        var grid = new decimal[3, 3];
-        for (var index = 0; index < 9; index++)
+        if (ModelState.IsValid && input.Rows is int rows && input.Columns is int columns)
         {
-            if (!TryNumber(input.Cells[index]?.Trim(), out var value))
-                ModelState.AddModelError($"Cells[{index}]", $"Row {index / 3 + 1}, column {index % 3 + 1}: enter a number from −1,000,000,000 to 1,000,000,000.");
-            else grid[index / 3, index % 3] = value;
-        }
-        if (ModelState.IsValid && input.SearchValue is decimal target)
-        {
-            input.Grid = grid;
-            for (var row = 0; row < grid.GetLength(0); row++)
-                for (var column = 0; column < grid.GetLength(1); column++)
-                    if (grid[row, column] == target) input.Matches.Add(new(row, column));
-            input.Result = input.Matches.Count == 0 ? "Not found" : $"{input.Matches.Count} {(input.Matches.Count == 1 ? "match" : "matches")}";
-            input.Detail = $"Searching for {FormatNumber(target)}. Row and column labels start at 1; C# indexes start at 0.";
+            var products = new int[rows, columns]; // A rectangular array has a row index and a column index.
+            for (var row = 0; row < rows; row++)
+                for (var column = 0; column < columns; column++)
+                    products[row, column] = (row + 1) * (column + 1); // Displayed factors start at 1, array indexes at 0.
+            input.Products = products;
+            input.Result = $"{rows} × {columns} table";
+            input.Detail = "Each cell contains its row number multiplied by its column number.";
         }
         return Example(input);
     }
 
     [HttpPost("concepts/arrays/example-5")]
     [ValidateAntiForgeryToken]
-    public IActionResult OrganizeGroups([Bind("Members")] GroupOrganizerViewModel input)
+    public IActionResult FindHouse([Bind("Gryffindor,Slytherin,Ravenclaw,Hufflepuff,Member")] HouseMemberFinderViewModel input)
     {
-        if (input.Members?.Count != 9) ModelState.AddModelError(nameof(input.Members), "Enter all nine member names.");
-        input.Members = NormalizeCells(input.Members);
-        var groups = new string[3, 3];
-        for (var index = 0; index < 9; index++)
+        var rosters = new[] { input.Gryffindor, input.Slytherin, input.Ravenclaw, input.Hufflepuff };
+        var parsed = new List<string[]>();
+        for (var row = 0; row < rosters.Length; row++)
         {
-            var name = input.Members[index]?.Trim();
-            if (string.IsNullOrEmpty(name) || name.Length > 40)
-                ModelState.AddModelError($"Members[{index}]", $"Group {index / 3 + 1}, member {index % 3 + 1}: enter a name of 1–40 characters.");
-            else groups[index / 3, index % 3] = name;
+            var roster = rosters[row] ?? "";
+            // Split only on commas; trim spaces while allowing a house to have no entered members.
+            var names = roster.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+            if (roster.Contains('\n') || roster.Contains('\r') || names.Length > 20 || names.Any(name => name.Length > 60))
+                ModelState.AddModelError(HouseMemberFinderViewModel.Houses[row], "Enter up to 20 comma-separated names, at most 60 characters each. Use commas instead of line breaks.");
+            parsed.Add(names);
         }
-        if (ModelState.IsValid)
+        if (parsed.All(names => names.Length == 0))
+            ModelState.AddModelError(nameof(input.Gryffindor), "Enter at least one house member.");
+        var target = input.Member?.Trim();
+        if (!string.IsNullOrEmpty(target) && target.IndexOfAny(new[] { ',', '\r', '\n' }) >= 0)
+            ModelState.AddModelError(nameof(input.Member), "Search for one complete member name.");
+        if (ModelState.IsValid && !string.IsNullOrEmpty(target))
         {
-            input.Groups = groups;
-            input.Result = "3 groups organized";
-            input.Detail = "9 member slots. Names stay in the groups and positions you entered.";
+            // Pad shorter rosters with null cells so all four houses fit a genuine rectangular 2D array.
+            var members = new string?[4, parsed.Max(names => names.Length)];
+            for (var row = 0; row < members.GetLength(0); row++)
+                for (var column = 0; column < parsed[row].Length; column++)
+                    members[row, column] = parsed[row][column];
+            input.HouseMembers = members;
+            for (var row = 0; row < members.GetLength(0); row++)
+            {
+                for (var column = 0; column < members.GetLength(1); column++)
+                {
+                    if (!string.Equals(members[row, column], target, StringComparison.OrdinalIgnoreCase)) continue;
+                    input.Matches.Add(new(HouseMemberFinderViewModel.Houses[row], members[row, column]!, row, column));
+                    break; // A repeated name in one house should list that house only once.
+                }
+            }
+            input.Result = input.Matches.Count == 0 ? "Member not found" : string.Join(", ", input.Matches.Select(match => match.House));
+            input.Detail = input.Matches.Count == 0 ? $"No house contains {target}." : $"Found {target}. House rows and member columns use zero-based C# indexes.";
         }
         return Example(input);
     }
-
-    private static List<string?> NormalizeCells(List<string?>? cells) =>
-        (cells ?? new()).Take(9).Concat(Enumerable.Repeat<string?>(null, 9)).Take(9).ToList();
 
     private bool TryReadValues(FlatArrayViewModel input, out string[] values, out decimal[] numbers)
     {

@@ -29,8 +29,8 @@ public sealed class ConceptsController(ExampleStateTokens roundTokens) : Control
                 1 => new DuplicateFinderViewModel(),
                 2 => new ArraySortViewModel(),
                 3 => new TicTacToeViewModel { StateToken = roundTokens.Protect("arrays-tic-tac-toe", new TicTacToeRound(new())) },
-                4 => new GridSearchViewModel { Cells = Enumerable.Range(1, 9).Select(value => (string?)value.ToString()).ToList() },
-                5 => new GroupOrganizerViewModel { Members = new() { "Ana", "Ben", "Carlo", "Dana", "Eli", "Faye", "Gio", "Hana", "Ivan" } },
+                4 => new MultiplicationTableViewModel { Rows = 5, Columns = 5 },
+                5 => new HouseMemberFinderViewModel(),
                 _ => null
             } : null,
             // Match each loop slot to its own validated input model.

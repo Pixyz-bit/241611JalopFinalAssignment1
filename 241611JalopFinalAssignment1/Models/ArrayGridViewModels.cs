@@ -2,37 +2,49 @@ using System.ComponentModel.DataAnnotations;
 
 namespace _241611JalopFinalAssignment1.Models;
 
-public sealed record GridMatch(int Row, int Column);
-
-public sealed class GridSearchViewModel : ArrayExampleViewModel
+public sealed class MultiplicationTableViewModel : ArrayExampleViewModel
 {
     public override int Number => 4;
     public override string Title => ExampleCatalog.GetTitle("arrays", 4);
-    public override string Description => "Search a 3×3 number array and find every matching row and column.";
+    public override string Description => "Generate products in a two-dimensional array.";
     public override string Dimension => "Two-dimensional array";
-    public override string ActionName => "SearchGrid";
-    public override string SubmitLabel => "Search";
-    public override string InputPartial => "_GridSearchInputs";
-    public override string ResultPartial => "_GridSearchResult";
-    // Flat form fields are validated and copied into an actual rectangular C# array.
-    public List<string?> Cells { get; set; } = Enumerable.Repeat<string?>(null, 9).ToList();
-    [Required(ErrorMessage = "Enter a number to find.")]
-    [Range(typeof(decimal), "-1000000000", "1000000000", ErrorMessage = "Search for a number between −1,000,000,000 and 1,000,000,000.")]
-    public decimal? SearchValue { get; set; }
-    public decimal[,]? Grid { get; set; }
-    public List<GridMatch> Matches { get; } = new();
+    public override string ActionName => "GenerateTable";
+    public override string SubmitLabel => "Generate table";
+    public override string InputPartial => "_MultiplicationInputs";
+    public override string ResultPartial => "_MultiplicationResult";
+    [Required(ErrorMessage = "Enter the number of rows.")]
+    [Range(1, 12, ErrorMessage = "Use 1–12 rows.")]
+    public int? Rows { get; set; }
+    [Required(ErrorMessage = "Enter the number of columns.")]
+    [Range(1, 12, ErrorMessage = "Use 1–12 columns.")]
+    public int? Columns { get; set; }
+    public int[,]? Products { get; set; } // Each cell stores its row factor multiplied by its column factor.
 }
 
-public sealed class GroupOrganizerViewModel : ArrayExampleViewModel
+public sealed class HouseMemberFinderViewModel : ArrayExampleViewModel
 {
     public override int Number => 5;
     public override string Title => ExampleCatalog.GetTitle("arrays", 5);
-    public override string Description => "Arrange three groups of three names. Rows represent groups; columns represent members.";
+    public override string Description => "Find a member in four house rosters stored as a two-dimensional array.";
     public override string Dimension => "Two-dimensional array";
-    public override string ActionName => "OrganizeGroups";
-    public override string SubmitLabel => "Organize";
-    public override string InputPartial => "_GroupInputs";
-    public override string ResultPartial => "_GroupResult";
-    public List<string?> Members { get; set; } = Enumerable.Repeat<string?>(null, 9).ToList();
-    public string[,]? Groups { get; set; } // The displayed table comes from this rectangular string array.
+    public override string ActionName => "FindHouse";
+    public override string SubmitLabel => "Find house";
+    public override string InputPartial => "_HouseInputs";
+    public override string ResultPartial => "_HouseResult";
+    public static IReadOnlyList<string> Houses { get; } = Array.AsReadOnly(new[] { "Gryffindor", "Slytherin", "Ravenclaw", "Hufflepuff" });
+    [StringLength(1220, ErrorMessage = "Use at most 1,220 characters for Gryffindor.")]
+    public string? Gryffindor { get; set; }
+    [StringLength(1220, ErrorMessage = "Use at most 1,220 characters for Slytherin.")]
+    public string? Slytherin { get; set; }
+    [StringLength(1220, ErrorMessage = "Use at most 1,220 characters for Ravenclaw.")]
+    public string? Ravenclaw { get; set; }
+    [StringLength(1220, ErrorMessage = "Use at most 1,220 characters for Hufflepuff.")]
+    public string? Hufflepuff { get; set; }
+    [Required(ErrorMessage = "Enter a member to find.")]
+    [StringLength(60, ErrorMessage = "Use at most 60 characters for the member name.")]
+    public string? Member { get; set; }
+    public string?[,]? HouseMembers { get; set; } // Rows are houses; unused member columns stay null.
+    public List<HouseMatch> Matches { get; } = new();
 }
+
+public sealed record HouseMatch(string House, string Member, int Row, int Column);

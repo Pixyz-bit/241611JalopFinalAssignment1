@@ -20,7 +20,7 @@ public static class ExampleCatalog
         },
         ["arrays"] = new[]
         {
-            "Duplicate Finder", "Array Sort", "Tic-Tac-Toe", "Number Search in a Grid", "Group Member Organizer"
+            "Duplicate Finder", "Array Sort", "Tic-Tac-Toe", "Multiplication Table", "House Member Finder"
         }
     };
 

@@ -1,0 +1,16 @@
+@model HouseMemberFinderViewModel
+@if (Model.Matches.Count > 0)
+{
+    <div class="array-table-scroll" tabindex="0" role="region" aria-label="Matching houses">
+        <table class="array-table"><caption>Matching houses</caption>
+            <thead><tr><th scope="col">House</th><th scope="col">Member</th><th scope="col">Array index</th></tr></thead>
+            <tbody>
+            @foreach (var match in Model.Matches)
+            {
+                @* Razor encodes entered names so they are displayed as text. *@
+                <tr><th scope="row">@match.House</th><td>@match.Member</td><td>[@match.Row, @match.Column]</td></tr>
+            }
+            </tbody>
+        </table>
+    </div>
+}

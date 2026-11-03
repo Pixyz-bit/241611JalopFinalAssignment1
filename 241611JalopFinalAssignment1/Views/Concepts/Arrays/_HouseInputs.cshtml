@@ -1,0 +1,28 @@
+@model HouseMemberFinderViewModel
+<div class="example-input-fields">
+    <div>
+        <label asp-for="Gryffindor">Gryffindor members (comma-separated)</label>
+        <textarea asp-for="Gryffindor" class="example-input example-textarea" rows="2" maxlength="1220" placeholder="Harry Potter, Hermione Granger, Ron Weasley" aria-describedby="gryffindor-error" aria-invalid="@(ViewData.ModelState[nameof(Model.Gryffindor)]?.Errors.Count > 0 ? "true" : null)"></textarea>
+        <span asp-validation-for="Gryffindor" id="gryffindor-error" class="temperature-errors"></span>
+    </div>
+    <div>
+        <label asp-for="Slytherin">Slytherin members (comma-separated)</label>
+        <textarea asp-for="Slytherin" class="example-input example-textarea" rows="2" maxlength="1220" placeholder="Draco Malfoy, Pansy Parkinson" aria-describedby="slytherin-error" aria-invalid="@(ViewData.ModelState[nameof(Model.Slytherin)]?.Errors.Count > 0 ? "true" : null)"></textarea>
+        <span asp-validation-for="Slytherin" id="slytherin-error" class="temperature-errors"></span>
+    </div>
+    <div>
+        <label asp-for="Ravenclaw">Ravenclaw members (comma-separated)</label>
+        <textarea asp-for="Ravenclaw" class="example-input example-textarea" rows="2" maxlength="1220" placeholder="Luna Lovegood, Cho Chang" aria-describedby="ravenclaw-error" aria-invalid="@(ViewData.ModelState[nameof(Model.Ravenclaw)]?.Errors.Count > 0 ? "true" : null)"></textarea>
+        <span asp-validation-for="Ravenclaw" id="ravenclaw-error" class="temperature-errors"></span>
+    </div>
+    <div>
+        <label asp-for="Hufflepuff">Hufflepuff members (comma-separated)</label>
+        <textarea asp-for="Hufflepuff" class="example-input example-textarea" rows="2" maxlength="1220" placeholder="Cedric Diggory, Nymphadora Tonks" aria-describedby="hufflepuff-error" aria-invalid="@(ViewData.ModelState[nameof(Model.Hufflepuff)]?.Errors.Count > 0 ? "true" : null)"></textarea>
+        <span asp-validation-for="Hufflepuff" id="hufflepuff-error" class="temperature-errors"></span>
+    </div>
+    <div>
+        <label asp-for="Member">Member to find</label>
+        <input asp-for="Member" class="example-input" required maxlength="60" placeholder="For example, Hermione Granger" aria-describedby="member-error" aria-invalid="@(ViewData.ModelState[nameof(Model.Member)]?.Errors.Count > 0 ? "true" : null)" />
+        <span asp-validation-for="Member" id="member-error" class="temperature-errors"></span>
+    </div>
+</div>
