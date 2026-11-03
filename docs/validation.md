@@ -190,3 +190,9 @@ Final example checks: desktop/mobile forms fit without horizontal overflow and p
 - Replaced the Login flowchart pilot and all four earlier ASCII trees with shared compact text trees matching the user's reference: ├── / └── branches, connected nesting, no vertical-only spacer lines, and a dark monospace panel. Login's disclosure returns beneath its inputs. Removed unused flowchart styling and stale-highlight JavaScript; calculations and Result decision paths remain unchanged.
 - Build passed with zero warnings/errors. All 43 regression cases passed, including compact-tree checks on all five full and partial routes. Layout detector reported no findings. Rebuilt/reran at http://localhost:5196.
 - Browser reviewed the desktop Login tree at 1440×960 and all five expanded trees at 320×640. None widened the document; larger trees scroll inside their keyboard-focusable preformatted panels. Keyboard disclosure opening and tree focus were verified. Existing reduced-motion styling remains unchanged. Capture: .tmp/compact-decision-tree.png.
+
+## White decision-tree surfaces — November 4, 2026
+
+- Replaced the dark text-tree surface with the app's existing Paper background, Ink text, Line border and field-border scrollbar color across all five decision examples. Compact branch text and behavior remain unchanged.
+- Build passed with zero warnings/errors and layout detection reported no findings. The app was rebuilt/rerun at http://localhost:5196.
+- Browser reviewed Login at 1440×960 and all five expanded diagrams at 320×640: each uses the shared white/dark-text/border colors and none causes document horizontal overflow. Keyboard disclosure opening remains functional. Capture: .tmp/white-decision-tree.png.
