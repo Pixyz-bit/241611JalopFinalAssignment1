@@ -18,6 +18,7 @@ public sealed class ConceptsController(ExampleStateTokens roundTokens) : Control
         var model = new ShowcaseViewModel(concept, example)
         {
             IdCard = category == "input-output" && example == 1 ? new IdCardViewModel() : null,
+            Rectangle = category == "input-output" && example == 2 ? new RectangleCalculatorViewModel() : null,
             TextCounter = category == "input-output" && example == 5 ? new TextCounterViewModel() : null,
             Time = category == "input-output" && example == 4 ? new TimeConverterViewModel() : null,
             ArrayExample = category == "arrays" ? example switch

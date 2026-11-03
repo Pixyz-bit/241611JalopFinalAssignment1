@@ -8,7 +8,7 @@ public static class ExampleCatalog
     {
         ["input-output"] = new[]
         {
-            "ID Card Generator", "Available slot", "Temperature Converter", "Time Unit Converter", "Character and Word Counter"
+            "ID Card Generator", "Area and Perimeter Calculator", "Temperature Converter", "Time Unit Converter", "Character and Word Counter"
         },
         ["nested-if-else"] = new[]
         {

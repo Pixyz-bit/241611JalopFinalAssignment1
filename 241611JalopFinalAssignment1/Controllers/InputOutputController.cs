@@ -4,6 +4,18 @@ namespace _241611JalopFinalAssignment1.Controllers;
 
 public sealed class InputOutputController : Controller
 {
+    [HttpPost("concepts/input-output/example-2")]
+    [ValidateAntiForgeryToken]
+    public IActionResult CalculateRectangle([Bind("Length,Width")] RectangleCalculatorViewModel input)
+    {
+        if (ModelState.IsValid && input.Length is decimal length && input.Width is decimal width)
+        {
+            input.Area = length * width; // Area counts the square units inside the rectangle.
+            input.Perimeter = 2 * (length + width); // Perimeter adds the lengths of all four sides.
+        }
+        return View("~/Views/Home/Index.cshtml", new ShowcaseViewModel(ConceptCatalog.Find("input-output"), 2) { Rectangle = input });
+    }
+
     [HttpPost("concepts/input-output/example-4")]
     [ValidateAntiForgeryToken]
     public IActionResult ConvertTime([Bind("Value,FromUnit,ToUnit")] TimeConverterViewModel input)

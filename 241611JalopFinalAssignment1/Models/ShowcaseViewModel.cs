@@ -50,6 +50,7 @@ public sealed record ShowcaseViewModel(
     // Example 3 can carry its form data alongside the existing page selection.
     public TemperatureConverterViewModel? Temperature { get; init; }
     public IdCardViewModel? IdCard { get; init; } // Example 1 text-only ID data.
+    public RectangleCalculatorViewModel? Rectangle { get; init; } // Example 2 dimensions and calculated measurements.
     public TextCounterViewModel? TextCounter { get; init; }
     public TimeConverterViewModel? Time { get; init; } // Example 4 form and calculated output.
     public NestedExampleViewModel? Nested { get; init; } // One of the five nested-decision forms.
@@ -57,5 +58,5 @@ public sealed record ShowcaseViewModel(
     public ArrayExampleViewModel? ArrayExample { get; init; } // One- or two-dimensional array presentation data.
 
     // Working examples share the input/result layout; empty slots keep their existing template.
-    public bool HasImplementedExample => Temperature is not null || IdCard is not null || TextCounter is not null || Time is not null || Nested is not null || Loop is not null || ArrayExample is not null;
+    public bool HasImplementedExample => Temperature is not null || IdCard is not null || Rectangle is not null || TextCounter is not null || Time is not null || Nested is not null || Loop is not null || ArrayExample is not null;
 }
