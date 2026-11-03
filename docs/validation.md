@@ -196,3 +196,7 @@ Final example checks: desktop/mobile forms fit without horizontal overflow and p
 - Replaced the dark text-tree surface with the app's existing Paper background, Ink text, Line border and field-border scrollbar color across all five decision examples. Compact branch text and behavior remain unchanged.
 - Build passed with zero warnings/errors and layout detection reported no findings. The app was rebuilt/rerun at http://localhost:5196.
 - Browser reviewed Login at 1440×960 and all five expanded diagrams at 320×640: each uses the shared white/dark-text/border colors and none causes document horizontal overflow. Keyboard disclosure opening remains functional. Capture: .tmp/white-decision-tree.png.
+
+## Branch-label emphasis
+
+Only Yes and No are now bold in all five decision trees; conditions, outcomes and branch lines use regular weight. HtmlContentBuilder encodes the source text and inserts only fixed strong tags without introducing whitespace. Build passed with zero warnings/errors; all eight decision regression tests passed, including bold-label and preserved-tree checks. App rebuilt/rerun at http://localhost:5196.

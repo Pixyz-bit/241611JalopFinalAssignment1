@@ -25,7 +25,7 @@ function result(html) {
     // A rejected input must never expose a calculated output, even if forged output is posted.
     const panel = html.match(/<div class="example-result"[^>]*>/)?.[0];
     assert.ok(panel);
-    return panel.includes('hidden') ? null : html.match(/<strong>(.*?)<\/strong>/s)?.[1];
+    return panel.includes('hidden') ? null : html.match(/<div class="example-result"[^>]*>[\s\S]*?<strong>(.*?)<\/strong>/)?.[1];
 }
 
 test('all 20 slots and the five partial forms keep their canonical routes', async () => {
@@ -68,8 +68,12 @@ test('all five decisions use compact connected text branches in full and partial
     for (let number = 1; number <= 5; number++) {
         for (const partial of [false, true]) {
         const html = decode(await (await fetch(base + path(number), { headers: partial ? { 'X-Showcase-Partial': 'true' } : {} })).text());
-        const tree = html.match(/<pre class="decision-tree"[^>]*>([\s\S]*?)<\/pre>/)?.[1];
+        const treeMarkup = html.match(/<pre class="decision-tree"[^>]*>([\s\S]*?)<\/pre>/)?.[1];
+        const tree = treeMarkup?.replace(/<\/?strong>/g, '');
         assert.ok(tree, 'the tree is keyboard-focusable preserved text');
+        const boldLabels = [...treeMarkup.matchAll(/<strong>(.*?)<\/strong>/g)].map(match => match[1]);
+        assert.ok(boldLabels.length > 0);
+        assert.ok(boldLabels.every(label => label === 'Yes' || label === 'No'));
         assert.ok(tree.includes('├── Yes:'));
         assert.ok(tree.includes('└── No:'));
         assert.ok(!tree.includes('+--'));

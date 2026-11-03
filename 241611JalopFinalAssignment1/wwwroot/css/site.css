@@ -391,7 +391,8 @@ button:active, summary:active { opacity: .8; }
 .decision-flow summary { display: list-item; padding: 12px 4px; cursor: pointer; color: var(--ink); font-weight: 550; }
 .decision-flow pre { margin: 0 0 12px; padding: 12px; overflow: auto; background: var(--surface); border-radius: var(--radius-control); line-height: 1.8; }
 /* Text trees share the white panel surface and dark ink used throughout the application. */
-.decision-flow .decision-tree { padding: 14px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-family: Consolas, 'Courier New', monospace; font-size: 12px; font-weight: 550; line-height: 1.7; white-space: pre; scrollbar-color: var(--field-border) var(--paper); }
+.decision-flow .decision-tree { padding: 14px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-family: Consolas, 'Courier New', monospace; font-size: 12px; font-weight: 400; line-height: 1.7; white-space: pre; scrollbar-color: var(--field-border) var(--paper); }
+.decision-tree strong { font-weight: 700; } /* Only the Yes/No branch labels are emphasized. */
 .decision-tree:focus-visible { outline-color: var(--blue); }
 .decision-path-title { margin: 10px 0 0; font-size: 12px; font-weight: 550; }
 .decision-path { margin: 0; padding-left: 20px; font-size: 12px; line-height: 1.8; }
