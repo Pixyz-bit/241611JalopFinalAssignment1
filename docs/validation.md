@@ -226,3 +226,7 @@ Only Yes and No are now bold in all five decision trees; conditions, outcomes an
 - Moved the shared category icon/title into a navigation column beside the workspace and removed the visible Examples caption. The same shell serves all 20 examples, including full and partial responses. Desktop category and example headings now start alongside each other; phones retain the category heading and horizontal example links above the content.
 - Build succeeded with zero warnings/errors. Reran the app at http://localhost:5196 and all 44 regression tests passed, covering canonical/partial routes, forms and navigation history.
 - Browser inspected ID Card Generator at 1440×900 and Login and Access Checker at 320×740, including category navigation and workspace scrolling. No clipping or overlap observed; the sidebar caption is absent and all four taskbar categories remain available. Temporary viewport override reset. Desktop proof: .tmp/sidebar-category-layout.png.
+
+### Navigation color consistency
+
+Applied the existing Sidebar token to the entire navigation column, including the category heading, across all 20 examples. Build passed with zero warnings/errors; app rerun at localhost:5196. Browser inspected Nested If…Else Example 5: navigation and sidebar both resolve to rgb(234, 240, 248), distinct from the workspace rgb(243, 245, 248). Existing selected-link fill remains visible. Saved review image at .tmp/navigation-colors.png. No behavior changed; existing regression results remain applicable.
