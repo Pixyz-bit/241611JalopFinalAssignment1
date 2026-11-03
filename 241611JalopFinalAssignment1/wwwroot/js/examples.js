@@ -16,6 +16,8 @@ document.addEventListener('input', event => {
         event.target.removeAttribute('aria-invalid');
     }
     form.dataset.revision = String(Number(form.dataset.revision || 0) + 1);
+    // An edited login no longer matches the submitted route shown by its flowchart.
+    form.closest('.example-workspace').querySelectorAll('[data-flow-active]').forEach(step => step.removeAttribute('data-flow-active'));
     form.closest('.example-workspace').querySelectorAll('[data-example-result]').forEach(result => { result.hidden = true; });
     // A persistent result panel returns to its empty state when its inputs change.
     const emptyResult = form.querySelector('[data-example-empty]');

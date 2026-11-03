@@ -1,0 +1,46 @@
+@model LoginAccessViewModel
+@{
+    // The controller's recorded checks are the source of truth for the highlighted route.
+    bool Took(string check) => Model.Decisions.Contains(check);
+    var matched = Took("Credentials match? Yes.");
+    var admin = Took("Admin role? Yes.");
+    var student = Took("Student role? Yes.");
+    var denied = Took("Student role? No.");
+}
+<details class="decision-flow login-flow" open="@(Model.Result is not null)">
+    <summary>How the decisions work</summary>
+    <p class="example-hint">Follow Yes or No at each check. Blue steps show your submitted path.</p>
+    <div class="login-flow-tree" aria-label="Login decision flow">
+        <div class="flow-question" data-flow-active="@(Model.Result is not null ? "true" : null)">Credentials match?</div>
+        <div class="flow-branches">
+            <div class="flow-branch" data-flow-active="@(Took("Credentials match? No.") ? "true" : null)">
+                <p class="flow-edge">No ↓</p>
+                <div class="flow-outcome">Invalid credentials <span class="flow-current">Your result</span></div>
+            </div>
+            <div class="flow-branch" data-flow-active="@(matched ? "true" : null)">
+                <p class="flow-edge">Yes ↓</p>
+                <div class="flow-question">Admin role?</div>
+                <div class="flow-branches">
+                    <div class="flow-branch" data-flow-active="@(admin ? "true" : null)">
+                        <p class="flow-edge">Yes ↓</p>
+                        <div class="flow-outcome">Admin options <span class="flow-current">Your result</span></div>
+                    </div>
+                    <div class="flow-branch" data-flow-active="@(matched && !admin ? "true" : null)">
+                        <p class="flow-edge">No ↓</p>
+                        <div class="flow-question">Student role?</div>
+                        <div class="flow-branches">
+                            <div class="flow-branch" data-flow-active="@(student ? "true" : null)">
+                                <p class="flow-edge">Yes ↓</p>
+                                <div class="flow-outcome">Student options <span class="flow-current">Your result</span></div>
+                            </div>
+                            <div class="flow-branch" data-flow-active="@(denied ? "true" : null)">
+                                <p class="flow-edge">No ↓</p>
+                                <div class="flow-outcome">Access denied <span class="flow-current">Your result</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</details>
