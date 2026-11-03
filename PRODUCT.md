@@ -14,7 +14,7 @@ ASP.NET Core MVC targeting .NET 8. Razor, plain CSS and JavaScript; no React, No
 - Minimize preserves the selected example; its active taskbar shortcut restores it. Maximize keeps the taskbar visible.
 - Functional canonical URLs without JavaScript; enhanced cached navigation, history and search. Category entry links open Example 1 directly; category-only URLs redirect there. The About page and its navigation entries are removed.
 - Approved Loops slots: Pyramid Generator (`for`), Sum of Digits (`while`), Prime Factorization (`while`), Number Guessing Game (`do…while`) and Quiz Retry Simulator (`do…while`). Use the shared Input/Result layout. The two games retain a round across submissions and provide an explicit reset.
-- Implemented Arrays slots: Duplicate Finder (1) and Array Sort (2), using one-dimensional arrays; Tic-Tac-Toe (3), Number Search in a Grid (4) and Group Member Organizer (5), using two-dimensional arrays. These complete the required two one-dimensional and three two-dimensional examples. Duplicate Finder and Array Sort support numbers or names; Tic-Tac-Toe is a local two-player simulation. Details are in docs/arrays.md.
+- Implemented Arrays slots: Duplicate Finder (1) and Array Sort (2), using one-dimensional arrays; Tic-Tac-Toe (3), Multiplication Table (4) and House Member Finder (5), using two-dimensional arrays. These complete the required two one-dimensional and three two-dimensional examples. Duplicate Finder and Array Sort support numbers or names; Tic-Tac-Toe is a local two-player simulation. Details are in docs/arrays.md.
 - Mobile, keyboard, visible focus and reduced-motion support.
 - `main` retains the earlier macOS design for comparison; this redesign does not merge into it automatically.
 

@@ -35,8 +35,6 @@ test('all five array slots support complete and partial canonical routes with an
         assert.equal((await submit(number, {}, false)).response.status, 400);
     }
 });
-const cells = entries => Object.fromEntries(entries.map((value, index) => [`Cells[${index}]`, String(value)]));
-const members = entries => Object.fromEntries(entries.map((value, index) => [`Members[${index}]`, value]));
 
 test('duplicates normalize numbers and compare trimmed names without letter case', async () => {
     const numeric = await submit(1, { ValueKind: 'Numbers', Values: '1,1.0,-2,0,-0' });
@@ -103,39 +101,52 @@ test('tic-tac-toe recognizes every winning row, column and diagonal', async () =
     }
 });
 
-test('grid search finds all matches with row and column positions', async () => {
-    const matrix = cells([5, 2, 5, 4, 5, 6, 7, 8, 9]);
-    const found = await submit(4, { ...matrix, SearchValue: '5' });
-    assert.equal(outcome(found.html), '3 matches');
-    for (const position of ['Row 1, column 1', 'Row 1, column 3', 'Row 2, column 2']) assert.ok(found.html.includes(position));
-    const missing = await submit(4, { ...matrix, SearchValue: '100' });
-    assert.equal(outcome(missing.html), 'Not found');
-    const decimal = await submit(4, { ...cells([-1.5, 0, 1, 2, 3, 4, 5, 6, 7]), SearchValue: '-1.50' });
-    assert.equal(outcome(decimal.html), '1 match');
+test('multiplication table computes every cell for minimum, rectangular and maximum dimensions', async () => {
+    for (const [Rows, Columns] of [[1, 1], [3, 5], [12, 12]]) {
+        const { html } = await submit(4, { Rows: String(Rows), Columns: String(Columns), Result: 'Forged' });
+        assert.equal(outcome(html), `${Rows} × ${Columns} table`);
+        const table = html.match(/<table class="array-table">[\s\S]*?<\/table>/)[0];
+        const products = [...table.matchAll(/<td>(\d+)<\/td>/g)].map(match => Number(match[1]));
+        assert.deepEqual(products, Array.from({ length: Rows * Columns }, (_, index) => (Math.floor(index / Columns) + 1) * (index % Columns + 1)));
+    }
 });
 
-test('group organizer preserves row membership, trims and encodes names', async () => {
-    const names = [' Ana ', 'Ben', 'Carlo', 'Dana', 'Eli', 'Faye', 'Gio', 'Hana', '<b>Ivan</b>'];
-    const result = await submit(5, members(names));
-    assert.equal(outcome(result.html), '3 groups organized');
-    assert.ok(result.html.includes('<td>Ana</td>'));
-    assert.ok(result.html.includes('<td>Faye</td>'));
-    assert.ok(!result.raw.includes('<td><b>Ivan</b></td>'));
+test('house finder searches all four rows with trimmed, case-insensitive complete names', async () => {
+    const rosters = { Gryffindor: ' Harry Potter, Hermione Granger, Harry Potter ', Slytherin: 'Draco Malfoy', Ravenclaw: 'Luna Lovegood', Hufflepuff: 'Cedric Diggory' };
+    for (const [Member, expected] of [[' harry potter ', 'Gryffindor'], ['DRACO MALFOY', 'Slytherin'], ['Luna Lovegood', 'Ravenclaw'], ['Cedric Diggory', 'Hufflepuff'], ['Harry', 'Member not found'], ['Unknown', 'Member not found']]) {
+        const { html } = await submit(5, { ...rosters, Member, Result: 'Forged' });
+        assert.equal(outcome(html), expected);
+    }
+    const shared = await submit(5, { Gryffindor: 'Ana, Ana', Ravenclaw: ' Ana ', Member: 'ana' });
+    assert.equal(outcome(shared.html), 'Gryffindor, Ravenclaw');
+    const unequal = await submit(5, { Hufflepuff: 'Ben', Member: 'ben' });
+    assert.equal(outcome(unequal.html), 'Hufflepuff');
+    const encoded = await submit(5, { Gryffindor: '<script>alert(1)</script>', Member: '<script>alert(1)</script>' });
+    assert.equal(outcome(encoded.html), 'Gryffindor');
+    assert.ok(!encoded.raw.includes('<script>alert(1)</script>'));
+    const maximum = await submit(5, { Slytherin: Array.from({ length: 20 }, (_, index) => `Member ${index}`).join(','), Member: 'Member 19' });
+    assert.equal(outcome(maximum.html), 'Slytherin');
+    assert.ok(maximum.html.includes('[1, 19]'));
 });
 
-test('incomplete, malformed and oversized grid collections return validation instead of errors', async () => {
+test('new 2D examples reject missing, malformed and oversized inputs without results', async () => {
     for (const [number, fields] of [
-        [4, { SearchValue: '5' }], [4, { ...cells([1, 2]), SearchValue: '1' }],
-        [4, { ...cells([1, 2, 3, 4, 5, 6, 7, 8, 'oops']), SearchValue: '1' }],
-        [4, { ...cells(Array(10).fill(1)), SearchValue: '1' }],
-        [4, { ...cells(Array(9).fill(1)), SearchValue: '1000000001' }],
-        [5, {}], [5, members(Array(10).fill('Ana'))],
-        [5, members(['', ...Array(8).fill('Ana')])], [5, members(['A'.repeat(41), ...Array(8).fill('Ana')])]
+        [4, {}], [4, { Rows: '0', Columns: '2' }], [4, { Rows: '13', Columns: '2' }],
+        [4, { Rows: '2', Columns: '-1' }], [4, { Rows: '2', Columns: '13' }],
+        [4, { Rows: '2.5', Columns: '3' }], [4, { Rows: 'oops', Columns: '2' }],
+        [5, {}], [5, { Member: 'Ana' }], [5, { Gryffindor: 'Ana', Member: ' ' }],
+        [5, { Gryffindor: 'Ana\nBen', Member: 'Ana' }],
+        [5, { Gryffindor: Array(21).fill('Ana').join(','), Member: 'Ana' }],
+        [5, { Gryffindor: 'A'.repeat(61), Member: 'Ana' }],
+        [5, { Gryffindor: 'A'.repeat(1221), Member: 'Ana' }],
+        [5, { Gryffindor: 'Ana', Member: 'A'.repeat(61) }],
+        [5, { Gryffindor: 'Ana', Member: 'Ana,Ben' }]
     ]) {
-        const { response, html } = await submit(number, fields);
+        const { response, html } = await submit(number, { ...fields, Result: 'Forged' });
         assert.equal(response.status, 200);
         assert.match(html, /data-example-result[^>]*hidden/);
         assert.ok(html.includes('data-array-errors'));
+        assert.ok(html.includes('aria-invalid="true"'));
     }
 });
 

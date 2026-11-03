@@ -230,3 +230,10 @@ Only Yes and No are now bold in all five decision trees; conditions, outcomes an
 ### Navigation color consistency
 
 Applied the existing Sidebar token to the entire navigation column, including the category heading, across all 20 examples. Build passed with zero warnings/errors; app rerun at localhost:5196. Browser inspected Nested If…Else Example 5: navigation and sidebar both resolve to rgb(234, 240, 248), distinct from the workspace rgb(243, 245, 248). Existing selected-link fill remains visible. Saved review image at .tmp/navigation-colors.png. No behavior changed; existing regression results remain applicable.
+
+### Multiplication Table and House Member Finder replacements
+
+- Replaced Arrays slots 4 and 5 while preserving canonical routes, shared Input/Result panels, navigation colors, validation, Clear links and edit-to-hide-result behavior. Both demonstrate genuine rectangular C# arrays; two 1D and three 2D examples remain.
+- Multiplication Table: dimensions 1–12, default 5×5; nested loops calculate every product. House finder: four comma-only rosters, up to 20 names per house, full-name search ignoring case and outer spaces, optional empty houses, one result per matching house, multiple-house support and Member not found.
+- Build passed with zero warnings/errors; latest app rerun at localhost:5196. All 44 tests passed, including every multiplication cell at minimum/rectangular/maximum dimensions, all house rows, unequal roster lengths, shared/repeated names, missing names, encoded names and invalid/oversized input. Existing route, antiforgery and other example tests pass.
+- Browser checked keyboard Enter for table generation and house search, native Clear, and full/partial example navigation. Inspected desktop 1440×900 and mobile 320×740. Reduced roster height keeps all fields/actions visible at desktop size. A 12×12 table stays within a 320px page and scrolls locally at 425px table width with nowrap products. Existing reduced-motion styling remains unchanged. Reset viewport override. Screenshots: .tmp/multiplication-table.png and .tmp/house-member-finder.png.
