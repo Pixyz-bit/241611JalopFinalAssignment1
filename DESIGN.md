@@ -280,3 +280,5 @@ The desktop welcome description reads “Developed by: Arlan Martin N. Jalop” 
 ### Category navigation beside the workspace
 
 The category icon and title sit at the top of the left navigation column, directly below the shared brand titlebar. The example title starts at the top of the adjacent workspace, with the Input/Result panels immediately below it. The sidebar has no visible Examples caption. All 20 examples share this shell. Category headings use 20px, weight 600, a 30px icon and compact 12px padding; long category names wrap within the sidebar. The sidebar links scroll independently while Back to desktop stays at the bottom when space permits. On phones the category heading and horizontal example links stack above the workspace. This user-approved arrangement supersedes the earlier full-width category header layout.
+
+The entire category navigation column, including its icon/title header, uses the shared Sidebar background. This consistent pale-blue surface distinguishes navigation from the Surface-colored example workspace; the selected example retains its stronger existing blue fill. The same grouping applies on desktop and phones.
