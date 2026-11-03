@@ -49,7 +49,7 @@ New or changed code should include brief beginner-friendly notes beside meaningf
 
 ## Shared application surfaces
 
-`Models/ExampleCatalog.cs` supplies the approved title for each category/slot. Example model titles, Input/Output headings and the shared sidebar use this catalog so labels stay consistent. Input/Output slot 2 remains available; its navigation label does not imply an implemented example.
+`Models/ExampleCatalog.cs` supplies the approved title for each category/slot. Example model titles, Input/Output headings and the shared sidebar use this catalog so labels stay consistent. Input/Output slot 2 calculates rectangle area and perimeter from validated dimensions in C#.
 `Views/Shared/_ShowcaseWindow.cshtml` owns the brand titlebar, full-width category header, sidebar example links and the scrollable overview/example workspace. `Views/Shared/_ConceptIcon.cshtml` loads the approved transparent PNG from `wwwroot/images/concepts/<slug>.png` with cache versioning; desktop, Start, search, taskbar and category headings share it. There is no address path, file list or filename suffix.
 
 ## Rendering and navigation

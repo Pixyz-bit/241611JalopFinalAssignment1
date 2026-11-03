@@ -29,6 +29,25 @@ test('temperature conversion and native Swap preserve the confirmed value', asyn
     assert.match(swapped, /data-example-result[^>]*hidden/);
 });
 
+test('rectangle area and perimeter handle decimals, bounds and forged outputs', async () => {
+    for (const [length, width, area, perimeter] of [
+        ['5', '3', '15', '16'], ['2.5', '1.2', '3', '7.4'],
+        ['0.01', '0.01', '0.0001', '0.04'], ['1000000', '1000000', '1000000000000', '4000000']
+    ]) {
+        const html = await submit(2, { Length: length, Width: width, Area: '999', Perimeter: '999' });
+        assert.ok(html.includes(`data-rectangle-area>${area} square units`));
+        assert.ok(html.includes(`data-rectangle-perimeter>${perimeter} units`));
+        assert.ok(!html.match(/data-example-result[^>]*hidden/));
+    }
+    for (const dimensions of [{}, { Length: '0', Width: '3' }, { Length: '-1', Width: '3' }, { Length: '2', Width: '1000001' }, { Length: 'abc', Width: '3' }]) {
+        const html = await submit(2, dimensions);
+        assert.ok(html.includes('field-validation-error'));
+        assert.match(html, /data-example-result[^>]*hidden/);
+    }
+    const missingToken = await fetch(`${base}/concepts/input-output/example-2`, { method: 'POST', body: new URLSearchParams({ Length: '5', Width: '3' }) });
+    assert.equal(missingToken.status, 400);
+});
+
 test('time conversion, counting and ID preview render native results', async () => {
     const time = await submit(4, { Value: '23', FromUnit: 'Hours', ToUnit: 'Seconds' });
     assert.ok(time.includes('82,800'));

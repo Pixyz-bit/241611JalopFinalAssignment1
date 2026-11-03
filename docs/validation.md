@@ -172,3 +172,9 @@ Final example checks: desktop/mobile forms fit without horizontal overflow and p
 - Desktop labels wrap beside fixed-size icons. Below 720px, full names appear in a horizontal scroll row with at least 44px link targets. Existing focus and reduced-motion styling is preserved.
 - The final build passed with zero warnings/errors after stopping the app to release its executable. All 41 regression cases passed, including names, destinations and selected states on all 20 full and partial routes. The layout detector reported no findings.
 - Local browser use was disabled in Work settings during this task. Desktop/mobile rendered inspection and interactive keyboard review could not be completed; no visual verification is claimed. The app was rerun at http://localhost:5196 for review.
+
+## Rectangle area and perimeter — November 3, 2026
+
+- Input/Output Example 2 calculates rectangle area (length × width) and perimeter (2 × (length + width)) with decimal dimensions from 0.01 to 1,000,000. Results are excluded from model binding, antiforgery is required, and invalid inputs retain the empty Result panel. Sidebar and heading share the approved title.
+- Build passed with zero warnings/errors after stopping the verified old executable to release its file lock. The app was rebuilt/rerun on http://localhost:5196. All 42 regression tests passed, including decimal/boundary calculations, invalid/missing dimensions, forged result values, missing antiforgery and all named canonical/partial routes. Layout detection found no issues.
+- Browser review covered 1280×800, 390×844 and 320×640. Panels stack on mobile without document horizontal overflow; phone inputs/buttons are 44px tall. Verified keyboard Enter (5 × 3 → area 15, perimeter 16), decimal results (2.5 × 1.2 → area 3, perimeter 7.4), Clear, edits hiding stale output, and browser Back/Forward. Existing reduced-motion and focus CSS is preserved; no motion was added.
