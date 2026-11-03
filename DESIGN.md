@@ -264,3 +264,7 @@ Input/Output Example 2 uses the shared white Input and pale-blue Result panels. 
 ### Compact decision trees
 
 All five Nested If…Else examples use the shared native disclosure beneath their inputs. Their diagrams are plain preserved text using ├──, └── and │ branch characters, four-space nesting and no vertical-only spacer rows. The panel uses the shared white Paper surface, dark Ink text and Line border, with 12px Consolas text at weight 400 and line height 1.7; only Yes and No branch labels use bold weight 700. Scrollbars and keyboard focus use the existing app tokens. Wider diagrams scroll locally and remain keyboard-focusable. The login flowchart pilot and its highlighting are removed; the Result panel retains its ordered Decision path.
+
+### Grade Evaluator
+
+Nested If…Else Example 2 uses a single Final percentage field, Evaluate grade and canonical Clear. The result shows the decimal grade and evaluation together using the shared result typography. The supplied scale is available in a native disclosure; the compact white text decision tree shows threshold checks with only Yes/No bold. Percentages are whole numbers from 0–100; scores under 75 are Failed, including grade 4.0. INC/W are not inputs or results because this example converts a numeric final percentage only.

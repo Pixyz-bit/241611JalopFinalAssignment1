@@ -200,3 +200,9 @@ Final example checks: desktop/mobile forms fit without horizontal overflow and p
 ## Branch-label emphasis
 
 Only Yes and No are now bold in all five decision trees; conditions, outcomes and branch lines use regular weight. HtmlContentBuilder encodes the source text and inserts only fixed strong tags without introducing whitespace. Build passed with zero warnings/errors; all eight decision regression tests passed, including bold-label and preserved-tree checks. App rebuilt/rerun at http://localhost:5196.
+
+## Grade Evaluator replacement
+
+- Nested If…Else Example 2 replaces ATM with one Final percentage input. The supplied 1.0–5.0 ranges are preserved. As clarified by the user, 65–74 gives 4.0 — Failed and 0–64 gives 5.0 — Failed; 75 gives 3.0 — Passing. INC/W and the temporary status selector are omitted because this example converts one numeric percentage.
+- Build passed with zero warnings/errors. All 43 tests passed, including every whole percentage from 0 through 100, forged output rejection, invalid/missing/fractional/out-of-range input, antiforgery and named canonical/partial routes.
+- Browser checked keyboard Enter with 98 → 1.0 — Excellent, 74 → 4.0 — Failed, Clear, desktop 1280×800 and phone 320×640 with no horizontal page overflow. The shared responsive panels and compact white decision tree are retained. Rebuilt/reran at http://localhost:5196. Capture: .tmp/grade-evaluator.png.

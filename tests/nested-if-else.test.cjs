@@ -83,19 +83,14 @@ test('all five decisions use compact connected text branches in full and partial
     }
 });
 
-test('ATM checks balance before denomination and calculates exact remaining pesos', async () => {
-    for (const [Balance, Amount, expected] of [
-        ['5000', '1200', 'Withdrawal successful'], ['100', '100', 'Withdrawal successful'],
-        ['0', '100', 'Insufficient balance'], ['100', '150', 'Insufficient balance'],
-        ['5000', '1250', 'Use multiples of ₱100'], ['5000', '100.50', 'Use multiples of ₱100']
-    ]) {
-        const { html } = await submit(2, { Balance, Amount });
-        assert.equal(result(html), expected);
-        if (Balance === '5000' && Amount === '1200') assert.ok(html.includes('₱3,800.00'));
-        if (expected === 'Insufficient balance') assert.ok(!html.includes('<li>Multiple of'));
+test('grade evaluator translates every final percentage and rejects forged results', async () => {
+    const bands = [[97,'1.0 — Excellent'],[94,'1.25 — Excellent'],[91,'1.5 — Very Good'],[88,'1.75 — Very Good'],[85,'2.0 — Good'],[82,'2.25 — Good'],[79,'2.5 — Satisfactory'],[76,'2.75 — Satisfactory'],[75,'3.0 — Passing'],[65,'4.0 — Failed'],[0,'5.0 — Failed']];
+    for (let score = 0; score <= 100; score++) {
+        const { html } = await submit(2, { Percentage: String(score), Result: 'Forged' });
+        assert.equal(result(html), bands.find(([minimum]) => score >= minimum)[1], `percentage ${score}`);
     }
-});
 
+});
 test('BMI uses unrounded adult boundaries and kilograms/meters', async () => {
     for (const [Weight, Height, expected] of [
         ['18.49', '1', 'Underweight'], ['18.5', '1', 'Healthy weight'],
@@ -137,8 +132,8 @@ test('largest handles each nested branch, negative numbers, decimals and ties', 
 test('missing, malformed, negative and excessive inputs fail without an output', async () => {
     const cases = [
         [1, {}], [1, { Username: 'admin', Password: 'x'.repeat(81) }],
-        [2, { Balance: '-1', Amount: '100' }], [2, { Balance: '5000', Amount: '0' }],
-        [2, { Balance: 'oops', Amount: '100' }], [2, { Balance: '1e100', Amount: '100' }],
+        [2, { Percentage: '-1' }], [2, { Percentage: '101' }],
+        [2, { Percentage: 'oops' }], [2, { Percentage: '74.5' }], [2, {}],
         [3, { Weight: '60', Height: '0' }], [3, { Weight: '-1', Height: '1.65' }],
         [3, { Weight: '60', Height: '0.00000000001' }], [3, { Weight: 'NaN', Height: '1.65' }],
         [4, { A: '0', B: '5', C: '5' }], [4, { A: '-1', B: '5', C: '5' }],
