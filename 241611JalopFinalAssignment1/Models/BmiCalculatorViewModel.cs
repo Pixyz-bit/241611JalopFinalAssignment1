@@ -6,7 +6,7 @@ public sealed class BmiCalculatorViewModel : NestedExampleViewModel
 {
     public override string Title => ExampleCatalog.GetTitle("nested-if-else", 3);
     public override string Description => "Calculate adult BMI from kilograms and meters, then follow the nested checks to find its category.";
-    public override string Flow => "Valid positive measurements?\n+-- No: Show input errors\n+-- Yes: BMI = weight / (height * height)\n    BMI < 18.5?\n    +-- Yes: Underweight\n    +-- No: BMI < 25?\n        +-- Yes: Healthy weight\n        +-- No: BMI < 30?\n            +-- Yes: Overweight\n            +-- No: Obesity";
+    public override string Flow => "Valid positive measurements?\n├── Yes: BMI = weight / (height × height)\n│   └── BMI < 18.5?\n│       ├── Yes: Underweight\n│       └── No: BMI < 25?\n│           ├── Yes: Healthy weight\n│           └── No: BMI < 30?\n│               ├── Yes: Overweight\n│               └── No: Obesity\n└── No: Show input errors";
 
     // Explicit bounds keep decimal multiplication/division safe, including crafted requests.
     [Required(ErrorMessage = "Enter weight in kilograms.")]

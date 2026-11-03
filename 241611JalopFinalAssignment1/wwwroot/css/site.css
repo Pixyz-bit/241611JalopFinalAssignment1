@@ -390,25 +390,9 @@ button:active, summary:active { opacity: .8; }
 .decision-flow { max-width: 520px; margin-top: 20px; border-top: 1px solid var(--line); font-size: 12px; }
 .decision-flow summary { display: list-item; padding: 12px 4px; cursor: pointer; color: var(--ink); font-weight: 550; }
 .decision-flow pre { margin: 0 0 12px; padding: 12px; overflow: auto; background: var(--surface); border-radius: var(--radius-control); line-height: 1.8; }
-/* Login alone uses a connected tree; nested branches retain their reading order on phones. */
-.login-flow { max-width: none; container: login-flow / inline-size; }
-.login-flow-tree { padding: 16px 0; font-size: 12px; }
-.flow-question, .flow-outcome { padding: 12px; border: 1px solid var(--field-border); border-radius: var(--radius-control); background: var(--paper); overflow-wrap: anywhere; }
-.flow-question { font-weight: 550; text-align: center; }
-.flow-branches { display: grid; grid-template-columns: minmax(100px, .45fr) minmax(0, 1fr); gap: 16px; padding: 0 8px; }
-.flow-branch { min-width: 0; border-top: 1px solid var(--field-border); margin-top: 16px; }
-.flow-edge { margin: 0; padding: 8px; text-align: center; color: var(--muted); }
-.flow-current { display: none; margin-top: 6px; font-size: 11px; font-weight: 550; }
-/* Direct-child selectors keep an active parent from highlighting untaken child branches. */
-[data-flow-active="true"].flow-question,
-[data-flow-active="true"].flow-branch > .flow-question,
-[data-flow-active="true"].flow-branch > .flow-outcome { background: var(--blue-soft); border-color: var(--blue); }
-[data-flow-active="true"].flow-branch > .flow-edge { color: var(--blue); font-weight: 550; }
-[data-flow-active="true"].flow-branch > .flow-outcome > .flow-current { display: block; }
-@container login-flow (max-width: 700px) {
-    .flow-branches { grid-template-columns: minmax(0, 1fr); gap: 0; padding-left: 12px; padding-right: 0; border-left: 1px solid var(--field-border); }
-    .flow-edge { text-align: left; }
-}
+/* Compact text branches use the approved dark reference and scroll locally on narrow panels. */
+.decision-flow .decision-tree { padding: 14px; background: #282828; color: #f4f4f4; font-family: Consolas, 'Courier New', monospace; font-size: 12px; font-weight: 550; line-height: 1.7; white-space: pre; scrollbar-color: #aeb8c4 #282828; }
+.decision-tree:focus-visible { outline-color: var(--blue); }
 .decision-path-title { margin: 10px 0 0; font-size: 12px; font-weight: 550; }
 .decision-path { margin: 0; padding-left: 20px; font-size: 12px; line-height: 1.8; }
 /* A text summary supplements each inline error without relying on color alone. */

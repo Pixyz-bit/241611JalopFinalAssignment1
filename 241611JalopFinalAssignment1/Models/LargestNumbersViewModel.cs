@@ -6,7 +6,7 @@ public sealed class LargestNumbersViewModel : NestedExampleViewModel
 {
     public override string Title => ExampleCatalog.GetTitle("nested-if-else", 5);
     public override string Description => "Compare the first two numbers, then compare the larger one with the third. Negative numbers, decimals and ties are welcome.";
-    public override string Flow => "A >= B?\n+-- Yes: A >= C?\n|   +-- Yes: Largest = A\n|   +-- No: Largest = C\n+-- No: B >= C?\n    +-- Yes: Largest = B\n    +-- No: Largest = C";
+    public override string Flow => "A >= B?\n├── Yes: A >= C?\n│   ├── Yes: Largest = A\n│   └── No: Largest = C\n└── No: B >= C?\n    ├── Yes: Largest = B\n    └── No: Largest = C";
 
     // Nullable decimals distinguish an empty input from a valid zero.
     [Required(ErrorMessage = "Enter number A.")]

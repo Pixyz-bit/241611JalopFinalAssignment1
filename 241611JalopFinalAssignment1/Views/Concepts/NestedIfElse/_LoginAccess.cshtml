@@ -18,9 +18,8 @@
                 <summary>Sample accounts</summary>
                 <div class="sample-accounts"><table><caption class="sr-only">Public teaching accounts</caption><thead><tr><th scope="col">Username</th><th scope="col">Password</th><th scope="col">Role</th></tr></thead><tbody><tr><td>admin</td><td>admin123</td><td>Admin</td></tr><tr><td>student</td><td>student123</td><td>Student</td></tr><tr><td>guest</td><td>guest123</td><td>Guest</td></tr></tbody></table></div>
             </details>
+            <partial name="~/Views/Concepts/NestedIfElse/_DecisionFlow.cshtml" model="Model" />
         </section>
         <partial name="~/Views/Concepts/NestedIfElse/_DecisionResult.cshtml" model="Model" />
     </form>
-    @* The complete tree gets the workspace width instead of squeezing into the Input panel. *@
-    <partial name="~/Views/Concepts/NestedIfElse/_LoginFlow.cshtml" model="Model" />
 </div>

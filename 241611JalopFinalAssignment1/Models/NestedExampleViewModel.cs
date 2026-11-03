@@ -17,7 +17,7 @@ public sealed class LoginAccessViewModel : NestedExampleViewModel
 {
     public override string Title => ExampleCatalog.GetTitle("nested-if-else", 1);
     public override string Description => "Match a sample account, then check its role. This simulator does not sign you in.";
-    public override string Flow => "Credentials match?\n+-- No: Invalid credentials\n+-- Yes: Admin role?\n    +-- Yes: Admin options\n    +-- No: Student role?\n        +-- Yes: Student options\n        +-- No: Access denied";
+    public override string Flow => "Credentials match?\n├── Yes: Admin role?\n│   ├── Yes: Admin options\n│   └── No: Student role?\n│       ├── Yes: Student options\n│       └── No: Access denied\n└── No: Invalid credentials";
 
     [Required(ErrorMessage = "Enter a sample username.")]
     [StringLength(40, ErrorMessage = "Use at most 40 characters.")]
