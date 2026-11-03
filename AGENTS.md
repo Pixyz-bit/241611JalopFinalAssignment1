@@ -2,6 +2,13 @@
 
 Read PRODUCT.md and DESIGN.md before UI changes, then .agents/skills/showcase-ui/SKILL.md. User instructions and the approved Windows 11 inspired direction on this branch override generic skill presets.
 
+## Standing workflow requirements
+
+- Always use the skills related to the current task. For interface work, follow the showcase-ui skill and its applicable design-skill dependencies; do not invoke unrelated skills merely because they are installed.
+- Commit each meaningful completed progress step to Git with a descriptive message. Keep implementation, follow-up changes and verification/documentation commits reviewable. Do not push unless requested, and do not include unrelated user changes.
+- Keep every change consistent with the existing approved design: reuse the shared layout, components, typography, colors, spacing and interaction patterns. Treat user references as guidance for the requested element; preserve the surrounding design unless the user explicitly changes it.
+- Rebuild and rerun the app after code changes, complete the relevant checks, and leave the latest version available locally for review.
+
 - Preserve ASP.NET Core MVC, net8.0, Razor, CSS and plain JavaScript.
 - Controllers handle routes; Models holds presentation data; Views holds Razor pages/partials; wwwroot holds public assets.
 - Preserve the four categories and five example slots each. The user authors example logic.
