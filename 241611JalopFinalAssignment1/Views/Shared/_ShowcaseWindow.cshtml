@@ -1,7 +1,7 @@
 @model ShowcaseViewModel
 @if (Model.HasWindow)
 {
-    <section class="showcase-window @(Model.IsAbout ? "about-window" : "")" aria-labelledby="window-title" data-window data-category="@Model.Category?.Slug">
+    <section class="showcase-window" aria-labelledby="window-title" data-window data-category="@Model.Category?.Slug">
         @* A single application title bar replaces Explorer tabs and the address bar. *@
         <header class="app-titlebar">
             <div class="app-identity"><svg class="icon" aria-hidden="true"><use href="#icon-code" /></svg><span>C# <span class="brand-extra">Programming </span>Showcase</span></div>
@@ -31,32 +31,11 @@
                         <a href="/concepts/@Model.Category.Slug/example-@number" class="sidebar-link sidebar-example @(number == Model.Example ? "is-selected" : "")" data-navigate aria-current="@(number == Model.Example ? "page" : null)"><svg class="icon" aria-hidden="true"><use href="#icon-code" /></svg><span>@ExampleCatalog.GetTitle(Model.Category.Slug, number)</span></a>
                     }
                 }
-                else
-                {
-                    @* About has no selected category, so it keeps category shortcuts available. *@
-                    @foreach (var category in ConceptCatalog.Categories)
-                    {
-                        <a href="/concepts/@category.Slug" class="sidebar-link" data-navigate><svg class="icon" aria-hidden="true"><use href="#icon-@category.Icon" /></svg><span>@category.Name</span></a>
-                    }
-                }
+
                 <div class="sidebar-utilities">
-                    <a href="/about" class="sidebar-link @(Model.IsAbout ? "is-selected" : "")" data-navigate aria-current="@(Model.IsAbout ? "page" : null)"><svg class="icon" aria-hidden="true"><use href="#icon-info" /></svg><span>About this app</span></a>
                     <a href="/" class="sidebar-link" data-navigate><svg class="icon" aria-hidden="true"><use href="#icon-home" /></svg><span>Back to desktop</span></a>
                 </div>
             </nav>
-            @if (Model.IsAbout)
-            {
-                <section class="about-content" aria-labelledby="about-title" tabindex="-1">
-                    <span class="about-logo"><svg class="icon" aria-hidden="true"><use href="#icon-code" /></svg></span>
-                    <h3 id="about-title">A place to think<br />in <span>C#.</span></h3>
-                    <p>Welcome to C# Programming Showcase: a small collection of programming fundamentals, with a familiar Windows application to explore them in.</p>
-                    <div class="about-facts"><span>4 concepts</span><span>20 example slots</span><span>ASP.NET Core MVC</span></div>
-                    <p class="about-note">The stage is set. The examples are yours to create.</p>
-                    <a href="/concepts/input-output" class="primary-link" data-navigate>Explore Input/Output <svg class="icon" aria-hidden="true"><use href="#icon-arrow" /></svg></a>
-                </section>
-            }
-            else
-            {
                 @* Working examples share one compact pane inset and a consistent input/result layout. *@
                 <section class="example-detail @(Model.HasImplementedExample ? "example-detail--split" : "")" aria-labelledby="detail-title" tabindex="-1">
                     @if (Model.Temperature is not null)
@@ -122,17 +101,8 @@
                             <div class="template-section"><h5>Output</h5><p>The result will appear here when you add your C# logic.</p></div>
                         </div>
                     }
-                    else
-                    {
-                        <div class="category-intro"><svg class="icon" aria-hidden="true"><use href="#icon-code" /></svg><div><h4>Choose an example to get started</h4><p>Five example slots are ready for your ideas. Select an example in the navigation to open its description, interface, and output.</p><a class="primary-link" href="/concepts/@Model.Category!.Slug/example-1" data-navigate>Open Example 01 <svg class="icon" aria-hidden="true"><use href="#icon-arrow" /></svg></a></div></div>
-                    }
+
                 </section>
-            }
         </div>
-        @* Example pages use the full window height; About retains its informational footer. *@
-        @if (Model.IsAbout)
-        {
-            <footer class="app-statusbar"><span>C# Programming Showcase</span><span>About this app</span></footer>
-        }
     </section>
 }

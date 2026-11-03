@@ -15,6 +15,9 @@ public sealed class ConceptsController(ExampleStateTokens roundTokens) : Control
         var concept = ConceptCatalog.Find(category); // Look up the category using its URL slug.
         if (concept is null || example is < 1 or > 5) return NotFound(); // Return HTTP 404 for an unknown category or an example outside 1-5.
 
+        // Old category URLs still work, but now open the first example immediately.
+        if (!example.HasValue) return Redirect($"/concepts/{concept.Slug}/example-1");
+
         var model = new ShowcaseViewModel(concept, example)
         {
             IdCard = category == "input-output" && example == 1 ? new IdCardViewModel() : null,

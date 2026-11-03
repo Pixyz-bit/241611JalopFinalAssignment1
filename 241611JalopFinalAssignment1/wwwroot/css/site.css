@@ -98,7 +98,6 @@ button:active, summary:active { opacity: .8; }
 .app-icon-amber { --app-top: #f3ca78; --app-bottom: #dca039; color: #5b3a0d; }
 .app-icon-violet { --app-top: #9183df; --app-bottom: #5a47ac; }
 .app-icon-mint { --app-top: #1b9b8e; --app-bottom: #0b6d65; }
-.app-icon-about { --app-top: #508ee8; --app-bottom: #2456a8; }
 .desktop-shortcut > .app-icon { margin: 3px 0 9px; }
 .start-pinned .app-icon { width: 46px; height: 46px; border-radius: 10px; }
 .start-pinned .app-icon .icon { width: 25px; height: 25px; }
@@ -141,10 +140,6 @@ button:active, summary:active { opacity: .8; }
 .app-page-heading > .app-icon { width: 44px; height: 44px; border-radius: 12px; margin-top: 2px; }
 .app-page-heading h3 { font-size: 28px; line-height: 1.25; letter-spacing: -.025em; font-weight: 600; margin: 0 0 6px; }
 .app-page-heading p { margin: 0; color: var(--muted); line-height: 1.8; font-size: 13px; max-width: 100ch; }
-.category-intro { display: flex; gap: 18px; padding: 28px; margin-top: 0; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); }
-.category-intro > .icon { width: 25px; height: 25px; color: var(--blue); margin-top: 2px; }
-.category-intro h4 { font-size: 17px; line-height: 1.5; font-weight: 550; margin: 0 0 8px; }
-.category-intro p { color: var(--muted); font-size: 13px; line-height: 1.8; max-width: 60ch; margin: 0 0 12px; }
 .primary-link { color: var(--blue); display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-size: 12px; font-weight: 550; }
 .primary-link:hover { text-decoration: underline; text-underline-offset: 4px; }
 .primary-link .icon { width: 16px; height: 16px; }
@@ -159,8 +154,6 @@ button:active, summary:active { opacity: .8; }
 .template-section p { font-size: 12px; color: var(--muted); line-height: 1.8; margin: 0; max-width: 60ch; }
 .empty-interface { display: flex; align-items: center; gap: 12px; background: var(--surface); border: 1px dashed #c9d4e3; border-radius: 5px; padding: 18px; }
 .empty-interface .icon { color: #5b7392; }
-.app-statusbar { display: flex; flex-shrink: 0; justify-content: space-between; align-items: center; gap: 10px; min-height: 30px; padding: 5px 18px; border-top: 1px solid var(--line); background: var(--sidebar); font-size: 10px; color: var(--muted); }
-.app-statusbar > span { white-space: nowrap; }
 /* :has() lets the host fill the screen above the taskbar only while maximized. */
 /* The root class also applies before the deferred navigation script restores caption controls. */
 .window-host:has(.is-maximized:not(.is-minimized)),
@@ -168,14 +161,6 @@ button:active, summary:active { opacity: .8; }
 .showcase-window.is-maximized, .window-maximized .showcase-window { border-radius: 0; }
 /* A restored maximized window keeps its full size instead of replaying the opening scale. */
 .window-maximized .showcase-window { animation: none; }
-.about-content { overflow-y: auto; min-height: 0; padding: 42px; }
-.about-logo { display: grid; place-items: center; width: 56px; height: 56px; color: var(--blue); background: var(--blue-soft); border-radius: 12px; margin-bottom: 24px; }
-.about-logo .icon { width: 34px; height: 34px; }
-.about-content h3 { font-size: 42px; font-weight: 500; line-height: 1.16; letter-spacing: -.035em; margin: 0 0 20px; }
-.about-content h3 span { color: var(--blue); }
-.about-content p { max-width: 60ch; color: var(--muted); line-height: 1.85; }
-.about-facts { display: flex; flex-wrap: wrap; gap: 12px 24px; font-size: 12px; margin: 24px 0; }
-.about-content .about-note { font-size: 12px; }
 /* Search uses native dialog focus containment and a readable solid surface. */
 .search-dialog { width: min(560px, calc(100vw - 32px)); max-height: calc(100dvh - 64px); overflow-y: auto; margin: auto; background: #f4f7fc; color: var(--ink); border: 0; border-radius: 8px; padding: 20px; box-shadow: var(--window-shadow); }
 .search-dialog::backdrop { background: rgb(3 17 42 / .48); }
@@ -220,7 +205,6 @@ button:active, summary:active { opacity: .8; }
     .shortcut-count { font-size: 9px; }
     .desktop-shortcut > .app-icon { width: 48px; height: 48px; border-radius: 11px; }
     .desktop-shortcut > .app-icon .icon { width: 27px; height: 27px; }
-    .about-shortcut { display: none; }
     .welcome { left: 28px; right: 20px; top: clamp(70px,20vh,180px); }
     .welcome h1 { font-size: clamp(35px,8.5vw,54px); }
     .welcome-description { font-size: 13px; }
@@ -248,17 +232,8 @@ button:active, summary:active { opacity: .8; }
     .app-page-heading > .app-icon .icon { width: 24px; height: 24px; }
     .app-page-heading h3 { font-size: 25px; }
     .app-page-heading p { font-size: 12px; line-height: 1.8; }
-    .category-intro { padding: 20px; gap: 12px; margin-top: 0; }
-    .category-intro > .icon { display: none; }
-    .category-intro h4 { font-size: 16px; }
-    .category-intro p { font-size: 12px; }
     .example-workspace { margin-top: 0; padding: 20px; }
     .example-heading h4 { font-size: 20px; }
-    .app-statusbar { padding: 5px 10px; font-size: 9px; }
-    .about-content { padding: 26px; flex: 1; min-height: 0; }
-    .about-content h3 { font-size: 34px; }
-    .about-content p { font-size: 12px; }
-    .about-facts { gap: 8px 16px; font-size: 11px; }
     .start-panel { padding: 22px 20px 0; }
     .start-panel h2 { font-size: 16px; }
     .start-pinned { grid-template-columns: repeat(2,minmax(0,1fr)); }
@@ -287,8 +262,8 @@ button:active, summary:active { opacity: .8; }
     .app-page-heading { padding: 12px 18px; }
     .app-page-heading p { font-size: 12px; }
 }
-/* About remains accessible in Start when its taskbar shortcut cannot fit. */
-@media (max-width: 360px) { .taskbar-apps { gap: 0; } .taskbar-apps > .taskbar-item:last-child { display: none; } .start-footer { flex-wrap: wrap; } .app-page-heading { gap: 10px; } .example-detail { padding: 20px 14px; } }
+/* Start and all four category shortcuts remain visible on narrow phones. */
+@media (max-width: 360px) { .taskbar-apps { gap: 0; } .start-footer { flex-wrap: wrap; } .app-page-heading { gap: 10px; } .example-detail { padding: 20px 14px; } }
 /* Honor the visitor's operating-system motion preference. */
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
 

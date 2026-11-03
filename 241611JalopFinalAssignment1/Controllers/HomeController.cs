@@ -20,15 +20,6 @@ namespace _241611JalopFinalAssignment1.Controllers
             return View(model); // Render Views/Home/Index.cshtml with this model and the shared layout.
         }
 
-        [HttpGet("about")] // A GET request to /about calls the method below.
-        public IActionResult About() // Shows the About window.
-        {
-            var model = new ShowcaseViewModel(IsAbout: true); // Named argument: set IsAbout to true and keep the other defaults.
-            if (Request.Headers["X-Showcase-Partial"] == "true") // Enhanced navigation needs only part of the page.
-                return PartialView("_ShowcaseWindow", model); // Return the About window HTML without the full page layout.
-            return View("Index", model); // Reuse the desktop view, with this model selecting the About window.
-        }
-
         public IActionResult Privacy() // The default route exposes this starter page at /Home/Privacy.
         {
             return View(); // With no view name, MVC uses the action name: Views/Home/Privacy.cshtml.

@@ -40,12 +40,11 @@ public static class ConceptCatalog // A shared category list; static means no ne
 // Carries the current page selection from a controller to a Razor view.
 public sealed record ShowcaseViewModel(
     ConceptCategory? Category = null, // Selected category; null means no category is selected.
-    int? Example = null, // Selected example number; null means no example is selected.
-    bool IsAbout = false) // True shows About; these default values let the controller omit arguments.
+    int? Example = null) // Selected example number; null means no example is selected.
 {
-    public bool HasWindow => Category is not null || IsAbout; // Computed value: show a window if a category is selected OR About is open.
+    public bool HasWindow => Category is not null; // A selected category opens its example window.
 
-    public string WindowTitle => IsAbout ? "About this showcase" : Category?.Name ?? "Desktop"; // Title is About, the selected category's name, or Desktop.
+    public string WindowTitle => Category?.Name ?? "Desktop"; // Use the category name, or Desktop when no window is open.
 
     // Example 3 can carry its form data alongside the existing page selection.
     public TemperatureConverterViewModel? Temperature { get; init; }

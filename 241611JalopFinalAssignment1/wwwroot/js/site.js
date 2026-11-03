@@ -50,7 +50,7 @@
             else shortcut.removeAttribute('aria-current');
         });
         document.querySelectorAll('.taskbar-item').forEach(item => {
-            const active = category ? item.dataset.category === category : item.getAttribute('href') === (windowElement ? '/about' : '/');
+            const active = Boolean(category && item.dataset.category === category);
             item.classList.toggle('is-active', active);
             if (active) item.setAttribute('aria-current', 'page');
             else item.removeAttribute('aria-current');
@@ -78,7 +78,6 @@
 
         if (currentWindow && nextWindow) {
             // Keep the same window mounted: tab changes should not replay its opening animation.
-            currentWindow.classList.toggle('about-window', nextWindow.classList.contains('about-window'));
             currentWindow.dataset.category = nextWindow.dataset.category;
             currentWindow.replaceChildren(...nextWindow.childNodes);
         } else {
@@ -119,7 +118,7 @@
             if (push && url !== location.pathname) history.pushState({}, '', url);
             minimized = false;
             syncDesktop();
-            const detail = host.querySelector('.example-detail') || host.querySelector('.about-content'); // Both app pages have a visible focus destination.
+            const detail = host.querySelector('.example-detail'); // Focus the selected example after navigation.
             if (detail) detail.focus({ preventScroll: true });
             else if (!host.querySelector('[data-window]')) document.querySelector('.welcome-action').focus({ preventScroll: true });
             else {
@@ -170,8 +169,9 @@
         event.preventDefault();
         if (startMenu) startMenu.open = false; // Selecting any canonical link dismisses the menu.
         if (dialog.open) dialog.close();
-        const selectedCategory = host.querySelector('[data-window]')?.dataset.category; // About has no category; its shortcut must not restore a different minimized window.
-        const restoresWindow = selectedCategory ? link.dataset.category === selectedCategory : destination.pathname === '/about';
+        const selectedCategory = host.querySelector('[data-window]')?.dataset.category;
+        // Reopening the active category restores its current example, including a minimized window.
+        const restoresWindow = Boolean(selectedCategory && link.dataset.category === selectedCategory);
         if (minimized && link.closest('.taskbar') && lastWindowUrl && restoresWindow) {
             minimized = false;
             syncDesktop();
