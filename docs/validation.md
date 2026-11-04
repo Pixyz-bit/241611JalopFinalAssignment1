@@ -247,3 +247,9 @@ Applied the existing Sidebar token to the entire navigation column, including th
 ### Editable default house rosters
 
 Changed all four house roster placeholders into actual editable values, seeded only on GET so posted edits and empty houses retain their submitted values. Removed every House Member Finder placeholder, including Member to find. Build passed with zero warnings/errors; reran the app at localhost:5196 and all 10 array regression tests passed. Browser verified Harry Potter is found in Gryffindor without entering any roster, Member to find has no placeholder, and Clear restores the sample rosters with an empty search. Review screenshot: .tmp/house-default-members.png.
+
+### Compact desktop welcome refinement
+
+- Reduced the desktop heading to 44–52px with balanced 500/550 weights, removed its trailing period, and moved the welcome left/up beside the shortcut rail. Grouped developer label, author name and section; simplified Explore the concepts to text plus one arrow. Bottom-right signature now contains the course name only.
+- Build succeeded with zero warnings/errors and the finalized app was rerun at localhost:5196. All 11 navigation/example-name checks passed. Existing canonical category links and application layout remain intact.
+- Browser inspected 1920×1080 desktop, 320×568 phone and 667×375 landscape. Narrow phone has a 45px gap between welcome action and shortcuts with no horizontal page overflow. Short landscape scrolls the desktop to preserve separation from the fixed taskbar. Keyboard Enter on Explore the concepts opens Input/Output Example 1. Existing reduced-motion rules still apply; no animation added. Reset viewport override. Desktop proof: .tmp/compact-desktop-welcome.png.
