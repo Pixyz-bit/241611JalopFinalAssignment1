@@ -275,7 +275,7 @@ All category entry links on the desktop, Start, taskbar, welcome and search open
 
 All 20 examples omit the bottom app statusbar, category description, example subtitle and static input helper paragraphs. Titles lead directly into the shared Input/Result grid with a 16px gap. Input labels, placeholders, constraints, validation, results, formulas and teaching disclosures remain functional; live game/attempt state and photo feedback remain available. Removed helper IDs are removed from aria-describedby while error associations remain.
 
-The desktop welcome groups Developed by, Arlan Martin N. Jalop, and SBIT3C into a compact credit beneath the title. The taskbar brand returns to the desktop. These explicit user refinements supersede earlier references to About, category overview screens and example helper copy in this document.
+The lower-left desktop credit reads Developed by Arlan Martin N. Jalop (SBIT3C), with the author name emphasized. The taskbar brand returns to the desktop. These explicit user refinements supersede earlier references to About, category overview screens and example helper copy in this document.
 
 ### Category navigation beside the workspace
 
@@ -289,7 +289,9 @@ Arrays Example 4 is Multiplication Table: two vertical dimension inputs and a re
 
 ### Compact desktop welcome
 
-The desktop welcome sits beside the shortcut rail, 176–240px from the left edge and 80–180px from the top, with a maximum width of 660px. C# Programming and Showcase use the original 40–72px heading at weights 450/650 without a trailing period. A soft dark text shadow improves separation from the wallpaper. Developed by uses 12px muted text, the author name uses 15px at weight 550, and SBIT3C uses 13px; 24px gaps separate the title, grouped credit and action. Explore the concepts is a compact 44px-high button with one trailing arrow. The lower-right signature shows only IPT101 - Integrative Programming and Technology. Phones keep the established stacked desktop layout with the original 35–54px responsive heading; short phones scroll to keep the welcome and shortcut row separate. Wallpaper, application windows and taskbar retain their approved design.
+The desktop welcome sits beside the shortcut rail, 176–240px from the left edge and 80–180px from the top, with a maximum width of 660px. C# Programming and Showcase use the original 40–72px heading at weights 450/650 without a trailing period. A soft dark text shadow improves separation from the wallpaper. A 24px gap separates the welcome title and action; developer credit appears separately above the taskbar. Explore the concepts is a compact 44px-high button with one trailing arrow. The lower-right signature shows C# Programming Showcase above IPT101 - Integrative Programming and Technology. Phones keep the established stacked desktop layout with the original 35–54px responsive heading; short phones scroll to keep the welcome and shortcut row separate. Wallpaper, application windows and taskbar retain their approved design.
 
 
 Rectangle results use two plain metric groups separated by 28px. Each group contains a 13px, weight-550 heading, the shared 24–32px value, and a muted 12px formula, with 6px spacing within the group. This keeps formulas attached to their value and gives Area and Perimeter equal hierarchy without adding cards or changing the panel palette.
+
+Desktop footer credits use two distinct groups above the taskbar: Developed by Arlan Martin N. Jalop (SBIT3C) at the left, with the name bold; project title above course name at the right. Each group is bounded to half the desktop width to prevent overlap. The taskbar brand reads <pixyz-bit/> and remains a canonical desktop link. Both desktop credits hide while an example is open. On phones the author credit stays centered above the taskbar, with the shortcut row moved up to reserve its space; the existing course-signature hiding rule remains.

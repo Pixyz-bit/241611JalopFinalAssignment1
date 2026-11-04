@@ -41,15 +41,17 @@ button:active, summary:active { opacity: .8; }
 /* Restore the original title scale; a dark, soft shadow separates it from the blue wallpaper. */
 .welcome h1 { font-size: clamp(40px, 4.7vw, 72px); line-height: 1.12; font-weight: 450; letter-spacing: -.04em; margin: 0 0 24px; text-shadow: 0 2px 6px rgb(2 14 40 / .75), 0 8px 24px rgb(2 14 40 / .5); }
 .welcome h1 span { font-weight: 650; }
-.welcome-credit { display: flex; flex-direction: column; gap: 2px; margin: 0 0 24px; color: #d6e5fc; font-size: 13px; line-height: 1.6; }
-.welcome-credit > span:first-child { font-size: 12px; }
-.welcome-credit strong { font-size: 15px; font-weight: 550; color: var(--desktop-text); }
 .welcome-action { display: inline-flex; align-items: center; gap: 12px; background: #eef6ff; color: #123a65; padding: 10px 16px; min-height: 44px; border-radius: 5px; box-shadow: 0 4px 14px rgb(2 19 48 / .14); font-size: 13px; font-weight: 550; }
 .welcome-action .icon { width: 16px; }
 .welcome-action:hover { background: #d9eaff; }
 .has-window .welcome { opacity: 0; visibility: hidden; pointer-events: none; }
-.has-window .desktop-signature { visibility: hidden; } /* Keep the desktop signature from peeking around the open window. */
-.desktop-signature { position: absolute; bottom: 24px; right: 28px; max-width: calc(100% - 176px); color: #d6e5fc; font-size: 11px; font-weight: 400; text-align: right; text-shadow: 0 1px 4px #061a40; }
+.has-window .desktop-signature, .has-window .desktop-credit { visibility: hidden; } /* Hide desktop credits behind the active example. */
+/* Separate left author credit and right project/course credit without crossing the taskbar. */
+.desktop-credit, .desktop-signature { position: absolute; bottom: 24px; max-width: calc(50% - 40px); color: #d6e5fc; line-height: 1.6; text-shadow: 0 1px 4px #061a40; }
+.desktop-credit { left: 28px; margin: 0; font-size: 12px; }
+.desktop-credit strong { color: var(--desktop-text); font-weight: 550; }
+.desktop-signature { right: 28px; display: flex; flex-direction: column; gap: 2px; font-size: 11px; text-align: right; }
+.desktop-signature strong { color: var(--desktop-text); font-size: 12px; font-weight: 550; }
 /* A full-width taskbar stays available even when the app is maximized. */
 .taskbar { position: fixed; z-index: 20; bottom: 0; left: 0; right: 0; height: var(--taskbar-height); padding: 4px 18px; background: rgb(234 241 252 / .94); backdrop-filter: blur(24px); border-top: 1px solid rgb(244 249 255 / .5); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; }
 .taskbar-brand { display: inline-flex; align-items: center; gap: 9px; width: fit-content; min-height: 44px; font-size: 12px; }
@@ -202,7 +204,7 @@ button:active, summary:active { opacity: .8; }
     .taskbar-apps { gap: 3px; }
     .taskbar-item { width: 44px; height: 48px; }
     .taskbar-tooltip { display: none; }
-    .desktop-apps { left: 18px; right: 18px; top: auto; bottom: 34px; grid-template-columns: repeat(4,minmax(0,1fr)); width: auto; gap: 3px; max-height: none; overflow: visible; }
+    .desktop-apps { left: 18px; right: 18px; top: auto; bottom: 70px; grid-template-columns: repeat(4,minmax(0,1fr)); width: auto; gap: 3px; max-height: none; overflow: visible; }
     .desktop-shortcut { padding: 8px 2px; }
     .shortcut-name { font-size: 11px; }
     .shortcut-count { font-size: 9px; }
@@ -212,6 +214,7 @@ button:active, summary:active { opacity: .8; }
     .welcome h1 { font-size: clamp(35px, 8.5vw, 54px); }
     .welcome-action { font-size: 12px; padding-inline: 12px; gap: 8px; }
     .desktop-signature { display: none; }
+    .desktop-credit { left: 18px; right: 18px; bottom: 12px; max-width: none; font-size: 11px; text-align: center; }
     .has-window .desktop-apps { visibility: hidden; }
     .window-host { top: 12px; bottom: calc(var(--taskbar-height) + 12px); left: 10px; right: 10px; }
     .app-titlebar { padding-left: 14px; min-height: 46px; }
@@ -256,7 +259,6 @@ button:active, summary:active { opacity: .8; }
 @media (max-height: 500px) {
     .welcome { top: 30px; }
     .welcome h1 { font-size: 34px; margin-bottom: 12px; }
-    .welcome-credit { margin-bottom: 12px; }
     .window-host { top: 6px; bottom: calc(var(--taskbar-height) + 6px); }
     .app-sidebar { padding-top: 10px; }
     .app-page-heading { padding: 12px 18px; }
