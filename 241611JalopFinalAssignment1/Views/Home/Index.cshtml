@@ -29,7 +29,6 @@
                 <summary class="taskbar-item start-button" aria-label="Open Start menu"><svg class="icon"><use href="#icon-start" /></svg><span class="taskbar-tooltip">Start</span></summary>
                 <div class="start-panel">
                     <h2>C# Programming Showcase</h2>
-                    <button class="start-search" data-search-open type="button"><svg class="icon"><use href="#icon-search" /></svg> Search your concepts</button>
                     <div class="start-heading"><h3>Pinned</h3><span>4 concepts</span></div>
                     <nav class="start-pinned" aria-label="Pinned concepts">
                         @foreach (var category in ConceptCatalog.Categories)
@@ -37,7 +36,7 @@
                             <a href="/concepts/@category.Slug/example-1" data-navigate><partial name="_ConceptIcon" model="category" /><span>@category.Name</span></a>
                         }
                     </nav>
-                    <div class="start-footer"><span><svg class="icon"><use href="#icon-code" /></svg> C# Programming</span><a href="/" data-navigate>Show desktop <svg class="icon"><use href="#icon-home" /></svg></a></div>
+                    <div class="start-footer"><span><svg class="icon"><use href="#icon-code" /></svg> C# Programming</span><a href="/" data-navigate aria-label="Show desktop"><svg class="icon" aria-hidden="true"><use href="#icon-home" /></svg></a></div>
                 </div>
             </details>
             @foreach (var category in ConceptCatalog.Categories)
