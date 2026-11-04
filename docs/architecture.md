@@ -95,7 +95,7 @@ Use [mvc-example-map.md](mvc-example-map.md) to find each example's model, view 
 |---|---|---|
 | 1 — Duplicate Finder | `JALOPARLANMARTIN_241611_DuplicateFinder.cshtml` | `FindDuplicates()` |
 | 2 — Array Sort | `JALOPARLANMARTIN_241611_ArraySort.cshtml` | `SortValues()` |
-| 3 — Tic-Tac-Toe | `JALOPARLANMARTIN_241611_TicTacToe.cshtml` | `PlayMove()` |
+| 3 — Largest and Smallest | `JALOPARLANMARTIN_241611_ArrayExtremes.cshtml` | `FindExtremes()` |
 | 4 — Multiplication Table | `JALOPARLANMARTIN_241611_MultiplicationTable.cshtml` | `GenerateTable()` |
 | 5 — House Member Finder | `JALOPARLANMARTIN_241611_HouseMemberFinder.cshtml` | `FindHouse()` |
 
@@ -103,7 +103,7 @@ Use [mvc-example-map.md](mvc-example-map.md) to find each example's model, view 
 
 For Example 1, follow `JALOPARLANMARTIN_241611_ConceptsController.Index()` → `JALOPARLANMARTIN_241611_DuplicateFinderViewModel` → `JALOPARLANMARTIN_241611_ShowcaseWindow` → `JALOPARLANMARTIN_241611_DuplicateFinder.cshtml`. Submitting its form calls `JALOPARLANMARTIN_241611_ArraysController.FindDuplicates()`, which parses the input through `TryReadValues()`, finds repeated values, and calls `Example()` to return the same page with results. One-dimensional examples use actual string/decimal arrays. The multiplication table stores products in an `int[,]`; House Member Finder copies validated rosters into a rectangular string array.
 
-`ExampleStateTokens` is the shared Data Protection codec for loop games and Tic-Tac-Toe. Its original root protection purpose remains unchanged so existing loop tokens continue to work; the separate `arrays-tic-tac-toe` purpose prevents token reuse across examples. The Tic-Tac-Toe controller reconstructs a `char[,]` from protected moves and derives the next player, winner and draw state server-side. Buttons submit cell positions through normal forms, including without JavaScript. See [arrays.md](arrays.md) for limits and validation.
+`ExampleStateTokens` protects the two loop games; array examples no longer use protected game state. Arrays Example 3 uses `JALOPARLANMARTIN_241611_ArrayExtremesViewModel` and its dedicated view. `FindExtremes()` parses row text into a rectangular `decimal[,]`, then scans it using nested loops initialized from the first cell. Strict comparisons preserve the first index for repeated extremes. See [arrays.md](arrays.md) for limits and validation.
 
 ### Separate array views: verification (2026-11-05)
 

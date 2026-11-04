@@ -69,7 +69,7 @@ Models are in `Models/Arrays/`; views are in `Views/Concepts/Arrays/`. POST meth
 |---|---|---|---|
 | 1 — Duplicate Finder | `JALOPARLANMARTIN_241611_DuplicateFinderViewModel.cs` | `JALOPARLANMARTIN_241611_DuplicateFinder.cshtml` | `FindDuplicates()` |
 | 2 — Array Sort | `JALOPARLANMARTIN_241611_ArraySortViewModel.cs` | `JALOPARLANMARTIN_241611_ArraySort.cshtml` | `SortValues()` |
-| 3 — Tic-Tac-Toe | `JALOPARLANMARTIN_241611_TicTacToeViewModel.cs` | `JALOPARLANMARTIN_241611_TicTacToe.cshtml` | `PlayMove()` |
+| 3 — Largest and Smallest | `JALOPARLANMARTIN_241611_ArrayExtremesViewModel.cs` | `JALOPARLANMARTIN_241611_ArrayExtremes.cshtml` | `FindExtremes()` |
 | 4 — Multiplication Table | `JALOPARLANMARTIN_241611_MultiplicationTableViewModel.cs` | `JALOPARLANMARTIN_241611_MultiplicationTable.cshtml` | `GenerateTable()` |
 | 5 — House Member Finder | `JALOPARLANMARTIN_241611_HouseMemberFinderViewModel.cs` | `JALOPARLANMARTIN_241611_HouseMemberFinder.cshtml` | `FindHouse()` |
 
