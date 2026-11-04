@@ -75,7 +75,15 @@ All working examples share `.example-split`, `.example-layout`, `.example-panel`
 
 ## Implemented loop examples
 
-See [loops.md](loops.md) for the five implemented loop examples, limits, protected game rounds and validation commands. `LoopsController` calculates every result. `LoopExampleViewModel` supplies shared presentation metadata, while typed input partials retain strongly typed Razor binding. `_LoopExample` owns the common form and panels; `LoopNumber` selects the canonical reset URL. `Services/ExampleStateTokens` uses ASP.NET Core Data Protection with separate guessing/quiz purposes to protect hidden round data. The two do…while actions recheck the submitted attempt history, stopping at a correct answer or attempt limit; each valid request appends only one attempt. No database or server session is used.
+See [loops.md](loops.md) for the five implemented loop examples, limits, protected game rounds and validation commands. `LoopsController` calculates every result. Each loop example has its own model file and complete Razor view, containing its inputs, validation, buttons, reset URL, teaching disclosure and results. `_ShowcaseWindow` selects that view by its model type. The former `_LoopExample` template, input fragments and `LoopNumber` ViewData lookup are removed. Form action names and button labels are written directly in each view instead of being stored in model metadata. Shared CSS and result/error hooks preserve the existing appearance and interactions.
+
+`LoopExampleViewModel` holds common result properties; `RetryLoopViewModel` shares protected state and attempt counters between the games. `GuessGameViewModel.cs` also contains its `GuessRound` record, while `QuizRetryViewModel.cs` contains `QuizRound`; `LoopQuizCatalog.cs` holds the question bank. `Services/ExampleStateTokens` uses ASP.NET Core Data Protection with separate guessing/quiz purposes to protect hidden round data. The two do…while actions recheck the submitted attempt history, stopping at a correct answer or attempt limit; each valid request appends only one attempt. No database or server session is used.
+
+## Dedicated example models
+
+All 20 examples have a model file named after their model type. The array, loop and login models were moved out of grouped files; their namespaces, validation rules, type names and controller contracts are preserved. Shared base models remain separate because their properties apply to several examples. Moving a type into another file does not change how MVC binds or validates it. Small supporting enums and result/round records stay beside the example that uses them.
+
+Use [mvc-example-map.md](mvc-example-map.md) to find each example's model, view and POST method. `ShowcaseViewModel` still carries the selected example model to the desktop view; it does not replace those dedicated models.
 
 ## Implemented array examples
 
