@@ -81,7 +81,9 @@ See [loops.md](loops.md) for the five implemented loop examples, limits, protect
 
 ## Dedicated example models
 
-All 20 examples have a model file named after their model type. The array, loop and login models were moved out of grouped files; their namespaces, validation rules, type names and controller contracts are preserved. Shared base models remain separate because their properties apply to several examples. Moving a type into another file does not change how MVC binds or validates it. Small supporting enums and result/round records stay beside the example that uses them.
+All 20 examples have a model file named after their model type. Model files are grouped into `Models/InputOutput/`, `Models/NestedIfElse/`, `Models/Loops/` and `Models/Arrays/`. Each category's base models and supporting catalogs live in that category folder. `ShowcaseViewModel.cs`, `ExampleCatalog.cs` and `ErrorViewModel.cs` stay at the root of `Models/` because they serve the application as a whole.
+
+The array, loop and login models were moved out of grouped files; their namespaces, validation rules, type names and controller contracts are preserved. All models continue to use the `_241611JalopFinalAssignment1.Models` namespace; the concept folders organize files without requiring new imports. Shared base models remain separate because their properties apply to several examples. Moving a type into another file does not change how MVC binds or validates it. Small supporting enums and result/round records stay beside the example that uses them.
 
 Use [mvc-example-map.md](mvc-example-map.md) to find each example's model, view and POST method. `ShowcaseViewModel` still carries the selected example model to the desktop view; it does not replace those dedicated models.
 

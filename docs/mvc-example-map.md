@@ -1,12 +1,25 @@
 # Example file map
 
-Each example has a dedicated model file under `241611JalopFinalAssignment1/Models/`. Its view lives under `241611JalopFinalAssignment1/Views/Concepts/<category>/`. Controllers live under `241611JalopFinalAssignment1/Controllers/`.
+Each example has a dedicated model file under `241611JalopFinalAssignment1/Models/<category>/`. Its view lives under `241611JalopFinalAssignment1/Views/Concepts/<category>/`. Controllers live under `241611JalopFinalAssignment1/Controllers/`.
+
+```text
+Models/
+├── InputOutput/    Five Input/Output example models
+├── NestedIfElse/   Five decision models and their shared base
+├── Loops/          Five loop models, shared bases and quiz catalog
+├── Arrays/         Five array models and their shared bases
+├── ShowcaseViewModel.cs
+├── ExampleCatalog.cs
+└── ErrorViewModel.cs
+```
+
+All model files retain the `_241611JalopFinalAssignment1.Models` namespace. C# folders organize the source files; they do not automatically change a type's namespace. Existing controller and Razor imports therefore continue to work.
 
 The model holds input, validation rules and results. The view displays them. The controller action handles the submitted form and calculates the result.
 
 ## Input/Output
 
-Views are in `InputOutput/`. POST methods are in `InputOutputController.cs`, except temperature conversion, which is in `ConceptsController.cs`.
+Models are in `Models/InputOutput/`; views are in `Views/Concepts/InputOutput/`. POST methods are in `InputOutputController.cs`, except temperature conversion, which is in `ConceptsController.cs`.
 
 | Example | Model file | Razor view | POST method |
 |---|---|---|---|
@@ -18,7 +31,7 @@ Views are in `InputOutput/`. POST methods are in `InputOutputController.cs`, exc
 
 ## Nested If…Else
 
-Views are in `NestedIfElse/`. POST methods are in `NestedIfElseController.cs`. These views still reuse shared decision-result, error and flow fragments.
+Models are in `Models/NestedIfElse/`; views are in `Views/Concepts/NestedIfElse/`. POST methods are in `NestedIfElseController.cs`. These views still reuse shared decision-result, error and flow fragments.
 
 | Example | Model file | Razor view | POST method |
 |---|---|---|---|
@@ -30,7 +43,7 @@ Views are in `NestedIfElse/`. POST methods are in `NestedIfElseController.cs`. T
 
 ## Loops
 
-Views are in `Loops/`. POST methods are in `LoopsController.cs`. Each view contains the complete form, validation feedback, teaching disclosure and result display for its example.
+Models are in `Models/Loops/`; views are in `Views/Concepts/Loops/`. POST methods are in `LoopsController.cs`. Each view contains the complete form, validation feedback, teaching disclosure and result display for its example.
 
 | Example | Model file | Razor view | POST method |
 |---|---|---|---|
@@ -42,7 +55,7 @@ Views are in `Loops/`. POST methods are in `LoopsController.cs`. Each view conta
 
 ## Arrays
 
-Views are in `Arrays/`. POST methods are in `ArraysController.cs`. Each view contains its own form and results.
+Models are in `Models/Arrays/`; views are in `Views/Concepts/Arrays/`. POST methods are in `ArraysController.cs`. Each view contains its own form and results.
 
 | Example | Model file | Razor view | POST method |
 |---|---|---|---|
