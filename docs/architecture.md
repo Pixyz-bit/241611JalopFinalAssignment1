@@ -79,9 +79,29 @@ See [loops.md](loops.md) for the five implemented loop examples, limits, protect
 
 ## Implemented array examples
 
-`ArraysController` handles the five array POST routes; `ConceptsController` initializes their GET models. `ArrayExampleViewModel` provides trusted view/action metadata and common result data. `_ArrayExample` supplies the same two-panel native form as the other categories, with typed input and result partials. One-dimensional examples use actual string/decimal arrays. Grid search and group organization validate flat form fields before copying them into rectangular C# arrays. Invalid collections are normalized before Razor indexes them.
+`ArraysController` handles the five array POST routes; `ConceptsController` initializes their GET models. `ArrayExampleViewModel` provides shared labels and result data. Each example has one complete, strongly typed Razor view in `Views/Concepts/Arrays/`, containing its form, validation feedback, buttons, empty state and results:
+
+| Example | Razor view | POST action in `ArraysController` |
+|---|---|---|
+| 1 — Duplicate Finder | `_DuplicateFinder.cshtml` | `FindDuplicates()` |
+| 2 — Array Sort | `_ArraySort.cshtml` | `SortValues()` |
+| 3 — Tic-Tac-Toe | `_TicTacToe.cshtml` | `PlayMove()` |
+| 4 — Multiplication Table | `_MultiplicationTable.cshtml` | `GenerateTable()` |
+| 5 — House Member Finder | `_HouseMemberFinder.cshtml` | `FindHouse()` |
+
+`_ShowcaseWindow` selects the view directly from the concrete `ArrayExample` model type. There is no shared `_ArrayExample` view or filename-based input/result selection. This keeps each example readable in one place while preserving the shared CSS, desktop, window, routes and JavaScript hooks. The models no longer carry form-action names or partial filenames; these are explicit in each view.
+
+For Example 1, follow `ConceptsController.Index()` → `DuplicateFinderViewModel` → `_ShowcaseWindow` → `_DuplicateFinder.cshtml`. Submitting its form calls `ArraysController.FindDuplicates()`, which parses the input through `TryReadValues()`, finds repeated values, and calls `Example()` to return the same page with results. One-dimensional examples use actual string/decimal arrays. The multiplication table stores products in an `int[,]`; House Member Finder copies validated rosters into a rectangular string array.
 
 `ExampleStateTokens` is the shared Data Protection codec for loop games and Tic-Tac-Toe. Its original root protection purpose remains unchanged so existing loop tokens continue to work; the separate `arrays-tic-tac-toe` purpose prevents token reuse across examples. The Tic-Tac-Toe controller reconstructs a `char[,]` from protected moves and derives the next player, winner and draw state server-side. Buttons submit cell positions through normal forms, including without JavaScript. See [arrays.md](arrays.md) for limits and validation.
+
+### Separate array views: verification (2026-11-05)
+
+- `dotnet build 241611JalopFinalAssignment1.sln`: passed with zero warnings/errors.
+- `node --test tests/arrays.test.cjs tests/navigation.test.cjs`: all 19 checks passed, including native/partial routes, antiforgery, valid/invalid submissions, duplicate normalization, sorting, game rounds, table products, house lookup and navigation history.
+- Browser review: duplicate results at 1366×900, multiplication and house forms at 390×844, all five example links, Back/Forward, Enter to play a Tic-Tac-Toe move, and maximize/minimize/restore/close.
+- Existing shared CSS, focus hooks and reduced-motion rules are reused; no new styles or animations were introduced. Reduced motion was not separately emulated in the browser.
+- Impeccable detector: no findings in the changed array views or window view.
 
 ## Adding your examples
 
