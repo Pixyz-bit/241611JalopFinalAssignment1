@@ -142,6 +142,8 @@ button:active, summary:active { opacity: .8; }
 .example-workspace { margin-top: 0; padding: 28px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); }
 .example-heading { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 6px; }
 .example-heading h4 { font-size: 22px; line-height: 1.4; font-weight: 550; letter-spacing: -.02em; margin: 0; }
+/* Keep loop metadata beside its title and together when the heading wraps on phones. */
+.example-heading .example-loop-type { display: inline-block; font-size: 14px; font-weight: 400; letter-spacing: normal; color: var(--muted); white-space: nowrap; }
 .status-pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 8px; font-size: 10px; background: #edf1f6; border-radius: 4px; color: #47596e; }
 .status-pill > span { width: 5px; height: 5px; background: #6d7f94; border-radius: 50%; }
 .detail-description { color: var(--muted); font-size: 12px; margin: 0 0 26px; }

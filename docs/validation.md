@@ -267,3 +267,7 @@ Moved Developed by Arlan Martin N. Jalop (SBIT3C) above the lower-left taskbar, 
 ### Removed desktop welcome block
 
 Removed the visible large title and Explore the concepts button, their CSS, and JavaScript dependencies. Kept a screen-reader-only page heading, category shortcuts, Start/taskbar navigation and corner credits. Closing an example now focuses the first desktop category. Build passed with zero warnings/errors; app rerun at localhost:5196 and all 11 navigation/example-name checks passed. Browser verified no welcome elements remain, Arrays opens normally, Close returns to desktop and focuses Input/Output. Review image: .tmp/desktop-without-welcome.png.
+
+### Loop type beside example titles
+
+Added the model's loop type beside all five loop example headings, matching the existing code disclosure and result metadata. Build passed with zero warnings/errors; app rerun at localhost:5196 and all 10 loop tests passed. Browser checked Pyramid Generator (for loop) on desktop and Number Guessing Game (do…while loop) at 320px with no horizontal page overflow. Reset viewport override. Review screenshot: .tmp/loop-title-type.png.
