@@ -47,7 +47,7 @@ public sealed class ConceptsController(ExampleStateTokens roundTokens) : Control
             Nested = category == "nested-if-else" ? example switch
             {
                 1 => new LoginAccessViewModel(),
-                2 => new GradeEvaluatorViewModel(),
+                2 => new LatinHonorsViewModel(),
                 3 => new BmiCalculatorViewModel(),
                 4 => new TriangleClassifierViewModel(),
                 5 => new LargestNumbersViewModel(),

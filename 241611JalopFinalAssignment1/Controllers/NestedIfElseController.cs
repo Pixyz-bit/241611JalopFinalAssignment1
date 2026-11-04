@@ -63,28 +63,41 @@ public sealed class NestedIfElseController : Controller
 
     [HttpPost("concepts/nested-if-else/example-2")]
     [ValidateAntiForgeryToken]
-    public IActionResult EvaluateGrade([Bind("Percentage")] GradeEvaluatorViewModel input)
+    public IActionResult EvaluateHonors([Bind("Gwa")] LatinHonorsViewModel input)
     {
-        if (ModelState.IsValid && input.Percentage is int score)
+        if (ModelState.IsValid && input.Gwa is decimal gwa)
         {
-            input.Decisions.Add("Valid percentage? Yes.");
-            // This decision runs only after the outer validation check succeeds.
-            if (score >= 75)
+            input.Decisions.Add("Valid GWA? Yes.");
+            if (gwa <= 1.25m) // The m suffix makes a C# number a decimal value.
             {
-                input.Decisions.Add("Percentage >= 75? Yes.");
-                input.Result = "Passed";
+                input.Decisions.Add("GWA <= 1.25? Yes.");
+                input.Result = "Summa Cum Laude";
             }
             else
             {
-                input.Decisions.Add("Percentage >= 75? No.");
-                input.Result = "Failed";
+                input.Decisions.Add("GWA <= 1.25? No.");
+                if (gwa <= 1.50m)
+                {
+                    input.Decisions.Add("GWA <= 1.50? Yes.");
+                    input.Result = "Magna Cum Laude";
+                }
+                else
+                {
+                    input.Decisions.Add("GWA <= 1.50? No.");
+                    if (gwa <= 1.75m)
+                    {
+                        input.Decisions.Add("GWA <= 1.75? Yes.");
+                        input.Result = "Cum Laude";
+                    }
+                    else
+                    {
+                        input.Decisions.Add("GWA <= 1.75? No.");
+                        input.Result = "No Latin Honors";
+                    }
+                }
             }
-            input.Detail = $"Final percentage: {score}%. Passing score: 75%.";
-        }
-        else
-        {
-            // The shared error summary explains invalid input instead of classifying it as Failed.
-            input.Decisions.Add("Valid percentage? No.");
+            // Preserve the entered precision so a near-boundary GWA is never misleadingly rounded.
+            input.Detail = $"GWA: {gwa.ToString("G29", System.Globalization.CultureInfo.InvariantCulture)}. Based on GWA only.";
         }
         return Example(2, input);
     }
