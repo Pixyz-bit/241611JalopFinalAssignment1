@@ -17,7 +17,7 @@ public sealed class ExampleStateTokens(IDataProtectionProvider provider)
         if (string.IsNullOrWhiteSpace(token) || token.Length > 8192) return false;
         try
         {
-            // The purpose keeps a quiz token from being reused as a guessing-game token.
+            // The purpose limits a token to the feature that created it.
             var json = provider.CreateProtector("Showcase.Loops", purpose, "v1").Unprotect(token);
             value = JsonSerializer.Deserialize<T>(json);
             return value is not null;

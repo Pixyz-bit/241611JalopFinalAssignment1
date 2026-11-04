@@ -48,7 +48,7 @@ public sealed class JALOPARLANMARTIN_241611_ConceptsController(ExampleStateToken
                 2 => new JALOPARLANMARTIN_241611_SumDigitsViewModel(),
                 3 => new JALOPARLANMARTIN_241611_PrimeFactorsViewModel(),
                 4 => new JALOPARLANMARTIN_241611_GuessGameViewModel { StateToken = roundTokens.Protect("guess", new JALOPARLANMARTIN_241611_GuessRound(RandomNumberGenerator.GetInt32(1, 101), new())) },
-                5 => NewQuiz(),
+                5 => new JALOPARLANMARTIN_241611_DigitCounterViewModel(),
                 _ => null
             } : null,
             // A switch chooses the typed form for each implemented decision slot.
@@ -69,12 +69,6 @@ public sealed class JALOPARLANMARTIN_241611_ConceptsController(ExampleStateToken
 
         return View("~/Views/Home/JALOPARLANMARTIN_241611_Index.cshtml", model); // Direct visits receive the complete page using the shared desktop view.
     }   
-
-    private JALOPARLANMARTIN_241611_QuizRetryViewModel NewQuiz()
-    {
-        var questionId = RandomNumberGenerator.GetInt32(JALOPARLANMARTIN_241611_LoopQuizCatalog.Questions.Count);
-        return new JALOPARLANMARTIN_241611_QuizRetryViewModel { QuestionId = questionId, StateToken = roundTokens.Protect("quiz", new JALOPARLANMARTIN_241611_QuizRound(questionId, new())) };
-    }
 
     //POST Request: processes the form for Temperature Converter
     [HttpPost("concepts/input-output/example-3")] // Handles a submitted form at this URL.

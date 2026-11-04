@@ -102,10 +102,10 @@
                         @* The model type selects this example's complete form and result view. *@
                         <partial name="~/Views/Concepts/Loops/JALOPARLANMARTIN_241611_NumberGuessingGame.cshtml" model="guess" />
                     }
-                    else if (Model.Loop is JALOPARLANMARTIN_241611_QuizRetryViewModel quiz)
+                    else if (Model.Loop is JALOPARLANMARTIN_241611_DigitCounterViewModel digitCounter)
                     {
                         @* The model type selects this example's complete form and result view. *@
-                        <partial name="~/Views/Concepts/Loops/JALOPARLANMARTIN_241611_QuizRetrySimulator.cshtml" model="quiz" />
+                        <partial name="~/Views/Concepts/Loops/JALOPARLANMARTIN_241611_DigitCounter.cshtml" model="digitCounter" />
                     }
                     else if (Model.ArrayExample is JALOPARLANMARTIN_241611_DuplicateFinderViewModel duplicates)
                     {

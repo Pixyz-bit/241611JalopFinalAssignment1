@@ -15,7 +15,8 @@ async function submit(number, fields, tokenRequired = true) {
     if (tokenRequired) body.set('__RequestVerificationToken', token);
     const cookies = page.headers.getSetCookie().map(cookie => cookie.split(';')[0]).join('; ');
     const response = await fetch(path(number), { method: 'POST', body, headers: { Cookie: cookies } });
-    return { response, html: decode(await response.text()) };
+    const raw = await response.text(); // Keep original HTML for encoding checks before decoding readable text.
+    return { response, raw, html: decode(raw) };
 }
 
 test('pyramid output preserves centering, row widths and encoded symbols', async () => {
@@ -128,56 +129,39 @@ test('a known incorrect guess eventually exhausts the bounded round', async () =
     }
 });
 
-function correctQuizAnswer(html) {
-    if (html.includes('Which loop executes')) return 2;
-    if (html.includes('When does a while')) return 0;
-    assert.ok(html.includes('How many iterations'));
-    return 1;
-}
-
-test('quiz retries keep the same question and finish on a correct answer', async () => {
-    const round = await freshRound(5);
-    const correct = correctQuizAnswer(round.html);
-    const wrong = (correct + 1) % 3;
-    const retry = await submit(5, { Answer: String(wrong), StateToken: round.token, QuestionId: '999' });
-    assert.equal(outcome(retry.html), 'Try again');
-    assert.ok(retry.html.includes('2 of 3 attempts remaining'));
-    assert.equal(correctQuizAnswer(retry.html), correct);
-    const success = await submit(5, { Answer: String(correct), StateToken: roundToken(retry.html) });
-    assert.equal(outcome(success.html), 'Correct!');
-    assert.ok(success.html.includes('1 of 3 attempts remaining'));
-    const extra = await submit(5, { Answer: String(wrong), StateToken: roundToken(success.html) });
-    assert.equal(outcome(extra.html), 'Correct!');
-});
-
-test('quiz stops after three incorrect answers and explains the correct answer', async () => {
-    const round = await freshRound(5);
-    const wrong = (correctQuizAnswer(round.html) + 1) % 3;
-    let token = round.token;
-    for (let attempt = 1; attempt <= 3; attempt++) {
-        const { html } = await submit(5, { Answer: String(wrong), StateToken: token });
-        token = roundToken(html);
-        assert.equal(outcome(html), attempt === 3 ? 'Attempts used' : 'Try again');
-        if (attempt === 3) assert.ok(html.includes('Answer:'));
+test('digit counter uses one iteration for zero and counts significant decimal digits', async () => {
+    for (const [Number, expected] of [['0', 1], ['7', 1], ['10', 2], ['4725', 4],
+        ['000472', 3], ['000000', 1], ['999999999999999999', 18], ['100000000000000000', 18]]) {
+        const { response, html } = await submit(5, { Number, Count: '999', Result: 'Forged' });
+        assert.equal(response.status, 200);
+        assert.equal(outcome(html), 'Digit count: ' + expected);
+        assert.equal((html.match(/<li>Count /g) || []).length, expected);
+        assert.ok(html.includes('Leading zeros are ignored; zero counts as one digit.'));
     }
-    const extra = await submit(5, { Answer: '0', StateToken: token });
-    assert.equal(outcome(extra.html), 'Attempts used');
-    assert.ok(extra.html.includes('0 of 3 attempts remaining'));
 });
 
-test('altered, missing and cross-game round values are rejected without progress', async () => {
+test('digit counter rejects missing, malformed and excessive input without results', async () => {
+    for (const fields of [{}, { Number: '' }, { Number: ' ' }, { Number: '-5' }, { Number: '+5' },
+        { Number: '2.5' }, { Number: '1e3' }, { Number: '12 34' }, { Number: '1,000' },
+        { Number: '９' }, { Number: '9'.repeat(19) }, { Number: '<script>alert(1)</script>' }]) {
+        const { response, html, raw } = await submit(5, { ...fields, Result: 'Forged' });
+        assert.equal(response.status, 200);
+        assert.match(html, /data-example-result[^>]*hidden/);
+        assert.ok(html.includes('data-loop-errors'));
+        assert.ok(html.includes('aria-invalid="true"'));
+        assert.ok(!raw.includes('<script>alert(1)</script>'));
+    }
+    const page = await (await fetch(path(5))).text();
+    assert.ok(!page.includes('name="StateToken"'), 'the digit counter needs no protected game round');
+});
+
+test('guessing game rejects missing or altered round values and invalid guesses', async () => {
     const guess = await freshRound(4);
-    const quiz = await freshRound(5);
-    for (const [number, fields] of [
-        [4, { Guess: '50' }], [4, { Guess: '50', StateToken: 'altered' }],
-        [4, { Guess: '50', StateToken: quiz.token }], [5, { Answer: '0', StateToken: guess.token }]
-    ]) {
-        const { html } = await submit(number, fields);
+    for (const fields of [{ Guess: '50' }, { Guess: '50', StateToken: 'altered' }]) {
+        const { html } = await submit(4, fields);
         assert.match(html, /data-example-result[^>]*hidden/);
         assert.ok(html.includes('data-loop-errors'));
     }
     const invalid = await submit(4, { Guess: '0', StateToken: guess.token });
     assert.ok(invalid.html.includes('10 of 10 attempts remaining'));
-    const invalidAnswer = await submit(5, { Answer: '3', StateToken: quiz.token });
-    assert.ok(invalidAnswer.html.includes('3 of 3 attempts remaining'));
 });

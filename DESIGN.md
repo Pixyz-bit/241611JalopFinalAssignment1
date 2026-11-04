@@ -251,7 +251,7 @@ The five decision examples use the shared two-panel layout, vertical labeled Pap
 
 ### Loop examples
 
-All five loop examples reuse the same Input/Result panels and responsive breakpoints. Inputs, reset links and a native loop-structure disclosure appear on the left. The right panel shows a 24–32px summary, a 12px explanation and ordered loop steps. The pyramid is an actual text artifact in 14px Consolas/monospace with preserved whitespace; wide pyramids scroll locally. Quiz prompts use the existing 13px body size. Guessing and quiz rounds show remaining attempts, keep inputs ready for retry and disable the submit action when complete, leaving New game or New quiz available. The disabled action uses reduced opacity and a disabled cursor. Linked errors and focused results match the decision examples. No new color or animation is introduced.
+All five loop examples reuse the same Input/Result panels and responsive breakpoints. Inputs, reset links and a native loop-structure disclosure appear on the left. The right panel shows a 24–32px summary, a 12px explanation and ordered loop steps. The pyramid is an actual text artifact in 14px Consolas/monospace with preserved whitespace; wide pyramids scroll locally. Digit Counter uses a single whole-number input and Count digits/Clear actions, with a do…while disclosure and ordered counting steps; zero counts as one digit and leading zeros are ignored. The guessing round shows remaining attempts, keeps its input ready for retry and disables the submit action when complete, leaving New game available. The disabled action uses reduced opacity and a disabled cursor. Linked errors and focused results match the decision examples. No new color or animation is introduced.
 
 ### Array examples
 

@@ -331,7 +331,6 @@ button:active, summary:active { opacity: .8; }
 .example-textarea { resize: vertical; min-height: 144px; line-height: 1.7; }
 /* Monospace preserves the centered pyramid; wide patterns scroll inside their result panel. */
 .loop-pyramid { max-width: 100%; margin: 4px 0; overflow-x: auto; font-family: Consolas, monospace; font-size: 14px; line-height: 1.5; white-space: pre; }
-.loop-question { margin: 0 0 16px; font-size: 13px; line-height: 1.7; }
 /* Indexed cells and locally scrolling tables expose array structure without changing the shared panels. */
 .array-values { display: grid; grid-template-columns: repeat(auto-fit, minmax(72px, 1fr)); gap: 8px; list-style: none; margin: 8px 0 0; padding: 0; }
 .array-values li { min-width: 0; display: flex; flex-direction: column; gap: 4px; padding: 10px; border: 1px solid var(--line); border-radius: var(--radius-control); background: var(--paper); overflow-wrap: anywhere; font-size: 13px; }

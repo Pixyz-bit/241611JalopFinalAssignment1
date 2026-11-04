@@ -16,7 +16,7 @@ public static class JALOPARLANMARTIN_241611_ExampleCatalog
         },
         ["loops"] = new[]
         {
-            "Pyramid Generator", "Sum of Digits", "Prime Factorization", "Number Guessing Game", "Quiz Retry Simulator"
+            "Pyramid Generator", "Sum of Digits", "Prime Factorization", "Number Guessing Game", "Digit Counter"
         },
         ["arrays"] = new[]
         {

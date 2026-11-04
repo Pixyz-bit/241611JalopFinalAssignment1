@@ -130,39 +130,23 @@ public sealed class JALOPARLANMARTIN_241611_LoopsController(ExampleStateTokens r
 
     [HttpPost("concepts/loops/example-5")]
     [ValidateAntiForgeryToken]
-    [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
-    public IActionResult RetryQuiz([Bind("Answer,StateToken")] JALOPARLANMARTIN_241611_QuizRetryViewModel input)
+    public IActionResult CountDigits([Bind("Number")] JALOPARLANMARTIN_241611_DigitCounterViewModel input)
     {
-        if (!roundTokens.TryRead<JALOPARLANMARTIN_241611_QuizRound>("quiz", input.StateToken, out var round) || round is null ||
-            round.QuestionId < 0 || round.QuestionId >= JALOPARLANMARTIN_241611_LoopQuizCatalog.Questions.Count || round.Answers is null || round.Answers.Count > input.AttemptLimit)
+        if (ModelState.IsValid)
         {
-            ModelState.AddModelError(nameof(input.StateToken), "This round is invalid. Choose New quiz to start again.");
-            return Example(5, input);
-        }
-        input.QuestionId = round.QuestionId;
-        input.AttemptsUsed = round.Answers.Count;
-        var correct = input.Question.CorrectAnswer;
-        var finished = round.Answers.Contains(correct) || round.Answers.Count >= input.AttemptLimit;
-        if (ModelState.IsValid && input.Answer is int answer && !finished) round.Answers.Add(answer);
-        if (ModelState.IsValid || finished)
-        {
-            var index = 0;
-            int current;
+            // Validation limits the text to 18 digits, which safely fit in an unsigned integer.
+            var remaining = ulong.Parse(input.Number!, CultureInfo.InvariantCulture);
+            var count = 0;
             do
             {
-                current = round.Answers[index];
-                input.Steps.Add($"Attempt {index + 1}: {input.Question.Options[current]} — {(current == correct ? "Correct" : "Incorrect")}.");
-                index++;
+                var digit = remaining % 10; // The remainder gives the rightmost digit.
+                count++; // Count before checking the condition so zero still has one digit.
+                remaining /= 10; // Integer division removes the digit just counted.
+                input.Steps.Add($"Count {digit}: {count} {(count == 1 ? "digit" : "digits")} counted; remaining number = {remaining}.");
             }
-            while (index < round.Answers.Count && current != correct && index < input.AttemptLimit);
-            input.AttemptsUsed = index;
-            input.IsFinished = current == correct || index >= input.AttemptLimit;
-            input.Result = current == correct ? "Correct!" : input.IsFinished ? "Attempts used" : "Try again";
-            input.Detail = input.IsFinished ? $"Answer: {input.Question.Options[correct]}. {input.Question.Explanation}" : $"That answer is incorrect. {input.AttemptsRemaining} attempts remaining.";
-            input.StateToken = roundTokens.Protect("quiz", round);
-            input.Answer = input.IsFinished ? current : null;
-            ModelState.Remove(nameof(input.Answer));
-            ModelState.Remove(nameof(input.StateToken));
+            while (remaining > 0); // Stop after the last digit has been removed.
+            input.Result = $"Digit count: {count}";
+            input.Detail = $"{input.Number} → {count} {(count == 1 ? "digit" : "digits")}. Leading zeros are ignored; zero counts as one digit.";
         }
         return Example(5, input);
     }
