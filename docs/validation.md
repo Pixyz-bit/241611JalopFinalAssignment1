@@ -243,3 +243,7 @@ Applied the existing Sidebar token to the entire navigation column, including th
 - Replaced Nested If…Else Example 2 with Latin Honors Evaluator, retaining its canonical route and shared design. One decimal GWA (1.00–5.00) drives nested if/else checks at 1.25, 1.50 and 1.75. Results state Based on GWA only; no subject-grade or additional eligibility inputs are evaluated.
 - Build passed with zero warnings/errors; reran at localhost:5196. All 44 tests passed, including all 401 hundredth-step values from 1.00 to 5.00, values just above each cutoff without rounding, invalid inputs, antiforgery, and updated full/partial navigation names.
 - Browser checked keyboard Enter at 1.50 → Magna Cum Laude, matching nested decision tree, edit-to-hide stale output and native Clear. Inspected desktop and 320×740 mobile; no horizontal page overflow and the decision tree scrolls locally. Reset viewport override. Review screenshot: .tmp/latin-honors-evaluator.png.
+
+### Editable default house rosters
+
+Changed all four house roster placeholders into actual editable values, seeded only on GET so posted edits and empty houses retain their submitted values. Removed every House Member Finder placeholder, including Member to find. Build passed with zero warnings/errors; reran the app at localhost:5196 and all 10 array regression tests passed. Browser verified Harry Potter is found in Gryffindor without entering any roster, Member to find has no placeholder, and Clear restores the sample rosters with an empty search. Review screenshot: .tmp/house-default-members.png.
