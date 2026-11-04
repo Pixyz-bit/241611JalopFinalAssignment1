@@ -1,0 +1,62 @@
+@model JALOPARLANMARTIN_241611_TicTacToeViewModel
+<div class="example-workspace example-split array-example">
+    <div class="example-heading"><h4>@Model.Title</h4></div>
+    @* This form posts directly to JALOPARLANMARTIN_241611_ArraysController.PlayMove(). *@
+    <form asp-controller="JALOPARLANMARTIN_241611_Arrays" asp-action="PlayMove" method="post" class="example-form example-layout" data-example-form>
+        <section class="example-panel example-input-panel" aria-labelledby="array-input-title">
+            <h5 id="array-input-title">Input</h5>
+            @* Errors link back to the inputs that need attention. *@
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="decision-errors" role="alert" tabindex="-1" data-array-errors>
+                    <h5>Check your inputs</h5>
+                    <ul>
+                        @foreach (var field in ViewData.ModelState)
+                        {
+                            // A game-token error links to New game; other errors link to their input.
+                            var target = field.Key == "StateToken" ? "array-reset" : field.Key;
+                            @foreach (var error in field.Value.Errors) { <li><a href="#@target">@error.ErrorMessage</a></li> }
+                        }
+                    </ul>
+                </div>
+            }
+            @* All input controls for this example are written below. *@
+            <input asp-for="StateToken" type="hidden" />
+            <span asp-validation-for="StateToken" id="board-state-error" class="temperature-errors"></span>
+            <p id="tic-help" class="example-hint tic-status">@(Model.IsFinished ? "Game complete." : $"{Model.CurrentPlayer} plays next. Choose an empty square.")</p>
+            @* Native buttons make each square usable with keyboard, touch and without JavaScript. *@
+            <div id="Cell" class="tic-board" role="group" aria-label="Tic-tac-toe board" aria-describedby="tic-help tic-error" aria-invalid="@(ViewData.ModelState[nameof(Model.Cell)]?.Errors.Count > 0 ? "true" : null)" tabindex="-1">
+                @for (var index = 0; index < 9; index++)
+                {
+                    var mark = Model.Board[index / 3, index % 3];
+                    var winning = Model.WinningCells.Contains(index);
+                    var label = $"Row {index / 3 + 1}, column {index % 3 + 1}, {(mark == '\0' ? "empty" : mark.ToString())}{(winning ? ", winning square" : "")}";
+                    <button type="submit" name="Cell" value="@index" class="tic-square @(winning ? "is-winning" : "")" disabled="@(mark != '\0' || Model.IsFinished || !Model.RoundValid)" aria-label="@label">@(mark == '\0' ? "" : mark.ToString())</button>
+                }
+            </div>
+            <span asp-validation-for="Cell" id="tic-error" class="temperature-errors"></span>
+            <div class="temperature-actions">
+                @* Each board square submits a move, so no separate Play button is needed. *@
+                <a id="array-reset" class="temperature-clear" href="/concepts/arrays/example-3">New game</a>
+            </div>
+        </section>
+        <section class="example-panel example-output-panel" aria-labelledby="array-result-title">
+            <h5 id="array-result-title">Result</h5>
+            <div class="example-result-status" role="status" aria-atomic="true">
+                @* Editing an input can restore this empty message through the shared JavaScript. *@
+                <p class="example-empty" data-example-empty hidden="@(Model.Result is not null)">Your result will appear here.</p>
+                <div class="example-result" data-example-result hidden="@(Model.Result is null)" tabindex="-1">
+                    <span class="example-result-label">@Model.Dimension</span>
+                    <strong>@Model.Result</strong>
+                    <span>@Model.Detail</span>
+                    @* Display the results that the controller stored in this example model. *@
+                    @if (Model.Moves.Count > 0)
+                    {
+                        <h6 class="decision-path-title">Move history</h6>
+                        <ol class="decision-path">@foreach (var move in Model.Moves) { <li>@move</li> }</ol>
+                    }
+                </div>
+            </div>
+        </section>
+    </form>
+</div>

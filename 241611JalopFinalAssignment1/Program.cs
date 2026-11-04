@@ -22,8 +22,9 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+// The default controller name includes the assignment prefix; public example routes stay explicit.
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=JALOPARLANMARTIN_241611_Home}/{action=Index}/{id?}");
 
 app.Run();

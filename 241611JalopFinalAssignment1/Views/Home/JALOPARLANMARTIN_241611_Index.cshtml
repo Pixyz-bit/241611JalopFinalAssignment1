@@ -1,0 +1,64 @@
+@model JALOPARLANMARTIN_241611_ShowcaseViewModel //receives from JALOPARLANMARTIN_241611_ShowcaseViewModel.cs.
+@{ ViewData["Title"] = Model.HasWindow ? Model.WindowTitle : "Desktop"; }
+<partial name="JALOPARLANMARTIN_241611_Icons" />
+<div class="desktop @(Model.HasWindow ? "has-window" : "")" data-desktop>
+    @* Canonical links keep the desktop usable when JavaScript controls are hidden. *@
+    <noscript><style>[data-search-open], [data-minimize], [data-maximize] { display: none !important; }</style></noscript>
+    <main id="main-content" class="desktop-workspace">
+        <h1 class="sr-only">C# Programming Showcase</h1>
+        <nav class="desktop-apps" aria-label="Programming concepts">
+            @foreach (var category in JALOPARLANMARTIN_241611_ConceptCatalog.Categories)
+            {
+                <a href="/concepts/@category.Slug/example-1" class="desktop-shortcut" data-navigate data-category="@category.Slug">
+                    @* The shared icon partial gives every category the same app identity across surfaces. *@
+                    <partial name="JALOPARLANMARTIN_241611_ConceptIcon" model="category" />
+                    <span class="shortcut-name">@category.Name</span><span class="shortcut-count">5 examples</span>
+                </a>
+            }
+        </nav>
+        <div id="window-host" class="window-host" aria-live="polite"><partial name="JALOPARLANMARTIN_241611_ShowcaseWindow" model="Model" /></div>
+        @* Desktop credits sit just above the taskbar and hide behind an open example window. *@
+        <p class="desktop-credit"><span>Developed by</span><br /><strong>Arlan Martin N. Jalop (SBIT3C)</strong></p>
+        <div class="desktop-signature"><strong>C# Programming Showcase</strong><span>IPT101 - Integrative Programming and Technology</span></div>
+    </main>
+    <footer class="taskbar">
+        <a class="taskbar-brand" href="/" data-navigate aria-label="Show desktop"><svg class="icon" aria-hidden="true"><use href="#icon-code" /></svg></a>
+        <nav class="taskbar-apps" aria-label="Desktop shortcuts">
+            @* Native details makes Start keyboard-accessible even without JavaScript. *@
+            <details class="start-menu" data-start-menu>
+                <summary class="taskbar-item start-button" aria-label="Open Start menu"><svg class="icon"><use href="#icon-start" /></svg><span class="taskbar-tooltip">Start</span></summary>
+                <div class="start-panel">
+                    <h2>C# Programming Showcase</h2>
+                    <div class="start-heading"><h3>Pinned</h3><span>4 concepts</span></div>
+                    <nav class="start-pinned" aria-label="Pinned concepts">
+                        @foreach (var category in JALOPARLANMARTIN_241611_ConceptCatalog.Categories)
+                        {
+                            <a href="/concepts/@category.Slug/example-1" data-navigate><partial name="JALOPARLANMARTIN_241611_ConceptIcon" model="category" /><span>@category.Name</span></a>
+                        }
+                    </nav>
+                    <div class="start-footer"><span><svg class="icon"><use href="#icon-code" /></svg> C# Programming</span><a href="/" data-navigate aria-label="Show desktop"><svg class="icon" aria-hidden="true"><use href="#icon-home" /></svg></a></div>
+                </div>
+            </details>
+            @foreach (var category in JALOPARLANMARTIN_241611_ConceptCatalog.Categories)
+            {
+                <a class="taskbar-item" href="/concepts/@category.Slug/example-1" data-navigate data-category="@category.Slug" aria-label="@category.Name"><partial name="JALOPARLANMARTIN_241611_ConceptIcon" model="category" /><span class="taskbar-tooltip">@category.Name</span><span class="taskbar-indicator"></span></a>
+            }
+        </nav>
+        <div class="taskbar-tray"><time class="desktop-clock" data-clock datetime="@DateTimeOffset.UtcNow.ToString("o")">@DateTime.UtcNow.ToString("HH:mm")</time><a href="/" class="show-desktop" data-navigate aria-label="Show desktop"></a></div>
+    </footer>
+</div>
+
+<dialog class="search-dialog" data-search-dialog aria-labelledby="search-title">
+    <div class="search-heading"><h2 id="search-title">Find a concept</h2><button class="plain-button" type="button" data-search-close aria-label="Close search"><svg class="icon"><use href="#icon-close" /></svg></button></div>
+    <label class="search-field"><svg class="icon"><use href="#icon-search" /></svg><span class="sr-only">Search concept names and descriptions</span><input type="search" placeholder="Search your concepts" data-search-input autocomplete="off" /></label>
+    <p class="search-caption">Your collection</p>
+    <nav class="search-results" aria-label="Search results">
+        @foreach (var category in JALOPARLANMARTIN_241611_ConceptCatalog.Categories)
+        {
+            <a href="/concepts/@category.Slug/example-1" class="search-result" data-navigate data-search-text="@category.Name @category.Description"><partial name="JALOPARLANMARTIN_241611_ConceptIcon" model="category" /><span>@category.Name<small>5 example slots</small></span><svg class="icon"><use href="#icon-chevron" /></svg></a>
+        }
+    </nav>
+    <p class="search-empty" hidden>No concepts match. Try “input”, “loops”, or “arrays”.</p>
+    <p class="search-footer">Select an app to explore its examples.</p>
+</dialog>
+<div class="navigation-notice" role="status" hidden>Opening…</div>

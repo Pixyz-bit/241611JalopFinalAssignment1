@@ -1,0 +1,12 @@
+@model JALOPARLANMARTIN_241611_NestedExampleViewModel
+@{
+    // Append encodes text safely; only the fixed strong tags are trusted markup.
+    var tree = new Microsoft.AspNetCore.Html.HtmlContentBuilder();
+    foreach (var piece in System.Text.RegularExpressions.Regex.Split(Model.Flow, @"\b(Yes|No)(?=:)"))
+    {
+        if (piece is "Yes" or "No") tree.AppendHtml("<strong>").Append(piece).AppendHtml("</strong>");
+        else tree.Append(piece);
+    }
+}
+@* Building one text stream avoids inserting markup whitespace into the branch lines. *@
+<details class="decision-flow"><summary>How the decisions work</summary><pre class="decision-tree" tabindex="0" aria-label="@Model.Title decision tree">@tree</pre></details>

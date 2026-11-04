@@ -1,0 +1,19 @@
+@model JALOPARLANMARTIN_241611_BmiCalculatorViewModel
+<div class="example-workspace example-split nested-example">
+    <div class="example-heading"><h4>@Model.Title</h4></div>
+    @* Inputs and teaching notes stay together; the shared Result panel remains visible beside them. *@
+    <form asp-controller="JALOPARLANMARTIN_241611_NestedIfElse" asp-action="CalculateBmi" method="post" class="example-form example-layout" data-example-form>
+        <section class="example-panel example-input-panel" aria-labelledby="decision-input-title">
+            <h5 id="decision-input-title">Input</h5>
+            <partial name="~/Views/Concepts/NestedIfElse/JALOPARLANMARTIN_241611_DecisionErrors.cshtml" model="Model" />
+            @* Unit labels prevent confusing a height in centimeters with the formula's meters. *@
+            <div class="example-fields">
+                <div><label asp-for="Weight">Weight (kg)</label><input asp-for="Weight" class="example-input" type="number" step="any" min="0.000001" max="1000000000" required placeholder="For example, 60" aria-describedby="weight-error" aria-invalid="@(ViewData.ModelState[nameof(Model.Weight)]?.Errors.Count > 0 ? "true" : null)" /><span asp-validation-for="Weight" id="weight-error" class="temperature-errors"></span></div>
+                <div><label asp-for="Height">Height (m)</label><input asp-for="Height" class="example-input" type="number" step="any" min="0.000001" max="1000000000" required placeholder="For example, 1.65" aria-describedby="height-error" aria-invalid="@(ViewData.ModelState[nameof(Model.Height)]?.Errors.Count > 0 ? "true" : null)" /><span asp-validation-for="Height" id="height-error" class="temperature-errors"></span></div>
+            </div>
+            <div class="temperature-actions"><button class="temperature-confirm" type="submit">Calculate BMI</button><a class="temperature-clear" href="/concepts/nested-if-else/example-3">Clear</a></div>
+            <partial name="~/Views/Concepts/NestedIfElse/JALOPARLANMARTIN_241611_DecisionFlow.cshtml" model="Model" />
+        </section>
+        <partial name="~/Views/Concepts/NestedIfElse/JALOPARLANMARTIN_241611_DecisionResult.cshtml" model="Model" />
+    </form>
+</div>
