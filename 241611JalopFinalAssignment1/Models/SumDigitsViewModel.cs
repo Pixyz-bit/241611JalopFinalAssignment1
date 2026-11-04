@@ -8,9 +8,6 @@ public sealed class SumDigitsViewModel : LoopExampleViewModel
     public override string Title => ExampleCatalog.GetTitle("loops", 2);
     public override string Description => "Use a while loop to extract each digit and add it to a running total.";
     public override string LoopKind => "while";
-    public override string ActionName => "SumDigits";
-    public override string SubmitLabel => "Calculate";
-    public override string InputPartial => "_SumDigitsInputs";
     public override string Code => "while (remaining > 0)\n{\n    sum += (int)(remaining % 10);\n    remaining /= 10;\n}";
 
     // Text binding preserves up to 18 exact decimal digits without browser number rounding.

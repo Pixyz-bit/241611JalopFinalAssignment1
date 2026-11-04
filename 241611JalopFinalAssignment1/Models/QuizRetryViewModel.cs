@@ -7,10 +7,6 @@ public sealed class QuizRetryViewModel : RetryLoopViewModel
 {
     public override string Title => ExampleCatalog.GetTitle("loops", 5);
     public override string Description => "Answer a C# loop question. A do…while loop checks your answers until correct or three attempts are used.";
-    public override string ActionName => "RetryQuiz";
-    public override string SubmitLabel => "Check answer";
-    public override string ClearLabel => "New quiz";
-    public override string InputPartial => "_QuizInputs";
     public override int AttemptLimit => 3;
     public override string Code => "int index = 0;\ndo\n{\n    answer = answers[index];\n    // Check this answer and record feedback.\n    index++;\n}\nwhile (index < answers.Count && answer != correctAnswer\n       && index < 3);";
     public int QuestionId { get; set; } // Set from trusted round data, never from a posted field.

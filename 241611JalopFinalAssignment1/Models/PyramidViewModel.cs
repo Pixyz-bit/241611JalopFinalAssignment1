@@ -8,9 +8,6 @@ public sealed class PyramidViewModel : LoopExampleViewModel
     public override string Title => ExampleCatalog.GetTitle("loops", 1);
     public override string Description => "Build a centered pyramid one row at a time using nested for loops.";
     public override string LoopKind => "for";
-    public override string ActionName => "GeneratePyramid";
-    public override string SubmitLabel => "Generate";
-    public override string InputPartial => "_PyramidInputs";
     public override string Code => "for (int row = 1; row <= rows; row++)\n{\n    // Add rows - row leading spaces.\n    // Add row symbols, with one space between them.\n}";
 
     [Required(ErrorMessage = "Enter the number of rows.")]

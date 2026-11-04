@@ -82,11 +82,30 @@
                     {
                         <partial name="~/Views/Concepts/NestedIfElse/_LargestNumbers.cshtml" model="largest" />
                     }
-                    else if (Model.Loop is not null)
+                    else if (Model.Loop is PyramidViewModel pyramid)
                     {
-                        @* One shared loop template keeps the five forms visually consistent. *@
-                        ViewData["LoopNumber"] = Model.Example;
-                        <partial name="~/Views/Concepts/Loops/_LoopExample.cshtml" model="Model.Loop" />
+                        @* The model type selects this example's complete form and result view. *@
+                        <partial name="~/Views/Concepts/Loops/_PyramidGenerator.cshtml" model="pyramid" />
+                    }
+                    else if (Model.Loop is SumDigitsViewModel digits)
+                    {
+                        @* The model type selects this example's complete form and result view. *@
+                        <partial name="~/Views/Concepts/Loops/_SumOfDigits.cshtml" model="digits" />
+                    }
+                    else if (Model.Loop is PrimeFactorsViewModel factors)
+                    {
+                        @* The model type selects this example's complete form and result view. *@
+                        <partial name="~/Views/Concepts/Loops/_PrimeFactorization.cshtml" model="factors" />
+                    }
+                    else if (Model.Loop is GuessGameViewModel guess)
+                    {
+                        @* The model type selects this example's complete form and result view. *@
+                        <partial name="~/Views/Concepts/Loops/_NumberGuessingGame.cshtml" model="guess" />
+                    }
+                    else if (Model.Loop is QuizRetryViewModel quiz)
+                    {
+                        @* The model type selects this example's complete form and result view. *@
+                        <partial name="~/Views/Concepts/Loops/_QuizRetrySimulator.cshtml" model="quiz" />
                     }
                     else if (Model.ArrayExample is DuplicateFinderViewModel duplicates)
                     {

@@ -1,4 +1,0 @@
-@model SumDigitsViewModel
-<label asp-for="Number">Whole number</label>
-<input asp-for="Number" inputmode="numeric" maxlength="18" pattern="[0-9]{1,18}" required class="example-input" aria-invalid="@(ViewData.ModelState[nameof(Model.Number)]?.Errors.Count > 0 ? "true" : null)" aria-describedby="number-error" placeholder="For example, 472" />
-<span asp-validation-for="Number" id="number-error" class="temperature-errors"></span>
