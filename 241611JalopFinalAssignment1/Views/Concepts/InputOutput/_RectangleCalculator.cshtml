@@ -28,16 +28,15 @@
                     <div class="rectangle-metric">
                         <h6>Area</h6>
                         <strong class="example-result-value" data-rectangle-area>@Model.Area?.ToString("0.########") square units</strong>
-                        <p class="example-result-formula example-result-label">Area = length × width</p>
+                        <p class="example-result-formula example-result-label">Area = length × width</p> <!-- @Model.Length × @Model.Width-->
                     </div>
                     <div class="rectangle-metric">
                         <h6>Perimeter</h6>
                         <strong class="example-result-value" data-rectangle-perimeter>@Model.Perimeter?.ToString("0.########") units</strong>
-                        <p class="example-result-formula example-result-label">Perimeter = 2 × (length + width)</p>
+                        <p class="example-result-formula example-result-label">Perimeter = 2 × (length + width)</p> <!-- 2 * (@Model.Length + @Model.Width)-->
                     </div>
                 </div>
             </div>
-            <p class="example-result-note">Results shown to up to 8 decimal places.</p>
         </section>
     </form>
 </div>

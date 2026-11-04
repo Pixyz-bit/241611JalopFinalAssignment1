@@ -10,8 +10,8 @@ public sealed class InputOutputController : Controller
     {
         if (ModelState.IsValid && input.Length is decimal length && input.Width is decimal width)
         {
-            input.Area = length * width; // Area counts the square units inside the rectangle.
-            input.Perimeter = 2 * (length + width); // Perimeter adds the lengths of all four sides.
+            input.Area = length * width; 
+            input.Perimeter = 2 * (length + width); 
         }
         return View("~/Views/Home/Index.cshtml", new ShowcaseViewModel(ConceptCatalog.Find("input-output"), 2) { Rectangle = input });
     }

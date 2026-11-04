@@ -22,8 +22,9 @@ public sealed class ConceptsController(ExampleStateTokens roundTokens) : Control
         {
             IdCard = category == "input-output" && example == 1 ? new IdCardViewModel() : null,
             Rectangle = category == "input-output" && example == 2 ? new RectangleCalculatorViewModel() : null,
-            TextCounter = category == "input-output" && example == 5 ? new TextCounterViewModel() : null,
+            Temperature = category == "input-output" && example == 3 ? new TemperatureConverterViewModel() : null,
             Time = category == "input-output" && example == 4 ? new TimeConverterViewModel() : null,
+            TextCounter = category == "input-output" && example == 5 ? new TextCounterViewModel() : null,
             ArrayExample = category == "arrays" ? example switch
             {
                 1 => new DuplicateFinderViewModel(),
@@ -60,8 +61,7 @@ public sealed class ConceptsController(ExampleStateTokens roundTokens) : Control
                 5 => new LargestNumbersViewModel(),
                 _ => null
             } : null,
-            Temperature =
-                category == "input-output" && example == 3 ? new TemperatureConverterViewModel() : null,
+            
         };
 
         if (Request.Headers["X-Showcase-Partial"] == "true")

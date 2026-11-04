@@ -1,4 +1,4 @@
-@model ShowcaseViewModel
+@model ShowcaseViewModel //receives from ShowcaseViewModel.cs.
 @{ ViewData["Title"] = Model.HasWindow ? Model.WindowTitle : "Desktop"; }
 <partial name="_Icons" />
 <div class="desktop @(Model.HasWindow ? "has-window" : "")" data-desktop>
@@ -47,6 +47,7 @@
         <div class="taskbar-tray"><time class="desktop-clock" data-clock datetime="@DateTimeOffset.UtcNow.ToString("o")">@DateTime.UtcNow.ToString("HH:mm")</time><a href="/" class="show-desktop" data-navigate aria-label="Show desktop"></a></div>
     </footer>
 </div>
+
 <dialog class="search-dialog" data-search-dialog aria-labelledby="search-title">
     <div class="search-heading"><h2 id="search-title">Find a concept</h2><button class="plain-button" type="button" data-search-close aria-label="Close search"><svg class="icon"><use href="#icon-close" /></svg></button></div>
     <label class="search-field"><svg class="icon"><use href="#icon-search" /></svg><span class="sr-only">Search concept names and descriptions</span><input type="search" placeholder="Search your concepts" data-search-input autocomplete="off" /></label>

@@ -42,11 +42,9 @@ public sealed record ShowcaseViewModel(
     ConceptCategory? Category = null, // Selected category; null means no category is selected.
     int? Example = null) // Selected example number; null means no example is selected.
 {
-    public bool HasWindow => Category is not null; // A selected category opens its example window.
-
+    public bool HasWindow => Category is not null; // This line doesn’t open a window itself. The view reads this value to decide what to display.
     public string WindowTitle => Category?.Name ?? "Desktop"; // Use the category name, or Desktop when no window is open.
 
-    // Example 3 can carry its form data alongside the existing page selection.
     public TemperatureConverterViewModel? Temperature { get; init; }
     public IdCardViewModel? IdCard { get; init; } // Example 1 text-only ID data.
     public RectangleCalculatorViewModel? Rectangle { get; init; } // Example 2 dimensions and calculated measurements.
@@ -56,6 +54,6 @@ public sealed record ShowcaseViewModel(
     public LoopExampleViewModel? Loop { get; init; } // Typed inputs and server-generated loop output.
     public ArrayExampleViewModel? ArrayExample { get; init; } // One- or two-dimensional array presentation data.
 
-    // Working examples share the input/result layout; empty slots keep their existing template.
+    // “Return true if Temperature exists, OR IdCard exists, OR Rectangle exists, and so on.”.
     public bool HasImplementedExample => Temperature is not null || IdCard is not null || Rectangle is not null || TextCounter is not null || Time is not null || Nested is not null || Loop is not null || ArrayExample is not null;
 }
