@@ -52,7 +52,7 @@ function setup(initialPath = '/', initialHtml = '', { storage = new Map(), stora
     const nodes = new Map([
         ['[data-desktop]', element()], ['[data-search-dialog]', element()],
         ['[data-search-input]', element()], ['.navigation-notice', element()],
-        ['.welcome', element()], ['.welcome-action', element()], ['[data-clock]', element()]
+        ['.desktop-shortcut', element()], ['[data-clock]', element()]
     ]);
     const requests = [];
     const fallbacks = [];

@@ -287,10 +287,9 @@ The entire category navigation column, including its icon/title header, uses the
 
 Arrays Example 4 is Multiplication Table: two vertical dimension inputs and a result table with factor headers. Large products stay on one line and scroll locally in a keyboard-focusable region. Example 5 is House Member Finder: four vertical comma-separated house rosters, then Member to find and Find house/Clear. Roster textareas use a compact 64px minimum height and remain resizable; matching houses use the existing result heading and table. Both reuse the shared light Input/Result panels, error summary, navigation, mobile stacking and focus behavior without new colors or animation. These replace Number Search in a Grid and Group Member Organizer.
 
-### Compact desktop welcome
+### Desktop without a welcome block
 
-The desktop welcome sits beside the shortcut rail, 176–240px from the left edge and 80–180px from the top, with a maximum width of 660px. C# Programming and Showcase use the original 40–72px heading at weights 450/650 without a trailing period. A soft dark text shadow improves separation from the wallpaper. A 24px gap separates the welcome title and action; developer credit appears separately above the taskbar. Explore the concepts is a compact 44px-high button with one trailing arrow. The lower-right signature shows C# Programming Showcase above IPT101 - Integrative Programming and Technology. Phones keep the established stacked desktop layout with the original 35–54px responsive heading; short phones scroll to keep the welcome and shortcut row separate. Wallpaper, application windows and taskbar retain their approved design.
-
+The large desktop welcome heading and Explore the concepts button are removed. Category shortcuts, Start and taskbar provide canonical navigation. A screen-reader-only page heading retains document structure. Closing an example returns keyboard focus to the first category shortcut. The lower-left developer credit and lower-right project/course signature remain above the taskbar, along with the <pixyz-bit/> taskbar label. No empty welcome container or welcome-specific spacing remains.
 
 Rectangle results use two plain metric groups separated by 28px. Each group contains a 13px, weight-550 heading, the shared 24–32px value, and a muted 12px formula, with 6px spacing within the group. This keeps formulas attached to their value and gives Area and Perimeter equal hierarchy without adding cards or changing the panel palette.
 

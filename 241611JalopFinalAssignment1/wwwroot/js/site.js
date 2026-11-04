@@ -39,7 +39,6 @@
         const windowElement = host.querySelector('[data-window]');
         const category = windowElement?.dataset.category;
         desktop.classList.toggle('has-window', Boolean(windowElement) && !minimized);
-        document.querySelector('.welcome').inert = Boolean(windowElement) && !minimized;
         windowElement?.classList.toggle('is-minimized', minimized);
         windowElement?.classList.toggle('is-maximized', maximized);
         const maximize = windowElement?.querySelector('[data-maximize]');
@@ -120,7 +119,8 @@
             syncDesktop();
             const detail = host.querySelector('.example-detail'); // Focus the selected example after navigation.
             if (detail) detail.focus({ preventScroll: true });
-            else if (!host.querySelector('[data-window]')) document.querySelector('.welcome-action').focus({ preventScroll: true });
+            // Return keyboard users to the first category when closing the example window.
+            else if (!host.querySelector('[data-window]')) document.querySelector('.desktop-shortcut')?.focus({ preventScroll: true });
             else {
                 const title = host.querySelector('#window-title');
                 title.setAttribute('tabindex', '-1');

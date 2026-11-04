@@ -5,6 +5,7 @@
     @* Canonical links keep the desktop usable when JavaScript controls are hidden. *@
     <noscript><style>[data-search-open], [data-minimize], [data-maximize] { display: none !important; }</style></noscript>
     <main id="main-content" class="desktop-workspace">
+        <h1 class="sr-only">C# Programming Showcase</h1>
         <nav class="desktop-apps" aria-label="Programming concepts">
             @foreach (var category in ConceptCatalog.Categories)
             {
@@ -15,10 +16,6 @@
                 </a>
             }
         </nav>
-        <section class="welcome" aria-label="Welcome" inert="@(Model.HasWindow ? "inert" : null)">
-            <h1>C# Programming<br /><span>Showcase</span></h1>
-            <a href="/concepts/input-output/example-1" class="welcome-action" data-navigate>Explore the concepts <svg class="icon" aria-hidden="true"><use href="#icon-arrow" /></svg></a>
-        </section>
         <div id="window-host" class="window-host" aria-live="polite"><partial name="_ShowcaseWindow" model="Model" /></div>
         @* Desktop credits sit just above the taskbar and hide behind an open example window. *@
         <p class="desktop-credit"><span>Developed by</span><br /><strong>Arlan Martin N. Jalop (SBIT3C)</strong></p>

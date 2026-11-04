@@ -20,7 +20,7 @@ a, button, summary { touch-action: manipulation; }
 button:active, summary:active { opacity: .8; }
 ::selection { background: #b8dafa; color: #102d4b; }
 :focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
-.desktop-shortcut:focus-visible, .welcome-action:focus-visible { outline-color: #d6eaff; }
+.desktop-shortcut:focus-visible { outline-color: #d6eaff; }
 [hidden] { display: none !important; }
 .icon { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; flex: 0 0 auto; }
 .icon-definitions { position: absolute; width: 0; height: 0; overflow: hidden; }
@@ -36,15 +36,6 @@ button:active, summary:active { opacity: .8; }
 .desktop-shortcut:hover, .desktop-shortcut[aria-current=page] { background: rgb(198 225 255 / .15); border-color: rgb(211 234 255 / .2); }
 .shortcut-name { font-size: 12px; font-weight: 450; line-height: 1.5; }
 .shortcut-count { font-size: 10px; color: #e0ebff; }
-/* Place the compact welcome beside the shortcut rail, over the darker left side of the wallpaper. */
-.welcome { position: absolute; left: clamp(176px, 12vw, 240px); right: 28px; top: clamp(80px, 18vh, 180px); color: var(--desktop-text); max-width: 660px; transition: opacity 180ms var(--ease); }
-/* Restore the original title scale; a dark, soft shadow separates it from the blue wallpaper. */
-.welcome h1 { font-size: clamp(40px, 4.7vw, 72px); line-height: 1.12; font-weight: 450; letter-spacing: -.04em; margin: 0 0 24px; text-shadow: 0 2px 6px rgb(2 14 40 / .75), 0 8px 24px rgb(2 14 40 / .5); }
-.welcome h1 span { font-weight: 650; }
-.welcome-action { display: inline-flex; align-items: center; gap: 12px; background: #eef6ff; color: #123a65; padding: 10px 16px; min-height: 44px; border-radius: 5px; box-shadow: 0 4px 14px rgb(2 19 48 / .14); font-size: 13px; font-weight: 550; }
-.welcome-action .icon { width: 16px; }
-.welcome-action:hover { background: #d9eaff; }
-.has-window .welcome { opacity: 0; visibility: hidden; pointer-events: none; }
 .has-window .desktop-signature, .has-window .desktop-credit { visibility: hidden; } /* Hide desktop credits behind the active example. */
 /* Separate left author credit and right project/course credit without crossing the taskbar. */
 .desktop-credit, .desktop-signature { position: absolute; bottom: 24px; max-width: calc(50% - 40px); color: #d6e5fc; line-height: 1.6; text-shadow: 0 1px 4px #061a40; }
@@ -210,9 +201,6 @@ button:active, summary:active { opacity: .8; }
     .shortcut-count { font-size: 9px; }
     .desktop-shortcut > .app-icon { width: 48px; height: 48px; border-radius: 11px; }
     .desktop-shortcut > .app-icon .icon { width: 27px; height: 27px; }
-    .welcome { left: 28px; right: 20px; top: clamp(40px, 12vh, 100px); }
-    .welcome h1 { font-size: clamp(35px, 8.5vw, 54px); }
-    .welcome-action { font-size: 12px; padding-inline: 12px; gap: 8px; }
     .desktop-signature { display: none; }
     .desktop-credit { left: 18px; right: 18px; bottom: 12px; max-width: none; font-size: 11px; text-align: center; }
     .has-window .desktop-apps { visibility: hidden; }
@@ -257,16 +245,9 @@ button:active, summary:active { opacity: .8; }
     .example-detail { padding: 24px; }
 }
 @media (max-height: 500px) {
-    .welcome { top: 30px; }
-    .welcome h1 { font-size: 34px; margin-bottom: 12px; }
     .window-host { top: 6px; bottom: calc(var(--taskbar-height) + 6px); }
     .app-sidebar { padding-top: 10px; }
     .app-page-heading { padding: 12px 18px; }
-}
-/* Let a short phone scroll its desktop instead of placing shortcuts over the welcome action. */
-@media (max-width: 720px) and (max-height: 500px) {
-    .desktop:not(.has-window) { padding-bottom: var(--taskbar-height); }
-    .desktop:not(.has-window) .desktop-workspace { min-height: 440px; }
 }
 /* Start and all four category shortcuts remain visible on narrow phones. */
 @media (max-width: 360px) { .taskbar-apps { gap: 0; } .start-footer { flex-wrap: wrap; } .app-page-heading { gap: 10px; } .example-detail { padding: 20px 14px; } }
