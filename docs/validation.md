@@ -271,3 +271,7 @@ Removed the visible large title and Explore the concepts button, their CSS, and 
 ### Loop type beside example titles
 
 Added the model's loop type beside all five loop example headings, matching the existing code disclosure and result metadata. Build passed with zero warnings/errors; app rerun at localhost:5196 and all 10 loop tests passed. Browser checked Pyramid Generator (for loop) on desktop and Number Guessing Game (do…while loop) at 320px with no horizontal page overflow. Reset viewport override. Review screenshot: .tmp/loop-title-type.png.
+
+### Start menu control cleanup
+
+Removed the Start search button and its unused CSS, plus the visible Show desktop footer text. Kept the canonical home link, icon, accessible label and 44px target. Build passed with zero warnings/errors; app rerun at localhost:5196 and all 9 navigation tests passed. Browser verified Start opens without the search button or visible desktop text and Ctrl+K still opens Find a concept. Screenshot: .tmp/start-menu-cleanup.png. Existing unrelated user edits in Index.cshtml and other files were excluded from the cleanup commit.
