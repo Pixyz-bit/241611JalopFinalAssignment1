@@ -8,10 +8,6 @@ public sealed class MultiplicationTableViewModel : ArrayExampleViewModel
     public override string Title => ExampleCatalog.GetTitle("arrays", 4);
     public override string Description => "Generate products in a two-dimensional array.";
     public override string Dimension => "Two-dimensional array";
-    public override string ActionName => "GenerateTable";
-    public override string SubmitLabel => "Generate table";
-    public override string InputPartial => "_MultiplicationInputs";
-    public override string ResultPartial => "_MultiplicationResult";
     [Required(ErrorMessage = "Enter the number of rows.")]
     [Range(1, 12, ErrorMessage = "Use 1–12 rows.")]
     public int? Rows { get; set; }
@@ -27,10 +23,6 @@ public sealed class HouseMemberFinderViewModel : ArrayExampleViewModel
     public override string Title => ExampleCatalog.GetTitle("arrays", 5);
     public override string Description => "Find a member in four house rosters stored as a two-dimensional array.";
     public override string Dimension => "Two-dimensional array";
-    public override string ActionName => "FindHouse";
-    public override string SubmitLabel => "Find house";
-    public override string InputPartial => "_HouseInputs";
-    public override string ResultPartial => "_HouseResult";
     public static IReadOnlyList<string> Houses { get; } = Array.AsReadOnly(new[] { "Gryffindor", "Slytherin", "Ravenclaw", "Hufflepuff" });
     [StringLength(1220, ErrorMessage = "Use at most 1,220 characters for Gryffindor.")]
     public string? Gryffindor { get; set; }

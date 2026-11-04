@@ -1,6 +1,0 @@
-@model TicTacToeViewModel
-@if (Model.Moves.Count > 0)
-{
-    <h6 class="decision-path-title">Move history</h6>
-    <ol class="decision-path">@foreach (var move in Model.Moves) { <li>@move</li> }</ol>
-}

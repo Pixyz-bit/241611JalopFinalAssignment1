@@ -88,9 +88,30 @@
                         ViewData["LoopNumber"] = Model.Example;
                         <partial name="~/Views/Concepts/Loops/_LoopExample.cshtml" model="Model.Loop" />
                     }
-                    else if (Model.ArrayExample is not null)
+                    else if (Model.ArrayExample is DuplicateFinderViewModel duplicates)
                     {
-                        <partial name="~/Views/Concepts/Arrays/_ArrayExample.cshtml" model="Model.ArrayExample" />
+                        @* Select the complete view for this example using its model type. *@
+                        <partial name="~/Views/Concepts/Arrays/_DuplicateFinder.cshtml" model="duplicates" />
+                    }
+                    else if (Model.ArrayExample is ArraySortViewModel sort)
+                    {
+                        @* Select the complete view for this example using its model type. *@
+                        <partial name="~/Views/Concepts/Arrays/_ArraySort.cshtml" model="sort" />
+                    }
+                    else if (Model.ArrayExample is TicTacToeViewModel ticTacToe)
+                    {
+                        @* Select the complete view for this example using its model type. *@
+                        <partial name="~/Views/Concepts/Arrays/_TicTacToe.cshtml" model="ticTacToe" />
+                    }
+                    else if (Model.ArrayExample is MultiplicationTableViewModel multiplication)
+                    {
+                        @* Select the complete view for this example using its model type. *@
+                        <partial name="~/Views/Concepts/Arrays/_MultiplicationTable.cshtml" model="multiplication" />
+                    }
+                    else if (Model.ArrayExample is HouseMemberFinderViewModel houseMembers)
+                    {
+                        @* Select the complete view for this example using its model type. *@
+                        <partial name="~/Views/Concepts/Arrays/_HouseMemberFinder.cshtml" model="houseMembers" />
                     }
                     else if (Model.Example.HasValue)
                     {

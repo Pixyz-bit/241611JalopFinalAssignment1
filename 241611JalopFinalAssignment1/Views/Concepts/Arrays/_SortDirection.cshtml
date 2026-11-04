@@ -1,6 +1,0 @@
-@model ArraySortViewModel
-<div>
-    <label asp-for="Direction">Sort direction</label>
-    <select asp-for="Direction" asp-items="Html.GetEnumSelectList<ArraySortDirection>()" class="example-input" aria-describedby="direction-error" aria-invalid="@(ViewData.ModelState[nameof(Model.Direction)]?.Errors.Count > 0 ? "true" : null)"></select>
-    <span asp-validation-for="Direction" id="direction-error" class="temperature-errors"></span>
-</div>

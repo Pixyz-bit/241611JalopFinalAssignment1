@@ -1,0 +1,74 @@
+@model DuplicateFinderViewModel
+<div class="example-workspace example-split array-example">
+    <div class="example-heading"><h4>@Model.Title</h4></div>
+    @* This form posts directly to ArraysController.FindDuplicates(). *@
+    <form asp-controller="Arrays" asp-action="FindDuplicates" method="post" class="example-form example-layout" data-example-form>
+        <section class="example-panel example-input-panel" aria-labelledby="array-input-title">
+            <h5 id="array-input-title">Input</h5>
+            @* Errors link back to the inputs that need attention. *@
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="decision-errors" role="alert" tabindex="-1" data-array-errors>
+                    <h5>Check your inputs</h5>
+                    <ul>
+                        @foreach (var field in ViewData.ModelState)
+                        {
+                            // A game-token error links to New game; other errors link to their input.
+                            var target = field.Key == "StateToken" ? "array-reset" : field.Key;
+                            @foreach (var error in field.Value.Errors) { <li><a href="#@target">@error.ErrorMessage</a></li> }
+                        }
+                    </ul>
+                </div>
+            }
+            @* All input controls for this example are written below. *@
+            <div class="example-input-fields">
+                <div>
+                    <label asp-for="ValueKind">Values contain</label>
+                    <select asp-for="ValueKind" asp-items="Html.GetEnumSelectList<ArrayValueKind>()" class="example-input" aria-describedby="kind-error" aria-invalid="@(ViewData.ModelState[nameof(Model.ValueKind)]?.Errors.Count > 0 ? "true" : null)"></select>
+                    <span asp-validation-for="ValueKind" id="kind-error" class="temperature-errors"></span>
+                </div>
+                <div>
+                    <label asp-for="Values">Array values</label>
+                    <textarea asp-for="Values" rows="3" required maxlength="1500" class="example-input example-textarea" aria-describedby="values-error" aria-invalid="@(ViewData.ModelState[nameof(Model.Values)]?.Errors.Count > 0 ? "true" : null)" placeholder="For example: 8, 3, 8, 12"></textarea>
+                    <span asp-validation-for="Values" id="values-error" class="temperature-errors"></span>
+                </div>
+
+            </div>
+            <div class="temperature-actions">
+                <button class="temperature-confirm" type="submit">Find duplicates</button>
+                <a id="array-reset" class="temperature-clear" href="/concepts/arrays/example-1">Clear</a>
+            </div>
+        </section>
+        <section class="example-panel example-output-panel" aria-labelledby="array-result-title">
+            <h5 id="array-result-title">Result</h5>
+            <div class="example-result-status" role="status" aria-atomic="true">
+                @* Editing an input can restore this empty message through the shared JavaScript. *@
+                <p class="example-empty" data-example-empty hidden="@(Model.Result is not null)">Your result will appear here.</p>
+                <div class="example-result" data-example-result hidden="@(Model.Result is null)" tabindex="-1">
+                    <span class="example-result-label">@Model.Dimension</span>
+                    <strong>@Model.Result</strong>
+                    <span>@Model.Detail</span>
+                    @* Display the results that the controller stored in this example model. *@
+                    @* Visible zero-based indexes make the one-dimensional array structure explicit. *@
+                    <ol class="array-values" aria-label="Array values and indexes">
+                        @for (var index = 0; index < Model.OutputValues.Length; index++)
+                        {
+                            <li><span class="array-index">Index @index</span><span data-array-value>@Model.OutputValues[index]</span></li>
+                        }
+                    </ol>
+                    @if (Model.Duplicates.Count > 0)
+                    {
+                        <div class="array-table-scroll">
+                            <table class="array-table"><caption>Repeated values</caption><thead><tr><th scope="col">Value</th><th scope="col">Count</th><th scope="col">Indexes</th></tr></thead><tbody>
+                            @foreach (var duplicate in Model.Duplicates)
+                            {
+                                <tr><th scope="row">@duplicate.Value</th><td>@duplicate.Count</td><td>@string.Join(", ", duplicate.Indexes)</td></tr>
+                            }
+                            </tbody></table>
+                        </div>
+                    }
+                </div>
+            </div>
+        </section>
+    </form>
+</div>
