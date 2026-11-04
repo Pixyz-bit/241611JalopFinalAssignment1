@@ -1,5 +1,6 @@
 using _241611JalopFinalAssignment1.Models;
 using Microsoft.AspNetCore.Mvc;
+
 namespace _241611JalopFinalAssignment1.Controllers;
 
 public sealed class JALOPARLANMARTIN_241611_InputOutputController : Controller
@@ -10,8 +11,8 @@ public sealed class JALOPARLANMARTIN_241611_InputOutputController : Controller
     {
         if (ModelState.IsValid && input.Length is decimal length && input.Width is decimal width)
         {
-            input.Area = length * width; 
-            input.Perimeter = 2 * (length + width); 
+            input.Area = length * width; // Multiply the two dimensions to find the area.
+            input.Perimeter = 2 * (length + width); // Add all four sides of the rectangle.
         }
         return View("~/Views/Home/JALOPARLANMARTIN_241611_Index.cshtml", new JALOPARLANMARTIN_241611_ShowcaseViewModel(JALOPARLANMARTIN_241611_ConceptCatalog.Find("input-output"), 2) { Rectangle = input });
     }
@@ -95,7 +96,12 @@ public sealed class JALOPARLANMARTIN_241611_InputOutputController : Controller
         if (ModelState.IsValid && input.Value is decimal value)
         {
             // Normalize to seconds, then divide by the destination unit's number of seconds.
-            decimal SecondsPerUnit(JALOPARLANMARTIN_241611_TimeUnit unit) => unit switch { JALOPARLANMARTIN_241611_TimeUnit.Hours => 3600m, JALOPARLANMARTIN_241611_TimeUnit.Minutes => 60m, _ => 1m };
+            decimal SecondsPerUnit(JALOPARLANMARTIN_241611_TimeUnit unit) => unit switch
+            {
+                JALOPARLANMARTIN_241611_TimeUnit.Hours => 3600m,
+                JALOPARLANMARTIN_241611_TimeUnit.Minutes => 60m,
+                _ => 1m
+            };
             input.Result = value * SecondsPerUnit(input.FromUnit) / SecondsPerUnit(input.ToUnit);
         }
         return View("~/Views/Home/JALOPARLANMARTIN_241611_Index.cshtml", new JALOPARLANMARTIN_241611_ShowcaseViewModel(JALOPARLANMARTIN_241611_ConceptCatalog.Find("input-output"), 4) { Time = input });

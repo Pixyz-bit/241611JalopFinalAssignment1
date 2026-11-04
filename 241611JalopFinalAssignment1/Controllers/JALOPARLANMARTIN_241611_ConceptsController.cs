@@ -9,8 +9,8 @@ public sealed class JALOPARLANMARTIN_241611_ConceptsController(ExampleStateToken
 {
     [HttpGet("concepts/{category}")] // Handles GET requests; {category} captures the category (page name) from the URL.
     [HttpGet("concepts/{category}/example-{example:int}")] // Handles GET requests; {example:int} requires an integer example number.
-    
-    public IActionResult Index(string category, int? example) // GET Request: Prepares the page
+
+    public IActionResult Index(string category, int? example) // Prepare the selected example for a GET request.
     {
         var concept = JALOPARLANMARTIN_241611_ConceptCatalog.Find(category); // Look up the category using its URL slug.
         if (concept is null || example is < 1 or > 5) return NotFound(); // Return HTTP 404 for an unknown category or an example outside 1-5.
@@ -61,7 +61,7 @@ public sealed class JALOPARLANMARTIN_241611_ConceptsController(ExampleStateToken
                 5 => new JALOPARLANMARTIN_241611_LargestNumbersViewModel(),
                 _ => null
             } : null,
-            
+
         };
 
         if (Request.Headers["X-Showcase-Partial"] == "true")
