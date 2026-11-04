@@ -14,7 +14,7 @@ Each example has a dedicated model file under `241611JalopFinalAssignment1/Model
 Models/
 ├── InputOutput/    Five Input/Output example models
 ├── NestedIfElse/   Five decision models and their shared base
-├── Loops/          Five loop models, shared bases and quiz catalog
+├── Loops/          Five loop models and shared bases
 ├── Arrays/         Five array models and their shared bases
 ├── JALOPARLANMARTIN_241611_ShowcaseViewModel.cs
 ├── JALOPARLANMARTIN_241611_ExampleCatalog.cs
@@ -59,7 +59,7 @@ Models are in `Models/Loops/`; views are in `Views/Concepts/Loops/`. POST method
 | 2 — Sum of Digits | `JALOPARLANMARTIN_241611_SumDigitsViewModel.cs` | `JALOPARLANMARTIN_241611_SumOfDigits.cshtml` | `SumDigits()` |
 | 3 — Prime Factorization | `JALOPARLANMARTIN_241611_PrimeFactorsViewModel.cs` | `JALOPARLANMARTIN_241611_PrimeFactorization.cshtml` | `Factorize()` |
 | 4 — Number Guessing Game | `JALOPARLANMARTIN_241611_GuessGameViewModel.cs` | `JALOPARLANMARTIN_241611_NumberGuessingGame.cshtml` | `GuessNumber()` |
-| 5 — Quiz Retry Simulator | `JALOPARLANMARTIN_241611_QuizRetryViewModel.cs` | `JALOPARLANMARTIN_241611_QuizRetrySimulator.cshtml` | `RetryQuiz()` |
+| 5 — Digit Counter | `JALOPARLANMARTIN_241611_DigitCounterViewModel.cs` | `JALOPARLANMARTIN_241611_DigitCounter.cshtml` | `CountDigits()` |
 
 ## Arrays
 
