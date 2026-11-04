@@ -27,7 +27,7 @@ The model holds input, validation rules and results. The view displays them. The
 
 ## Input/Output
 
-Models are in `Models/InputOutput/`; views are in `Views/Concepts/InputOutput/`. POST methods are in `JALOPARLANMARTIN_241611_InputOutputController.cs`, except temperature conversion, which is in `JALOPARLANMARTIN_241611_ConceptsController.cs`.
+Models are in `Models/InputOutput/`; views are in `Views/Concepts/InputOutput/`. All five POST methods are in `JALOPARLANMARTIN_241611_InputOutputController.cs`.
 
 | Example | Model file | Razor view | POST method |
 |---|---|---|---|
@@ -99,10 +99,6 @@ Enhanced GET navigation can return only `JALOPARLANMARTIN_241611_ShowcaseWindow`
 
 Shared base models such as `JALOPARLANMARTIN_241611_LoopExampleViewModel`, `JALOPARLANMARTIN_241611_RetryLoopViewModel`, `JALOPARLANMARTIN_241611_ArrayExampleViewModel`, `JALOPARLANMARTIN_241611_FlatArrayViewModel` and `JALOPARLANMARTIN_241611_NestedExampleViewModel` hold common properties. For example, `JALOPARLANMARTIN_241611_DuplicateFinderViewModel` inherits the `Values` input from `JALOPARLANMARTIN_241611_FlatArrayViewModel`. Its dedicated file holds the properties specific to finding duplicates.
 
-## Verification — November 5, 2026
+## Verification records
 
-- The solution builds with zero warnings and errors.
-- All 44 existing regression tests pass across the six test files in `tests/`.
-- Browser checks cover pyramid submission using Enter, all five loop links, Back/Forward, guessing/reset, quiz completion, and minimize/restore. Pyramid results were reviewed at 1366×900; factorization and quiz forms were reviewed at 390×844.
-- Shared CSS, focus hooks, canonical links and reduced-motion rules are retained. Reduced motion was checked in the stylesheet, not separately emulated in the browser.
-- The Impeccable detector reports no findings for the loop views and shared window selection.
+See [validation.md](validation.md) for dated checks and limitations. The tables above and PRODUCT.md define the current example catalog.

@@ -7,7 +7,7 @@
 <div class="example-workspace example-split temperature-example">
     <div class="example-heading"><h4>@JALOPARLANMARTIN_241611_ExampleCatalog.GetTitle("input-output", 3)</h4></div>
     @* Native POST handles calculations; JavaScript only enhances Swap, Clear and stale feedback. *@
-    <form asp-controller="JALOPARLANMARTIN_241611_Concepts" asp-action="ConvertTemperature" method="post" class="example-form example-layout temperature-form"
+    <form asp-controller="JALOPARLANMARTIN_241611_InputOutput" asp-action="ConvertTemperature" method="post" class="example-form example-layout temperature-form"
           data-confirmed-result="@(Model.Result?.ToString(System.Globalization.CultureInfo.InvariantCulture))">
         <section class="example-panel example-input-panel" aria-labelledby="temperature-input-title">
             <h5 id="temperature-input-title">Input</h5>

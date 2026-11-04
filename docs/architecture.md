@@ -6,7 +6,7 @@
 ├── .agents/skills/showcase-ui/     Project skill entrypoint
 ├── .impeccable/                   Design sidecar and visual-review evidence
 ├── docs/                         Architecture, plan, assets and validation
-├── tests/                        Dependency-free JavaScript navigation checks
+├── tests/                        Navigation and real HTTP regression checks
 ├── AGENTS.md                     Instructions for coding agents
 ├── PRODUCT.md                    Confirmed requirements and scope
 ├── DESIGN.md                     Shared visual system
@@ -31,9 +31,10 @@ The existing wwwroot/lib starter libraries are retained but are not loaded by th
 
 ## Routes
 - `/`: desktop.
-- `/concepts/{category}`: category overview.
+- `/concepts/{category}`: redirect to that category’s Example 1.
 - `/concepts/{category}/example-{number}`: one of five example slots.
-- `/about`: showcase information.
+- `/about`: retired (HTTP 404).
+- `/Home/Error`: production error view.
 
 Category slugs: input-output, nested-if-else, loops, arrays. Unknown categories and example numbers outside 1–5 return HTTP 404.
 
@@ -50,28 +51,30 @@ New or changed code should include brief beginner-friendly notes beside meaningf
 ## Shared application surfaces
 
 `Models/JALOPARLANMARTIN_241611_ExampleCatalog.cs` supplies the approved title for each category/slot. Example model titles, Input/Output headings and the shared sidebar use this catalog so labels stay consistent. Input/Output slot 2 calculates rectangle area and perimeter from validated dimensions in C#.
-`Views/Shared/JALOPARLANMARTIN_241611_ShowcaseWindow.cshtml` owns the brand titlebar, full-width category header, sidebar example links and the scrollable overview/example workspace. `Views/Shared/JALOPARLANMARTIN_241611_ConceptIcon.cshtml` loads the approved transparent PNG from `wwwroot/images/concepts/<slug>.png` with cache versioning; desktop, Start, search, taskbar and category headings share it. There is no address path, file list or filename suffix.
+`Views/Shared/JALOPARLANMARTIN_241611_ShowcaseWindow.cshtml` owns the brand titlebar, category heading in the left navigation column, five example links and adjacent scrollable workspace. `Views/Shared/JALOPARLANMARTIN_241611_ConceptIcon.cshtml` loads the approved transparent PNG from `wwwroot/images/concepts/<slug>.png` with cache versioning; desktop, Start, search, taskbar and category headings share it. There is no address path, file list or filename suffix.
 
 ## Rendering and navigation
 
 `window-state.js` runs in the document head before the stylesheet. It reads the current tab's maximized preference from `sessionStorage` and sets the root appearance class before paint. `site.js` initializes from that class and saves changes when the maximize/restore caption control is used. This keeps native form POSTs from shrinking a maximized application. Storage failures are caught so ordinary controls and canonical navigation still work. No input values or results are persisted.
 All canonical URLs render complete Razor pages. Requests with `X-Showcase-Partial: true` return only the JALOPARLANMARTIN_241611_ShowcaseWindow partial. JavaScript enhances same-origin links and pushes browser history. The initial view and desktop are cached immediately; each other route is fetched once on its first visit and kept in memory until the page reloads. Back/Forward and repeated tab selections reuse the cached view. Clicking the already active route does nothing.
 
-Switching categories, examples or About keeps the outer application element mounted and updates its contents, so its opening animation plays only when opening a window from the desktop. The current view stays visible during first-time requests. A delayed “Opening…” notice and accessible busy state appear only for uncached navigation; aborted or superseded requests cannot replace a newer selection. Failed enhanced navigation falls back to full-page navigation. Ctrl/Cmd+K opens search; Escape closes search or the open window. Minimized windows are restored from their active taskbar shortcut, keeping the exact selected example. The taskbar remains visible when the application is maximized. Start uses native details/summary and canonical links; JavaScript adds outside/Escape dismissal, returning focus to Start on Escape. About has its own restoration check so it cannot restore a different minimized category.
+Switching categories or examples keeps the outer application element mounted and updates its contents, so its opening animation plays only when opening a window from the desktop. The current view stays visible during first-time requests. A delayed “Opening…” notice and accessible busy state appear only for uncached navigation; aborted or superseded requests cannot replace a newer selection. Failed enhanced navigation falls back to full-page navigation. Ctrl/Cmd+K opens search; Escape closes search or the open window. Minimized windows are restored from their active taskbar shortcut, keeping the exact selected example. The taskbar remains visible when the application is maximized. Start uses native details/summary and canonical links; JavaScript adds outside/Escape dismissal, returning focus to Start on Escape.
 
-The route cache is suitable for the current read-only template. When adding real CRUD or other changing server data, explicitly invalidate affected cached routes after successful mutations, or opt those views out of caching; do not serve stale records or cache POST responses.
+The route cache is suitable for the current calculation showcase. When adding real CRUD or other changing server data, explicitly invalidate affected cached routes after successful mutations, or opt those views out of caching; do not serve stale records or cache POST responses.
 
 `fitStartPanel` resets and measures Start's natural width and content height when it opens, the viewport resizes, or fonts finish loading. It chooses the smaller available-width/available-height ratio and writes CSS width and height variables for the outer panel. This preserves the panel's proportions while its text, icons, controls and padding keep their natural sizes. A column flex layout and automatic top margin hold the footer at the bottom. A minimum sizing factor of 1 preserves small-screen control sizes; CSS constrains the panel height and allows scrolling when content cannot fit.
 
-## Implemented Nested If…Else examples
+## Shared example layout
 
 All working examples share `.example-split`, `.example-layout`, `.example-panel`, `.example-input-panel` and `.example-output-panel`. The model's `HasImplementedExample` selects a compact workspace inset; placeholders retain the original template. A native form contains the two panels, with inputs first in DOM and keyboard order. `JALOPARLANMARTIN_241611_ExampleEmpty` keeps an honest empty state in the Result panel. Shared CSS stacks the panels below 1000px and sets primary results to 24–32px and explanatory text to 12px. Keep teaching notes with inputs, and put confirmed output and its explanation in the Result panel. The ID card remains a preview artifact within that panel.
 
 `examples.js` hides stale results and restores the shared empty state after edits. ID generation and Clear explicitly toggle the card and empty state together. Temperature retains its own delegated Clear/Swap handlers so Swap can reuse the full-precision C# result before invalidating it. No calculation moves into JavaScript.
 
+## Implemented Nested If…Else examples
+
 `JALOPARLANMARTIN_241611_NestedIfElseController` handles antiforgery-protected POST routes 1–5. `JALOPARLANMARTIN_241611_ConceptsController` initializes their typed GET models, and `JALOPARLANMARTIN_241611_ShowcaseWindow` selects the corresponding Razor partial. `JALOPARLANMARTIN_241611_NestedExampleViewModel` shares result text, ordered decision steps and the text flow; each concrete model defines only its input fields and descriptive metadata. Bind allowlists accept inputs only. The algorithms use explicit nested `if`/`else` blocks so the C# matches the learning diagrams.
 
-`JALOPARLANMARTIN_241611_DecisionResult`, `JALOPARLANMARTIN_241611_DecisionErrors` and `JALOPARLANMARTIN_241611_DecisionFlow` share output, linked validation feedback and native details disclosures. `examples.js` hides outdated output after edits and focuses server feedback after native POST. Clear always performs a canonical GET. Login removes submitted passwords from ModelState and the model before returning HTML. ATM calculations are independent simulations with no saved balance. See [nested-if-else.md](nested-if-else.md) for accounts, numeric limits and test commands.
+`JALOPARLANMARTIN_241611_DecisionResult`, `JALOPARLANMARTIN_241611_DecisionErrors` and `JALOPARLANMARTIN_241611_DecisionFlow` share output, linked validation feedback and native details disclosures. `examples.js` hides outdated output after edits and focuses server feedback after native POST. Clear always performs a canonical GET. Login removes submitted passwords from ModelState and the model before returning HTML. See [nested-if-else.md](nested-if-else.md) for accounts, numeric limits and test commands.
 
 ## Implemented loop examples
 
@@ -105,14 +108,6 @@ For Example 1, follow `JALOPARLANMARTIN_241611_ConceptsController.Index()` → `
 
 `ExampleStateTokens` protects the guessing game; array examples no longer use protected game state. Arrays Example 3 uses `JALOPARLANMARTIN_241611_ArrayExtremesViewModel` and its dedicated view. `FindExtremes()` parses the three Row1/Row2/Row3 fields into a rectangular `decimal[3, columns]`, then scans it using nested loops initialized from the first cell. Strict comparisons preserve the first index for repeated extremes. See [arrays.md](arrays.md) for limits and validation.
 
-### Separate array views: verification (2026-11-05)
-
-- `dotnet build 241611JalopFinalAssignment1.sln`: passed with zero warnings/errors.
-- `node --test tests/arrays.test.cjs tests/navigation.test.cjs`: all 19 checks passed, including native/partial routes, antiforgery, valid/invalid submissions, duplicate normalization, sorting, game rounds, table products, house lookup and navigation history.
-- Browser review: duplicate results at 1366×900, multiplication and house forms at 390×844, all five example links, Back/Forward, Enter to play a Tic-Tac-Toe move, and maximize/minimize/restore/close.
-- Existing shared CSS, focus hooks and reduced-motion rules are reused; no new styles or animations were introduced. Reduced motion was not separately emulated in the browser.
-- Impeccable detector: no findings in the changed array views or window view.
-
 ## Adding your examples
 
 1. Give examples real titles/descriptions in a typed view model, keyed by category and number.
@@ -121,17 +116,17 @@ For Example 1, follow `JALOPARLANMARTIN_241611_ConceptsController.Index()` → `
 4. Add data storage and CRUD services only when implementing real CRUD; the current catalog is static navigation metadata, not a persistence layer.
 5. Replace “Not implemented yet” only once that example works. Do not present fake Run/Save results.
 
-Do not create 20 empty controller/view copies now. The shared template keeps initial behavior consistent and gives each future example an explicit slot.
+All 20 slots have implemented examples. Preserve their approved behavior and the shared shell when extending them.
 
 
 ## Temperature converter
-`JALOPARLANMARTIN_241611_TemperatureConverterViewModel` carries Value, FromUnit and ToUnit as validated inputs, with Result and Formula as controller-generated output. The JALOPARLANMARTIN_241611_TemperatureUnit enum constrains the three available scales: Celsius, Fahrenheit and Kelvin. `JALOPARLANMARTIN_241611_ConceptsController.ConvertTemperature` binds only the three input properties, validates the selected scale's absolute-zero limit, and normalizes through Celsius before calculating the chosen destination using decimal arithmetic. Same-unit conversions preserve the exact input. A tuple switch selects the explanatory formula, and Kelvin uses K without a degree sign. The canonical GET route initializes the form; POST returns the complete desktop view with validation or results. The shared window chooses the temperature partial before falling back to numbered placeholders. Confirm is a normal antiforgery-protected form submission and works without JavaScript.
+`JALOPARLANMARTIN_241611_TemperatureConverterViewModel` carries Value, FromUnit and ToUnit as validated inputs, with Result and Formula as controller-generated output. The JALOPARLANMARTIN_241611_TemperatureUnit enum constrains the three available scales: Celsius, Fahrenheit and Kelvin. `JALOPARLANMARTIN_241611_InputOutputController.ConvertTemperature` binds only the three input properties, validates the selected scale's absolute-zero limit, and normalizes through Celsius before calculating the chosen destination using decimal arithmetic. Same-unit conversions preserve the exact input. A tuple switch selects the explanatory formula, and Kelvin uses K without a degree sign. The canonical GET route initializes the form; POST returns the complete desktop view with validation or results. The shared window chooses the temperature partial before falling back to numbered placeholders. Confirm is a normal antiforgery-protected form submission and works without JavaScript.
 
 
 Converter interactions use delegated input/change/click handlers so they survive cached navigation. Editing a value/unit clears the result, its symbol, formula and outdated validation feedback. Swap exchanges units and, when available, copies the full-precision confirmed result into the input; C# still performs every calculation on Confirm. Clear resets to an empty Celsius-to-Fahrenheit form and focuses the input. The raw confirmed result is only a browser convenience, never a trusted posted output. A noscript Swap submit action recalculates on the server, swaps fields and clears ModelState so Razor renders the new inputs. Clear falls back to the canonical GET route.
 
 
 ## Implemented Input/Output examples
-`JALOPARLANMARTIN_241611_InputOutputController` handles canonical POST routes for time (4), text (5) and ID (1), while `JALOPARLANMARTIN_241611_ConceptsController` initializes their GET view models. Time normalizes through seconds; text uses Unicode text elements and whitespace-separated word groups after newline normalization. All form output is server calculated and Razor encoded.
+`JALOPARLANMARTIN_241611_InputOutputController` handles all five canonical Input/Output POST routes: ID (1), rectangle (2), temperature (3), time (4) and text (5), while `JALOPARLANMARTIN_241611_ConceptsController` initializes their GET view models. Time normalizes through seconds; text uses Unicode text elements and whitespace-separated word groups after newline normalization. All form output is server calculated and Razor encoded.
 
 ID generation posts only named text fields and an antiforgery token. The photo picker has no name or matching model property; JavaScript keeps a single blob URL in memory, validates type/size/decoding and revokes it on Clear, navigation and page exit. No storage API, database or server photo path is used. AJAX returns validated text as JSON; textContent inserts it safely into the preview. Native POST still renders a text-only card. Revision checks prevent old responses from restoring a preview after edits or Clear. The server rejects file submissions and limits the request to 16 KB.
