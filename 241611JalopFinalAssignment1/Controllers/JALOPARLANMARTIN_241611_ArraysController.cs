@@ -1,11 +1,10 @@
 using System.Globalization;
 using _241611JalopFinalAssignment1.Models;
 using Microsoft.AspNetCore.Mvc;
-using _241611JalopFinalAssignment1.Services;
 
 namespace _241611JalopFinalAssignment1.Controllers;
 
-public sealed class JALOPARLANMARTIN_241611_ArraysController(ExampleStateTokens stateTokens) : Controller
+public sealed class JALOPARLANMARTIN_241611_ArraysController : Controller
 {
     [HttpPost("concepts/arrays/example-1")]
     [ValidateAntiForgeryToken] // Native requests must include this site's form token.
@@ -58,66 +57,78 @@ public sealed class JALOPARLANMARTIN_241611_ArraysController(ExampleStateTokens 
 
     [HttpPost("concepts/arrays/example-3")]
     [ValidateAntiForgeryToken]
-    [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
-    public IActionResult PlayMove([Bind("Cell,StateToken")] JALOPARLANMARTIN_241611_TicTacToeViewModel input)
+    public IActionResult FindExtremes([Bind("Values")] JALOPARLANMARTIN_241611_ArrayExtremesViewModel input)
     {
-        if (!stateTokens.TryRead<JALOPARLANMARTIN_241611_TicTacToeRound>("arrays-tic-tac-toe", input.StateToken, out var round) ||
-            round?.Moves is null || round.Moves.Count > 9 || !ReplayBoard(input, round.Moves))
+        if (ModelState.IsValid && TryReadMatrix(input, out var numbers))
         {
-            input = new JALOPARLANMARTIN_241611_TicTacToeViewModel { RoundValid = false, StateToken = input.StateToken };
-            ModelState.AddModelError(nameof(input.StateToken), "This board is invalid. Choose New game to start again.");
-            return Example(input);
-        }
-        if (ModelState.IsValid && input.Cell is int cell)
-        {
-            if (input.IsFinished) ModelState.AddModelError(nameof(input.Cell), "This game has finished. Choose New game to play again.");
-            else if (input.Board[cell / 3, cell % 3] != '\0') ModelState.AddModelError(nameof(input.Cell), "That square is occupied. Choose an empty square.");
-            else
+            input.Numbers = numbers;
+            // Start with a real cell so all-negative and all-positive arrays both work.
+            var largest = numbers[0, 0];
+            var smallest = numbers[0, 0];
+            for (var row = 0; row < numbers.GetLength(0); row++)
             {
-                round.Moves.Add(cell); // The next player is derived from protected history, never a posted mark.
-                input = new JALOPARLANMARTIN_241611_TicTacToeViewModel { StateToken = stateTokens.Protect("arrays-tic-tac-toe", round) };
-                ReplayBoard(input, round.Moves);
-                ModelState.Remove(nameof(input.StateToken)); // Render the updated round token instead of the submitted one.
-                ModelState.Remove(nameof(input.Cell));
+                for (var column = 0; column < numbers.GetLength(1); column++)
+                {
+                    var value = numbers[row, column]; // Two indexes locate a cell in a rectangular array.
+                    if (value > largest)
+                    {
+                        largest = value;
+                        input.LargestRow = row;
+                        input.LargestColumn = column;
+                    }
+                    if (value < smallest)
+                    {
+                        smallest = value;
+                        input.SmallestRow = row;
+                        input.SmallestColumn = column;
+                    }
+                }
             }
-        }
-        if (input.Moves.Count > 0)
-        {
-            input.Result = input.Winner is char winner ? $"{winner} wins!" : input.IsDraw ? "It's a draw" : $"{input.CurrentPlayer} to move";
-            input.Detail = input.IsFinished ? "Choose New game to start a fresh board." : "Choose an empty square. X and O alternate turns.";
+            // Strict comparisons keep the first position when an extreme appears more than once.
+            input.Largest = largest;
+            input.Smallest = smallest;
+            input.Result = $"Largest: {FormatNumber(largest)}; Smallest: {FormatNumber(smallest)}";
+            input.Detail = $"{numbers.GetLength(0)} rows × {numbers.GetLength(1)} columns. Indexes start at 0; repeated extremes show their first index.";
         }
         return Example(input);
     }
 
-    private static bool ReplayBoard(JALOPARLANMARTIN_241611_TicTacToeViewModel input, List<int> moves)
+    private bool TryReadMatrix(JALOPARLANMARTIN_241611_ArrayExtremesViewModel input, out decimal[,] numbers)
     {
-        for (var index = 0; index < moves.Count; index++)
+        numbers = new decimal[0, 0];
+        // Normalize browser line endings, then treat each line as one row.
+        var rows = (input.Values ?? "").Trim().Replace("\r\n", "\n").Replace('\r', '\n').Split('\n');
+        if (rows.Length is < 1 or > 12)
         {
-            var cell = moves[index];
-            if (cell is < 0 or > 8 || input.IsFinished || input.Board[cell / 3, cell % 3] != '\0') return false;
-            var mark = index % 2 == 0 ? 'X' : 'O';
-            input.Board[cell / 3, cell % 3] = mark;
-            input.Moves.Add($"Move {index + 1}: {mark} at row {cell / 3 + 1}, column {cell % 3 + 1}.");
-            input.WinningCells = FindWinningCells(input.Board);
-            if (input.WinningCells.Length > 0) input.Winner = mark;
-            input.IsDraw = index == 8 && input.Winner is null;
+            ModelState.AddModelError(nameof(input.Values), "Enter 1–12 rows.");
+            return false;
         }
-        input.CurrentPlayer = moves.Count % 2 == 0 ? 'X' : 'O';
+        var columns = rows[0].Split(',').Length;
+        if (columns is < 1 or > 12)
+        {
+            ModelState.AddModelError(nameof(input.Values), "Enter 1–12 comma-separated numbers in each row.");
+            return false;
+        }
+        numbers = new decimal[rows.Length, columns]; // Every row must have the same column count.
+        for (var row = 0; row < rows.Length; row++)
+        {
+            // Keep empty entries so a missing value cannot silently change the array's shape.
+            var cells = rows[row].Split(',', StringSplitOptions.TrimEntries);
+            if (cells.Length != columns)
+            {
+                ModelState.AddModelError(nameof(input.Values), $"Row {row + 1} must contain {columns} numbers, like the first row.");
+                return false;
+            }
+            for (var column = 0; column < columns; column++)
+            {
+                if (cells[column].Length > 40 || !TryNumber(cells[column], out numbers[row, column]))
+                {
+                    ModelState.AddModelError(nameof(input.Values), $"Row {row + 1}, column {column + 1}: enter a number from −1,000,000,000 to 1,000,000,000. Use a decimal point and commas between values.");
+                    return false;
+                }
+            }
+        }
         return true;
-    }
-
-    private static int[] FindWinningCells(char[,] board)
-    {
-        for (var index = 0; index < 3; index++)
-        {
-            if (board[index, 0] != '\0' && board[index, 0] == board[index, 1] && board[index, 1] == board[index, 2])
-                return new[] { index * 3, index * 3 + 1, index * 3 + 2 };
-            if (board[0, index] != '\0' && board[0, index] == board[1, index] && board[1, index] == board[2, index])
-                return new[] { index, index + 3, index + 6 };
-        }
-        if (board[0, 0] != '\0' && board[0, 0] == board[1, 1] && board[1, 1] == board[2, 2]) return new[] { 0, 4, 8 };
-        if (board[0, 2] != '\0' && board[0, 2] == board[1, 1] && board[1, 1] == board[2, 0]) return new[] { 2, 4, 6 };
-        return Array.Empty<int>();
     }
 
     [HttpPost("concepts/arrays/example-4")]

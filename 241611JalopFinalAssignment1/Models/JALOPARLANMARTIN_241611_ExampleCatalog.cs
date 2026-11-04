@@ -20,7 +20,7 @@ public static class JALOPARLANMARTIN_241611_ExampleCatalog
         },
         ["arrays"] = new[]
         {
-            "Duplicate Finder", "Array Sort", "Tic-Tac-Toe", "Multiplication Table", "House Member Finder"
+            "Duplicate Finder", "Array Sort", "Largest and Smallest", "Multiplication Table", "House Member Finder"
         }
     };
 

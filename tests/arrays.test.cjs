@@ -20,7 +20,6 @@ async function submit(number, fields, withToken = true) {
 
 const values = html => [...html.matchAll(/data-array-value>(.*?)<\/span>/gs)].map(match => match[1]);
 const outcome = html => html.match(/<strong>(.*?)<\/strong>/s)?.[1];
-const stateToken = html => html.match(/name="StateToken"[^>]*value="([^"]+)"/)?.[1];
 
 test('all five array slots support complete and partial canonical routes with antiforgery', async () => {
     for (let number = 1; number <= 5; number++) {
@@ -48,57 +47,58 @@ test('duplicates normalize numbers and compare trimmed names without letter case
     assert.equal(outcome(unique.html), 'No duplicates');
 });
 
-async function play(moves) {
-    let html = await (await fetch(path(3))).text();
-    let token = stateToken(html);
-    for (const Cell of moves) {
-        ({ html } = await submit(3, { Cell: String(Cell), StateToken: token, Player: 'X', Winner: 'X' }));
-        token = stateToken(html);
-    }
-    return { html, token };
-}
+// Read both results and their positions from server-rendered HTML.
+const largest = html => html.match(/data-array-largest>(.*?)<\/strong>/s)?.[1];
+const smallest = html => html.match(/data-array-smallest>(.*?)<\/strong>/s)?.[1];
 
-test('tic-tac-toe alternates turns and detects rows, columns and diagonals', async () => {
-    for (const [moves, winner] of [
-        [[0, 3, 1, 4, 2], 'X'], [[0, 1, 2, 4, 6, 7], 'O'],
-        [[0, 1, 4, 2, 8], 'X'], [[2, 0, 4, 1, 6], 'X']
+test('2D extremes scan rectangular, single-cell and maximum-size arrays', async () => {
+    for (const [Values, maximum, minimum, highIndex, lowIndex] of [
+        ['8,3,12\n-4,7,2', '12', '-4', '[0, 2]', '[1, 0]'],
+        ['-8,-3,-12\n-4,-7,-2', '-2', '-12', '[1, 2]', '[0, 2]'],
+        ['7', '7', '7', '[0, 0]', '[0, 0]'],
+        ['1,2,3', '3', '1', '[0, 2]', '[0, 0]'],
+        ['1\r\n2\r\n3', '3', '1', '[2, 0]', '[0, 0]'],
+        ['-1000000000, 1000000000', '1000000000', '-1000000000', '[0, 1]', '[0, 0]']
     ]) {
-        const result = await play(moves);
-        assert.equal(outcome(result.html), `${winner} wins!`);
-        assert.equal((result.html.match(/winning square/g) || []).length, 3);
-        const extra = await submit(3, { Cell: '8', StateToken: result.token });
-        assert.equal(outcome(extra.html), `${winner} wins!`);
-        assert.ok(extra.html.includes('This game has finished'));
+        const { response, html } = await submit(3, { Values, Largest: '999', Smallest: '-999', LargestRow: '9', Result: 'Forged' });
+        assert.equal(response.status, 200);
+        assert.equal(largest(html), maximum);
+        assert.equal(smallest(html), minimum);
+        assert.ok(html.includes('data-largest-index>Index ' + highIndex));
+        assert.ok(html.includes('data-smallest-index>Index ' + lowIndex));
     }
-    const first = await play([0]);
-    assert.equal(outcome(first.html), 'O to move');
-    const occupied = await submit(3, { Cell: '0', StateToken: first.token });
-    assert.ok(occupied.html.includes('That square is occupied'));
-    const next = await submit(3, { Cell: '1', StateToken: stateToken(occupied.html) });
-    assert.equal(outcome(next.html), 'X to move');
+    const matrix = Array.from({ length: 12 }, (_, row) => Array.from({ length: 12 }, (_, col) => row * 12 + col).join(',')).join('\n');
+    const { html } = await submit(3, { Values: matrix });
+    assert.equal(largest(html), '143');
+    assert.equal(smallest(html), '0');
+    assert.equal((html.match(/<td>/g) || []).length, 144);
 });
 
-test('tic-tac-toe detects a draw and rejects invalid or cross-example state', async () => {
-    const draw = await play([0, 1, 2, 4, 3, 5, 7, 6, 8]);
-    assert.equal(outcome(draw.html), "It's a draw");
-    const loopPage = await (await fetch(`${base}/concepts/loops/example-4`)).text();
-    for (const fields of [{ Cell: '0' }, { Cell: '0', StateToken: 'altered' }, { Cell: '0', StateToken: stateToken(loopPage) }]) {
-        const { response, html } = await submit(3, fields);
+test('2D extremes preserve decimals and report first indexes for ties', async () => {
+    const { html } = await submit(3, { Values: ' 2.75, -1.25,2.75\n-1.25,0,1 ' });
+    assert.equal(largest(html), '2.75');
+    assert.equal(smallest(html), '-1.25');
+    assert.ok(html.includes('data-largest-index>Index [0, 0]'));
+    assert.ok(html.includes('data-smallest-index>Index [0, 1]'));
+    const equal = await submit(3, { Values: '0,0\n0,0' });
+    assert.equal(largest(equal.html), '0');
+    assert.equal(smallest(equal.html), '0');
+    assert.ok(equal.html.includes('data-largest-index>Index [0, 0]'));
+    assert.ok(equal.html.includes('data-smallest-index>Index [0, 0]'));
+});
+
+test('2D extremes reject ragged, empty, malformed and excessive arrays', async () => {
+    for (const Values of ['', ' ', '1,2\n3', '1,,2', '1,2,', '1,2\n\n3,4', 'hello', '<script>alert(1)</script>',
+        'NaN', 'Infinity', '1e3', '1000000001', '-1000000001', '9'.repeat(41),
+        Array(13).fill('1').join('\n'), Array(13).fill('1').join(','), '1'.repeat(6001)]) {
+        const { response, html, raw } = await submit(3, { Values, Largest: '999', Result: 'Forged' });
         assert.equal(response.status, 200);
         assert.match(html, /data-example-result[^>]*hidden/);
-        assert.ok(html.includes('This board is invalid'));
+        assert.ok(html.includes('data-array-errors'));
+        assert.ok(html.includes('aria-invalid="true"'));
+        assert.ok(!raw.includes('<script>alert(1)</script>'));
     }
-    const fresh = await (await fetch(path(3))).text();
-    const invalid = await submit(3, { Cell: '9', StateToken: stateToken(fresh) });
-    assert.match(invalid.html, /data-example-result[^>]*hidden/);
-});
-
-test('tic-tac-toe recognizes every winning row, column and diagonal', async () => {
-    for (const line of [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]) {
-        const other = Array.from({ length: 9 }, (_, index) => index).filter(cell => !line.includes(cell));
-        const { html } = await play([line[0], other[0], line[1], other[1], line[2]]);
-        assert.equal(outcome(html), 'X wins!');
-    }
+    assert.equal((await submit(3, { Values: '1,2' }, false)).response.status, 400);
 });
 
 test('multiplication table computes every cell for minimum, rectangular and maximum dimensions', async () => {

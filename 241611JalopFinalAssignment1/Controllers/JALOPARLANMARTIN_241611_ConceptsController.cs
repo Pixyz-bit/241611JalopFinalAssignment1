@@ -29,7 +29,7 @@ public sealed class JALOPARLANMARTIN_241611_ConceptsController(ExampleStateToken
             {
                 1 => new JALOPARLANMARTIN_241611_DuplicateFinderViewModel(),
                 2 => new JALOPARLANMARTIN_241611_ArraySortViewModel(),
-                3 => new JALOPARLANMARTIN_241611_TicTacToeViewModel { StateToken = roundTokens.Protect("arrays-tic-tac-toe", new JALOPARLANMARTIN_241611_TicTacToeRound(new())) },
+                3 => new JALOPARLANMARTIN_241611_ArrayExtremesViewModel(),
                 4 => new JALOPARLANMARTIN_241611_MultiplicationTableViewModel { Rows = 5, Columns = 5 },
                 // Seed editable examples on GET only; POST must preserve the user's submitted rosters.
                 5 => new JALOPARLANMARTIN_241611_HouseMemberFinderViewModel

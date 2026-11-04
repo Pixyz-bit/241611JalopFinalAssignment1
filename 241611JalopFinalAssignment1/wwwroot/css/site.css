@@ -347,6 +347,8 @@ button:active, summary:active { opacity: .8; }
 .array-table th, .array-table td { padding: 8px; border-bottom: 1px solid var(--line); vertical-align: top; overflow-wrap: anywhere; }
 .array-fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
 .array-fieldset legend { margin-bottom: 8px; padding: 0; font-size: 12px; font-weight: 550; }
+/* Keep each extreme and its index together using the existing metric group's spacing. */
+.array-extremes .rectangle-metric .example-result-value, .array-extremes .rectangle-metric p { margin: 0; }
 .array-input-grid, .array-member-fields { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
 .array-input-grid > div, .array-member-fields > div { min-width: 0; }
 .array-input-grid .temperature-errors { overflow-wrap: anywhere; }
@@ -355,11 +357,6 @@ button:active, summary:active { opacity: .8; }
 .array-matrix td { background: var(--paper); }
 .array-matrix .is-match { background: var(--blue); color: var(--paper); }
 .array-match-label { display: block; font-size: 10px; } /* Text identifies matches without relying on color. */
-.tic-status { margin: 0; }
-.tic-board { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; width: 100%; max-width: 240px; margin-top: 12px; }
-.tic-square { display: grid; place-items: center; min-width: 0; min-height: 44px; aspect-ratio: 1; padding: 0; border: 1px solid var(--field-border); border-radius: var(--radius-control); background: var(--paper); color: var(--ink); font-size: clamp(24px, 3vw, 32px); font-weight: 550; }
-.tic-square:not(:disabled):hover, .tic-square.is-winning { background: var(--blue-soft); border-color: var(--blue); }
-.tic-square:disabled { cursor: default; } /* Played squares remain legible even when disabled. */
 @media (max-width: 720px) { .array-member-fields { grid-template-columns: minmax(0, 1fr); } }
 /* Decision explanations reuse the form's measure and scroll locally on narrow screens. */
 .decision-flow { max-width: 520px; margin-top: 20px; border-top: 1px solid var(--line); font-size: 12px; }
