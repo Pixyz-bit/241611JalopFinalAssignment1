@@ -265,9 +265,9 @@ Input/Output Example 2 uses the shared white Input and pale-blue Result panels. 
 
 All five Nested If…Else examples use the shared native disclosure beneath their inputs. Their diagrams are plain preserved text using ├──, └── and │ branch characters, four-space nesting and no vertical-only spacer rows. The panel uses the shared white Paper surface, dark Ink text and Line border, with 12px Consolas text at weight 400 and line height 1.7; only Yes and No branch labels use bold weight 700. Scrollbars and keyboard focus use the existing app tokens. Wider diagrams scroll locally and remain keyboard-focusable. The login flowchart pilot and its highlighting are removed; the Result panel retains its ordered Decision path.
 
-### Grade Evaluator
+### Latin Honors Evaluator
 
-Nested If…Else Example 2 uses a single Final percentage field, Evaluate grade and canonical Clear. The result shows only Passed or Failed using the shared result typography, followed by the entered percentage, passing score and decision path. The compact white text decision tree nests the pass/fail check inside valid-input checking, with only Yes/No bold. Percentages are whole numbers from 0–100; 75 or higher is Passed and scores below 75 are Failed. Invalid input shows errors without a calculated result. There is no decimal conversion or grading-scale disclosure.
+Nested If…Else Example 2 uses one General weighted average (GWA) field, Evaluate honors and canonical Clear. Valid decimal GWA is 1.00–5.00. Nested checks use upper limits 1.25, 1.50 and 1.75 to display Summa Cum Laude, Magna Cum Laude, Cum Laude or No Latin Honors. The result detail states Based on GWA only and preserves the entered numeric precision. The shared white decision-tree disclosure illustrates each nested threshold; only Yes/No labels are bold. Existing Input/Result panels, navigation, validation, focus and responsive behavior are reused.
 
 ### Focused examples and desktop credit
 

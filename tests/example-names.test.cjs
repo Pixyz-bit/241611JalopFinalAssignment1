@@ -6,7 +6,7 @@ const base = process.env.SHOWCASE_BASE_URL || 'http://localhost:5196';
 test('all categories expose five named links in full and partial pages', async () => {
     const categories = {
         'input-output': ['ID Card Generator', 'Area and Perimeter Calculator', 'Temperature Converter', 'Time Unit Converter', 'Character and Word Counter'],
-        'nested-if-else': ['Login and Access Checker', 'Grade Evaluator', 'BMI Calculator', 'Triangle Classifier', 'Largest of Three Numbers'],
+        'nested-if-else': ['Login and Access Checker', 'Latin Honors Evaluator', 'BMI Calculator', 'Triangle Classifier', 'Largest of Three Numbers'],
         loops: ['Pyramid Generator', 'Sum of Digits', 'Prime Factorization', 'Number Guessing Game', 'Quiz Retry Simulator'],
         arrays: ['Duplicate Finder', 'Array Sort', 'Tic-Tac-Toe', 'Multiplication Table', 'House Member Finder']
     };

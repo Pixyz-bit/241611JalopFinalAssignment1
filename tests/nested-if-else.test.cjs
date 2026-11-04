@@ -83,10 +83,19 @@ test('all five decisions use compact connected text branches in full and partial
     }
 });
 
-test('grade evaluator checks valid input before Passed or Failed for every percentage', async () => {
-    for (let score = 0; score <= 100; score++) {
-        const { html } = await submit(2, { Percentage: String(score), Result: 'Forged' });
-        assert.equal(result(html), score >= 75 ? 'Passed' : 'Failed', `percentage ${score}`);
+test('Latin honors evaluates every hundredth of GWA and preserves precise threshold decisions', async () => {
+    for (let hundredths = 100; hundredths <= 500; hundredths++) {
+        const Gwa = (hundredths / 100).toFixed(2);
+        const expected = hundredths <= 125 ? 'Summa Cum Laude' : hundredths <= 150 ? 'Magna Cum Laude' : hundredths <= 175 ? 'Cum Laude' : 'No Latin Honors';
+        const { html } = await submit(2, { Gwa, Result: 'Forged' });
+        assert.equal(result(html), expected, `GWA ${Gwa}`);
+        assert.ok(html.includes('Based on GWA only.'));
+    }
+    // Extra precision must not be rounded into the preceding honors category.
+    for (const [Gwa, expected] of [['1.2501', 'Magna Cum Laude'], ['1.5001', 'Cum Laude'], ['1.7501', 'No Latin Honors']]) {
+        const { html } = await submit(2, { Gwa });
+        assert.equal(result(html), expected);
+        assert.ok(html.includes(`GWA: ${Gwa}.`));
     }
 });
 
@@ -131,8 +140,8 @@ test('largest handles each nested branch, negative numbers, decimals and ties', 
 test('missing, malformed, negative and excessive inputs fail without an output', async () => {
     const cases = [
         [1, {}], [1, { Username: 'admin', Password: 'x'.repeat(81) }],
-        [2, { Percentage: '-1' }], [2, { Percentage: '101' }],
-        [2, { Percentage: 'oops' }], [2, { Percentage: '74.5' }], [2, {}],
+        [2, { Gwa: '0.99' }], [2, { Gwa: '5.01' }],
+        [2, { Gwa: 'oops' }], [2, { Gwa: '-1' }], [2, {}],
         [3, { Weight: '60', Height: '0' }], [3, { Weight: '-1', Height: '1.65' }],
         [3, { Weight: '60', Height: '0.00000000001' }], [3, { Weight: 'NaN', Height: '1.65' }],
         [4, { A: '0', B: '5', C: '5' }], [4, { A: '-1', B: '5', C: '5' }],
