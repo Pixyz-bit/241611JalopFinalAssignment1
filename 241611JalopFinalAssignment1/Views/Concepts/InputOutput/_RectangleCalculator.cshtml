@@ -23,13 +23,18 @@
             <h5 id="rectangle-result-title">Result</h5>
             <div class="example-result-status" role="status" aria-atomic="true">
                 <partial name="_ExampleEmpty" model="Model.Area.HasValue" />
-                <div class="example-result-content" data-example-result hidden="@(!Model.Area.HasValue)">
-                    <span class="example-result-label">Area</span>
-                    <strong class="example-result-value" data-rectangle-area>@Model.Area?.ToString("0.########") square units</strong>
-                    <p class="example-result-formula example-result-label">Area = length × width</p>
-                    <span class="example-result-label">Perimeter</span>
-                    <strong class="example-result-value" data-rectangle-perimeter>@Model.Perimeter?.ToString("0.########") units</strong>
-                    <p class="example-result-formula example-result-label">Perimeter = 2 × (length + width)</p>
+                <div class="example-result-content rectangle-results" data-example-result hidden="@(!Model.Area.HasValue)">
+                    @* Each metric keeps its label, value and formula together as one readable group. *@
+                    <div class="rectangle-metric">
+                        <h6>Area</h6>
+                        <strong class="example-result-value" data-rectangle-area>@Model.Area?.ToString("0.########") square units</strong>
+                        <p class="example-result-formula example-result-label">Area = length × width</p>
+                    </div>
+                    <div class="rectangle-metric">
+                        <h6>Perimeter</h6>
+                        <strong class="example-result-value" data-rectangle-perimeter>@Model.Perimeter?.ToString("0.########") units</strong>
+                        <p class="example-result-formula example-result-label">Perimeter = 2 × (length + width)</p>
+                    </div>
                 </div>
             </div>
             <p class="example-result-note">Results shown to up to 8 decimal places.</p>

@@ -37,9 +37,10 @@ button:active, summary:active { opacity: .8; }
 .shortcut-name { font-size: 12px; font-weight: 450; line-height: 1.5; }
 .shortcut-count { font-size: 10px; color: #e0ebff; }
 /* Place the compact welcome beside the shortcut rail, over the darker left side of the wallpaper. */
-.welcome { position: absolute; left: clamp(176px, 12vw, 240px); right: 28px; top: clamp(80px, 18vh, 180px); color: var(--desktop-text); max-width: 420px; transition: opacity 180ms var(--ease); }
-.welcome h1 { font-size: clamp(44px, 3vw, 52px); line-height: 1.12; font-weight: 500; letter-spacing: -.035em; margin: 0 0 24px; text-shadow: 0 2px 20px rgb(2 19 48 / .22); }
-.welcome h1 span { font-weight: 550; }
+.welcome { position: absolute; left: clamp(176px, 12vw, 240px); right: 28px; top: clamp(80px, 18vh, 180px); color: var(--desktop-text); max-width: 660px; transition: opacity 180ms var(--ease); }
+/* Restore the original title scale; a dark, soft shadow separates it from the blue wallpaper. */
+.welcome h1 { font-size: clamp(40px, 4.7vw, 72px); line-height: 1.12; font-weight: 450; letter-spacing: -.04em; margin: 0 0 24px; text-shadow: 0 2px 6px rgb(2 14 40 / .75), 0 8px 24px rgb(2 14 40 / .5); }
+.welcome h1 span { font-weight: 650; }
 .welcome-credit { display: flex; flex-direction: column; gap: 2px; margin: 0 0 24px; color: #d6e5fc; font-size: 13px; line-height: 1.6; }
 .welcome-credit > span:first-child { font-size: 12px; }
 .welcome-credit strong { font-size: 15px; font-weight: 550; color: var(--desktop-text); }
@@ -208,7 +209,7 @@ button:active, summary:active { opacity: .8; }
     .desktop-shortcut > .app-icon { width: 48px; height: 48px; border-radius: 11px; }
     .desktop-shortcut > .app-icon .icon { width: 27px; height: 27px; }
     .welcome { left: 28px; right: 20px; top: clamp(40px, 12vh, 100px); }
-    .welcome h1 { font-size: clamp(32px, 7vw, 44px); }
+    .welcome h1 { font-size: clamp(35px, 8.5vw, 54px); }
     .welcome-action { font-size: 12px; padding-inline: 12px; gap: 8px; }
     .desktop-signature { display: none; }
     .has-window .desktop-apps { visibility: hidden; }
@@ -304,6 +305,11 @@ button:active, summary:active { opacity: .8; }
 .example-result-status { overflow-wrap: anywhere; }
 .example-empty { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.7; }
 .example-result-content { display: flex; flex-direction: column; align-items: flex-start; }
+/* Tight spacing connects each formula to its value; a larger gap separates the two results. */
+.rectangle-results { gap: 28px; width: 100%; }
+.rectangle-metric { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; min-width: 0; max-width: 100%; }
+.rectangle-metric h6 { margin: 0; font-size: 13px; line-height: 1.5; font-weight: 550; color: var(--ink); }
+.rectangle-metric .example-result-value, .rectangle-metric .example-result-formula { margin: 0; }
 .example-result-value, .example-output-panel .example-result strong { max-width: 100%; margin-top: 12px; font-size: clamp(24px, 2.5vw, 32px); line-height: 1.25; letter-spacing: -.025em; font-weight: 550; font-variant-numeric: tabular-nums; }
 /* The formula shares the 12px Converted time label size and hides with stale results. */
 .example-result-formula { margin: 16px 0 0; line-height: 1.8; }
