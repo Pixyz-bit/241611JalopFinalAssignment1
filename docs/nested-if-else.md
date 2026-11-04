@@ -24,7 +24,7 @@ Numeric limits keep decimal arithmetic safe. Latin Honors Evaluator accepts deci
 
 ## Nested-logic review
 
-All five POST actions in `NestedIfElseController` contain actual nested decisions, rather than relying on their illustrated trees alone:
+All five POST actions in `JALOPARLANMARTIN_241611_NestedIfElseController` contain actual nested decisions, rather than relying on their illustrated trees alone:
 
 | Example | Outer decision | Inner decision |
 | --- | --- | --- |

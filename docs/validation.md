@@ -88,7 +88,7 @@ The detector ran once before documentation reconciliation. Its advisories largel
 
 ## Temperature converter Razor repair
 
-- Fixed the malformed conditional in `_ShowcaseWindow.cshtml`: converter first, numbered placeholder second, category overview last. Restored the placeholder content for the other 19 examples.
+- Fixed the malformed conditional in `JALOPARLANMARTIN_241611_ShowcaseWindow.cshtml`: converter first, numbered placeholder second, category overview last. Restored the placeholder content for the other 19 examples.
 - Build passed with zero warnings/errors; all seven navigation tests passed.
 - Local HTTP checks verified 0, 25, 100, -40 and 12.5 Celsius conversions; missing, nonnumeric and out-of-range inputs showed validation without a result.
 - All 20 example routes, partial converter rendering, category overview and About returned their expected content.
@@ -168,7 +168,7 @@ Final example checks: desktop/mobile forms fit without horizontal overflow and p
 
 ## Named example navigation
 
-- Centralized the 19 approved titles and the honest Available slot label in Models/ExampleCatalog.cs. Headings and sidebar links share the catalog. Canonical URLs and selected-state semantics remain unchanged.
+- Centralized the 19 approved titles and the honest Available slot label in Models/JALOPARLANMARTIN_241611_ExampleCatalog.cs. Headings and sidebar links share the catalog. Canonical URLs and selected-state semantics remain unchanged.
 - Desktop labels wrap beside fixed-size icons. Below 720px, full names appear in a horizontal scroll row with at least 44px link targets. Existing focus and reduced-motion styling is preserved.
 - The final build passed with zero warnings/errors after stopping the app to release its executable. All 41 regression cases passed, including names, destinations and selected states on all 20 full and partial routes. The layout detector reported no findings.
 - Local browser use was disabled in Work settings during this task. Desktop/mobile rendered inspection and interactive keyboard review could not be completed; no visual verification is claimed. The app was rerun at http://localhost:5196 for review.
@@ -274,4 +274,4 @@ Added the model's loop type beside all five loop example headings, matching the 
 
 ### Start menu control cleanup
 
-Removed the Start search button and its unused CSS, plus the visible Show desktop footer text. Kept the canonical home link, icon, accessible label and 44px target. Build passed with zero warnings/errors; app rerun at localhost:5196 and all 9 navigation tests passed. Browser verified Start opens without the search button or visible desktop text and Ctrl+K still opens Find a concept. Screenshot: .tmp/start-menu-cleanup.png. Existing unrelated user edits in Index.cshtml and other files were excluded from the cleanup commit.
+Removed the Start search button and its unused CSS, plus the visible Show desktop footer text. Kept the canonical home link, icon, accessible label and 44px target. Build passed with zero warnings/errors; app rerun at localhost:5196 and all 9 navigation tests passed. Browser verified Start opens without the search button or visible desktop text and Ctrl+K still opens Find a concept. Screenshot: .tmp/start-menu-cleanup.png. Existing unrelated user edits in JALOPARLANMARTIN_241611_Index.cshtml and other files were excluded from the cleanup commit.
