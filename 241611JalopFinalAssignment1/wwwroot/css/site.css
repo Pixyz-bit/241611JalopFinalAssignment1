@@ -207,7 +207,7 @@ button:active, summary:active { opacity: .8; }
     .shortcut-count { font-size: 9px; }
     .desktop-shortcut > .app-icon { width: 48px; height: 48px; border-radius: 11px; }
     .desktop-shortcut > .app-icon .icon { width: 27px; height: 27px; }
-    .welcome { left: 28px; right: 20px; top: clamp(70px,20vh,180px); }
+    .welcome { left: 28px; right: 20px; top: clamp(40px, 12vh, 100px); }
     .welcome h1 { font-size: clamp(32px, 7vw, 44px); }
     .welcome-action { font-size: 12px; padding-inline: 12px; gap: 8px; }
     .desktop-signature { display: none; }
