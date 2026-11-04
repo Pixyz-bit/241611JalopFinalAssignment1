@@ -16,12 +16,13 @@
             }
         </nav>
         <section class="welcome" aria-label="Welcome" inert="@(Model.HasWindow ? "inert" : null)">
-            <h1>C# Programming<br /><span>Showcase.</span></h1>
-            <p class="welcome-description">Developed by: Arlan Martin N. Jalop<br />Section: SBIT3C</p>
-            <a href="/concepts/input-output/example-1" class="welcome-action" data-navigate><svg class="icon"><use href="#icon-code" /></svg> Explore the concepts <svg class="icon"><use href="#icon-arrow" /></svg></a>
+            <h1>C# Programming<br /><span>Showcase</span></h1>
+            @* Keep the author and section together as one compact credit beneath the title. *@
+            <p class="welcome-credit"><span>Developed by</span><strong>Arlan Martin N. Jalop</strong><span>SBIT3C</span></p>
+            <a href="/concepts/input-output/example-1" class="welcome-action" data-navigate>Explore the concepts <svg class="icon" aria-hidden="true"><use href="#icon-arrow" /></svg></a>
         </section>
         <div id="window-host" class="window-host" aria-live="polite"><partial name="_ShowcaseWindow" model="Model" /></div>
-        <span class="desktop-signature">C# Programming Showcase<span>IPT101 - Integrative Programming and Technology</span></span>
+        <span class="desktop-signature">IPT101 - Integrative Programming and Technology</span>
     </main>
     <footer class="taskbar">
         <a class="taskbar-brand" href="/" data-navigate><svg class="icon"><use href="#icon-code" /></svg><span>C# Showcase</span></a>

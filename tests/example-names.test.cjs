@@ -35,8 +35,9 @@ test('all categories expose five named links in full and partial pages', async (
 
 test('category entry links open Example 1 and retired About URLs return 404', async () => {
     const home = await (await fetch(base)).text();
-    assert.ok(home.includes('Developed by: Arlan Martin N. Jalop'));
-    assert.ok(home.includes('Section: SBIT3C'));
+    assert.ok(home.includes('Developed by'));
+    assert.ok(home.includes('Arlan Martin N. Jalop'));
+    assert.ok(home.includes('SBIT3C'));
     assert.ok(!home.includes('href="/about"'));
     const categoryLinks = [...home.matchAll(/href="(\/concepts\/[^"\s]+)"/g)].map(match => match[1]);
     assert.ok(categoryLinks.length >= 4);

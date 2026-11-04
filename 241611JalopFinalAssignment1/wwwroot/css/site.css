@@ -36,17 +36,19 @@ button:active, summary:active { opacity: .8; }
 .desktop-shortcut:hover, .desktop-shortcut[aria-current=page] { background: rgb(198 225 255 / .15); border-color: rgb(211 234 255 / .2); }
 .shortcut-name { font-size: 12px; font-weight: 450; line-height: 1.5; }
 .shortcut-count { font-size: 10px; color: #e0ebff; }
-.welcome { position: absolute; left: 20%; top: clamp(100px, 24vh, 260px); color: var(--desktop-text); max-width: 660px; transition: opacity 180ms var(--ease); }
-.welcome h1 { font-size: clamp(40px, 4.7vw, 72px); line-height: 1.12; font-weight: 450; letter-spacing: -.04em; margin: 0 0 24px; text-shadow: 0 2px 20px rgb(2 19 48 / .22); }
-.welcome h1 span { font-weight: 650; }
-.welcome-description { color: #e6eeff; line-height: 1.9; font-size: 15px; margin: 0 0 28px; }
-.welcome-action { display: inline-flex; align-items: center; gap: 12px; background: #eef6ff; color: #123a65; padding: 10px 18px; min-height: 44px; border-radius: 5px; box-shadow: 0 4px 14px rgb(2 19 48 / .14); font-weight: 550; }
-.welcome-action .icon:last-child { width: 16px; margin-left: 10px; }
+/* Place the compact welcome beside the shortcut rail, over the darker left side of the wallpaper. */
+.welcome { position: absolute; left: clamp(176px, 12vw, 240px); right: 28px; top: clamp(80px, 18vh, 180px); color: var(--desktop-text); max-width: 420px; transition: opacity 180ms var(--ease); }
+.welcome h1 { font-size: clamp(44px, 3vw, 52px); line-height: 1.12; font-weight: 500; letter-spacing: -.035em; margin: 0 0 24px; text-shadow: 0 2px 20px rgb(2 19 48 / .22); }
+.welcome h1 span { font-weight: 550; }
+.welcome-credit { display: flex; flex-direction: column; gap: 2px; margin: 0 0 24px; color: #d6e5fc; font-size: 13px; line-height: 1.6; }
+.welcome-credit > span:first-child { font-size: 12px; }
+.welcome-credit strong { font-size: 15px; font-weight: 550; color: var(--desktop-text); }
+.welcome-action { display: inline-flex; align-items: center; gap: 12px; background: #eef6ff; color: #123a65; padding: 10px 16px; min-height: 44px; border-radius: 5px; box-shadow: 0 4px 14px rgb(2 19 48 / .14); font-size: 13px; font-weight: 550; }
+.welcome-action .icon { width: 16px; }
 .welcome-action:hover { background: #d9eaff; }
 .has-window .welcome { opacity: 0; visibility: hidden; pointer-events: none; }
 .has-window .desktop-signature { visibility: hidden; } /* Keep the desktop signature from peeking around the open window. */
-.desktop-signature { position: absolute; bottom: 24px; right: 28px; color: #edf5ff; font-size: 12px; font-weight: 550; text-align: right; text-shadow: 0 1px 4px #061a40; }
-.desktop-signature span { display: block; font-size: 11px; font-weight: 400; color: #d6e5fc; }
+.desktop-signature { position: absolute; bottom: 24px; right: 28px; max-width: calc(100% - 176px); color: #d6e5fc; font-size: 11px; font-weight: 400; text-align: right; text-shadow: 0 1px 4px #061a40; }
 /* A full-width taskbar stays available even when the app is maximized. */
 .taskbar { position: fixed; z-index: 20; bottom: 0; left: 0; right: 0; height: var(--taskbar-height); padding: 4px 18px; background: rgb(234 241 252 / .94); backdrop-filter: blur(24px); border-top: 1px solid rgb(244 249 255 / .5); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; }
 .taskbar-brand { display: inline-flex; align-items: center; gap: 9px; width: fit-content; min-height: 44px; font-size: 12px; }
@@ -206,8 +208,7 @@ button:active, summary:active { opacity: .8; }
     .desktop-shortcut > .app-icon { width: 48px; height: 48px; border-radius: 11px; }
     .desktop-shortcut > .app-icon .icon { width: 27px; height: 27px; }
     .welcome { left: 28px; right: 20px; top: clamp(70px,20vh,180px); }
-    .welcome h1 { font-size: clamp(35px,8.5vw,54px); }
-    .welcome-description { font-size: 13px; }
+    .welcome h1 { font-size: clamp(32px, 7vw, 44px); }
     .welcome-action { font-size: 12px; padding-inline: 12px; gap: 8px; }
     .desktop-signature { display: none; }
     .has-window .desktop-apps { visibility: hidden; }
@@ -254,10 +255,15 @@ button:active, summary:active { opacity: .8; }
 @media (max-height: 500px) {
     .welcome { top: 30px; }
     .welcome h1 { font-size: 34px; margin-bottom: 12px; }
-    .welcome-description { margin-bottom: 12px; }
+    .welcome-credit { margin-bottom: 12px; }
     .window-host { top: 6px; bottom: calc(var(--taskbar-height) + 6px); }
     .app-sidebar { padding-top: 10px; }
     .app-page-heading { padding: 12px 18px; }
+}
+/* Let a short phone scroll its desktop instead of placing shortcuts over the welcome action. */
+@media (max-width: 720px) and (max-height: 500px) {
+    .desktop:not(.has-window) { padding-bottom: var(--taskbar-height); }
+    .desktop:not(.has-window) .desktop-workspace { min-height: 440px; }
 }
 /* Start and all four category shortcuts remain visible on narrow phones. */
 @media (max-width: 360px) { .taskbar-apps { gap: 0; } .start-footer { flex-wrap: wrap; } .app-page-heading { gap: 10px; } .example-detail { padding: 20px 14px; } }
