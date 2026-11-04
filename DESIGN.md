@@ -32,8 +32,8 @@ colors:
 typography:
   display:
     fontFamily: "Geist, Segoe UI, sans-serif"
-    fontSize: "clamp(44px, 3vw, 52px)"
-    fontWeight: 500
+    fontSize: "clamp(40px, 4.7vw, 72px)"
+    fontWeight: 450
     lineHeight: 1.12
     letterSpacing: "-0.04em"
   headline:
@@ -161,7 +161,7 @@ The light workspace uses Paper for detail, Surface for the application ground an
 
 ## Typography
 
-The self-hosted Geist variable face is preserved, with Segoe UI and sans-serif fallbacks. The welcome uses the compact display role with a slightly stronger second line (550); About uses the headline role. Example titles use the title role; navigation and template sections use compact label/detail roles. Small metadata stays subordinate to category and example names.
+The self-hosted Geist variable face is preserved, with Segoe UI and sans-serif fallbacks. The welcome uses the display role with a stronger second line (650); About uses the headline role. Example titles use the title role; navigation and template sections use compact label/detail roles. Small metadata stays subordinate to category and example names.
 
 Category headings use 28px type (25px on phones), weight 600 and line height 1.25. The header uses 16px vertical/24px horizontal padding and a 44px icon. Its description can span up to 100ch, avoiding unnecessary wrapping on desktops; template text remains bounded at 60ch. Implemented examples use a 12px pane inset and shared panel padding; empty templates retain their original spacing. The taskbar clock uses tabular numerals and two lines.
 
@@ -289,4 +289,7 @@ Arrays Example 4 is Multiplication Table: two vertical dimension inputs and a re
 
 ### Compact desktop welcome
 
-The desktop welcome sits beside the shortcut rail, 176–240px from the left edge and 80–180px from the top, with a maximum width of 420px. C# Programming and Showcase form a 44–52px heading at weights 500/550 without a trailing period. Developed by uses 12px muted text, the author name uses 15px at weight 550, and SBIT3C uses 13px; 24px gaps separate the title, grouped credit and action. Explore the concepts is a compact 44px-high button with one trailing arrow. The lower-right signature shows only IPT101 - Integrative Programming and Technology. Phones keep the established stacked desktop layout with a 32–44px heading; short phones scroll to keep the welcome and shortcut row separate. Wallpaper, application windows and taskbar retain their approved design.
+The desktop welcome sits beside the shortcut rail, 176–240px from the left edge and 80–180px from the top, with a maximum width of 660px. C# Programming and Showcase use the original 40–72px heading at weights 450/650 without a trailing period. A soft dark text shadow improves separation from the wallpaper. Developed by uses 12px muted text, the author name uses 15px at weight 550, and SBIT3C uses 13px; 24px gaps separate the title, grouped credit and action. Explore the concepts is a compact 44px-high button with one trailing arrow. The lower-right signature shows only IPT101 - Integrative Programming and Technology. Phones keep the established stacked desktop layout with the original 35–54px responsive heading; short phones scroll to keep the welcome and shortcut row separate. Wallpaper, application windows and taskbar retain their approved design.
+
+
+Rectangle results use two plain metric groups separated by 28px. Each group contains a 13px, weight-550 heading, the shared 24–32px value, and a muted 12px formula, with 6px spacing within the group. This keeps formulas attached to their value and gives Area and Perimeter equal hierarchy without adding cards or changing the panel palette.
