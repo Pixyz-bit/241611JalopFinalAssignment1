@@ -4,6 +4,15 @@
 
 This record applies to `windows-design`. The detailed review below records the earlier Explorer version; it is historical evidence for that version, not validation of the later application shell.
 
+## Documentation and controller cleanup — November 5, 2026
+
+- Reconciled current product/design/architecture guidance and labeled older plans and verification as historical. Preserved dated evidence rather than treating retired examples as current requirements.
+- Moved ConvertTemperature to InputOutputController and updated its Razor form target; the canonical URL, binding allowlist, antiforgery, absolute-zero checks and native Swap behavior remain unchanged.
+- Removed HomeController's unused logger and normalized formatting in the affected controllers. Separate user edits to ArraysController and DuplicateFinderViewModel were excluded from the commits.
+- Rebuilt the solution after restarting the project process that locked its binaries: zero warnings/errors. Reran the HTTP launch profile at http://localhost:5196.
+- All 44 existing regression checks passed, including full/partial routes, calculations, validation, native Swap, antiforgery and simulated navigation history.
+- No CSS, visible markup structure or interaction scripts changed. Desktop/mobile rendering, real keyboard controls and reduced-motion emulation were not repeated for this controller/documentation cleanup; earlier browser evidence remains dated to its own version.
+
 ## Application-shell refinement
 - Both isolated builds passed with zero warnings and errors: initial `dotnet build 241611JalopFinalAssignment1.sln --property:OutputPath=bin/app-check/ --property:UseAppHost=false` and final `dotnet build 241611JalopFinalAssignment1.sln --property:OutputPath=bin/app-final/ --property:UseAppHost=false`.
 - All seven existing `node --test tests/navigation.test.cjs` checks passed after the final JavaScript changes.
