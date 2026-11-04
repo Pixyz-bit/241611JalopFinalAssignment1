@@ -20,11 +20,6 @@ namespace _241611JalopFinalAssignment1.Controllers
             return View(model); // Render Views/Home/Index.cshtml with this model and the shared layout.
         }
 
-        public IActionResult Privacy() // The default route exposes this starter page at /Home/Privacy.
-        {
-            return View(); // With no view name, MVC uses the action name: Views/Home/Privacy.cshtml.
-        }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)] // Tell browsers and caches not to store this error response.
         public IActionResult Error() // Production exception handling sends errors to /Home/Error.
         {
