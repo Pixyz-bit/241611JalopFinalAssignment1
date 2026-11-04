@@ -10,17 +10,17 @@ public sealed class JALOPARLANMARTIN_241611_ArraysController : Controller
     [ValidateAntiForgeryToken] // Native requests must include this site's form token.
     public IActionResult FindDuplicates([Bind("Values")] JALOPARLANMARTIN_241611_DuplicateFinderViewModel input)
     {
-        if (ModelState.IsValid && TryReadValues(input, out var values, out _))
+        if (ModelState.IsValid && TryReadValues(input, out var values, out _)) //splits text at commas or line breaks, trims spaces, and checks that every entry is a valid number.
         {
             input.OutputValues = values;
             // Parsed numbers have canonical text, so numerically equal values use the same dictionary key.
             var positions = new Dictionary<string, List<int>>(StringComparer.Ordinal);
-            for (var index = 0; index < values.Length; index++)
+            for (var index = 0; index < values.Length; index++) //increments the index position of duplicates
             {
                 if (!positions.TryGetValue(values[index], out var indexes)) positions[values[index]] = indexes = new();
                 indexes.Add(index); // C# array indexes start at zero.
             }
-            for (var index = 0; index < values.Length; index++)
+            for (var index = 0; index < values.Length; index++) //counts the number of index for each
             {
                 var indexes = positions[values[index]];
                 if (indexes.Count > 1 && indexes[0] == index) input.Duplicates.Add(new(values[index], indexes.Count, indexes));
