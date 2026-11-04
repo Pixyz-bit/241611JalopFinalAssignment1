@@ -263,3 +263,7 @@ Changed all four house roster placeholders into actual editable values, seeded o
 ### Desktop corner credits and pixyz-bit taskbar label
 
 Moved Developed by Arlan Martin N. Jalop (SBIT3C) above the lower-left taskbar, with the author name emphasized. Restored C# Programming Showcase above the course name in the lower-right signature, and changed the taskbar desktop-link label to <pixyz-bit/> with HTML encoding. Build passed with zero warnings/errors; app rerun at localhost:5196 and all 11 navigation/example-name checks passed. Browser reviewed desktop and 320×568 phone layouts: credits are separated from shortcuts and taskbar, with no horizontal page overflow. Phone author credit ends 12px above the taskbar. Reset viewport override. Review screenshot: .tmp/desktop-credits-pixyz.png.
+
+### Removed desktop welcome block
+
+Removed the visible large title and Explore the concepts button, their CSS, and JavaScript dependencies. Kept a screen-reader-only page heading, category shortcuts, Start/taskbar navigation and corner credits. Closing an example now focuses the first desktop category. Build passed with zero warnings/errors; app rerun at localhost:5196 and all 11 navigation/example-name checks passed. Browser verified no welcome elements remain, Arrays opens normally, Close returns to desktop and focuses Input/Output. Review image: .tmp/desktop-without-welcome.png.
