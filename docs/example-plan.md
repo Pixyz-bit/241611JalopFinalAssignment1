@@ -1,5 +1,7 @@
 # Example planning
 
+> Historical record: earlier stages and retired examples appear below. Current behavior is defined in [PRODUCT.md](../PRODUCT.md), [DESIGN.md](../DESIGN.md) and [architecture.md](architecture.md). Dated checks apply only to the version tested.
+
 ## Input/Output
 
 ### Example 1 — ID Card Generator (implemented)

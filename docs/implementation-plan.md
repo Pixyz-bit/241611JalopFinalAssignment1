@@ -1,5 +1,7 @@
 # Approved implementation record — Windows branch
 
+> Historical record: earlier stages and retired examples appear below. Current behavior is defined in [PRODUCT.md](../PRODUCT.md), [DESIGN.md](../DESIGN.md) and [architecture.md](architecture.md). Dated checks apply only to the version tested.
+
 The user approved replacing the macOS visual world on `windows-design` while retaining the macOS version on `main`. This file records the Windows implementation and the user-requested application-shell refinement.
 
 1. Preserve ASP.NET Core MVC, net8.0, Razor, CSS and plain JavaScript, all canonical routes and the existing route cache.

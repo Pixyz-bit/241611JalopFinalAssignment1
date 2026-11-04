@@ -1,6 +1,6 @@
 # C# Programming Showcase
 
-A Windows 11 inspired ASP.NET Core MVC showcase with four concept app shortcuts, five example slots per concept, a light Windows application, Start navigation, search and a persistent taskbar. Input/Output has four working examples; Nested If…Else has five. The `windows-design` branch contains this design; `main` retains the earlier macOS version.
+A Windows 11 inspired ASP.NET Core MVC showcase with four concept app shortcuts, five example slots per concept, a light Windows application, Start navigation, search and a persistent taskbar. All four categories have five implemented examples (20 total). The `windows-design` branch contains this design; `main` retains the earlier macOS version.
 
 ## Run
 Install the .NET 8 SDK (or a newer compatible SDK with the .NET 8 runtime), open this folder in Visual Studio or a terminal, and run:
@@ -34,6 +34,8 @@ With Node.js available, run `node --test tests/navigation.test.cjs` from the sol
 
 With the app running, use `node --test tests/nested-if-else.test.cjs` to verify the five decision examples through real HTTP forms. Set `SHOWCASE_BASE_URL` if the app uses a port other than 5196. See [docs/nested-if-else.md](docs/nested-if-else.md) for the example order, public sample accounts and decision rules.
 
+Run all regression checks against the running app with `node --test tests/*.test.cjs`. Set `SHOWCASE_BASE_URL` for a different port.
+
 ## Project guidance
 - [PRODUCT.md](PRODUCT.md): scope and confirmed decisions.
 - [DESIGN.md](DESIGN.md): visual rules and reusable tokens.
@@ -43,4 +45,4 @@ With the app running, use `node --test tests/nested-if-else.test.cjs` to verify 
 - [docs/assets.md](docs/assets.md): wallpaper provenance and font licensing.
 - [docs/validation.md](docs/validation.md): verification results and limits.
 
-Input/Output, Nested If…Else, Loops and Arrays each have Example 01–05. The remaining empty slots are available for the owner's next examples.
+Input/Output, Nested If…Else, Loops and Arrays each have Example 01–05. See [docs/mvc-example-map.md](docs/mvc-example-map.md) for their models, views and POST actions.

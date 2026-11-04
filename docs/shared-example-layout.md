@@ -1,5 +1,7 @@
 # Shared example layout verification
 
+> Historical record: earlier stages and retired examples appear below. Current behavior is defined in [PRODUCT.md](../PRODUCT.md), [DESIGN.md](../DESIGN.md) and [architecture.md](architecture.md). Dated checks apply only to the version tested.
+
 Validated on November 2, 2026. The four working Input/Output examples and all five Nested If…Else examples use the approved Example 4 panel layout. The other eleven slots remain unimplemented templates.
 
 ## Behavior and layout

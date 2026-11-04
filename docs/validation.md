@@ -1,5 +1,7 @@
 # Validation — Windows redesign, 2026-10-29
 
+> Historical record: earlier stages and retired examples appear below. Current behavior is defined in [PRODUCT.md](../PRODUCT.md), [DESIGN.md](../DESIGN.md) and [architecture.md](architecture.md). Dated checks apply only to the version tested.
+
 This record applies to `windows-design`. The detailed review below records the earlier Explorer version; it is historical evidence for that version, not validation of the later application shell.
 
 ## Application-shell refinement
