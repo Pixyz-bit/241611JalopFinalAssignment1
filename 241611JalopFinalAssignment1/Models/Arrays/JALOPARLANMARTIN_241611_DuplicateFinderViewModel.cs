@@ -7,7 +7,7 @@ public sealed class JALOPARLANMARTIN_241611_DuplicateFinderViewModel : JALOPARLA
 {
     public override int Number => 1;
     public override string Title => JALOPARLANMARTIN_241611_ExampleCatalog.GetTitle("arrays", 1);
-    public override string Description => "Find repeated numbers or names and see how often each value appears.";
+    public override string Description => "Find repeated numbers and see how often each number appears.";
     public List<JALOPARLANMARTIN_241611_ArrayDuplicate> Duplicates { get; } = new();
 }
 

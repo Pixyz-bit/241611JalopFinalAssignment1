@@ -9,7 +9,7 @@ public sealed class JALOPARLANMARTIN_241611_ArraySortViewModel : JALOPARLANMARTI
 {
     public override int Number => 2;
     public override string Title => JALOPARLANMARTIN_241611_ExampleCatalog.GetTitle("arrays", 2);
-    public override string Description => "Sort numbers numerically or names alphabetically, in either direction.";
+    public override string Description => "Sort numbers numerically in ascending or descending order.";
     [EnumDataType(typeof(JALOPARLANMARTIN_241611_ArraySortDirection), ErrorMessage = "Choose Ascending or Descending.")]
     public JALOPARLANMARTIN_241611_ArraySortDirection Direction { get; set; }
 }

@@ -23,12 +23,7 @@
             @* All input controls for this example are written below. *@
             <div class="example-input-fields">
                 <div>
-                    <label asp-for="ValueKind">Values contain</label>
-                    <select asp-for="ValueKind" asp-items="Html.GetEnumSelectList<JALOPARLANMARTIN_241611_ArrayValueKind>()" class="example-input" aria-describedby="kind-error" aria-invalid="@(ViewData.ModelState[nameof(Model.ValueKind)]?.Errors.Count > 0 ? "true" : null)"></select>
-                    <span asp-validation-for="ValueKind" id="kind-error" class="temperature-errors"></span>
-                </div>
-                <div>
-                    <label asp-for="Values">Array values</label>
+                    <label asp-for="Values">Array numbers</label>
                     <textarea asp-for="Values" rows="3" required maxlength="1500" class="example-input example-textarea" aria-describedby="values-error" aria-invalid="@(ViewData.ModelState[nameof(Model.Values)]?.Errors.Count > 0 ? "true" : null)" placeholder="For example: 8, 3, 8, 12"></textarea>
                     <span asp-validation-for="Values" id="values-error" class="temperature-errors"></span>
                 </div>

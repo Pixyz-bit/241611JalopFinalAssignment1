@@ -15,20 +15,31 @@
                         {
                             @foreach (var error in field.Value.Errors)
                             {
-                                <li><a href="#Values">@error.ErrorMessage</a></li>
+                                <li><a href="#@field.Key">@error.ErrorMessage</a></li>
                             }
                         }
                     </ul>
                 </div>
             }
+            @* Each field supplies one complete array row. *@
             <div class="example-input-fields">
                 <div>
-                    <label asp-for="Values">2D array values</label>
-                    <textarea asp-for="Values" rows="5" required maxlength="6000" class="example-input example-textarea" aria-describedby="matrix-format values-error" aria-invalid="@(ViewData.ModelState[nameof(Model.Values)]?.Errors.Count > 0 ? "true" : null)" placeholder="8, 3, 12&#10;-4, 7, 2"></textarea>
-                    <p id="matrix-format" class="example-hint">One row per line, with commas between numbers. Use 1–12 rows and the same number of columns (1–12) in every row.</p>
-                    <span asp-validation-for="Values" id="values-error" class="temperature-errors"></span>
+                    <label asp-for="Row1">Row 1</label>
+                    <input asp-for="Row1" class="example-input" required maxlength="500" aria-describedby="matrix-format row1-error" aria-invalid="@(ViewData.ModelState[nameof(Model.Row1)]?.Errors.Count > 0 ? "true" : null)" placeholder="8, 3, 12" />
+                    <span asp-validation-for="Row1" id="row1-error" class="temperature-errors"></span>
+                </div>
+                <div>
+                    <label asp-for="Row2">Row 2</label>
+                    <input asp-for="Row2" class="example-input" required maxlength="500" aria-describedby="matrix-format row2-error" aria-invalid="@(ViewData.ModelState[nameof(Model.Row2)]?.Errors.Count > 0 ? "true" : null)" placeholder="-4, 7, 2" />
+                    <span asp-validation-for="Row2" id="row2-error" class="temperature-errors"></span>
+                </div>
+                <div>
+                    <label asp-for="Row3">Row 3</label>
+                    <input asp-for="Row3" class="example-input" required maxlength="500" aria-describedby="matrix-format row3-error" aria-invalid="@(ViewData.ModelState[nameof(Model.Row3)]?.Errors.Count > 0 ? "true" : null)" placeholder="6, 0, 9" />
+                    <span asp-validation-for="Row3" id="row3-error" class="temperature-errors"></span>
                 </div>
             </div>
+            <p id="matrix-format" class="example-hint">Separate numbers with commas. All three rows must have the same number of values (1–12).</p>
             <div class="temperature-actions">
                 <button class="temperature-confirm" type="submit">Find largest and smallest</button>
                 <a id="array-reset" class="temperature-clear" href="/concepts/arrays/example-3">Clear</a>

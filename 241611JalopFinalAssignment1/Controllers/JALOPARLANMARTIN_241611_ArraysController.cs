@@ -8,13 +8,13 @@ public sealed class JALOPARLANMARTIN_241611_ArraysController : Controller
 {
     [HttpPost("concepts/arrays/example-1")]
     [ValidateAntiForgeryToken] // Native requests must include this site's form token.
-    public IActionResult FindDuplicates([Bind("Values,ValueKind")] JALOPARLANMARTIN_241611_DuplicateFinderViewModel input)
+    public IActionResult FindDuplicates([Bind("Values")] JALOPARLANMARTIN_241611_DuplicateFinderViewModel input)
     {
         if (ModelState.IsValid && TryReadValues(input, out var values, out _))
         {
             input.OutputValues = values;
-            var comparer = input.ValueKind == JALOPARLANMARTIN_241611_ArrayValueKind.Names ? StringComparer.OrdinalIgnoreCase : StringComparer.Ordinal;
-            var positions = new Dictionary<string, List<int>>(comparer);
+            // Parsed numbers have canonical text, so numerically equal values use the same dictionary key.
+            var positions = new Dictionary<string, List<int>>(StringComparer.Ordinal);
             for (var index = 0; index < values.Length; index++)
             {
                 if (!positions.TryGetValue(values[index], out var indexes)) positions[values[index]] = indexes = new();
@@ -26,38 +26,30 @@ public sealed class JALOPARLANMARTIN_241611_ArraysController : Controller
                 if (indexes.Count > 1 && indexes[0] == index) input.Duplicates.Add(new(values[index], indexes.Count, indexes));
             }
             input.Result = input.Duplicates.Count == 0 ? "No duplicates" : $"{input.Duplicates.Count} repeated {(input.Duplicates.Count == 1 ? "value" : "values")}";
-            input.Detail = input.ValueKind == JALOPARLANMARTIN_241611_ArrayValueKind.Names ? "Names are compared without letter case. Spaces around each name are ignored." : "Numbers are compared by their numeric value, so 1 and 1.0 match.";
+            input.Detail = "Numbers are compared by their numeric value, so 1 and 1.0 match.";
         }
         return Example(input);
     }
 
     [HttpPost("concepts/arrays/example-2")]
     [ValidateAntiForgeryToken]
-    public IActionResult SortValues([Bind("Values,ValueKind,Direction")] JALOPARLANMARTIN_241611_ArraySortViewModel input)
+    public IActionResult SortValues([Bind("Values,Direction")] JALOPARLANMARTIN_241611_ArraySortViewModel input)
     {
         if (ModelState.IsValid && TryReadValues(input, out var values, out var numbers))
         {
-            if (input.ValueKind == JALOPARLANMARTIN_241611_ArrayValueKind.Numbers)
-            {
-                Array.Sort(numbers); // Sort the actual decimal array, not the text representation of each number.
-                if (input.Direction == JALOPARLANMARTIN_241611_ArraySortDirection.Descending) Array.Reverse(numbers);
-                values = numbers.Select(FormatNumber).ToArray();
-            }
-            else
-            {
-                Array.Sort(values, StringComparer.OrdinalIgnoreCase);
-                if (input.Direction == JALOPARLANMARTIN_241611_ArraySortDirection.Descending) Array.Reverse(values);
-            }
+            Array.Sort(numbers); // Sort numeric values, so 2 comes before 10.
+            if (input.Direction == JALOPARLANMARTIN_241611_ArraySortDirection.Descending) Array.Reverse(numbers);
+            values = numbers.Select(FormatNumber).ToArray();
             input.OutputValues = values;
             input.Result = $"{input.Direction} order";
-            input.Detail = $"{values.Length} values sorted {(input.ValueKind == JALOPARLANMARTIN_241611_ArrayValueKind.Numbers ? "numerically" : "alphabetically, without letter case")}. Repeated values are kept.";
+            input.Detail = $"{values.Length} numbers sorted numerically. Repeated values are kept.";
         }
         return Example(input);
     }
 
     [HttpPost("concepts/arrays/example-3")]
     [ValidateAntiForgeryToken]
-    public IActionResult FindExtremes([Bind("Values")] JALOPARLANMARTIN_241611_ArrayExtremesViewModel input)
+    public IActionResult FindExtremes([Bind("Row1,Row2,Row3")] JALOPARLANMARTIN_241611_ArrayExtremesViewModel input)
     {
         if (ModelState.IsValid && TryReadMatrix(input, out var numbers))
         {
@@ -96,34 +88,29 @@ public sealed class JALOPARLANMARTIN_241611_ArraysController : Controller
     private bool TryReadMatrix(JALOPARLANMARTIN_241611_ArrayExtremesViewModel input, out decimal[,] numbers)
     {
         numbers = new decimal[0, 0];
-        // Normalize browser line endings, then treat each line as one row.
-        var rows = (input.Values ?? "").Trim().Replace("\r\n", "\n").Replace('\r', '\n').Split('\n');
-        if (rows.Length is < 1 or > 12)
-        {
-            ModelState.AddModelError(nameof(input.Values), "Enter 1–12 rows.");
-            return false;
-        }
+        // Each submitted field becomes one of the three rows in the rectangular array.
+        var rows = new[] { input.Row1 ?? "", input.Row2 ?? "", input.Row3 ?? "" };
+        var fields = new[] { nameof(input.Row1), nameof(input.Row2), nameof(input.Row3) };
         var columns = rows[0].Split(',').Length;
         if (columns is < 1 or > 12)
         {
-            ModelState.AddModelError(nameof(input.Values), "Enter 1–12 comma-separated numbers in each row.");
+            ModelState.AddModelError(nameof(input.Row1), "Enter 1–12 comma-separated numbers in each row.");
             return false;
         }
-        numbers = new decimal[rows.Length, columns]; // Every row must have the same column count.
+        numbers = new decimal[3, columns]; // All three rows must have the same column count.
         for (var row = 0; row < rows.Length; row++)
         {
-            // Keep empty entries so a missing value cannot silently change the array's shape.
-            var cells = rows[row].Split(',', StringSplitOptions.TrimEntries);
-            if (cells.Length != columns)
+            var cells = rows[row].Split(',', StringSplitOptions.TrimEntries); // Keep missing entries for validation.
+            if (rows[row].IndexOfAny(new[] { '\r', '\n' }) >= 0 || cells.Length != columns)
             {
-                ModelState.AddModelError(nameof(input.Values), $"Row {row + 1} must contain {columns} numbers, like the first row.");
+                ModelState.AddModelError(fields[row], $"Row {row + 1} must contain {columns} comma-separated numbers on one line.");
                 return false;
             }
             for (var column = 0; column < columns; column++)
             {
                 if (cells[column].Length > 40 || !TryNumber(cells[column], out numbers[row, column]))
                 {
-                    ModelState.AddModelError(nameof(input.Values), $"Row {row + 1}, column {column + 1}: enter a number from −1,000,000,000 to 1,000,000,000. Use a decimal point and commas between values.");
+                    ModelState.AddModelError(fields[row], $"Row {row + 1}, column {column + 1}: enter a number from −1,000,000,000 to 1,000,000,000.");
                     return false;
                 }
             }
@@ -200,18 +187,16 @@ public sealed class JALOPARLANMARTIN_241611_ArraysController : Controller
             ModelState.AddModelError(nameof(input.Values), "Enter 1–30 values, with at most 40 characters per value.");
             return false;
         }
-        if (input.ValueKind == JALOPARLANMARTIN_241611_ArrayValueKind.Numbers)
+        // Always parse numbers; a submitted legacy Names option cannot bypass numeric validation.
+        numbers = new decimal[values.Length];
+        for (var index = 0; index < values.Length; index++)
         {
-            numbers = new decimal[values.Length];
-            for (var index = 0; index < values.Length; index++)
+            if (!TryNumber(values[index], out numbers[index]))
             {
-                if (!TryNumber(values[index], out numbers[index]))
-                {
-                    ModelState.AddModelError(nameof(input.Values), "Use numbers from −1,000,000,000 to 1,000,000,000, with a decimal point and no thousands separators.");
-                    return false;
-                }
-                values[index] = FormatNumber(numbers[index]); // Canonical text groups numerically equal values together.
+                ModelState.AddModelError(nameof(input.Values), "Use numbers from −1,000,000,000 to 1,000,000,000, with a decimal point and no thousands separators.");
+                return false;
             }
+            values[index] = FormatNumber(numbers[index]); // Canonical text groups equivalent numbers together.
         }
         return true;
     }

@@ -35,14 +35,11 @@ test('all five array slots support complete and partial canonical routes with an
     }
 });
 
-test('duplicates normalize numbers and compare trimmed names without letter case', async () => {
+test('duplicates normalize numeric equivalents and retain zero-based positions', async () => {
     const numeric = await submit(1, { ValueKind: 'Numbers', Values: '1,1.0,-2,0,-0' });
     assert.equal(outcome(numeric.html), '2 repeated values');
     assert.deepEqual(values(numeric.html), ['1', '1', '-2', '0', '0']);
     assert.ok(numeric.html.includes('<td>0, 1</td>'));
-    const names = await submit(1, { ValueKind: 'Names', Values: ' Ana , Ben,ana,BEN,Carlo' });
-    assert.equal(outcome(names.html), '2 repeated values');
-    assert.ok(names.html.includes('<td>0, 2</td>'));
     const unique = await submit(1, { ValueKind: 'Numbers', Values: '1,2,3' });
     assert.equal(outcome(unique.html), 'No duplicates');
 });
@@ -51,54 +48,66 @@ test('duplicates normalize numbers and compare trimmed names without letter case
 const largest = html => html.match(/data-array-largest>(.*?)<\/strong>/s)?.[1];
 const smallest = html => html.match(/data-array-smallest>(.*?)<\/strong>/s)?.[1];
 
-test('2D extremes scan rectangular, single-cell and maximum-size arrays', async () => {
-    for (const [Values, maximum, minimum, highIndex, lowIndex] of [
-        ['8,3,12\n-4,7,2', '12', '-4', '[0, 2]', '[1, 0]'],
-        ['-8,-3,-12\n-4,-7,-2', '-2', '-12', '[1, 2]', '[0, 2]'],
-        ['7', '7', '7', '[0, 0]', '[0, 0]'],
-        ['1,2,3', '3', '1', '[0, 2]', '[0, 0]'],
-        ['1\r\n2\r\n3', '3', '1', '[2, 0]', '[0, 0]'],
-        ['-1000000000, 1000000000', '1000000000', '-1000000000', '[0, 1]', '[0, 0]']
+const rowFields = rows => ({ Row1: rows[0], Row2: rows[1], Row3: rows[2] });
+
+test('2D extremes scan exactly three rows with one to twelve columns', async () => {
+    for (const [rows, maximum, minimum, highIndex, lowIndex] of [
+        [['8,3,12','-4,7,2','6,0,9'], '12', '-4', '[0, 2]', '[1, 0]'],
+        [['-8,-3,-12','-4,-7,-2','-9,-5,-6'], '-2', '-12', '[1, 2]', '[0, 2]'],
+        [['1','2','3'], '3', '1', '[2, 0]', '[0, 0]'],
+        [['-1000000000','1000000000','0'], '1000000000', '-1000000000', '[1, 0]', '[0, 0]']
     ]) {
-        const { response, html } = await submit(3, { Values, Largest: '999', Smallest: '-999', LargestRow: '9', Result: 'Forged' });
+        const { response, html } = await submit(3, { ...rowFields(rows), Largest: '999', Smallest: '-999', LargestRow: '9', Result: 'Forged' });
         assert.equal(response.status, 200);
         assert.equal(largest(html), maximum);
         assert.equal(smallest(html), minimum);
         assert.ok(html.includes('data-largest-index>Index ' + highIndex));
         assert.ok(html.includes('data-smallest-index>Index ' + lowIndex));
+        assert.ok(html.includes('3 rows ×'));
     }
-    const matrix = Array.from({ length: 12 }, (_, row) => Array.from({ length: 12 }, (_, col) => row * 12 + col).join(',')).join('\n');
-    const { html } = await submit(3, { Values: matrix });
-    assert.equal(largest(html), '143');
+    const rows = Array.from({ length: 3 }, (_, row) => Array.from({ length: 12 }, (_, col) => row * 12 + col).join(','));
+    const { html } = await submit(3, rowFields(rows));
+    assert.equal(largest(html), '35');
     assert.equal(smallest(html), '0');
-    assert.equal((html.match(/<td>/g) || []).length, 144);
+    assert.equal((html.match(/<td>/g) || []).length, 36);
 });
 
-test('2D extremes preserve decimals and report first indexes for ties', async () => {
-    const { html } = await submit(3, { Values: ' 2.75, -1.25,2.75\n-1.25,0,1 ' });
+test('2D extremes preserve decimals and first indexes for ties across three rows', async () => {
+    const { html } = await submit(3, rowFields([' 2.75,-1.25,2.75 ', '-1.25,0,1', '1,2,-1']));
     assert.equal(largest(html), '2.75');
     assert.equal(smallest(html), '-1.25');
     assert.ok(html.includes('data-largest-index>Index [0, 0]'));
     assert.ok(html.includes('data-smallest-index>Index [0, 1]'));
-    const equal = await submit(3, { Values: '0,0\n0,0' });
+    const equal = await submit(3, rowFields(['0,0','0,0','0,0']));
     assert.equal(largest(equal.html), '0');
     assert.equal(smallest(equal.html), '0');
     assert.ok(equal.html.includes('data-largest-index>Index [0, 0]'));
     assert.ok(equal.html.includes('data-smallest-index>Index [0, 0]'));
 });
 
-test('2D extremes reject ragged, empty, malformed and excessive arrays', async () => {
-    for (const Values of ['', ' ', '1,2\n3', '1,,2', '1,2,', '1,2\n\n3,4', 'hello', '<script>alert(1)</script>',
-        'NaN', 'Infinity', '1e3', '1000000001', '-1000000001', '9'.repeat(41),
-        Array(13).fill('1').join('\n'), Array(13).fill('1').join(','), '1'.repeat(6001)]) {
-        const { response, html, raw } = await submit(3, { Values, Largest: '999', Result: 'Forged' });
+test('2D extremes reject missing rows, unequal lengths and invalid row values', async () => {
+    for (const row of ['',' ', '1,2', '1,,2', '1,', '1\n2', 'hello', '<script>alert(1)</script>',
+        'NaN','Infinity','1e3','1000000001','-1000000001','9'.repeat(41),
+        Array(13).fill('1').join(','), '1'.repeat(501)]) {
+        const { response, html, raw } = await submit(3, { Row1:'1', Row2:row, Row3:'3', Result:'Forged' });
         assert.equal(response.status, 200);
         assert.match(html, /data-example-result[^>]*hidden/);
         assert.ok(html.includes('data-array-errors'));
         assert.ok(html.includes('aria-invalid="true"'));
+        assert.ok(html.includes('href="#Row2"'), 'the error links to the invalid row');
         assert.ok(!raw.includes('<script>alert(1)</script>'));
     }
-    assert.equal((await submit(3, { Values: '1,2' }, false)).response.status, 400);
+    for (const omitted of ['Row1','Row2','Row3']) {
+        const fields = rowFields(['1','2','3']);
+        delete fields[omitted];
+        const { html } = await submit(3, fields);
+        assert.match(html, /data-example-result[^>]*hidden/);
+        assert.ok(html.includes('href="#' + omitted + '"'));
+    }
+    const page = await (await fetch(path(3))).text();
+    assert.equal((page.match(/name="Row[123]"/g) || []).length, 3);
+    assert.ok(!page.includes('name="Values"'));
+    assert.equal((await submit(3, rowFields(['1','2','3']), false)).response.status, 400);
 });
 
 test('multiplication table computes every cell for minimum, rectangular and maximum dimensions', async () => {
@@ -155,27 +164,25 @@ test('sort uses numeric order, supports both directions and retains duplicates',
     assert.deepEqual(values(ascending.html), ['-1', '2', '2', '2.5', '10']);
     const descending = await submit(2, { ValueKind: 'Numbers', Values: '10,2,-1,2.5,2', Direction: 'Descending' });
     assert.deepEqual(values(descending.html), ['10', '2.5', '2', '2', '-1']);
-    const names = await submit(2, { ValueKind: 'Names', Values: 'Zara\nAna\nbea', Direction: 'Ascending' });
-    assert.deepEqual(values(names.html), ['Ana', 'bea', 'Zara']);
+
 });
 
-test('one-dimensional forms reject invalid data and encode names safely', async () => {
-    for (const [number, fields] of [
-        [1, {}], [1, { ValueKind: 'Numbers', Values: ',,,' }],
-        [1, { ValueKind: 'Numbers', Values: 'hello' }],
-        [1, { ValueKind: 'Numbers', Values: '-79228162514264337593543950335' }],
-        [1, { ValueKind: 'Numbers', Values: '1000000001' }],
-        [1, { ValueKind: 'Names', Values: Array(31).fill('Ana').join(',') }],
-        [1, { ValueKind: 'Names', Values: 'A'.repeat(41) }],
-        [2, { ValueKind: '99', Values: '1,2', Direction: 'Ascending' }],
-        [2, { ValueKind: 'Numbers', Values: '1,2', Direction: '99' }]
-    ]) {
-        const { response, html } = await submit(number, { ...fields, Result: 'Forged' });
-        assert.equal(response.status, 200);
-        assert.match(html, /data-example-result[^>]*hidden/);
-        assert.ok(html.includes('data-array-errors'));
+test('one-dimensional forms reject non-numbers even with a forged Names option', async () => {
+    for (const number of [1, 2]) {
+        const page = await (await fetch(path(number))).text();
+        assert.ok(!page.includes('name="ValueKind"'));
+        for (const Values of ['', ',,,', 'Ana,Ben', '1,hello', '<script>alert(1)</script>',
+            '-79228162514264337593543950335', '1000000001', Array(31).fill('1').join(','), '9'.repeat(41)]) {
+            const { response, html, raw } = await submit(number, { Values, ValueKind:'Names', Direction:'Ascending', Result:'Forged' });
+            assert.equal(response.status, 200);
+            assert.match(html, /data-example-result[^>]*hidden/);
+            assert.ok(html.includes('data-array-errors'));
+            assert.ok(!raw.includes('<script>alert(1)</script>'));
+        }
+        // Unknown legacy fields are ignored, but the submitted values are still parsed numerically.
+        const numeric = await submit(number, { Values:'10,2', ValueKind:'Names', Direction:'Ascending' });
+        assert.ok(!numeric.html.match(/data-example-result[^>]*hidden/));
     }
-    const encoded = await submit(1, { ValueKind: 'Names', Values: '<script>alert(1)</script>,Ana' });
-    assert.ok(!encoded.raw.includes('<script>alert(1)</script>'));
-    for (let number = 1; number <= 2; number++) assert.equal((await submit(number, {}, false)).response.status, 400);
+    const invalidDirection = await submit(2, { Values:'1,2', Direction:'99' });
+    assert.match(invalidDirection.html, /data-example-result[^>]*hidden/);
 });

@@ -10,11 +10,19 @@ public sealed class JALOPARLANMARTIN_241611_ArrayExtremesViewModel : JALOPARLANM
     public override string Description => "Find the largest and smallest numbers in a two-dimensional array.";
     public override string Dimension => "Two-dimensional array";
 
-    [Required(ErrorMessage = "Enter the rows of your array.")]
-    [StringLength(6000, ErrorMessage = "Use at most 6,000 characters.")]
-    public string? Values { get; set; }
+    [Required(ErrorMessage = "Enter the numbers for Row 1.")]
+    [StringLength(500, ErrorMessage = "Use at most 500 characters in Row 1.")]
+    public string? Row1 { get; set; }
 
-    // The controller binds only Values; submitted results and indexes are never trusted.
+    [Required(ErrorMessage = "Enter the numbers for Row 2.")]
+    [StringLength(500, ErrorMessage = "Use at most 500 characters in Row 2.")]
+    public string? Row2 { get; set; }
+
+    [Required(ErrorMessage = "Enter the numbers for Row 3.")]
+    [StringLength(500, ErrorMessage = "Use at most 500 characters in Row 3.")]
+    public string? Row3 { get; set; }
+
+    // The controller binds only Row1, Row2 and Row3; submitted results and indexes are never trusted.
     public decimal[,]? Numbers { get; set; }
     public decimal? Largest { get; set; }
     public decimal? Smallest { get; set; }
