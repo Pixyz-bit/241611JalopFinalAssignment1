@@ -30,7 +30,14 @@ public sealed class ConceptsController(ExampleStateTokens roundTokens) : Control
                 2 => new ArraySortViewModel(),
                 3 => new TicTacToeViewModel { StateToken = roundTokens.Protect("arrays-tic-tac-toe", new TicTacToeRound(new())) },
                 4 => new MultiplicationTableViewModel { Rows = 5, Columns = 5 },
-                5 => new HouseMemberFinderViewModel(),
+                // Seed editable examples on GET only; POST must preserve the user's submitted rosters.
+                5 => new HouseMemberFinderViewModel
+                {
+                    Gryffindor = "Harry Potter, Hermione Granger, Ron Weasley",
+                    Slytherin = "Draco Malfoy, Pansy Parkinson",
+                    Ravenclaw = "Luna Lovegood, Cho Chang",
+                    Hufflepuff = "Cedric Diggory, Nymphadora Tonks"
+                },
                 _ => null
             } : null,
             // Match each loop slot to its own validated input model.
