@@ -286,3 +286,8 @@ Added the model's loop type beside all five loop example headings, matching the 
 ### Start menu control cleanup
 
 Removed the Start search button and its unused CSS, plus the visible Show desktop footer text. Kept the canonical home link, icon, accessible label and 44px target. Build passed with zero warnings/errors; app rerun at localhost:5196 and all 9 navigation tests passed. Browser verified Start opens without the search button or visible desktop text and Ctrl+K still opens Find a concept. Screenshot: .tmp/start-menu-cleanup.png. Existing unrelated user edits in JALOPARLANMARTIN_241611_Index.cshtml and other files were excluded from the cleanup commit.
+
+
+### 2026-11-05 — Remove selected result summaries
+
+Removed type labels, summary headings and explanatory sentences from the five array examples and Pyramid Generator while retaining computed output and explicit no-match feedback. Build passed with zero warnings/errors; all 29 navigation, array and loop tests passed. The design detector returned no findings. Browser checked the generated pyramid, duplicate table and keyboard-submitted sorted values; Back/Forward restored route content. A 390px viewport was exercised and reset; screenshot sizing in this tool was inconclusive, so no new mobile visual assurance is claimed. Existing CSS focus and reduced-motion rules were preserved without changes. The app remains available at http://localhost:5196.

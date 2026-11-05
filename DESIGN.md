@@ -290,3 +290,8 @@ Desktop footer credits use two distinct groups above the taskbar: Developed by A
 Loop example headings append the model's loop type in parentheses beside the title: (for loop), (while loop) or (do…while loop). This supporting text uses 14px, weight 400 and the existing Muted color; the example name retains its 22px/20px heading style. The type stays together and wraps below the name when needed on phones. Sidebar example names stay concise.
 
 Start no longer includes the Search your concepts button. The footer desktop action displays only its existing home icon, with a 44px target and an accessible Show desktop label. Ctrl/Cmd+K still opens the existing search dialog. Pinned category links and desktop navigation remain unchanged.
+
+
+### Results without repeated summaries
+
+Arrays Examples 1–5 and Pyramid Generator omit the result type label, large summary heading and explanatory sentence. Keep indexed array values, duplicate counts, largest/smallest metrics with indexes, multiplication products, house matches, the pyramid and loop steps. No duplicates and Member not found remain as plain feedback when there is nothing to list. Shared Result panels, empty states, validation and edit-to-clear behavior are preserved.
