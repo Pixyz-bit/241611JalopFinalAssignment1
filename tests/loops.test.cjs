@@ -27,7 +27,8 @@ test('pyramid output preserves centering, row widths and encoded symbols', async
         const { html } = await submit(1, { Rows, Symbol });
         // Compare exact whitespace so extra trailing spaces cannot hide behind trimming.
         assert.equal(html.match(/aria-label="Generated pyramid">([\s\S]*?)<\/pre>/)?.[1], expected);
-        if (Rows === '5') assert.ok(html.includes('15 symbols, separated by one space.'));
+        assert.ok(!html.includes('symbols, separated by one space.'));
+        assert.ok(!html.includes(`<strong>${Rows} rows</strong>`));
     }
 });
 

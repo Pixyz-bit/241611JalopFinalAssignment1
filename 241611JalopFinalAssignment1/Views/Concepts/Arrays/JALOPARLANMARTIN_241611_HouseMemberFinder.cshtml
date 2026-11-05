@@ -59,10 +59,8 @@
                 @* Editing an input can restore this empty message through the shared JavaScript. *@
                 <p class="example-empty" data-example-empty hidden="@(Model.Result is not null)">Your result will appear here.</p>
                 <div class="example-result" data-example-result hidden="@(Model.Result is null)" tabindex="-1">
-                    <span class="example-result-label">@Model.Dimension</span>
-                    <strong>@Model.Result</strong>
-                    <span>@Model.Detail</span>
-                    @* Display the results that the controller stored in this example model. *@
+                    @* A search without matches still needs visible feedback. *@
+                    @if (Model.Result is not null && Model.Matches.Count == 0) { <span>Member not found</span> }
                     @if (Model.Matches.Count > 0)
                     {
                         <div class="array-table-scroll" tabindex="0" role="region" aria-label="Matching houses">

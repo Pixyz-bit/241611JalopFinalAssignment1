@@ -44,9 +44,6 @@
                 @* Editing an input can restore this empty message through the shared JavaScript. *@
                 <p class="example-empty" data-example-empty hidden="@(Model.Result is not null)">Your result will appear here.</p>
                 <div class="example-result" data-example-result hidden="@(Model.Result is null)" tabindex="-1">
-                    <span class="example-result-label">@Model.Dimension</span>
-                    <strong>@Model.Result</strong>
-                    <span>@Model.Detail</span>
                     @* Display the results that the controller stored in this example model. *@
                     @* Visible zero-based indexes make the one-dimensional array structure explicit. *@
                     <ol class="array-values" aria-label="Array values and indexes">

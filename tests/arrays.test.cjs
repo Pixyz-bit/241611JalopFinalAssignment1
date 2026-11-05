@@ -19,7 +19,8 @@ async function submit(number, fields, withToken = true) {
 }
 
 const values = html => [...html.matchAll(/data-array-value>(.*?)<\/span>/gs)].map(match => match[1]);
-const outcome = html => html.match(/<strong>(.*?)<\/strong>/s)?.[1];
+// Read actual match rows now that successful results omit summary headings.
+const houses = html => [...html.matchAll(/<tr><th scope="row">(.*?)<\/th><td>/g)].map(match => match[1]).join(', ');
 
 test('all five array slots support complete and partial canonical routes with antiforgery', async () => {
     for (let number = 1; number <= 5; number++) {
@@ -37,11 +38,11 @@ test('all five array slots support complete and partial canonical routes with an
 
 test('duplicates normalize numeric equivalents and retain zero-based positions', async () => {
     const numeric = await submit(1, { ValueKind: 'Numbers', Values: '1,1.0,-2,0,-0' });
-    assert.equal(outcome(numeric.html), '2 repeated values');
+    assert.ok(!numeric.html.includes('2 repeated values'));
     assert.deepEqual(values(numeric.html), ['1', '1', '-2', '0', '0']);
     assert.ok(numeric.html.includes('<td>0, 1</td>'));
     const unique = await submit(1, { ValueKind: 'Numbers', Values: '1,2,3' });
-    assert.equal(outcome(unique.html), 'No duplicates');
+    assert.ok(unique.html.includes('<span>No duplicates</span>'));
 });
 
 // Read both results and their positions from server-rendered HTML.
@@ -63,7 +64,7 @@ test('2D extremes scan exactly three rows with one to twelve columns', async () 
         assert.equal(smallest(html), minimum);
         assert.ok(html.includes('data-largest-index>Index ' + highIndex));
         assert.ok(html.includes('data-smallest-index>Index ' + lowIndex));
-        assert.ok(html.includes('3 rows ×'));
+        assert.ok(!html.includes('3 rows ×'));
     }
     const rows = Array.from({ length: 3 }, (_, row) => Array.from({ length: 12 }, (_, col) => row * 12 + col).join(','));
     const { html } = await submit(3, rowFields(rows));
@@ -113,7 +114,7 @@ test('2D extremes reject missing rows, unequal lengths and invalid row values', 
 test('multiplication table computes every cell for minimum, rectangular and maximum dimensions', async () => {
     for (const [Rows, Columns] of [[1, 1], [3, 5], [12, 12]]) {
         const { html } = await submit(4, { Rows: String(Rows), Columns: String(Columns), Result: 'Forged' });
-        assert.equal(outcome(html), `${Rows} × ${Columns} table`);
+        assert.ok(!html.includes(`${Rows} × ${Columns} table`));
         const table = html.match(/<table class="array-table">[\s\S]*?<\/table>/)[0];
         const products = [...table.matchAll(/<td>(\d+)<\/td>/g)].map(match => Number(match[1]));
         assert.deepEqual(products, Array.from({ length: Rows * Columns }, (_, index) => (Math.floor(index / Columns) + 1) * (index % Columns + 1)));
@@ -124,17 +125,17 @@ test('house finder searches all four rows with trimmed, case-insensitive complet
     const rosters = { Gryffindor: ' Harry Potter, Hermione Granger, Harry Potter ', Slytherin: 'Draco Malfoy', Ravenclaw: 'Luna Lovegood', Hufflepuff: 'Cedric Diggory' };
     for (const [Member, expected] of [[' harry potter ', 'Gryffindor'], ['DRACO MALFOY', 'Slytherin'], ['Luna Lovegood', 'Ravenclaw'], ['Cedric Diggory', 'Hufflepuff'], ['Harry', 'Member not found'], ['Unknown', 'Member not found']]) {
         const { html } = await submit(5, { ...rosters, Member, Result: 'Forged' });
-        assert.equal(outcome(html), expected);
+        assert.equal(houses(html) || (html.includes('<span>Member not found</span>') ? 'Member not found' : ''), expected);
     }
     const shared = await submit(5, { Gryffindor: 'Ana, Ana', Ravenclaw: ' Ana ', Member: 'ana' });
-    assert.equal(outcome(shared.html), 'Gryffindor, Ravenclaw');
+    assert.equal(houses(shared.html), 'Gryffindor, Ravenclaw');
     const unequal = await submit(5, { Hufflepuff: 'Ben', Member: 'ben' });
-    assert.equal(outcome(unequal.html), 'Hufflepuff');
+    assert.equal(houses(unequal.html), 'Hufflepuff');
     const encoded = await submit(5, { Gryffindor: '<script>alert(1)</script>', Member: '<script>alert(1)</script>' });
-    assert.equal(outcome(encoded.html), 'Gryffindor');
+    assert.equal(houses(encoded.html), 'Gryffindor');
     assert.ok(!encoded.raw.includes('<script>alert(1)</script>'));
     const maximum = await submit(5, { Slytherin: Array.from({ length: 20 }, (_, index) => `Member ${index}`).join(','), Member: 'Member 19' });
-    assert.equal(outcome(maximum.html), 'Slytherin');
+    assert.equal(houses(maximum.html), 'Slytherin');
     assert.ok(maximum.html.includes('[1, 19]'));
 });
 

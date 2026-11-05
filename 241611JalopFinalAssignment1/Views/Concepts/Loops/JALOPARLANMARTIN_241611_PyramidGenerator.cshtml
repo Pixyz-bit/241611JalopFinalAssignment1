@@ -44,11 +44,8 @@
                 @* The shared script restores this message when an edit hides an old result. *@
                 <p class="example-empty" data-example-empty hidden="@(Model.Result is not null)">Your result will appear here.</p>
                 <div class="example-result" data-example-result hidden="@(Model.Result is null)" tabindex="-1">
-                    <span class="example-result-label">@Model.LoopKind loop</span>
-                    <strong>@Model.Result</strong>
                     @* Razor encodes symbols and numbers; pre preserves the pyramid's spaces. *@
                     @if (Model.Pattern is not null) { <pre class="loop-pyramid" tabindex="0" aria-label="Generated pyramid">@Model.Pattern</pre> }
-                    <span>@Model.Detail</span>
                     @if (Model.Steps.Count > 0)
                     {
                         <h6 class="decision-path-title">Loop steps</h6>

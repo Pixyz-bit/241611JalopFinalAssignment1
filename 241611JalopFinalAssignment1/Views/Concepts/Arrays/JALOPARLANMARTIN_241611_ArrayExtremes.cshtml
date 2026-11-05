@@ -50,7 +50,6 @@
             <div class="example-result-status" role="status" aria-atomic="true">
                 <p class="example-empty" data-example-empty hidden="@(Model.Result is not null)">Your result will appear here.</p>
                 <div class="example-result" data-example-result hidden="@(Model.Result is null)" tabindex="-1">
-                    <span class="example-result-label">@Model.Dimension</span>
                     @* Reuse the existing metric typography; each index belongs to its value. *@
                     <div class="rectangle-metric">
                         <h6>Largest</h6>
@@ -62,7 +61,6 @@
                         <strong class="example-result-value" data-array-smallest>@Model.Smallest?.ToString("0.############################", System.Globalization.CultureInfo.InvariantCulture)</strong>
                         <p class="example-result-label" data-smallest-index>Index [@Model.SmallestRow, @Model.SmallestColumn]</p>
                     </div>
-                    <span>@Model.Detail</span>
                     @if (Model.Numbers is not null)
                     {
                         @* Two nested loops render the actual row and column indexes. Wide tables scroll locally. *@
